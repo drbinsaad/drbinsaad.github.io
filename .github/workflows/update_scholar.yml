@@ -1,5 +1,10 @@
 name: Update Scholar Stats
+
 on:
+  # Run automatically every Sunday at 00:00 UTC
+  schedule:
+    - cron: '0 0 * * 0'
+  # Also allow manual triggering
   workflow_dispatch:
 
 jobs:
@@ -28,4 +33,4 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
           git add -A
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Update scholar stats" && git push)
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update scholar stats [automated]" && git push)
