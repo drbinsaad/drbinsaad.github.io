@@ -3,7 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dr Ali Alshahrani</title>
+    <title>Dr Ali Alshahrani - Pediatric ENT Specialist | Research & Medical Tools</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Dr. Ali Alshahrani - Pediatric Otolaryngology & Airway Surgery Fellow at Prince Sultan Military Medical City. Research publications, medical calculators, and professional resources for ENT specialists.">
+    <meta name="keywords" content="Ali Alshahrani, ENT, Otolaryngology, Pediatric ENT, Airway Surgery, Medical Research, Cochlear Implant, Medical Calculators">
+    <meta name="author" content="Dr. Ali Alshahrani">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Dr. Ali Alshahrani - Pediatric ENT Specialist">
+    <meta property="og:description" content="Academic website featuring research publications and medical calculators for ENT practice">
+    <meta property="og:image" content="https://shahrani.me/image/profile.png">
+    <meta property="og:url" content="https://shahrani.me/">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Dr. Ali Alshahrani - Pediatric ENT Specialist">
+    <meta name="twitter:description" content="Academic website featuring research publications and medical calculators for ENT practice">
+    <meta name="twitter:image" content="https://shahrani.me/image/profile.png">
+    <meta name="twitter:site" content="@_DrAli">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favicon.png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
@@ -45,13 +67,13 @@
             <div class="header-content">
                 <div class="profile-text" data-aos="fade-right">
                     <h1>Dr Ali Alshahrani</h1>
-                    <h2>Your Title</h2> 
-                    <h3>Organization</h3>
-                    <p>CatchPhrase</p>
+                    <h2>Pediatric Otolaryngology & Airway Surgery Fellow</h2> 
+                    <h3>Prince Sultan Military Medical City</h3>
+                    <p>Advancing pediatric ENT care through research and clinical excellence</p>
                     <a href="#contact" class="cv-button">Get in Touch</a>
                 </div>
                 <div class="profile-image-container" data-aos="fade-left">
-                    <img src=" image/profile.png " alt="descriptor" class="profile-image">
+                    <img src="image/profile.png" alt="Professional portrait of Dr. Ali Alshahrani" class="profile-image">
                 </div>
             </div>
         </div>
@@ -62,16 +84,16 @@
             <h2 class="section-title" data-aos="fade-up">Research Area</h2>
             <div class="research-grid">
                 <div class="research-item" data-aos="fade-up" data-aos-delay="100">
-                    <h3>Focus 1</h3>
-                    <p>description</p>
+                    <h3>Pediatric Airway Surgery</h3>
+                    <p>Specialized focus on complex airway disorders in children, including laryngotracheal reconstruction, airway endoscopy, and management of congenital airway anomalies.</p>
                 </div>
                 <div class="research-item" data-aos="fade-up" data-aos-delay="200">
-                    <h3>Focus 2</h3>
-                    <p>description</p>
+                    <h3>Pediatric Otology</h3>
+                    <p>Research and clinical expertise in pediatric hearing disorders, cochlear implantation, chronic ear disease, and innovative approaches to pediatric otologic surgery.</p>
                 </div>
                 <div class="research-item" data-aos="fade-up" data-aos-delay="300">
-                    <h3>Focus 3</h3>
-                    <p>description</p>
+                    <h3>Pediatric Head & Neck</h3>
+                    <p>Comprehensive management of pediatric head and neck conditions including congenital anomalies, neck masses, and pediatric thyroid disorders with focus on minimally invasive techniques.</p>
                 </div>
             </div>
         </div>
@@ -111,51 +133,50 @@
             <div class="contact-grid">
                 <div class="contact-info" data-aos="fade-right">
                     <h3>Get in Touch</h3>
-                    <p>description</p>
+                    <p>I'm always interested in connecting with colleagues, researchers, and healthcare professionals. Feel free to reach out through any of the platforms below.</p>
                     <div class="contact-links">
-                        <a href="https://www.linkedin.com/in/dralialshahrani/" target="_blank"><i class="fab fa-linkedin"></i></a>
-                        <a href="github" target="_blank"><i class="fab fa-github"></i></a>
-                        <a href="mailto:Drbinsaad@gmail.com" target="_blank"><i class="fas fa-envelope"></i></a>
+                        <a href="https://www.linkedin.com/in/dralialshahrani/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://github.com/drbinsaad" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="https://x.com/_DrAli" target="_blank" aria-label="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
+                        <a href="https://wa.me/qr/ATFZKGWZIKFDM1" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://t.me/ENTcommunitas" target="_blank" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
+                        <a href="mailto:drbinsaad@gmail.com" target="_blank" aria-label="Email"><i class="fas fa-envelope"></i></a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Back to Top Button -->
+    <button id="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="js/main.js"></script>
-
-
-
-
-
-<script>
-    async function updateScholarStats() {
-        try {
-            console.log('Attempting to fetch scholar stats...');
-            const response = await fetch('/assets/data/scholar_stats.json');
-            
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            
-            const data = await response.json();
-            console.log('Fetched scholar stats:', data);
-            
-            // Update your HTML elements
-            document.getElementById('citation-count').textContent = data.citations;
-            document.getElementById('publication-count').textContent = data.publications;
-            document.getElementById('h-index').textContent = data.h_index;
-            document.getElementById('last-updated').textContent = data.last_updated;
-            
-            console.log('Updated DOM elements successfully');
-        } catch (error) {
-            console.error('Error fetching scholar stats:', error);
-        }
-    }
     
-    // Call when page loads
-    document.addEventListener('DOMContentLoaded', updateScholarStats);
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Dr. Ali Alshahrani",
+      "jobTitle": "Pediatric Otolaryngology & Airway Surgery Fellow",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Prince Sultan Military Medical City"
+      },
+      "url": "https://shahrani.me",
+      "sameAs": [
+        "https://www.linkedin.com/in/dralialshahrani/",
+        "https://scholar.google.com/citations?user=dCBScAcAAAAJ",
+        "https://github.com/drbinsaad",
+        "https://x.com/_DrAli",
+        "https://t.me/ENTcommunitas"
+      ],
+      "email": "drbinsaad@gmail.com"
+    }
     </script>
+
 </body>
 </html>

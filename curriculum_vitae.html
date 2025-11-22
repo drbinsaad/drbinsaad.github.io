@@ -3,7 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> your name</title>
+    <title>CV - Dr Ali Alshahrani | Pediatric ENT Specialist</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Curriculum Vitae of Dr. Ali Alshahrani - Pediatric Otolaryngology & Airway Surgery Fellow. Education, experience, and complete publication list.">
+    <meta name="author" content="Dr. Ali Alshahrani">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favicon.png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
@@ -11,7 +18,7 @@
 <body>
     <nav id="navbar">
         <div class="container">
-            <a href="index.html" class="logo">your name</a>
+            <a href="index.html" class="logo">Dr Ali Alshahrani</a>
             <div class="hamburger">
                 <span></span>
                 <span></span>
@@ -27,7 +34,6 @@
                 </li>
                 <li><a href="curriculum_vitae.html">Brief CV</a></li>
                 <li><a href="#contact">Contact</a></li>
-            </ul>
                 <li>
                     <a href="#ent">ENT Tools</a>
                     <ul class="dropdown">
@@ -37,6 +43,7 @@
                         <li><a href="xeomin-calculator.html">XEOMIN Calculator</a></li>
                     </ul>
                 </li>
+            </ul>
         </div>
     </nav>
 
@@ -133,7 +140,7 @@
                 <!-- Publications will be inserted here by JavaScript -->
             </div>
             </div>
-            <center><a href= #LinkToYourGoogleScholarPage class="cv-button" target="_blank">Google Scholar</a>
+            <center><a href="https://scholar.google.com/citations?user=dCBScAcAAAAJ&hl=en&authuser=1" class="cv-button" target="_blank">Google Scholar</a>
            
         </div>
     </section>
@@ -144,48 +151,34 @@
             <div class="contact-grid">
                 <div class="contact-info" data-aos="fade-right">
                     <h3>Get in Touch</h3>
-                    <p>I'm always interested in chatting with like-minded researchers!</p>
+                    <p>I'm always interested in connecting with colleagues, researchers, and healthcare professionals. Feel free to reach out through any of the platforms below.</p>
                     <div class="contact-links">
-                        <a href=#yourlinkedinpage target="_blank"><i class="fab fa-linkedin"></i></a>
-                        <a href=#yourgithublink target="_blank"><i class="fab fa-github"></i></a>
-                        <a href=mailto:email target="_blank"><i class="fas fa-envelope"></i></a>
+                        <a href="https://www.linkedin.com/in/dralialshahrani/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://github.com/drbinsaad" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="https://x.com/_DrAli" target="_blank" aria-label="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
+                        <a href="https://wa.me/qr/ATFZKGWZIKFDM1" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://t.me/ENTcommunitas" target="_blank" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
+                        <a href="mailto:drbinsaad@gmail.com" target="_blank" aria-label="Email"><i class="fas fa-envelope"></i></a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Back to Top Button -->
+    <button id="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="js/main.js"></script>
 
-
 <script>
-    async function updateScholarStats() {
-        try {
-            console.log('Attempting to fetch scholar stats...');
-            const response = await fetch('/assets/data/scholar_stats.json');
-            
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            
-            const data = await response.json();
-            console.log('Fetched scholar stats:', data);
-            
-            // Update your HTML elements
-            document.getElementById('citation-count').textContent = data.citations;
-            document.getElementById('publication-count').textContent = data.publications;
-            document.getElementById('h-index').textContent = data.h_index;
-            document.getElementById('last-updated').textContent = data.last_updated;
-            
-            console.log('Updated DOM elements successfully');
-        } catch (error) {
-            console.error('Error fetching scholar stats:', error);
-        }
-    }
-    
     // Call when page loads
-    document.addEventListener('DOMContentLoaded', updateScholarStats, updatePublications_all());
-    </script>
+    document.addEventListener('DOMContentLoaded', function() {
+        updateScholarStats();
+        updatePublications_all();
+    });
+</script>
 </body>
 </html>
