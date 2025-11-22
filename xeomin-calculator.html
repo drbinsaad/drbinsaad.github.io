@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XEOMIN Dose Calculator - Pediatric Sialorrhea - Dr Ali Alshahrani</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/calculator.css" rel="stylesheet">
+    <link href="css/xeomin.css" rel="stylesheet">
+</head>
+<body>
+    <nav id="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">Dr Ali Alshahrani</a>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links">
+                <li>
+                    <a href="#research">Research</a>
+                    <ul class="dropdown">
+                        <li><a href="index.html#research">Research Focus</a></li>
+                        <li><a href="index.html#publications">Recent Publications</a></li>
+                    </ul>
+                </li>
+                <li><a href="curriculum_vitae.html">Brief CV</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+                <li>
+                    <a href="#ent">ENT Tools</a>
+                    <ul class="dropdown">
+                        <li><a href="ent-calculators.html">Medical Calculators</a></li>
+                        <li><a href="bronchoscopy-tool.html">Airway Sizing Tool</a></li>
+                        <li><a href="et-depth-calculator.html">ET Depth Calculator</a></li>
+                        <li><a href="xeomin-calculator.html">XEOMIN Calculator</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <header style="min-height: 40vh;">
+        <div class="container">
+            <div class="header-content" style="text-align: center;">
+                <div class="profile-text" data-aos="fade-up">
+                    <h1><i class="fas fa-syringe"></i> XEOMIN® Dose Calculator</h1>
+                    <p>Pediatric Chronic Sialorrhea Treatment Guide & Dosing Calculator</p>
+                    <p style="font-size: 0.9em; opacity: 0.8; margin-top: 10px;">Botulinum Toxin Type A - Individualized Body Weight-Adapted Dosing</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="xeomin-calculator">
+        <div class="container">
+            
+            <!-- Important Information -->
+            <div class="calculator-card alert-info-card" data-aos="fade-up">
+                <h2><i class="fas fa-info-circle"></i> Indication</h2>
+                <p><strong>XEOMIN® (Botulinum Toxin Type A)</strong> is indicated for the symptomatic treatment in children and adolescents aged <strong>2 to 17 years</strong> and weighing <strong>≥ 12 kg</strong> of chronic sialorrhea due to neurological/neurodevelopmental disorders.</p>
+                
+                <div class="key-info-grid">
+                    <div class="key-info-item">
+                        <i class="fas fa-pills"></i>
+                        <h4>Total Dose Range</h4>
+                        <p>20 to 75 units</p>
+                    </div>
+                    <div class="key-info-item">
+                        <i class="fas fa-balance-scale"></i>
+                        <h4>Distribution Ratio</h4>
+                        <p>3:2 (Parotid:Submandibular)</p>
+                    </div>
+                    <div class="key-info-item">
+                        <i class="fas fa-clock"></i>
+                        <h4>Treatment Effect</h4>
+                        <p>At least 16 weeks</p>
+                    </div>
+                    <div class="key-info-item">
+                        <i class="fas fa-redo"></i>
+                        <h4>Frequency</h4>
+                        <p>Up to 3 injections/year</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dose Calculator -->
+            <div class="calculator-card" data-aos="fade-up">
+                <h2><i class="fas fa-calculator"></i> Dose Calculator</h2>
+                
+                <div class="input-group">
+                    <label for="patient-weight">Patient Body Weight (kg)</label>
+                    <input type="number" id="patient-weight" placeholder="Enter weight in kg" min="12" max="100" step="0.1">
+                    <small>Minimum weight: 12 kg</small>
+                </div>
+                
+                <button class="calculate-btn" onclick="calculateXeominDose()">
+                    <i class="fas fa-calculator"></i> Calculate Dose
+                </button>
+                
+                <div id="dose-results" class="dose-results" style="display: none;">
+                    <div class="result-header">
+                        <i class="fas fa-check-circle"></i>
+                        <h3>Recommended Dosing</h3>
+                    </div>
+                    
+                    <div class="total-dose-display">
+                        <div class="total-dose-label">Total Dose</div>
+                        <div class="total-dose-value" id="total-dose">-</div>
+                    </div>
+                    
+                    <div class="gland-dosing-grid">
+                        <div class="gland-card parotid-card">
+                            <div class="gland-header">
+                                <i class="fas fa-circle"></i>
+                                <h4>Parotid Gland (Each Side)</h4>
+                            </div>
+                            <div class="dose-detail">
+                                <span class="dose-label">Dose per gland:</span>
+                                <span class="dose-value" id="parotid-dose">-</span>
+                            </div>
+                            <div class="dose-detail">
+                                <span class="dose-label">Volume per injection:</span>
+                                <span class="dose-value" id="parotid-volume">-</span>
+                            </div>
+                        </div>
+                        
+                        <div class="gland-card submandibular-card">
+                            <div class="gland-header">
+                                <i class="fas fa-circle"></i>
+                                <h4>Submandibular Gland (Each Side)</h4>
+                            </div>
+                            <div class="dose-detail">
+                                <span class="dose-label">Dose per gland:</span>
+                                <span class="dose-value" id="submandibular-dose">-</span>
+                            </div>
+                            <div class="dose-detail">
+                                <span class="dose-label">Volume per injection:</span>
+                                <span class="dose-value" id="submandibular-volume">-</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="injection-summary">
+                        <p><strong>Injection Sites:</strong> 4 total (bilateral parotid and submandibular glands)</p>
+                        <p><strong>Distribution:</strong> 3:2 ratio (Parotid:Submandibular)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dosing Table Reference -->
+            <div class="calculator-card" data-aos="fade-up">
+                <h2><i class="fas fa-table"></i> Complete Dosing Table</h2>
+                <div class="table-responsive">
+                    <table class="dosing-table">
+                        <thead>
+                            <tr>
+                                <th rowspan="2">Body Weight (kg)</th>
+                                <th colspan="2" class="parotid-header">Parotid Gland (Each Side)</th>
+                                <th colspan="2" class="submandibular-header">Submandibular Gland (Each Side)</th>
+                                <th rowspan="2">Total Dose<br>(Both Glands, Both Sides)</th>
+                            </tr>
+                            <tr>
+                                <th class="parotid-header">Dose per Gland (Units)</th>
+                                <th class="parotid-header">Volume per Injection (ml)</th>
+                                <th class="submandibular-header">Dose per Gland (Units)</th>
+                                <th class="submandibular-header">Volume per Injection (ml)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>≥ 12 to < 15</td>
+                                <td class="parotid-cell">6</td>
+                                <td class="parotid-cell">0.24</td>
+                                <td class="submandibular-cell">4</td>
+                                <td class="submandibular-cell">0.16</td>
+                                <td class="total-cell">20 units</td>
+                            </tr>
+                            <tr>
+                                <td>≥ 15 to < 19</td>
+                                <td class="parotid-cell">9</td>
+                                <td class="parotid-cell">0.36</td>
+                                <td class="submandibular-cell">6</td>
+                                <td class="submandibular-cell">0.24</td>
+                                <td class="total-cell">30 units</td>
+                            </tr>
+                            <tr>
+                                <td>≥ 19 to < 23</td>
+                                <td class="parotid-cell">12</td>
+                                <td class="parotid-cell">0.48</td>
+                                <td class="submandibular-cell">8</td>
+                                <td class="submandibular-cell">0.32</td>
+                                <td class="total-cell">40 units</td>
+                            </tr>
+                            <tr>
+                                <td>≥ 23 to < 27</td>
+                                <td class="parotid-cell">15</td>
+                                <td class="parotid-cell">0.60</td>
+                                <td class="submandibular-cell">10</td>
+                                <td class="submandibular-cell">0.40</td>
+                                <td class="total-cell">50 units</td>
+                            </tr>
+                            <tr>
+                                <td>≥ 27 to < 30</td>
+                                <td class="parotid-cell">18</td>
+                                <td class="parotid-cell">0.72</td>
+                                <td class="submandibular-cell">12</td>
+                                <td class="submandibular-cell">0.48</td>
+                                <td class="total-cell">60 units</td>
+                            </tr>
+                            <tr>
+                                <td>≥ 30</td>
+                                <td class="parotid-cell">22.5</td>
+                                <td class="parotid-cell">0.90</td>
+                                <td class="submandibular-cell">15</td>
+                                <td class="submandibular-cell">0.60</td>
+                                <td class="total-cell">75 units</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="table-note"><em>Note: Doses are calculated based on 3:2 ratio distribution to parotid and submandibular glands</em></p>
+            </div>
+
+            <!-- Step-by-Step Injection Protocol -->
+            <div class="calculator-card" data-aos="fade-up">
+                <h2><i class="fas fa-list-ol"></i> Step-by-Step Injection Protocol</h2>
+                
+                <div class="protocol-steps">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Pre-Procedure Assessment</h3>
+                            <ul>
+                                <li>Confirm diagnosis of chronic sialorrhea due to neurological/neurodevelopmental disorder</li>
+                                <li>Verify patient age (2-17 years) and weight (≥12 kg)</li>
+                                <li>Review medical history and current medications</li>
+                                <li>Obtain informed consent from parent/guardian</li>
+                                <li>Assess baseline drooling severity</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Anesthesia Consideration</h3>
+                            <ul>
+                                <li><strong>Options:</strong> Local anesthesia, sedation, or anesthesia in combination with sedation</li>
+                                <li>Perform careful benefit-risk evaluation per local site practice</li>
+                                <li>In SIPEXI study:
+                                    <ul>
+                                        <li>64% received local anesthetic</li>
+                                        <li>23% had general anesthetic</li>
+                                        <li>25% received hypnotics/sedatives</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>Reconstitution</h3>
+                            <ul>
+                                <li>Use preservative-free 0.9% Sodium Chloride for injection</li>
+                                <li>Standard dilution: 100 units in 4 ml (25 units/ml)</li>
+                                <li>Draw up reconstitution solution with appropriate syringe</li>
+                                <li>Slowly inject into XEOMIN vial</li>
+                                <li>Gently swirl (do not shake) to dissolve</li>
+                                <li>Inspect for particulate matter - should be clear and colorless</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h3>Dose Preparation</h3>
+                            <ul>
+                                <li>Calculate total dose based on patient weight (use calculator above)</li>
+                                <li>Draw up appropriate volumes for each gland</li>
+                                <li>Use separate syringes for each injection site</li>
+                                <li>Label syringes clearly (Parotid L/R, Submandibular L/R)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <h3>Identify Injection Sites</h3>
+                            <ul>
+                                <li><strong>Parotid Gland:</strong>
+                                    <ul>
+                                        <li>Located anterior and inferior to the ear</li>
+                                        <li>Palpate the gland between masseter muscle and mandible</li>
+                                        <li>Mark injection point in the center of the gland</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Submandibular Gland:</strong>
+                                    <ul>
+                                        <li>Located below the mandible, medial to angle of jaw</li>
+                                        <li>Palpate gland in submandibular triangle</li>
+                                        <li>Mark injection point avoiding marginal mandibular nerve</li>
+                                    </ul>
+                                </li>
+                                <li>Consider ultrasound guidance for accurate localization</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">6</div>
+                        <div class="step-content">
+                            <h3>Injection Technique</h3>
+                            <ul>
+                                <li>Clean injection sites with antiseptic</li>
+                                <li>Use fine gauge needle (25-30G)</li>
+                                <li><strong>Injection sequence (bilateral):</strong>
+                                    <ol>
+                                        <li>Right parotid gland</li>
+                                        <li>Left parotid gland</li>
+                                        <li>Right submandibular gland</li>
+                                        <li>Left submandibular gland</li>
+                                    </ol>
+                                </li>
+                                <li>Insert needle directly into salivary gland</li>
+                                <li>Aspirate to ensure not in vessel</li>
+                                <li>Inject slowly over 5-10 seconds</li>
+                                <li>Apply gentle pressure post-injection (no massage)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">7</div>
+                        <div class="step-content">
+                            <h3>Post-Procedure Care</h3>
+                            <ul>
+                                <li>Monitor patient for 15-30 minutes post-injection</li>
+                                <li>Observe for immediate adverse reactions</li>
+                                <li>Instruct to avoid rubbing/massaging injection sites</li>
+                                <li>Keep head upright for 2-4 hours post-injection</li>
+                                <li>Avoid strenuous activity for 24 hours</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">8</div>
+                        <div class="step-content">
+                            <h3>Follow-Up & Re-Treatment</h3>
+                            <ul>
+                                <li><strong>Onset of effect:</strong> Typically within 1 week</li>
+                                <li><strong>Peak effect:</strong> 2-4 weeks post-injection</li>
+                                <li><strong>Duration:</strong> At least 16 weeks</li>
+                                <li><strong>Re-treatment:</strong> Up to 3 injections per year</li>
+                                <li>Assess drooling severity at follow-up visits</li>
+                                <li>Document treatment response and adverse events</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Safety Information -->
+            <div class="calculator-card alert-warning-card" data-aos="fade-up">
+                <h2><i class="fas fa-exclamation-triangle"></i> Important Safety Information</h2>
+                
+                <div class="safety-section">
+                    <h3>Contraindications</h3>
+                    <ul>
+                        <li>Hypersensitivity to botulinum toxin type A or any excipients</li>
+                        <li>Infection at proposed injection site(s)</li>
+                        <li>Myasthenia gravis or Lambert-Eaton syndrome</li>
+                    </ul>
+                </div>
+
+                <div class="safety-section">
+                    <h3>Warnings & Precautions</h3>
+                    <ul>
+                        <li><strong>Spread of toxin effects:</strong> Monitor for symptoms of systemic weakness, dysphagia, or respiratory compromise</li>
+                        <li><strong>Dysphagia:</strong> Risk of swallowing difficulties - assess swallowing function</li>
+                        <li><strong>Respiratory compromise:</strong> Use caution in patients with compromised respiratory function</li>
+                        <li><strong>Pre-existing neuromuscular disorders:</strong> Increased risk of severe adverse effects</li>
+                    </ul>
+                </div>
+
+                <div class="safety-section">
+                    <h3>Common Adverse Reactions</h3>
+                    <ul>
+                        <li>Dental caries (tooth decay)</li>
+                        <li>Tooth disorder</li>
+                        <li>Dry mouth</li>
+                        <li>Dysphagia (swallowing difficulty)</li>
+                        <li>Injection site pain</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Clinical Tips -->
+            <div class="calculator-card" data-aos="fade-up">
+                <h2><i class="fas fa-lightbulb"></i> Clinical Tips & Best Practices</h2>
+                
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <i class="fas fa-check-circle"></i>
+                        <h4>Ultrasound Guidance</h4>
+                        <p>Consider using ultrasound to accurately identify and target salivary glands, especially in patients with anatomical variations or obesity</p>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <i class="fas fa-check-circle"></i>
+                        <h4>Dilution Consistency</h4>
+                        <p>Use consistent dilution (25 units/ml) to maintain accuracy and reduce calculation errors</p>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <i class="fas fa-check-circle"></i>
+                        <h4>Patient Positioning</h4>
+                        <p>Position patient semi-reclined with head slightly extended for optimal gland access</p>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <i class="fas fa-check-circle"></i>
+                        <h4>Documentation</h4>
+                        <p>Record exact doses, volumes, and injection sites for each treatment session</p>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <i class="fas fa-check-circle"></i>
+                        <h4>Baseline Assessment</h4>
+                        <p>Use standardized drooling scales (e.g., Drooling Severity Scale) to track treatment efficacy</p>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <i class="fas fa-check-circle"></i>
+                        <h4>Timing</h4>
+                        <p>Schedule re-treatment when effect begins to wane, typically 16-20 weeks after previous injection</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- References -->
+            <div class="calculator-card references-card" data-aos="fade-up">
+                <h2><i class="fas fa-book"></i> References</h2>
+                <ol class="references-list">
+                    <li>XEOMIN® Summary of Product Characteristics. <a href="https://www.medicines.org.uk/emc/product/6202" target="_blank">https://www.medicines.org.uk/emc/product/6202</a></li>
+                    <li>Data on file, REF-1362. Merz Pharmaceuticals. September 2021</li>
+                    <li>Berweck S, et al. Neurology. 2021;97(14):e1425-e1436. doi:10.1212/WNL.0000000000012567</li>
+                    <li>Merz Therapeutics is a business of Merz Pharmaceuticals GmbH. Prescribing information available at www.merztherapeutics.com</li>
+                </ol>
+                
+                <div class="disclaimer">
+                    <p><strong>Disclaimer:</strong> This calculator is for educational purposes only. Always refer to the current prescribing information and local guidelines. Dosing should be individualized based on patient characteristics and clinical judgment. This tool does not replace professional medical advice.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Dr Ali Alshahrani. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/xeomin.js"></script>
+</body>
+</html>
