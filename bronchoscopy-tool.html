@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rigid Bronchoscopy Sizing Tool - Dr Ali Alshahrani</title>
+    <title>Pediatric Airway & Bronchoscopy Sizing Tool - Dr Ali Alshahrani</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
@@ -44,8 +44,8 @@
         <div class="container">
             <div class="header-content" style="text-align: center;">
                 <div class="profile-text" data-aos="fade-up">
-                    <h1><i class="fas fa-lungs"></i> Rigid Bronchoscopy Sizing Tool</h1>
-                    <p>Interactive equipment selection guide for pediatric rigid bronchoscopy</p>
+                    <h1><i class="fas fa-lungs"></i> Pediatric Airway & Bronchoscopy Sizing Tool</h1>
+                    <p>Comprehensive equipment selection guide for pediatric airway management and rigid bronchoscopy</p>
                 </div>
             </div>
         </div>
@@ -122,6 +122,100 @@
                             <div class="equipment-value" id="ventilating-size">-</div>
                             <div class="equipment-note" id="ventilating-note"></div>
                         </div>
+                    </div>
+                </div>
+
+                <!-- Anatomical Measurements -->
+                <div class="tool-card" data-aos="fade-up">
+                    <h2><i class="fas fa-ruler"></i> Anatomical Measurements</h2>
+                    <div class="equipment-grid">
+                        <div class="equipment-item">
+                            <div class="equipment-icon"><i class="fas fa-circle"></i></div>
+                            <h3>Cricoid Diameter</h3>
+                            <div class="equipment-value" id="cricoid-diameter">-</div>
+                            <div class="equipment-note">Expected diameter</div>
+                        </div>
+                        <div class="equipment-item">
+                            <div class="equipment-icon"><i class="fas fa-circle"></i></div>
+                            <h3>Tracheal Diameter</h3>
+                            <div class="equipment-value" id="trachea-diameter">-</div>
+                            <div class="equipment-note">Expected diameter</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tracheostomy Tubes -->
+                <div class="tool-card" data-aos="fade-up">
+                    <h2><i class="fas fa-procedures"></i> Tracheostomy Tubes</h2>
+                    <div class="equipment-grid">
+                        <div class="equipment-item">
+                            <div class="equipment-icon"><i class="fas fa-hospital"></i></div>
+                            <h3>Jackson Size</h3>
+                            <div class="equipment-value" id="trach-jackson">-</div>
+                            <div class="equipment-note">Traditional sizing</div>
+                        </div>
+                        <div class="equipment-item">
+                            <div class="equipment-icon"><i class="fas fa-globe"></i></div>
+                            <h3>ISO Size</h3>
+                            <div class="equipment-value" id="trach-iso">-</div>
+                            <div class="equipment-note">International standard</div>
+                        </div>
+                    </div>
+                    <div class="equipment-note" id="trach-note" style="margin-top: 15px; text-align: center; color: #555;"></div>
+                </div>
+
+                <!-- Laryngoscope Blades -->
+                <div class="tool-card" data-aos="fade-up">
+                    <h2><i class="fas fa-lightbulb"></i> Laryngoscope Blades</h2>
+                    <div class="equipment-grid">
+                        <div class="equipment-item">
+                            <div class="equipment-icon"><i class="fas fa-minus"></i></div>
+                            <h3>Miller Blade</h3>
+                            <div class="equipment-value" id="miller-blade">-</div>
+                            <div class="equipment-note">Straight blade</div>
+                        </div>
+                        <div class="equipment-item">
+                            <div class="equipment-icon"><i class="fas fa-angle-right"></i></div>
+                            <h3>Macintosh Blade</h3>
+                            <div class="equipment-value" id="macintosh-blade">-</div>
+                            <div class="equipment-note">Curved blade</div>
+                        </div>
+                    </div>
+                    <div class="equipment-note" id="laryngoscope-note" style="margin-top: 15px; text-align: center; color: #555;"></div>
+                </div>
+
+                <!-- Additional Equipment -->
+                <div class="tool-card" data-aos="fade-up">
+                    <h2><i class="fas fa-plus-circle"></i> Additional Equipment</h2>
+                    <div class="equipment-grid">
+                        <div class="equipment-item">
+                            <div class="equipment-icon"><i class="fas fa-nose"></i></div>
+                            <h3>NPA (Nasopharyngeal Airway)</h3>
+                            <div class="equipment-value" id="npa-size">-</div>
+                            <div class="equipment-note">Inner diameter</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Balloon Dilation Guidelines -->
+                <div class="tool-card" data-aos="fade-up">
+                    <h2><i class="fas fa-expand"></i> Balloon Dilation Guidelines</h2>
+                    <div class="equipment-grid">
+                        <div class="equipment-item">
+                            <div class="equipment-icon"><i class="fas fa-arrow-up"></i></div>
+                            <h3>Larynx Goal Diameter</h3>
+                            <div class="equipment-value" id="balloon-larynx">-</div>
+                            <div class="equipment-note">Target dilation size</div>
+                        </div>
+                        <div class="equipment-item">
+                            <div class="equipment-icon"><i class="fas fa-arrow-up"></i></div>
+                            <h3>Trachea Goal Diameter</h3>
+                            <div class="equipment-value" id="balloon-trachea">-</div>
+                            <div class="equipment-note">Target dilation size</div>
+                        </div>
+                    </div>
+                    <div class="equipment-note" style="margin-top: 15px; text-align: center; color: #e74c3c; font-weight: 500;">
+                        ⚠️ Balloon dilation should only be performed by experienced practitioners
                     </div>
                 </div>
 
