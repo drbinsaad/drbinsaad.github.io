@@ -1,6 +1,6 @@
 from scholarly import scholarly
 import json
-from datetime import datetime
+from datetime import datetime, timezone
 import os
 import sys
 
@@ -13,7 +13,7 @@ def update_scholar_stats():
           'citations': author['citedby'],
           'h_index': author['hindex'],
           'publications': len(author['publications']),
-          'last_updated': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+          'last_updated': datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC"),
           'recent_publications': []
       }
       
