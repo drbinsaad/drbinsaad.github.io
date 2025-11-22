@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rigid Bronchoscopy Sizing Tool - Dr Ali Alshahrani</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/calculator.css" rel="stylesheet">
+    <link href="css/bronchoscopy.css" rel="stylesheet">
+</head>
+<body>
+    <nav id="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">Dr Ali Alshahrani</a>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links">
+                <li>
+                    <a href="#research">Research</a>
+                    <ul class="dropdown">
+                        <li><a href="index.html#research">Research Focus</a></li>
+                        <li><a href="index.html#publications">Recent Publications</a></li>
+                    </ul>
+                </li>
+                <li><a href="curriculum_vitae.html">Brief CV</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+                <li>
+                    <a href="#ent">ENT Tools</a>
+                    <ul class="dropdown">
+                        <li><a href="ent-calculators.html">Medical Calculators</a></li>
+                        <li><a href="bronchoscopy-tool.html">Bronchoscopy Tool</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <header style="min-height: 40vh;">
+        <div class="container">
+            <div class="header-content" style="text-align: center;">
+                <div class="profile-text" data-aos="fade-up">
+                    <h1><i class="fas fa-lungs"></i> Rigid Bronchoscopy Sizing Tool</h1>
+                    <p>Interactive equipment selection guide for pediatric rigid bronchoscopy</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="bronchoscopy-tool">
+        <div class="container">
+            
+            <!-- Patient Input Section -->
+            <div class="tool-card" data-aos="fade-up">
+                <h2><i class="fas fa-user-md"></i> Patient Information</h2>
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label for="patient-age">Patient Age</label>
+                        <select id="patient-age" onchange="updateRecommendations()">
+                            <option value="">Select age range...</option>
+                            <option value="premature">Premature</option>
+                            <option value="0-6mo">0-6 months</option>
+                            <option value="6-18mo">6-18 months</option>
+                            <option value="18mo-3yr">18 months - 3 years</option>
+                            <option value="3-5yr">3-5 years</option>
+                            <option value="5-8yr">5-8 years</option>
+                            <option value="8-12yr">8-12 years</option>
+                            <option value="adult">Adult (>12 years)</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="patient-weight">Patient Weight (kg) - Optional</label>
+                        <input type="number" id="patient-weight" placeholder="Enter weight" min="0" step="0.1">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recommendations Section -->
+            <div id="recommendations" class="recommendations-container" style="display: none;">
+                
+                <!-- Equipment Recommendations -->
+                <div class="tool-card" data-aos="fade-up">
+                    <h2><i class="fas fa-tools"></i> Recommended Equipment</h2>
+                    <div class="equipment-grid">
+                        <div class="equipment-item">
+                            <div class="equipment-icon"><i class="fas fa-microscope"></i></div>
+                            <h3>Bronchoscope</h3>
+                            <div class="equipment-value" id="bronchoscope-size">-</div>
+                            <div class="equipment-note" id="bronchoscope-note"></div>
+                        </div>
+                        <div class="equipment-item">
+                            <div class="equipment-icon"><i class="fas fa-eye"></i></div>
+                            <h3>Telescope</h3>
+                            <div class="equipment-value" id="telescope-size">-</div>
+                            <div class="equipment-note" id="telescope-note"></div>
+                        </div>
+                        <div class="equipment-item">
+                            <div class="equipment-icon"><i class="fas fa-tube"></i></div>
+                            <h3>ETT Size</h3>
+                            <div class="equipment-value" id="ett-size">-</div>
+                            <div class="equipment-note">Endotracheal tube</div>
+                        </div>
+                        <div class="equipment-item">
+                            <div class="equipment-icon"><i class="fas fa-grip-lines"></i></div>
+                            <h3>Optical Forceps</h3>
+                            <div class="equipment-value" id="forceps-size">-</div>
+                            <div class="equipment-note" id="forceps-note"></div>
+                        </div>
+                        <div class="equipment-item">
+                            <div class="equipment-icon"><i class="fas fa-syringe"></i></div>
+                            <h3>Suction Catheter</h3>
+                            <div class="equipment-value" id="suction-size">-</div>
+                            <div class="equipment-note">French size</div>
+                        </div>
+                        <div class="equipment-item">
+                            <div class="equipment-icon"><i class="fas fa-wind"></i></div>
+                            <h3>Ventilating Scope</h3>
+                            <div class="equipment-value" id="ventilating-size">-</div>
+                            <div class="equipment-note" id="ventilating-note"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Anatomical Reference -->
+                <div class="tool-card" data-aos="fade-up">
+                    <h2><i class="fas fa-lungs"></i> Anatomical Reference</h2>
+                    <div class="anatomy-reference">
+                        <img src="/home/ubuntu/upload/Rigidbronchoscopesetup.pdf" alt="Bronchoscopy Anatomy" id="anatomy-image" style="display: none;">
+                        <div class="anatomy-info">
+                            <h3>Key Anatomical Landmarks</h3>
+                            <div class="anatomy-grid">
+                                <div class="anatomy-section">
+                                    <h4>Upper Airway</h4>
+                                    <ul>
+                                        <li>Vocal cords</li>
+                                        <li>Arytenoid</li>
+                                        <li>Subglottis</li>
+                                    </ul>
+                                </div>
+                                <div class="anatomy-section">
+                                    <h4>Trachea & Carina</h4>
+                                    <ul>
+                                        <li>Main carina</li>
+                                        <li>Right main bronchus</li>
+                                        <li>Left main bronchus</li>
+                                    </ul>
+                                </div>
+                                <div class="anatomy-section">
+                                    <h4>Right Lung</h4>
+                                    <ul>
+                                        <li>Upper lobe (RUL)</li>
+                                        <li>Middle lobe (RB4, RB5)</li>
+                                        <li>Lower lobe segments</li>
+                                        <li>Bronchus intermedius</li>
+                                    </ul>
+                                </div>
+                                <div class="anatomy-section">
+                                    <h4>Left Lung</h4>
+                                    <ul>
+                                        <li>Upper division (LB1-3)</li>
+                                        <li>Lingular division (LB4-5)</li>
+                                        <li>Lower lobe segments</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Common Pathologies -->
+                <div class="tool-card" data-aos="fade-up">
+                    <h2><i class="fas fa-stethoscope"></i> Common Pathologies Visualized</h2>
+                    <div class="pathology-grid">
+                        <div class="pathology-item">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Laryngomalacia</span>
+                        </div>
+                        <div class="pathology-item">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Papillomatosis</span>
+                        </div>
+                        <div class="pathology-item">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Laryngeal Cleft</span>
+                        </div>
+                        <div class="pathology-item">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Saccular Cyst</span>
+                        </div>
+                        <div class="pathology-item">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Laryngeal Web</span>
+                        </div>
+                        <div class="pathology-item">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Laryngeal Atresia</span>
+                        </div>
+                        <div class="pathology-item">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Subglottic Hemangioma</span>
+                        </div>
+                        <div class="pathology-item">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Subglottic Stenosis</span>
+                        </div>
+                        <div class="pathology-item">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Complete Tracheal Rings</span>
+                        </div>
+                        <div class="pathology-item">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Tracheoesophageal Fistula</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Clinical Notes -->
+                <div class="tool-card clinical-notes" data-aos="fade-up">
+                    <h2><i class="fas fa-clipboard-list"></i> Clinical Considerations</h2>
+                    <div class="notes-content">
+                        <div class="note-item">
+                            <i class="fas fa-info-circle"></i>
+                            <p><strong>Equipment Compatibility:</strong> Always verify that the telescope fits through the selected bronchoscope before the procedure.</p>
+                        </div>
+                        <div class="note-item">
+                            <i class="fas fa-info-circle"></i>
+                            <p><strong>Ventilation:</strong> Ventilating bronchoscopes allow for continuous oxygenation during the procedure.</p>
+                        </div>
+                        <div class="note-item">
+                            <i class="fas fa-info-circle"></i>
+                            <p><strong>Optical Forceps:</strong> Size selection depends on the bronchoscope diameter and the pathology being addressed.</p>
+                        </div>
+                        <div class="note-item">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <p><strong>Safety:</strong> These are guidelines only. Clinical judgment and patient-specific factors should always take precedence.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/bronchoscopy.js"></script>
+</body>
+</html>
