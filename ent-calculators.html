@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENT Medical Calculators - Dr Ali Alshahrani</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/calculator.css" rel="stylesheet">
+</head>
+<body>
+    <nav id="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">Dr Ali Alshahrani</a>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links">
+                <li>
+                    <a href="#research">Research</a>
+                    <ul class="dropdown">
+                        <li><a href="index.html#research">Research Focus</a></li>
+                        <li><a href="index.html#publications">Recent Publications</a></li>
+                    </ul>
+                </li>
+                <li><a href="curriculum_vitae.html">Brief CV</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+                <li>
+                    <a href="#ent">ENT Tools</a>
+                    <ul class="dropdown">
+                        <li><a href="ent-calculators.html">Medical Calculators</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <header style="min-height: 40vh;">
+        <div class="container">
+            <div class="header-content" style="text-align: center;">
+                <div class="profile-text" data-aos="fade-up">
+                    <h1>ENT Medical Calculators</h1>
+                    <p>Clinical calculation tools for otolaryngology practice</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="calculators-section">
+        <div class="container">
+            <div class="calculator-grid">
+                
+                <!-- Lidocaine Dose Calculator -->
+                <div class="calculator-card" data-aos="fade-up">
+                    <div class="calculator-header">
+                        <i class="fas fa-syringe"></i>
+                        <h3>Lidocaine Dose Calculator</h3>
+                    </div>
+                    <p class="calculator-description">Calculate maximum safe lidocaine doses with and without epinephrine</p>
+                    <div class="calculator-body">
+                        <div class="input-group">
+                            <label for="lidocaine-weight">Patient Weight (kg)</label>
+                            <input type="number" id="lidocaine-weight" placeholder="Enter weight" min="0" step="0.1">
+                        </div>
+                        <button class="calc-button" onclick="calculateLidocaine()">Calculate</button>
+                        <div class="results" id="lidocaine-results"></div>
+                    </div>
+                </div>
+
+                <!-- Epinephrine Dilution Calculator -->
+                <div class="calculator-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="calculator-header">
+                        <i class="fas fa-flask"></i>
+                        <h3>Epinephrine Dilution Calculator</h3>
+                    </div>
+                    <p class="calculator-description">Calculate epinephrine dilutions for topical use in ENT procedures</p>
+                    <div class="calculator-body">
+                        <div class="input-group">
+                            <label for="epi-concentration">Starting Concentration</label>
+                            <select id="epi-concentration">
+                                <option value="1000">1:1,000 (1 mg/mL)</option>
+                                <option value="10000">1:10,000 (0.1 mg/mL)</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="epi-desired">Desired Concentration</label>
+                            <select id="epi-desired">
+                                <option value="10000">1:10,000</option>
+                                <option value="20000">1:20,000</option>
+                                <option value="50000">1:50,000</option>
+                                <option value="100000">1:100,000</option>
+                                <option value="200000">1:200,000</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="epi-volume">Total Volume Needed (mL)</label>
+                            <input type="number" id="epi-volume" placeholder="Enter volume" min="0" step="1" value="10">
+                        </div>
+                        <button class="calc-button" onclick="calculateEpinephrine()">Calculate</button>
+                        <div class="results" id="epinephrine-results"></div>
+                    </div>
+                </div>
+
+                <!-- Hearing Loss Calculator -->
+                <div class="calculator-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="calculator-header">
+                        <i class="fas fa-ear-listen"></i>
+                        <h3>Pure Tone Average (PTA) Calculator</h3>
+                    </div>
+                    <p class="calculator-description">Calculate pure tone average and classify hearing loss severity</p>
+                    <div class="calculator-body">
+                        <div class="input-group">
+                            <label for="pta-500">500 Hz (dB HL)</label>
+                            <input type="number" id="pta-500" placeholder="Enter threshold" min="0" max="120" step="5">
+                        </div>
+                        <div class="input-group">
+                            <label for="pta-1000">1000 Hz (dB HL)</label>
+                            <input type="number" id="pta-1000" placeholder="Enter threshold" min="0" max="120" step="5">
+                        </div>
+                        <div class="input-group">
+                            <label for="pta-2000">2000 Hz (dB HL)</label>
+                            <input type="number" id="pta-2000" placeholder="Enter threshold" min="0" max="120" step="5">
+                        </div>
+                        <div class="input-group">
+                            <label for="pta-4000">4000 Hz (dB HL) - Optional</label>
+                            <input type="number" id="pta-4000" placeholder="Enter threshold" min="0" max="120" step="5">
+                        </div>
+                        <button class="calc-button" onclick="calculatePTA()">Calculate</button>
+                        <div class="results" id="pta-results"></div>
+                    </div>
+                </div>
+
+                <!-- Neck Dissection Level Calculator -->
+                <div class="calculator-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="calculator-header">
+                        <i class="fas fa-notes-medical"></i>
+                        <h3>Neck Dissection Classification</h3>
+                    </div>
+                    <p class="calculator-description">Identify neck dissection type based on levels and structures removed</p>
+                    <div class="calculator-body">
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="neck-level" value="I"> Level I
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="neck-level" value="II"> Level II
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="neck-level" value="III"> Level III
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="neck-level" value="IV"> Level IV
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="neck-level" value="V"> Level V
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="neck-level" value="VI"> Level VI
+                            </label>
+                        </div>
+                        <div class="checkbox-group" style="margin-top: 1rem;">
+                            <label style="font-weight: 600; display: block; margin-bottom: 0.5rem;">Structures Preserved:</label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="preserve-scm"> SCM
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="preserve-ijv"> IJV
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="preserve-cn11"> CN XI
+                            </label>
+                        </div>
+                        <button class="calc-button" onclick="classifyNeckDissection()">Classify</button>
+                        <div class="results" id="neck-results"></div>
+                    </div>
+                </div>
+
+                <!-- Sinonasal Outcome Test (SNOT-22) Score -->
+                <div class="calculator-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="calculator-header">
+                        <i class="fas fa-lungs"></i>
+                        <h3>SNOT-22 Score Calculator</h3>
+                    </div>
+                    <p class="calculator-description">Calculate Sinonasal Outcome Test score (simplified version)</p>
+                    <div class="calculator-body">
+                        <p style="font-size: 0.9rem; margin-bottom: 1rem; color: #666;">Rate each symptom from 0 (no problem) to 5 (worst possible)</p>
+                        <div class="snot-symptoms">
+                            <div class="symptom-item">
+                                <label>Nasal Obstruction</label>
+                                <input type="number" class="snot-input" min="0" max="5" value="0">
+                            </div>
+                            <div class="symptom-item">
+                                <label>Nasal Discharge</label>
+                                <input type="number" class="snot-input" min="0" max="5" value="0">
+                            </div>
+                            <div class="symptom-item">
+                                <label>Post-nasal Discharge</label>
+                                <input type="number" class="snot-input" min="0" max="5" value="0">
+                            </div>
+                            <div class="symptom-item">
+                                <label>Facial Pain/Pressure</label>
+                                <input type="number" class="snot-input" min="0" max="5" value="0">
+                            </div>
+                            <div class="symptom-item">
+                                <label>Sense of Smell</label>
+                                <input type="number" class="snot-input" min="0" max="5" value="0">
+                            </div>
+                            <div class="symptom-item">
+                                <label>Thick Nasal Discharge</label>
+                                <input type="number" class="snot-input" min="0" max="5" value="0">
+                            </div>
+                            <div class="symptom-item">
+                                <label>Cough</label>
+                                <input type="number" class="snot-input" min="0" max="5" value="0">
+                            </div>
+                            <div class="symptom-item">
+                                <label>Ear Fullness</label>
+                                <input type="number" class="snot-input" min="0" max="5" value="0">
+                            </div>
+                        </div>
+                        <button class="calc-button" onclick="calculateSNOT()">Calculate Score</button>
+                        <div class="results" id="snot-results"></div>
+                    </div>
+                </div>
+
+                <!-- Body Surface Area Calculator -->
+                <div class="calculator-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="calculator-header">
+                        <i class="fas fa-calculator"></i>
+                        <h3>Body Surface Area (BSA)</h3>
+                    </div>
+                    <p class="calculator-description">Calculate BSA using Mosteller formula for medication dosing</p>
+                    <div class="calculator-body">
+                        <div class="input-group">
+                            <label for="bsa-weight">Weight (kg)</label>
+                            <input type="number" id="bsa-weight" placeholder="Enter weight" min="0" step="0.1">
+                        </div>
+                        <div class="input-group">
+                            <label for="bsa-height">Height (cm)</label>
+                            <input type="number" id="bsa-height" placeholder="Enter height" min="0" step="0.1">
+                        </div>
+                        <button class="calc-button" onclick="calculateBSA()">Calculate</button>
+                        <div class="results" id="bsa-results"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/calculators.js"></script>
+</body>
+</html>
