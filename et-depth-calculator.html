@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pediatric ET Depth Calculator - Dr Ali Alshahrani</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/calculator.css" rel="stylesheet">
+</head>
+<body>
+    <nav id="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">Dr Ali Alshahrani</a>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links">
+                <li>
+                    <a href="#research">Research</a>
+                    <ul class="dropdown">
+                        <li><a href="index.html#research">Research Focus</a></li>
+                        <li><a href="index.html#publications">Recent Publications</a></li>
+                    </ul>
+                </li>
+                <li><a href="curriculum_vitae.html">Brief CV</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+                <li>
+                    <a href="#ent">ENT Tools</a>
+                    <ul class="dropdown">
+                        <li><a href="ent-calculators.html">Medical Calculators</a></li>
+                        <li><a href="bronchoscopy-tool.html">Airway Sizing Tool</a></li>
+                        <li><a href="et-depth-calculator.html">ET Depth Calculator</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <header style="min-height: 40vh;">
+        <div class="container">
+            <div class="header-content" style="text-align: center;">
+                <div class="profile-text" data-aos="fade-up">
+                    <h1><i class="fas fa-ruler-vertical"></i> Pediatric ET Depth Calculator</h1>
+                    <p>Calculate endotracheal tube insertion depth using age or weight</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="et-calculator">
+        <div class="container">
+            
+            <!-- Method Selection -->
+            <div class="calculator-card" data-aos="fade-up">
+                <h2><i class="fas fa-calculator"></i> Calculation Method</h2>
+                <div class="method-selector">
+                    <button class="method-btn active" onclick="selectMethod('age')" id="age-btn">
+                        <i class="fas fa-child"></i> Age-Based Formula
+                    </button>
+                    <button class="method-btn" onclick="selectMethod('weight')" id="weight-btn">
+                        <i class="fas fa-weight"></i> Weight-Based (Rule of Seven)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Age-Based Calculator -->
+            <div class="calculator-card" id="age-calculator" data-aos="fade-up">
+                <h2><i class="fas fa-child"></i> Age-Based Calculation</h2>
+                <p class="formula-display">Formula: Depth (cm) = 12 + (Age ÷ 2)</p>
+                
+                <div class="input-group">
+                    <label for="patient-age-input">Patient Age (years)</label>
+                    <input type="number" id="patient-age-input" placeholder="Enter age in years" min="0" max="18" step="0.5">
+                </div>
+                
+                <button class="calculate-btn" onclick="calculateAgeDepth()">
+                    <i class="fas fa-calculator"></i> Calculate Depth
+                </button>
+                
+                <div id="age-result" class="result-box" style="display: none;">
+                    <div class="result-icon"><i class="fas fa-check-circle"></i></div>
+                    <div class="result-content">
+                        <h3>Recommended ET Tube Depth</h3>
+                        <div class="result-value" id="age-depth-value">-</div>
+                        <div class="result-note">Measured at the lip</div>
+                        <div class="result-warning">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            Always confirm placement with clinical assessment and imaging
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Weight-Based Calculator -->
+            <div class="calculator-card" id="weight-calculator" style="display: none;" data-aos="fade-up">
+                <h2><i class="fas fa-weight"></i> Weight-Based Calculation (Rule of Seven)</h2>
+                <p class="formula-display">For infants 1-4 kg: Depth (cm) = 6 + Weight (kg)</p>
+                
+                <div class="input-group">
+                    <label for="patient-weight-input">Patient Weight (kg)</label>
+                    <input type="number" id="patient-weight-input" placeholder="Enter weight in kg" min="0.5" max="4" step="0.1">
+                </div>
+                
+                <button class="calculate-btn" onclick="calculateWeightDepth()">
+                    <i class="fas fa-calculator"></i> Calculate Depth
+                </button>
+                
+                <div id="weight-result" class="result-box" style="display: none;">
+                    <div class="result-icon"><i class="fas fa-check-circle"></i></div>
+                    <div class="result-content">
+                        <h3>Recommended ET Tube Depth</h3>
+                        <div class="result-value" id="weight-depth-value">-</div>
+                        <div class="result-note">Measured at the lip</div>
+                        <div class="result-warning">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            Rule of Seven is for infants 1-4 kg only. For larger patients, use age-based formula.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Reference Table -->
+            <div class="calculator-card" data-aos="fade-up">
+                <h2><i class="fas fa-table"></i> Quick Reference Guide</h2>
+                <div class="reference-tables">
+                    <div class="reference-table">
+                        <h3>Age-Based Depths</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Age</th>
+                                    <th>Depth (cm)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Newborn</td><td>12</td></tr>
+                                <tr><td>6 months</td><td>12.25</td></tr>
+                                <tr><td>1 year</td><td>12.5</td></tr>
+                                <tr><td>2 years</td><td>13</td></tr>
+                                <tr><td>4 years</td><td>14</td></tr>
+                                <tr><td>6 years</td><td>15</td></tr>
+                                <tr><td>8 years</td><td>16</td></tr>
+                                <tr><td>10 years</td><td>17</td></tr>
+                                <tr><td>12 years</td><td>18</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="reference-table">
+                        <h3>Weight-Based Depths (Rule of Seven)</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Weight</th>
+                                    <th>Depth (cm)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>1 kg</td><td>7</td></tr>
+                                <tr><td>2 kg</td><td>8</td></tr>
+                                <tr><td>3 kg</td><td>9</td></tr>
+                                <tr><td>4 kg</td><td>10</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Clinical Notes -->
+            <div class="calculator-card" data-aos="fade-up">
+                <h2><i class="fas fa-info-circle"></i> Clinical Considerations</h2>
+                <div class="clinical-notes">
+                    <div class="note-item">
+                        <i class="fas fa-check"></i>
+                        <p><strong>Verification Required:</strong> Always confirm ET tube placement with auscultation, chest rise, capnography, and chest X-ray</p>
+                    </div>
+                    <div class="note-item">
+                        <i class="fas fa-check"></i>
+                        <p><strong>Tube Position:</strong> Ideal position is 2-3 cm above the carina (T2-T4 vertebral level)</p>
+                    </div>
+                    <div class="note-item">
+                        <i class="fas fa-check"></i>
+                        <p><strong>Adjustments:</strong> May need adjustment based on patient anatomy, neck position, and clinical assessment</p>
+                    </div>
+                    <div class="note-item">
+                        <i class="fas fa-check"></i>
+                        <p><strong>Nasal Intubation:</strong> Add 2-3 cm to calculated depth for nasotracheal intubation</p>
+                    </div>
+                    <div class="note-item">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p><strong>Limitations:</strong> Formulas provide estimates only. Individual patient factors may require depth adjustments</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Dr Ali Alshahrani. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/et-depth.js"></script>
+</body>
+</html>
