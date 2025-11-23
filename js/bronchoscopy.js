@@ -71,6 +71,31 @@ const goshAirwaySizing = {
             maxPressure: '24 atm'
         },
         
+        // Scope Fits in ETT
+        scopeFitsETT: {
+            portex: { id: '2.5', od: '3.5' },
+            mallinckrodt: { id: '2.5', od: '3.6' },
+            karlStorz: { scope: '27017', size: '1.9 - 2.1' }
+        },
+        
+        // Instruments That Fit Together
+        instrumentsFit: [
+            {
+                bronchoscopeId: '2.5',
+                bronchoscopeOd: '4.2',
+                telescope: '1.9 - 2.1 (27017AA)',
+                flexibleSuction: '4F',
+                forceps: 'None'
+            },
+            {
+                bronchoscopeId: '2.5',
+                bronchoscopeOd: '4.2',
+                telescope: '2.7',
+                flexibleSuction: 'None',
+                forceps: 'None'
+            }
+        ],
+        
         weightRange: '<1 kg',
         ageRange: 'Preterm-1 month',
         notes: {
@@ -133,6 +158,38 @@ const goshAirwaySizing = {
             length: '40',
             maxPressure: '24 atm'
         },
+        
+        // Scope Fits in ETT
+        scopeFitsETT: {
+            portex: [{ id: '3.0', od: '4.1' }, { id: '3.5', od: '4.8' }],
+            mallinckrodt: [{ id: '3.0', od: '4.3' }, { id: '3.5', od: '4.9' }],
+            karlStorz: [{ scope: '27018', size: '2.7' }, { scope: '27020', size: '2.9' }]
+        },
+        
+        // Instruments That Fit Together
+        instrumentsFit: [
+            {
+                bronchoscopeId: '3.0',
+                bronchoscopeOd: '5.0',
+                telescope: '2.7',
+                flexibleSuction: '4F',
+                forceps: 'Fetal (10374)'
+            },
+            {
+                bronchoscopeId: '3.5',
+                bronchoscopeOd: '5.7',
+                telescope: '2.9',
+                flexibleSuction: '4F, 5F, 6F (tight)',
+                forceps: 'Optical peanut/alligator/coin (without flexible suction)'
+            },
+            {
+                bronchoscopeId: '3.5',
+                bronchoscopeOd: '5.7',
+                telescope: '4.0',
+                flexibleSuction: 'None',
+                forceps: 'Optical peanut/alligator/coin (without flexible suction)'
+            }
+        ],
         
         weightRange: '1-6 kg',
         ageRange: '1-6 months',
@@ -197,6 +254,32 @@ const goshAirwaySizing = {
             maxPressure: '20 atm'
         },
         
+        // Scope Fits in ETT
+        scopeFitsETT: {
+            portex: [{ id: '4.0', od: '5.4' }, { id: '4.5', od: '6.1' }],
+            mallinckrodt: [{ id: '4.0', od: '5.6' }, { id: '4.5', od: '6.2' }],
+            halyardMicrocuff: [{ id: '3.0', od: '4.3' }, { id: '3.5', od: '5.0' }],
+            karlStorz: { scope: '27005', size: '4.0' }
+        },
+        
+        // Instruments That Fit Together
+        instrumentsFit: [
+            {
+                bronchoscopeId: '4.0',
+                bronchoscopeOd: '6.7',
+                telescope: '2.9',
+                flexibleSuction: '4F, 5F, 6F',
+                forceps: 'Optical peanut/alligator/coin (with flexible suction 4F, 5F, 6F)'
+            },
+            {
+                bronchoscopeId: '4.0',
+                bronchoscopeOd: '6.7',
+                telescope: '4.0',
+                flexibleSuction: '4F, 5F',
+                forceps: 'Optical peanut/alligator/coin (with flexible suction 4F, 5F, 6F)'
+            }
+        ],
+        
         weightRange: '6-10 kg',
         ageRange: '6-18 months',
         notes: {
@@ -258,6 +341,22 @@ const goshAirwaySizing = {
             od: '8.0-9.0',
             length: '40',
             maxPressure: '18-20 atm'
+        },
+        
+        // Scope Fits in ETT
+        scopeFitsETT: {
+            portex: [{ id: '5.0', od: '6.8' }, { id: '5.5', od: '7.5' }],
+            mallinckrodt: [{ id: '5.0', od: '6.9' }, { id: '5.5', od: '7.5' }],
+            halyardMicrocuff: [{ id: '4.0', od: '5.6' }, { id: '4.5', od: '6.3' }]
+        },
+        
+        // Instruments That Fit Together
+        instrumentsFit: {
+            bronchoscopeId: '4.0',
+            bronchoscopeOd: '6.7',
+            telescope: '4.0',
+            flexibleSuction: '4F, 5F',
+            forceps: 'Optical peanut/alligator/coin (with flexible suction 4F, 5F, 6F)'
         },
         
         weightRange: '10-15 kg',
@@ -323,6 +422,23 @@ const goshAirwaySizing = {
             maxPressure: '9-14 atm'
         },
         
+        // Scope Fits in ETT
+        scopeFitsETT: {
+            portex: { id: '6.0', od: '8.2' },
+            mallinckrodt: { id: '6.0', od: '8.2' },
+            halyardMicrocuff: [{ id: '5.0', od: '6.7' }, { id: '5.5', od: '7.3' }, { id: '6.0', od: '8.0' }],
+            karlStorz: { scope: '8712', size: '5.0' }
+        },
+        
+        // Instruments That Fit Together
+        instrumentsFit: {
+            bronchoscopeId: '4.5',
+            bronchoscopeOd: '7.3',
+            telescope: '4.0',
+            flexibleSuction: '4F, 5F, 6F',
+            forceps: 'Optical peanut/alligator/coin (with flexible suction 4F, 5F, 6F)'
+        },
+        
         weightRange: '15-20 kg',
         ageRange: '3-6 years',
         notes: {
@@ -384,6 +500,23 @@ const goshAirwaySizing = {
             od: '10.0',
             length: '30',
             maxPressure: '9 atm'
+        },
+        
+        // Scope Fits in ETT
+        scopeFitsETT: {
+            portex: { id: '6.0', od: '8.2' },
+            mallinckrodt: { id: '6.0', od: '8.2' },
+            halyardMicrocuff: [{ id: '5.0', od: '6.7' }, { id: '5.5', od: '7.3' }, { id: '6.0', od: '8.0' }],
+            karlStorz: { scope: '8712', size: '5.0' }
+        },
+        
+        // Instruments That Fit Together
+        instrumentsFit: {
+            bronchoscopeId: '4.5',
+            bronchoscopeOd: '7.3',
+            telescope: '4.0',
+            flexibleSuction: '4F, 5F, 6F',
+            forceps: 'Optical peanut/alligator/coin (with flexible suction 4F, 5F, 6F)'
         },
         
         weightRange: '20-30 kg',
@@ -449,6 +582,22 @@ const goshAirwaySizing = {
             maxPressure: '8-14 atm'
         },
         
+        // Scope Fits in ETT
+        scopeFitsETT: {
+            portex: [{ id: '6.5', od: '8.9' }, { id: '7.0', od: '9.6' }],
+            mallinckrodt: [{ id: '6.5', od: '8.9' }, { id: '7.0', od: '9.5' }],
+            halyardMicrocuff: [{ id: '6.5', od: '8.7' }, { id: '7.0', od: '9.3' }]
+        },
+        
+        // Instruments That Fit Together
+        instrumentsFit: {
+            bronchoscopeId: '5.0',
+            bronchoscopeOd: '7.8',
+            telescope: '4.0',
+            flexibleSuction: '4F, 5F, 6F',
+            forceps: 'Optical peanut/alligator/coin (with flexible suction 4F, 5F, 6F)'
+        },
+        
         weightRange: '30-45 kg',
         ageRange: '9-12 years',
         notes: {
@@ -511,6 +660,12 @@ const goshAirwaySizing = {
             length: '30-55',
             maxPressure: '6-14 atm'
         },
+        
+        // Scope Fits in ETT - Adult sizing varies widely
+        scopeFitsETT: null,
+        
+        // Instruments That Fit Together - Adult sizing
+        instrumentsFit: null,
         
         weightRange: '>45 kg',
         ageRange: '12-14+ years',
@@ -626,6 +781,98 @@ function updateRecommendations() {
         document.getElementById('boston-od').textContent = '-';
         document.getElementById('boston-length').textContent = '-';
         document.getElementById('boston-max-pressure').textContent = '-';
+    }
+    
+    // Update Scope Fits in ETT
+    if (sizing.scopeFitsETT) {
+        // Portex ETT
+        if (Array.isArray(sizing.scopeFitsETT.portex)) {
+            const portexValues = sizing.scopeFitsETT.portex.map(p => `${p.id}/${p.od}`).join(', ');
+            document.getElementById('scope-ett-portex').textContent = portexValues;
+        } else if (sizing.scopeFitsETT.portex) {
+            document.getElementById('scope-ett-portex').textContent = `${sizing.scopeFitsETT.portex.id}/${sizing.scopeFitsETT.portex.od}`;
+        } else {
+            document.getElementById('scope-ett-portex').textContent = '-';
+        }
+        
+        // Mallinckrodt ETT
+        if (Array.isArray(sizing.scopeFitsETT.mallinckrodt)) {
+            const mallinckrodtValues = sizing.scopeFitsETT.mallinckrodt.map(m => `${m.id}/${m.od}`).join(', ');
+            document.getElementById('scope-ett-mallinckrodt').textContent = mallinckrodtValues;
+        } else if (sizing.scopeFitsETT.mallinckrodt) {
+            document.getElementById('scope-ett-mallinckrodt').textContent = `${sizing.scopeFitsETT.mallinckrodt.id}/${sizing.scopeFitsETT.mallinckrodt.od}`;
+        } else {
+            document.getElementById('scope-ett-mallinckrodt').textContent = '-';
+        }
+        
+        // Halyard Microcuff
+        if (Array.isArray(sizing.scopeFitsETT.halyardMicrocuff)) {
+            const halyardValues = sizing.scopeFitsETT.halyardMicrocuff.map(h => `${h.id}/${h.od}`).join(', ');
+            document.getElementById('scope-ett-halyard').textContent = halyardValues;
+        } else if (sizing.scopeFitsETT.halyardMicrocuff) {
+            document.getElementById('scope-ett-halyard').textContent = `${sizing.scopeFitsETT.halyardMicrocuff.id}/${sizing.scopeFitsETT.halyardMicrocuff.od}`;
+        } else {
+            document.getElementById('scope-ett-halyard').textContent = '-';
+        }
+        
+        // Karl Storz Scope
+        if (Array.isArray(sizing.scopeFitsETT.karlStorz)) {
+            const karlStorzValues = sizing.scopeFitsETT.karlStorz.map(k => `${k.scope} (${k.size})`).join(', ');
+            document.getElementById('scope-ett-karlstorz').textContent = karlStorzValues;
+        } else if (sizing.scopeFitsETT.karlStorz) {
+            document.getElementById('scope-ett-karlstorz').textContent = `${sizing.scopeFitsETT.karlStorz.scope} (${sizing.scopeFitsETT.karlStorz.size})`;
+        } else {
+            document.getElementById('scope-ett-karlstorz').textContent = '-';
+        }
+    } else {
+        document.getElementById('scope-ett-portex').textContent = '-';
+        document.getElementById('scope-ett-mallinckrodt').textContent = '-';
+        document.getElementById('scope-ett-halyard').textContent = '-';
+        document.getElementById('scope-ett-karlstorz').textContent = '-';
+    }
+    
+    // Update Instruments That Fit Together
+    const instrumentsContainer = document.getElementById('instruments-fit-container');
+    if (sizing.instrumentsFit) {
+        let html = '';
+        const instruments = Array.isArray(sizing.instrumentsFit) ? sizing.instrumentsFit : [sizing.instrumentsFit];
+        
+        instruments.forEach((inst, index) => {
+            html += `
+                <div class="equipment-grid" style="margin-bottom: ${index < instruments.length - 1 ? '2rem' : '0'}; padding-bottom: ${index < instruments.length - 1 ? '2rem' : '0'}; border-bottom: ${index < instruments.length - 1 ? '1px solid #e0e0e0' : 'none'};">
+                    <div class="equipment-item">
+                        <div class="equipment-icon"><i class="fas fa-microscope"></i></div>
+                        <h3>Bronchoscope</h3>
+                        <div class="equipment-value">${inst.bronchoscopeId} / ${inst.bronchoscopeOd}</div>
+                        <div class="equipment-note">ID / OD (mm)</div>
+                    </div>
+                    <div class="equipment-item">
+                        <div class="equipment-icon"><i class="fas fa-eye"></i></div>
+                        <h3>Telescope</h3>
+                        <div class="equipment-value">${inst.telescope}</div>
+                        <div class="equipment-note">Size (mm)</div>
+                    </div>
+                    <div class="equipment-item">
+                        <div class="equipment-icon"><i class="fas fa-syringe"></i></div>
+                        <h3>Flexible Suction</h3>
+                        <div class="equipment-value">${inst.flexibleSuction}</div>
+                        <div class="equipment-note">French size</div>
+                    </div>
+                    <div class="equipment-item">
+                        <div class="equipment-icon"><i class="fas fa-grip-lines"></i></div>
+                        <h3>Forceps</h3>
+                        <div class="equipment-value" style="font-size: 0.85rem;">${inst.forceps}</div>
+                        <div class="equipment-note">Type</div>
+                    </div>
+                </div>
+            `;
+        });
+        
+        instrumentsContainer.innerHTML = html;
+        instrumentsContainer.style.display = 'block';
+    } else {
+        instrumentsContainer.innerHTML = '<p style="text-align: center; color: #999;">No specific instrument combinations available for this age group</p>';
+        instrumentsContainer.style.display = 'block';
     }
     
     // Display recommendations
