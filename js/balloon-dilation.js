@@ -102,6 +102,55 @@ const balloonSizingData = {
     }
 };
 
+// Method selection function
+function selectCalculationMethod(method) {
+    const ageMethodBtn = document.getElementById('age-method-btn');
+    const customMethodBtn = document.getElementById('custom-method-btn');
+    const ageCalculator = document.getElementById('age-calculator');
+    const customCalculator = document.getElementById('custom-calculator');
+    const ageResult = document.getElementById('balloon-result');
+    const customResult = document.getElementById('custom-result');
+    
+    if (method === 'age') {
+        ageMethodBtn.classList.add('active');
+        customMethodBtn.classList.remove('active');
+        ageCalculator.style.display = 'block';
+        customCalculator.style.display = 'none';
+        customResult.style.display = 'none';
+    } else {
+        customMethodBtn.classList.add('active');
+        ageMethodBtn.classList.remove('active');
+        customCalculator.style.display = 'block';
+        ageCalculator.style.display = 'none';
+        ageResult.style.display = 'none';
+    }
+}
+
+// Custom OD calculation function
+function calculateCustomBalloonSizing() {
+    const odInput = document.getElementById('custom-od-input');
+    const od = parseFloat(odInput.value);
+    
+    if (!od || od < 1 || od > 15) {
+        alert('Please enter a valid OD value between 1 and 15 mm');
+        return;
+    }
+    
+    // Calculate using the formula: OD + 1mm for larynx, OD + 2mm for trachea
+    const larynxDiameter = (od + 1).toFixed(1);
+    const tracheaDiameter = (od + 2).toFixed(1);
+    
+    // Update result fields
+    document.getElementById('custom-od-display').textContent = od.toFixed(1) + ' mm';
+    document.getElementById('custom-larynx-diameter').textContent = larynxDiameter + ' mm';
+    document.getElementById('custom-trachea-diameter').textContent = tracheaDiameter + ' mm';
+    
+    // Show result box with animation
+    const resultBox = document.getElementById('custom-result');
+    resultBox.style.display = 'block';
+    resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
 function calculateBalloonSizing() {
     const ageSelect = document.getElementById('patient-age-select');
     const selectedAge = ageSelect.value;
