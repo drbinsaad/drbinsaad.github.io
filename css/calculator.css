@@ -729,3 +729,145 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* Balloon Dilation Calculator Specific Styles */
+.result-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.result-grid .result-item {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    border-left: none;
+    margin-bottom: 0;
+}
+
+.result-grid .result-label {
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.result-grid .result-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+}
+
+.table-responsive {
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+.reference-table-full {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.reference-table-full thead {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.reference-table-full th,
+.reference-table-full td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.reference-table-full th {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.reference-table-full tbody tr:hover {
+    background: #f8f9fa;
+}
+
+.reference-table-full tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.table-note {
+    font-size: 0.85rem;
+    color: #666;
+    font-style: italic;
+    margin-top: 10px;
+}
+
+.clinical-notes {
+    display: grid;
+    gap: 15px;
+}
+
+.clinical-notes .note-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #667eea;
+}
+
+.clinical-notes .note-item i {
+    font-size: 20px;
+    color: #667eea;
+    margin-top: 2px;
+}
+
+.clinical-notes .note-item p {
+    margin: 0;
+    color: #495057;
+    line-height: 1.6;
+}
+
+.references-list {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.references-list ol {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.references-list li {
+    margin-bottom: 15px;
+    line-height: 1.6;
+    color: #495057;
+}
+
+.references-list li:last-child {
+    margin-bottom: 0;
+}
+
+.references-list p {
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .result-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .reference-table-full {
+        font-size: 0.85rem;
+    }
+    
+    .reference-table-full th,
+    .reference-table-full td {
+        padding: 8px 10px;
+    }
+}

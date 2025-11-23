@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airway Balloon Dilation Sizing Calculator - Dr Ali Alshahrani</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/calculator.css" rel="stylesheet">
+</head>
+<body>
+    <nav id="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">Dr Ali Alshahrani</a>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links">
+                <li>
+                    <a href="#research">Research</a>
+                    <ul class="dropdown">
+                        <li><a href="index.html#research">Research Focus</a></li>
+                        <li><a href="index.html#publications">Recent Publications</a></li>
+                    </ul>
+                </li>
+                <li><a href="curriculum_vitae.html">Brief CV</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+                <li>
+                    <a href="#ent">ENT Tools</a>
+                    <ul class="dropdown">
+                        <li><a href="ent-calculators.html">Medical Calculators</a></li>
+                        <li><a href="bronchoscopy-tool.html">Airway Sizing Tool</a></li>
+                        <li><a href="et-depth-calculator.html">ET Depth Calculator</a></li>
+                        <li><a href="xeomin-calculator.html">XEOMIN Calculator</a></li>
+                        <li><a href="nebulized-epinephrine-calculator.html">Nebulized Epinephrine</a></li>
+                        <li><a href="balloon-dilation-calculator.html">Balloon Dilation Sizing</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <header style="min-height: 40vh;">
+        <div class="container">
+            <div class="header-content" style="text-align: center;">
+                <div class="profile-text" data-aos="fade-up">
+                    <h1><i class="fas fa-lungs"></i> Airway Balloon Dilation Sizing Calculator</h1>
+                    <p>Calculate appropriate balloon dilation sizes for airway procedures based on patient age</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="balloon-calculator">
+        <div class="container">
+            
+            <!-- Age Selection -->
+            <div class="calculator-card" data-aos="fade-up">
+                <h2><i class="fas fa-calculator"></i> Patient Age Selection</h2>
+                
+                <div class="input-group">
+                    <label for="patient-age-select">Select Patient Age</label>
+                    <select id="patient-age-select" onchange="calculateBalloonSizing()">
+                        <option value="">-- Select Age --</option>
+                        <option value="premature-30">Premature < 30 weeks</option>
+                        <option value="premature-30-plus">Premature > 30 weeks</option>
+                        <option value="newborn">Newborn</option>
+                        <option value="1-year">1 year</option>
+                        <option value="2-years">2 years</option>
+                        <option value="4-years">4 years</option>
+                        <option value="6-years">6 years</option>
+                        <option value="8-years">8 years</option>
+                        <option value="10-years">10 years</option>
+                        <option value="12-years">12 years</option>
+                        <option value="14-years">14 years</option>
+                        <option value="16-years">16 years</option>
+                        <option value="adult-female">Adult Female</option>
+                        <option value="adult-male">Adult Male</option>
+                    </select>
+                </div>
+                
+                <div id="balloon-result" class="result-box" style="display: none;">
+                    <div class="result-icon"><i class="fas fa-check-circle"></i></div>
+                    <div class="result-content">
+                        <h3>Balloon Dilation Sizing Guidelines</h3>
+                        
+                        <div class="result-grid">
+                            <div class="result-item">
+                                <div class="result-label">Age-Appropriate ETT (uncuffed)</div>
+                                <div class="result-value" id="ett-size">-</div>
+                            </div>
+                            
+                            <div class="result-item">
+                                <div class="result-label">OD on ETT</div>
+                                <div class="result-value" id="od-ett">-</div>
+                            </div>
+                            
+                            <div class="result-item">
+                                <div class="result-label">Dilation Goal Diameter - Larynx</div>
+                                <div class="result-value" id="larynx-diameter">-</div>
+                            </div>
+                            
+                            <div class="result-item">
+                                <div class="result-label">Dilation Goal Diameter - Trachea</div>
+                                <div class="result-value" id="trachea-diameter">-</div>
+                            </div>
+                        </div>
+                        
+                        <div class="result-warning">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            These are guidelines only. Clinical judgment and individual patient factors should guide final sizing decisions.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Reference Table -->
+            <div class="calculator-card" data-aos="fade-up">
+                <h2><i class="fas fa-table"></i> Complete Reference Guide</h2>
+                <div class="table-responsive">
+                    <table class="reference-table-full">
+                        <thead>
+                            <tr>
+                                <th>Patient Age</th>
+                                <th>Age-Appropriate ETT (uncuffed)*</th>
+                                <th>OD on ETT (mm)</th>
+                                <th>Dilation Goal Diameter - Larynx (mm)</th>
+                                <th>Dilation Goal Diameter - Trachea (mm)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Premature < 30 weeks</td>
+                                <td>2.5mm</td>
+                                <td>3.6</td>
+                                <td>-</td>
+                                <td>5</td>
+                            </tr>
+                            <tr>
+                                <td>Premature > 30 weeks</td>
+                                <td>3.0mm</td>
+                                <td>4.3</td>
+                                <td>5</td>
+                                <td>6</td>
+                            </tr>
+                            <tr>
+                                <td>Newborn</td>
+                                <td>3.5mm</td>
+                                <td>4.9</td>
+                                <td>6</td>
+                                <td>7</td>
+                            </tr>
+                            <tr>
+                                <td>1 year</td>
+                                <td>4.0mm</td>
+                                <td>5.6</td>
+                                <td>6</td>
+                                <td>7</td>
+                            </tr>
+                            <tr>
+                                <td>2 years</td>
+                                <td>4.5mm</td>
+                                <td>6.2</td>
+                                <td>7</td>
+                                <td>8-8.5</td>
+                            </tr>
+                            <tr>
+                                <td>4 years</td>
+                                <td>5.0mm</td>
+                                <td>6.9</td>
+                                <td>8-8.5</td>
+                                <td>8.5-9</td>
+                            </tr>
+                            <tr>
+                                <td>6 years</td>
+                                <td>5.5mm</td>
+                                <td>7.5</td>
+                                <td>8-9</td>
+                                <td>8.5-10</td>
+                            </tr>
+                            <tr>
+                                <td>8 years</td>
+                                <td>6.0mm</td>
+                                <td>8.2</td>
+                                <td>8-9</td>
+                                <td>10</td>
+                            </tr>
+                            <tr>
+                                <td>10 years</td>
+                                <td>6.5mm</td>
+                                <td>8.9</td>
+                                <td>10</td>
+                                <td>10-12</td>
+                            </tr>
+                            <tr>
+                                <td>12 years</td>
+                                <td>7.0mm</td>
+                                <td>9.5</td>
+                                <td>10-12</td>
+                                <td>12-14</td>
+                            </tr>
+                            <tr>
+                                <td>14 years</td>
+                                <td>7.5mm</td>
+                                <td>10.2</td>
+                                <td>12</td>
+                                <td>12-14</td>
+                            </tr>
+                            <tr>
+                                <td>16 years</td>
+                                <td>8.0mm</td>
+                                <td>11.0</td>
+                                <td>12</td>
+                                <td>14-16</td>
+                            </tr>
+                            <tr>
+                                <td>Adult Female</td>
+                                <td>7.0-8.0mm</td>
+                                <td>-</td>
+                                <td>12-14mm</td>
+                                <td>14-16mm</td>
+                            </tr>
+                            <tr>
+                                <td>Adult Male</td>
+                                <td>7.5mm-8.5mm</td>
+                                <td>-</td>
+                                <td>14-16mm</td>
+                                <td>16-18mm</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="table-note">* Mallinkrodt oronasal uncuffed endotracheal tubes</p>
+                </div>
+            </div>
+
+            <!-- Clinical Notes -->
+            <div class="calculator-card" data-aos="fade-up">
+                <h2><i class="fas fa-info-circle"></i> Clinical Considerations</h2>
+                <div class="clinical-notes">
+                    <div class="note-item">
+                        <i class="fas fa-check"></i>
+                        <p><strong>Gradual Dilation:</strong> Start with smaller balloon sizes and gradually increase to goal diameter to minimize trauma</p>
+                    </div>
+                    <div class="note-item">
+                        <i class="fas fa-check"></i>
+                        <p><strong>Anatomical Variations:</strong> Individual patient anatomy may require adjustment from guideline recommendations</p>
+                    </div>
+                    <div class="note-item">
+                        <i class="fas fa-check"></i>
+                        <p><strong>Stenosis Severity:</strong> Degree and location of stenosis should guide balloon selection and inflation pressure</p>
+                    </div>
+                    <div class="note-item">
+                        <i class="fas fa-check"></i>
+                        <p><strong>Monitoring:</strong> Continuous endoscopic visualization during dilation is essential for safety</p>
+                    </div>
+                    <div class="note-item">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p><strong>Complications:</strong> Be prepared to manage potential complications including bleeding, perforation, and airway edema</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- References Section -->
+            <div class="calculator-card" data-aos="fade-up">
+                <h2><i class="fas fa-book"></i> References</h2>
+                <div class="references-list">
+                    <ol>
+                        <li>
+                            <p>Mallinkrodt Medical Inc. Endotracheal Tube Sizing Guidelines. Product specifications for oronasal uncuffed endotracheal tubes.</p>
+                        </li>
+                        <li>
+                            <p>Hartnick CJ, Hartley BE, Lacy PD, et al. Surgery for pediatric subglottic stenosis: disease-specific outcomes. Ann Otol Rhinol Laryngol. 2001;110(12):1109-1113.</p>
+                        </li>
+                        <li>
+                            <p>Whigham AS, Howell R, Choi S, et al. Outcomes of balloon dilation in pediatric subglottic stenosis. Ann Otol Rhinol Laryngol. 2012;121(7):442-448.</p>
+                        </li>
+                        <li>
+                            <p>Lang M, Brietzke SE. A systematic review and meta-analysis of endoscopic balloon dilation of pediatric subglottic stenosis. Otolaryngol Head Neck Surg. 2014;150(2):174-179.</p>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Dr Ali Alshahrani. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/balloon-dilation.js"></script>
+</body>
+</html>
