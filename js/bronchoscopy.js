@@ -96,6 +96,9 @@ const goshAirwaySizing = {
             }
         ],
         
+        // Oesophagoscope
+        oesophagoscope: '4',
+        
         weightRange: '<1 kg',
         ageRange: 'Preterm-1 month',
         notes: {
@@ -191,6 +194,9 @@ const goshAirwaySizing = {
             }
         ],
         
+        // Oesophagoscope
+        oesophagoscope: '4-6',
+        
         weightRange: '1-6 kg',
         ageRange: '1-6 months',
         notes: {
@@ -280,6 +286,9 @@ const goshAirwaySizing = {
             }
         ],
         
+        // Oesophagoscope
+        oesophagoscope: '5-6',
+        
         weightRange: '6-10 kg',
         ageRange: '6-18 months',
         notes: {
@@ -358,6 +367,9 @@ const goshAirwaySizing = {
             flexibleSuction: '4F, 5F',
             forceps: 'Optical peanut/alligator/coin (with flexible suction 4F, 5F, 6F)'
         },
+        
+        // Oesophagoscope
+        oesophagoscope: '6-7',
         
         weightRange: '10-15 kg',
         ageRange: '18 months - 3 years',
@@ -439,6 +451,9 @@ const goshAirwaySizing = {
             forceps: 'Optical peanut/alligator/coin (with flexible suction 4F, 5F, 6F)'
         },
         
+        // Oesophagoscope
+        oesophagoscope: '7-8',
+        
         weightRange: '15-20 kg',
         ageRange: '3-6 years',
         notes: {
@@ -519,6 +534,9 @@ const goshAirwaySizing = {
             forceps: 'Optical peanut/alligator/coin (with flexible suction 4F, 5F, 6F)'
         },
         
+        // Oesophagoscope
+        oesophagoscope: '8',
+        
         weightRange: '20-30 kg',
         ageRange: '6-9 years',
         notes: {
@@ -598,6 +616,9 @@ const goshAirwaySizing = {
             forceps: 'Optical peanut/alligator/coin (with flexible suction 4F, 5F, 6F)'
         },
         
+        // Oesophagoscope
+        oesophagoscope: '8+',
+        
         weightRange: '30-45 kg',
         ageRange: '9-12 years',
         notes: {
@@ -667,6 +688,9 @@ const goshAirwaySizing = {
         // Instruments That Fit Together - Adult sizing
         instrumentsFit: null,
         
+        // Oesophagoscope
+        oesophagoscope: '8+',
+        
         weightRange: '>45 kg',
         ageRange: '12-14+ years',
         notes: {
@@ -726,6 +750,9 @@ function updateRecommendations() {
     
     document.getElementById('ventilating-size').textContent = sizing.ventilating;
     document.getElementById('ventilating-note').textContent = sizing.notes.ventilating;
+    
+    // Update Oesophagoscope
+    document.getElementById('oesophagoscope-size').textContent = sizing.oesophagoscope || '-';
     
     // Update Anatomical Measurements
     document.getElementById('cricoid-diameter').textContent = sizing.cricoidDiameter;
@@ -993,6 +1020,7 @@ function generatePDF() {
             { name: 'Rigid Bronchoscope', value: sizing.bronchoscope },
             { name: 'Telescope', value: sizing.telescope },
             { name: 'Endotracheal Tube (ETT)', value: sizing.ett + ' (OD: ' + sizing.ettOD + ')' },
+            { name: 'Oesophagoscope', value: sizing.oesophagoscope },
             { name: 'Optical Forceps', value: sizing.forceps },
             { name: 'Suction Catheter', value: sizing.suction },
             { name: 'Ventilating Bronchoscope', value: sizing.ventilating },
@@ -1009,6 +1037,58 @@ function generatePDF() {
             { name: 'Balloon Dilation (Larynx)', value: sizing.balloonLarynx },
             { name: 'Balloon Dilation (Trachea)', value: sizing.balloonTrachea }
         ];
+        
+        // Add Airway Balloons if available
+        if (sizing.bryanBalloon) {
+            equipment.push({ 
+                name: 'Bryan Medical Balloon', 
+                value: `ID ${sizing.bryanBalloon.id}, OD ${sizing.bryanBalloon.od}mm, Size ${sizing.bryanBalloon.size}, Max Pressure ${sizing.bryanBalloon.maxPressure}` 
+            });
+        }
+        if (sizing.bostonBalloon) {
+            equipment.push({ 
+                name: 'Boston Scientific Balloon', 
+                value: `OD ${sizing.bostonBalloon.od}mm, Length ${sizing.bostonBalloon.length}cm, Max Pressure ${sizing.bostonBalloon.maxPressure}` 
+            });
+        }
+        
+        // Add Scope Fits in ETT if available
+        if (sizing.scopeFitsETT) {
+            let scopeETTItems = [];
+            if (sizing.scopeFitsETT.portex) {
+                const portexData = Array.isArray(sizing.scopeFitsETT.portex) 
+                    ? sizing.scopeFitsETT.portex.map(p => `${p.id}/${p.od}`).join(', ')
+                    : `${sizing.scopeFitsETT.portex.id}/${sizing.scopeFitsETT.portex.od}`;
+                scopeETTItems.push(`Portex: ${portexData}`);
+            }
+            if (sizing.scopeFitsETT.mallinckrodt) {
+                const mallinData = Array.isArray(sizing.scopeFitsETT.mallinckrodt)
+                    ? sizing.scopeFitsETT.mallinckrodt.map(m => `${m.id}/${m.od}`).join(', ')
+                    : `${sizing.scopeFitsETT.mallinckrodt.id}/${sizing.scopeFitsETT.mallinckrodt.od}`;
+                scopeETTItems.push(`Mallinckrodt: ${mallinData}`);
+            }
+            if (sizing.scopeFitsETT.karlStorz) {
+                const karlData = Array.isArray(sizing.scopeFitsETT.karlStorz)
+                    ? sizing.scopeFitsETT.karlStorz.map(k => `${k.scope} (${k.size})`).join(', ')
+                    : `${sizing.scopeFitsETT.karlStorz.scope} (${sizing.scopeFitsETT.karlStorz.size})`;
+                scopeETTItems.push(`Karl Storz: ${karlData}`);
+            }
+            if (scopeETTItems.length > 0) {
+                equipment.push({ name: 'Scope Fits in ETT', value: scopeETTItems.join('; ') });
+            }
+        }
+        
+        // Add Instruments That Fit Together if available
+        if (sizing.instrumentsFit) {
+            const instruments = Array.isArray(sizing.instrumentsFit) ? sizing.instrumentsFit : [sizing.instrumentsFit];
+            instruments.forEach((inst, idx) => {
+                const instLabel = instruments.length > 1 ? ` (Option ${idx + 1})` : '';
+                equipment.push({ 
+                    name: `Instruments Compatibility${instLabel}`, 
+                    value: `Bronchoscope ${inst.bronchoscopeId}/${inst.bronchoscopeOd}mm, Telescope ${inst.telescope}, Suction ${inst.flexibleSuction}, Forceps: ${inst.forceps}` 
+                });
+            });
+        }
         
         equipment.forEach((item, index) => {
             if (yPos > 270) {
@@ -1118,6 +1198,7 @@ function printEquipmentList() {
             { name: 'Rigid Bronchoscope', value: sizing.bronchoscope },
             { name: 'Telescope', value: sizing.telescope },
             { name: 'Endotracheal Tube (ETT)', value: sizing.ett + ' (OD: ' + sizing.ettOD + ')' },
+            { name: 'Oesophagoscope', value: sizing.oesophagoscope },
             { name: 'Optical Forceps', value: sizing.forceps },
             { name: 'Suction Catheter', value: sizing.suction },
             { name: 'Ventilating Bronchoscope', value: sizing.ventilating },
@@ -1134,6 +1215,58 @@ function printEquipmentList() {
             { name: 'Balloon Dilation (Larynx)', value: sizing.balloonLarynx },
             { name: 'Balloon Dilation (Trachea)', value: sizing.balloonTrachea }
         ];
+        
+        // Add Airway Balloons if available
+        if (sizing.bryanBalloon) {
+            equipment.push({ 
+                name: 'Bryan Medical Balloon', 
+                value: `ID ${sizing.bryanBalloon.id}, OD ${sizing.bryanBalloon.od}mm, Size ${sizing.bryanBalloon.size}, Max Pressure ${sizing.bryanBalloon.maxPressure}` 
+            });
+        }
+        if (sizing.bostonBalloon) {
+            equipment.push({ 
+                name: 'Boston Scientific Balloon', 
+                value: `OD ${sizing.bostonBalloon.od}mm, Length ${sizing.bostonBalloon.length}cm, Max Pressure ${sizing.bostonBalloon.maxPressure}` 
+            });
+        }
+        
+        // Add Scope Fits in ETT if available
+        if (sizing.scopeFitsETT) {
+            let scopeETTItems = [];
+            if (sizing.scopeFitsETT.portex) {
+                const portexData = Array.isArray(sizing.scopeFitsETT.portex) 
+                    ? sizing.scopeFitsETT.portex.map(p => `${p.id}/${p.od}`).join(', ')
+                    : `${sizing.scopeFitsETT.portex.id}/${sizing.scopeFitsETT.portex.od}`;
+                scopeETTItems.push(`Portex: ${portexData}`);
+            }
+            if (sizing.scopeFitsETT.mallinckrodt) {
+                const mallinData = Array.isArray(sizing.scopeFitsETT.mallinckrodt)
+                    ? sizing.scopeFitsETT.mallinckrodt.map(m => `${m.id}/${m.od}`).join(', ')
+                    : `${sizing.scopeFitsETT.mallinckrodt.id}/${sizing.scopeFitsETT.mallinckrodt.od}`;
+                scopeETTItems.push(`Mallinckrodt: ${mallinData}`);
+            }
+            if (sizing.scopeFitsETT.karlStorz) {
+                const karlData = Array.isArray(sizing.scopeFitsETT.karlStorz)
+                    ? sizing.scopeFitsETT.karlStorz.map(k => `${k.scope} (${k.size})`).join(', ')
+                    : `${sizing.scopeFitsETT.karlStorz.scope} (${sizing.scopeFitsETT.karlStorz.size})`;
+                scopeETTItems.push(`Karl Storz: ${karlData}`);
+            }
+            if (scopeETTItems.length > 0) {
+                equipment.push({ name: 'Scope Fits in ETT', value: scopeETTItems.join('; ') });
+            }
+        }
+        
+        // Add Instruments That Fit Together if available
+        if (sizing.instrumentsFit) {
+            const instruments = Array.isArray(sizing.instrumentsFit) ? sizing.instrumentsFit : [sizing.instrumentsFit];
+            instruments.forEach((inst, idx) => {
+                const instLabel = instruments.length > 1 ? ` (Option ${idx + 1})` : '';
+                equipment.push({ 
+                    name: `Instruments Compatibility${instLabel}`, 
+                    value: `Bronchoscope ${inst.bronchoscopeId}/${inst.bronchoscopeOd}mm, Telescope ${inst.telescope}, Suction ${inst.flexibleSuction}, Forceps: ${inst.forceps}` 
+                });
+            });
+        }
         
         equipment.forEach(item => {
             equipmentHTML += `
