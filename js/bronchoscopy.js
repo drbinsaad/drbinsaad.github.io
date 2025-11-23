@@ -2,32 +2,8 @@
 // Integrated with GOSH (Great Ormond Street Hospital) Charts
 // Supports both age-based and weight-based views
 
-// Global view state
-let currentView = 'age'; // 'age' or 'weight'
-
-// Function to switch between age and weight views
-function switchView(view) {
-    currentView = view;
-    
-    // Update button states
-    document.getElementById('age-view-btn').classList.toggle('active', view === 'age');
-    document.getElementById('weight-view-btn').classList.toggle('active', view === 'weight');
-    
-    // Update input field requirements
-    const ageSelect = document.getElementById('patient-age');
-    const weightInput = document.getElementById('patient-weight');
-    
-    if (view === 'weight') {
-        weightInput.required = true;
-        ageSelect.required = false;
-    } else {
-        weightInput.required = false;
-        ageSelect.required = false; // Age select doesn't support required well
-    }
-    
-    // Re-run recommendations if data exists
-    updateRecommendations();
-}
+// Note: currentView and switchView are defined in inline script in HTML
+// This ensures immediate availability and avoids caching issues
 
 // Weight-to-age mapping for recommendations
 function getAgeFromWeight(weight) {

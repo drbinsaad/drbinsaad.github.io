@@ -88,7 +88,7 @@
                     </div>
                     <div class="input-group" id="weight-input-group">
                         <label for="patient-weight">Patient Weight (kg)</label>
-                        <input type="number" id="patient-weight" placeholder="Enter weight" min="0" step="0.1" onchange="updateRecommendations()">
+                        <input type="number" id="patient-weight" placeholder="Enter weight" min="0" step="0.1" oninput="updateRecommendations()" onchange="updateRecommendations()">
                         <small style="color: #666; font-size: 0.85rem; margin-top: 0.5rem; display: block;">Optional in age-based view, required in weight-based view</small>
                     </div>
                 </div>
