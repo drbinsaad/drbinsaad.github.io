@@ -53,6 +53,24 @@ const goshAirwaySizing = {
         balloonLarynx: '-',
         balloonTrachea: '5 mm',
         
+        // Airway Balloons - Bryan Medical Aeros
+        bryanBalloon: {
+            id: '1',
+            od: '3.0',
+            length: '5.5',
+            size: '44',
+            odMm: '5.0',
+            lengthCm: '30',
+            maxPressure: '17 atm'
+        },
+        
+        // Airway Balloons - Boston Scientific Mustang/CRE
+        bostonBalloon: {
+            od: '4.0',
+            length: '40',
+            maxPressure: '24 atm'
+        },
+        
         weightRange: '<1 kg',
         ageRange: 'Preterm-1 month',
         notes: {
@@ -97,6 +115,24 @@ const goshAirwaySizing = {
         // Balloon Dilation
         balloonLarynx: '5-6 mm',
         balloonTrachea: '6-7 mm',
+        
+        // Airway Balloons - Bryan Medical Aeros
+        bryanBalloon: {
+            id: '1-2',
+            od: '3.4',
+            length: '6.0',
+            size: '51',
+            odMm: '6.0-7.0',
+            lengthCm: '30',
+            maxPressure: '17 atm'
+        },
+        
+        // Airway Balloons - Boston Scientific Mustang/CRE
+        bostonBalloon: {
+            od: '6.0',
+            length: '40',
+            maxPressure: '24 atm'
+        },
         
         weightRange: '1-6 kg',
         ageRange: '1-6 months',
@@ -143,6 +179,24 @@ const goshAirwaySizing = {
         balloonLarynx: '6 mm',
         balloonTrachea: '7 mm',
         
+        // Airway Balloons - Bryan Medical Aeros
+        bryanBalloon: {
+            id: '3',
+            od: '4.3',
+            length: '7.0',
+            size: '58',
+            odMm: '8.0',
+            lengthCm: '30',
+            maxPressure: '17 atm'
+        },
+        
+        // Airway Balloons - Boston Scientific Mustang/CRE
+        bostonBalloon: {
+            od: '8.0',
+            length: '40',
+            maxPressure: '20 atm'
+        },
+        
         weightRange: '6-10 kg',
         ageRange: '6-18 months',
         notes: {
@@ -187,6 +241,24 @@ const goshAirwaySizing = {
         // Balloon Dilation
         balloonLarynx: '7 mm',
         balloonTrachea: '8-8.5 mm',
+        
+        // Airway Balloons - Bryan Medical Aeros
+        bryanBalloon: {
+            id: '3-4',
+            od: '4.3-5.5',
+            length: '7.0-8.0',
+            size: '58-62',
+            odMm: '8.0-9.0',
+            lengthCm: '30',
+            maxPressure: '17 atm'
+        },
+        
+        // Airway Balloons - Boston Scientific Mustang/CRE
+        bostonBalloon: {
+            od: '8.0-9.0',
+            length: '40',
+            maxPressure: '18-20 atm'
+        },
         
         weightRange: '10-15 kg',
         ageRange: '18 months - 3 years',
@@ -233,6 +305,24 @@ const goshAirwaySizing = {
         balloonLarynx: '8-8.5 mm',
         balloonTrachea: '8.5-9 mm',
         
+        // Airway Balloons - Bryan Medical Aeros
+        bryanBalloon: {
+            id: '5',
+            od: '6.2',
+            length: '9.0',
+            size: '68',
+            odMm: '10.0',
+            lengthCm: '30',
+            maxPressure: '17 atm'
+        },
+        
+        // Airway Balloons - Boston Scientific Mustang/CRE
+        bostonBalloon: {
+            od: '10.0',
+            length: '30-40',
+            maxPressure: '9-14 atm'
+        },
+        
         weightRange: '15-20 kg',
         ageRange: '3-6 years',
         notes: {
@@ -277,6 +367,24 @@ const goshAirwaySizing = {
         // Balloon Dilation
         balloonLarynx: '8-9 mm',
         balloonTrachea: '8.5-10 mm',
+        
+        // Airway Balloons - Bryan Medical Aeros
+        bryanBalloon: {
+            id: '5',
+            od: '6.2',
+            length: '9.0',
+            size: '68',
+            odMm: '10.0',
+            lengthCm: '30',
+            maxPressure: '17 atm'
+        },
+        
+        // Airway Balloons - Boston Scientific Mustang/CRE
+        bostonBalloon: {
+            od: '10.0',
+            length: '30',
+            maxPressure: '9 atm'
+        },
         
         weightRange: '20-30 kg',
         ageRange: '6-9 years',
@@ -323,6 +431,24 @@ const goshAirwaySizing = {
         balloonLarynx: '10 mm',
         balloonTrachea: '10-12 mm',
         
+        // Airway Balloons - Bryan Medical Aeros
+        bryanBalloon: {
+            id: '6-9',
+            od: '7.2-9.8',
+            length: '10.0-13.0',
+            size: '69',
+            odMm: '12.0-16.0',
+            lengthCm: '40',
+            maxPressure: '10 atm'
+        },
+        
+        // Airway Balloons - Boston Scientific Mustang/CRE
+        bostonBalloon: {
+            od: '12.0-15.0',
+            length: '30-55',
+            maxPressure: '8-14 atm'
+        },
+        
         weightRange: '30-45 kg',
         ageRange: '9-12 years',
         notes: {
@@ -367,6 +493,24 @@ const goshAirwaySizing = {
         // Balloon Dilation
         balloonLarynx: '12-14 mm',
         balloonTrachea: '12-16 mm',
+        
+        // Airway Balloons - Bryan Medical Aeros
+        bryanBalloon: {
+            id: '6-9',
+            od: '7.2-9.8',
+            length: '10.0-13.0',
+            size: '69',
+            odMm: '12.0-16.0',
+            lengthCm: '40',
+            maxPressure: '10 atm'
+        },
+        
+        // Airway Balloons - Boston Scientific Mustang/CRE
+        bostonBalloon: {
+            od: '12.0-20.0',
+            length: '30-55',
+            maxPressure: '6-14 atm'
+        },
         
         weightRange: '>45 kg',
         ageRange: '12-14+ years',
@@ -453,6 +597,36 @@ function updateRecommendations() {
     // Update Balloon Dilation
     document.getElementById('balloon-larynx').textContent = sizing.balloonLarynx;
     document.getElementById('balloon-trachea').textContent = sizing.balloonTrachea;
+    
+    // Update Airway Balloons - Bryan Medical Aeros
+    if (sizing.bryanBalloon) {
+        document.getElementById('bryan-id').textContent = sizing.bryanBalloon.id || '-';
+        document.getElementById('bryan-od').textContent = sizing.bryanBalloon.od || '-';
+        document.getElementById('bryan-length').textContent = sizing.bryanBalloon.length || '-';
+        document.getElementById('bryan-size').textContent = sizing.bryanBalloon.size || '-';
+        document.getElementById('bryan-od-mm').textContent = sizing.bryanBalloon.odMm || '-';
+        document.getElementById('bryan-length-cm').textContent = sizing.bryanBalloon.lengthCm || '-';
+        document.getElementById('bryan-max-pressure').textContent = sizing.bryanBalloon.maxPressure || '-';
+    } else {
+        document.getElementById('bryan-id').textContent = '-';
+        document.getElementById('bryan-od').textContent = '-';
+        document.getElementById('bryan-length').textContent = '-';
+        document.getElementById('bryan-size').textContent = '-';
+        document.getElementById('bryan-od-mm').textContent = '-';
+        document.getElementById('bryan-length-cm').textContent = '-';
+        document.getElementById('bryan-max-pressure').textContent = '-';
+    }
+    
+    // Update Airway Balloons - Boston Scientific Mustang/CRE
+    if (sizing.bostonBalloon) {
+        document.getElementById('boston-od').textContent = sizing.bostonBalloon.od || '-';
+        document.getElementById('boston-length').textContent = sizing.bostonBalloon.length || '-';
+        document.getElementById('boston-max-pressure').textContent = sizing.bostonBalloon.maxPressure || '-';
+    } else {
+        document.getElementById('boston-od').textContent = '-';
+        document.getElementById('boston-length').textContent = '-';
+        document.getElementById('boston-max-pressure').textContent = '-';
+    }
     
     // Display recommendations
     recommendationsDiv.style.display = 'block';
