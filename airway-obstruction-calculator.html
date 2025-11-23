@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airway Obstruction Calculator - Dr Ali Alshahrani</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/calculator.css" rel="stylesheet">
+</head>
+<body>
+    <nav id="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">Dr Ali Alshahrani</a>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links">
+                <li>
+                    <a href="#research">Research</a>
+                    <ul class="dropdown">
+                        <li><a href="index.html#research">Research Focus</a></li>
+                        <li><a href="index.html#publications">Recent Publications</a></li>
+                    </ul>
+                </li>
+                <li><a href="curriculum_vitae.html">Brief CV</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+                <li>
+                    <a href="#ent">ENT Tools</a>
+                    <ul class="dropdown">
+                        <li><a href="ent-calculators.html">Medical Calculators</a></li>
+                        <li><a href="bronchoscopy-tool.html">Airway Sizing Tool</a></li>
+                        <li><a href="et-depth-calculator.html">ET Depth Calculator</a></li>
+                        <li><a href="xeomin-calculator.html">XEOMIN Calculator</a></li>
+                        <li><a href="nebulized-epinephrine-calculator.html">Nebulized Epinephrine</a></li>
+                        <li><a href="airway-obstruction-calculator.html">Airway Obstruction</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <header style="min-height: 40vh;">
+        <div class="container">
+            <div class="header-content" style="text-align: center;">
+                <div class="profile-text" data-aos="fade-up">
+                    <h1><i class="fas fa-lungs"></i> Airway Obstruction Calculator</h1>
+                    <p>Assess percent airway obstruction based on endotracheal tube size</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="airway-calculator">
+        <div class="container">
+            
+            <!-- Calculator Input -->
+            <div class="calculator-card" data-aos="fade-up">
+                <h2><i class="fas fa-calculator"></i> Calculate Airway Obstruction</h2>
+                <p class="formula-display">Based on Cotton-Myer Grading System for Subglottic Stenosis</p>
+                
+                <div class="input-group">
+                    <label for="patient-age-select">Patient Age</label>
+                    <select id="patient-age-select" onchange="calculateObstruction()">
+                        <option value="">Select age...</option>
+                        <option value="preterm1">Pre-term (younger)</option>
+                        <option value="preterm2">Pre-term (older)</option>
+                        <option value="0-3mo">0-3 months</option>
+                        <option value="3-9mo">3-9 months</option>
+                        <option value="9mo-2yr">9 months - 2 years</option>
+                        <option value="2yr">2 years</option>
+                        <option value="4yr">4 years</option>
+                        <option value="6yr">6 years</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <label for="ett-size-select">Endotracheal Tube Size (mm)</label>
+                    <select id="ett-size-select" onchange="calculateObstruction()">
+                        <option value="">Select ETT size...</option>
+                        <option value="2.0">2.0</option>
+                        <option value="2.5">2.5</option>
+                        <option value="3.0">3.0</option>
+                        <option value="3.5">3.5</option>
+                        <option value="4.0">4.0</option>
+                        <option value="4.5">4.5</option>
+                        <option value="5.0">5.0</option>
+                        <option value="5.5">5.5</option>
+                    </select>
+                </div>
+                
+                <div id="obstruction-result" class="result-box" style="display: none;">
+                    <div class="result-icon"><i class="fas fa-check-circle"></i></div>
+                    <div class="result-content">
+                        <h3>Airway Obstruction Assessment</h3>
+                        <div class="result-value" id="obstruction-value">-</div>
+                        <div class="result-note" id="grade-value">-</div>
+                        <div class="result-warning">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            Clinical correlation required. This is an estimation tool based on ETT sizing.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Reference Table -->
+            <div class="calculator-card" data-aos="fade-up">
+                <h2><i class="fas fa-table"></i> Percent Airway Obstruction Reference Table</h2>
+                <div class="table-responsive">
+                    <table class="reference-table-full">
+                        <thead>
+                            <tr>
+                                <th>Age</th>
+                                <th>ETT 2.0</th>
+                                <th>ETT 2.5</th>
+                                <th>ETT 3.0</th>
+                                <th>ETT 3.5</th>
+                                <th>ETT 4.0</th>
+                                <th>ETT 4.5</th>
+                                <th>ETT 5.0</th>
+                                <th>ETT 5.5</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Pre-term (younger)</td>
+                                <td class="grade-4">40%</td>
+                                <td colspan="4" class="no-obstruction">No obstruction</td>
+                                <td class="no-obstruction">-</td>
+                                <td class="no-obstruction">-</td>
+                                <td class="no-obstruction">-</td>
+                            </tr>
+                            <tr>
+                                <td>Pre-term (older)</td>
+                                <td class="grade-4">58%</td>
+                                <td class="grade-3">30%</td>
+                                <td colspan="3" class="no-obstruction">No obstruction</td>
+                                <td class="no-obstruction">-</td>
+                                <td class="no-obstruction">-</td>
+                                <td class="no-obstruction">-</td>
+                            </tr>
+                            <tr>
+                                <td>0-3 months</td>
+                                <td class="grade-4">68%</td>
+                                <td class="grade-3">48%</td>
+                                <td class="grade-3">26%</td>
+                                <td colspan="2" class="no-obstruction">No obstruction</td>
+                                <td class="no-obstruction">-</td>
+                                <td class="no-obstruction">-</td>
+                                <td class="no-obstruction">-</td>
+                            </tr>
+                            <tr>
+                                <td>3-9 months</td>
+                                <td class="grade-4">75%</td>
+                                <td class="grade-4">59%</td>
+                                <td class="grade-3">41%</td>
+                                <td class="grade-3">22%</td>
+                                <td class="no-obstruction">No obstruction</td>
+                                <td class="no-obstruction">-</td>
+                                <td class="no-obstruction">-</td>
+                                <td class="no-obstruction">-</td>
+                            </tr>
+                            <tr>
+                                <td>9 months - 2 years</td>
+                                <td class="grade-4">80%</td>
+                                <td class="grade-4">67%</td>
+                                <td class="grade-4">53%</td>
+                                <td class="grade-3">38%</td>
+                                <td class="grade-2">20%</td>
+                                <td class="no-obstruction">-</td>
+                                <td class="no-obstruction">-</td>
+                                <td class="no-obstruction">-</td>
+                            </tr>
+                            <tr>
+                                <td>2 years</td>
+                                <td class="grade-4">84%</td>
+                                <td class="grade-4">74%</td>
+                                <td class="grade-4">62%</td>
+                                <td class="grade-3">50%</td>
+                                <td class="grade-2">35%</td>
+                                <td class="grade-2">19%</td>
+                                <td class="no-obstruction">-</td>
+                                <td class="no-obstruction">-</td>
+                            </tr>
+                            <tr>
+                                <td>4 years</td>
+                                <td class="grade-4">86%</td>
+                                <td class="grade-4">78%</td>
+                                <td class="grade-4">68%</td>
+                                <td class="grade-4">57%</td>
+                                <td class="grade-2">45%</td>
+                                <td class="grade-2">32%</td>
+                                <td class="grade-1">17%</td>
+                                <td class="no-obstruction">-</td>
+                            </tr>
+                            <tr>
+                                <td>6 years</td>
+                                <td class="grade-4">98%</td>
+                                <td class="grade-4">81%</td>
+                                <td class="grade-4">73%</td>
+                                <td class="grade-4">64%</td>
+                                <td class="grade-4">54%</td>
+                                <td class="grade-2">43%</td>
+                                <td class="grade-2">30%</td>
+                                <td class="grade-1">16%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Grading System -->
+            <div class="calculator-card" data-aos="fade-up">
+                <h2><i class="fas fa-layer-group"></i> Cotton-Myer Grading System</h2>
+                <div class="grading-system">
+                    <div class="grade-item grade-1-bg">
+                        <h3>Grade I</h3>
+                        <p><strong>0-50% obstruction</strong></p>
+                        <p>Mild stenosis - Usually well tolerated</p>
+                    </div>
+                    <div class="grade-item grade-2-bg">
+                        <h3>Grade II</h3>
+                        <p><strong>51-70% obstruction</strong></p>
+                        <p>Moderate stenosis - May cause respiratory symptoms</p>
+                    </div>
+                    <div class="grade-item grade-3-bg">
+                        <h3>Grade III</h3>
+                        <p><strong>71-99% obstruction</strong></p>
+                        <p>Severe stenosis - Significant airway compromise</p>
+                    </div>
+                    <div class="grade-item grade-4-bg">
+                        <h3>Grade IV</h3>
+                        <p><strong>No detectable lumen</strong></p>
+                        <p>Complete obstruction - Critical airway emergency</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Clinical Notes -->
+            <div class="calculator-card" data-aos="fade-up">
+                <h2><i class="fas fa-info-circle"></i> Clinical Considerations</h2>
+                <div class="clinical-notes">
+                    <div class="note-item">
+                        <i class="fas fa-check"></i>
+                        <p><strong>Assessment Method:</strong> The percentage of obstruction is determined by comparing the size of ETT that can pass through the stenotic area with age-appropriate normal ETT sizes</p>
+                    </div>
+                    <div class="note-item">
+                        <i class="fas fa-check"></i>
+                        <p><strong>Clinical Application:</strong> This grading system is widely used for pediatric subglottic stenosis assessment and treatment planning</p>
+                    </div>
+                    <div class="note-item">
+                        <i class="fas fa-check"></i>
+                        <p><strong>Tube Variability:</strong> The grading may depend on the style and outer diameter of the specific ETT used</p>
+                    </div>
+                    <div class="note-item">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p><strong>Limitations:</strong> This is an estimation tool. Direct visualization via endoscopy and imaging studies are essential for accurate diagnosis</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- References -->
+            <div class="calculator-card" data-aos="fade-up">
+                <h2><i class="fas fa-book"></i> References</h2>
+                <div class="references">
+                    <ol>
+                        <li>
+                            Myer CM 3rd, O'Connor DM, Cotton RT. Proposed grading system for subglottic stenosis based on endotracheal tube sizes. <em>Ann Otol Rhinol Laryngol</em>. 1994 Apr;103(4 Pt 1):319-23. doi: 10.1177/000348949410300410. PMID: 8154776.
+                        </li>
+                        <li>
+                            Propst EJ, Funamura JL, Kawai K, Watters K, Rahbar R. Myer‐Cotton Grade of Subglottic Stenosis Depends on Style of Endotracheal Tube Used. <em>Laryngoscope</em>. 2023 Oct;133(10):2721-2725. doi: 10.1002/lary.30577. PMID: 36688266.
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Dr Ali Alshahrani. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/airway-obstruction.js"></script>
+</body>
+</html>
