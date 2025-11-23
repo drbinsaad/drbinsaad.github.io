@@ -465,6 +465,45 @@
         </div>
     </section>
 
+    <!-- Inline toggle function to ensure it loads immediately -->
+    <script>
+        let currentView = 'age';
+        
+        function switchView(view) {
+            currentView = view;
+            
+            // Update button states
+            const ageBtn = document.getElementById('age-view-btn');
+            const weightBtn = document.getElementById('weight-view-btn');
+            
+            if (ageBtn && weightBtn) {
+                if (view === 'age') {
+                    ageBtn.classList.add('active');
+                    weightBtn.classList.remove('active');
+                } else {
+                    ageBtn.classList.remove('active');
+                    weightBtn.classList.add('active');
+                }
+            }
+            
+            // Update input requirements
+            const ageSelect = document.getElementById('patient-age');
+            const weightInput = document.getElementById('patient-weight');
+            
+            if (weightInput) {
+                weightInput.required = (view === 'weight');
+            }
+            if (ageSelect) {
+                ageSelect.required = (view === 'age');
+            }
+            
+            // Trigger recommendations update if function exists
+            if (typeof updateRecommendations === 'function') {
+                updateRecommendations();
+            }
+        }
+    </script>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="js/main.js"></script>
     <script src="js/bronchoscopy.js?v=gosh2024"></script>
