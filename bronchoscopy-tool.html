@@ -94,6 +94,36 @@
                 </div>
             </div>
 
+            <!-- Procedure Selection & Actions -->
+            <div id="procedure-actions" class="tool-card" style="display: none; margin-top: 2rem;">
+                <h2><i class="fas fa-clipboard-list"></i> Procedure & Equipment List</h2>
+                <div class="input-group">
+                    <label for="procedure-type">Procedure Type</label>
+                    <select id="procedure-type">
+                        <option value="">Select procedure...</option>
+                        <option value="rigid-bronchoscopy">Rigid Bronchoscopy</option>
+                        <option value="tracheostomy">Tracheostomy</option>
+                        <option value="foreign-body">Airway Foreign Body Removal</option>
+                        <option value="subglottic-stenosis">Subglottic Stenosis (Dilation)</option>
+                        <option value="esophagoscopy">Esophagoscopy</option>
+                        <option value="microlaryngoscopy">Microlaryngoscopy</option>
+                        <option value="emergency-airway">Emergency Airway Management</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="additional-notes">Additional Notes (Optional)</label>
+                    <textarea id="additional-notes" rows="3" placeholder="Special instructions or considerations..."></textarea>
+                </div>
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem;">
+                    <button class="action-btn primary-btn" onclick="generatePDF()">
+                        <i class="fas fa-file-pdf"></i> Download PDF
+                    </button>
+                    <button class="action-btn secondary-btn" onclick="printEquipmentList()">
+                        <i class="fas fa-print"></i> Print List
+                    </button>
+                </div>
+            </div>
+
             <!-- Recommendations Section -->
             <div id="recommendations" class="recommendations-container" style="display: none;">
                 
@@ -504,6 +534,8 @@
         }
     </script>
     
+    <!-- jsPDF Library for PDF Generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="js/main.js"></script>
     <script src="js/bronchoscopy.js?v=gosh2024"></script>

@@ -910,3 +910,78 @@
         font-size: 0.9rem;
     }
 }
+
+
+/* Action Buttons for Equipment List */
+.action-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.primary-btn {
+    background: #e74c3c;
+    color: white;
+}
+
+.primary-btn:hover {
+    background: #c0392b;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+}
+
+.secondary-btn {
+    background: #3498db;
+    color: white;
+}
+
+.secondary-btn:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+}
+
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    resize: vertical;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: #6c5ce7;
+}
+
+/* View Toggle Buttons */
+.view-toggle-btn {
+    padding: 10px 20px;
+    margin: 5px;
+    border: 2px solid #6c5ce7;
+    background: white;
+    color: #6c5ce7;
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.view-toggle-btn.active {
+    background: #6c5ce7;
+    color: white;
+}
+
+.view-toggle-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(108, 92, 231, 0.2);
+}

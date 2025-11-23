@@ -457,6 +457,12 @@ function updateRecommendations() {
     // Display recommendations
     recommendationsDiv.style.display = 'block';
     
+    // Show procedure actions section
+    const procedureActionsDiv = document.getElementById('procedure-actions');
+    if (procedureActionsDiv) {
+        procedureActionsDiv.style.display = 'block';
+    }
+    
     // Smooth scroll to recommendations
     recommendationsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
@@ -469,3 +475,393 @@ document.addEventListener('DOMContentLoaded', function() {
         offset: 100
     });
 });
+
+
+// PDF Generation Function
+function generatePDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    
+    // Get patient information
+    const ageSelect = document.getElementById('patient-age');
+    const weightInput = document.getElementById('patient-weight');
+    const procedureSelect = document.getElementById('procedure-type');
+    const notesTextarea = document.getElementById('additional-notes');
+    
+    let patientAge = '';
+    let patientWeight = weightInput.value || 'Not specified';
+    
+    if (currentView === 'age') {
+        const selectedOption = ageSelect.options[ageSelect.selectedIndex];
+        patientAge = selectedOption ? selectedOption.text : '';
+    } else {
+        patientAge = getAgeFromWeight(parseFloat(weightInput.value));
+        // Convert age code to readable format
+        const ageMap = {
+            'premature': 'Premature',
+            '0-6mo': '0-6 months',
+            '6-18mo': '6-18 months',
+            '18mo-3yr': '18 months - 3 years',
+            '3-5yr': '3-5 years',
+            '5-8yr': '5-8 years',
+            '8-12yr': '8-12 years',
+            'adult': 'Adult (>12 years)'
+        };
+        patientAge = ageMap[patientAge] || patientAge;
+    }
+    
+    const procedureText = procedureSelect.options[procedureSelect.selectedIndex].text;
+    const additionalNotes = notesTextarea.value;
+    
+    // Get current date and time
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+    
+    // Header
+    doc.setFillColor(108, 92, 231);
+    doc.rect(0, 0, 210, 35, 'F');
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(22);
+    doc.setFont('helvetica', 'bold');
+    doc.text('AIRWAY EQUIPMENT LIST', 105, 15, { align: 'center' });
+    doc.setFontSize(12);
+    doc.text('Pediatric Airway & Bronchoscopy', 105, 23, { align: 'center' });
+    doc.setFontSize(10);
+    doc.text('shahrani.me', 105, 30, { align: 'center' });
+    
+    // Patient Information Section
+    let yPos = 45;
+    doc.setTextColor(0, 0, 0);
+    doc.setFontSize(14);
+    doc.setFont('helvetica', 'bold');
+    doc.text('PATIENT INFORMATION', 20, yPos);
+    
+    yPos += 8;
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    doc.text(`Date: ${dateStr}`, 20, yPos);
+    doc.text(`Time: ${timeStr}`, 120, yPos);
+    
+    yPos += 6;
+    doc.text(`Patient Age: ${patientAge}`, 20, yPos);
+    doc.text(`Weight: ${patientWeight} kg`, 120, yPos);
+    
+    yPos += 6;
+    doc.setFont('helvetica', 'bold');
+    doc.text(`Procedure: ${procedureText}`, 20, yPos);
+    
+    // Equipment List Section
+    yPos += 12;
+    doc.setFillColor(240, 240, 240);
+    doc.rect(15, yPos - 5, 180, 8, 'F');
+    doc.setFontSize(14);
+    doc.setFont('helvetica', 'bold');
+    doc.text('EQUIPMENT CHECKLIST', 20, yPos);
+    
+    yPos += 10;
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    
+    // Get equipment data
+    const selectedAge = currentView === 'age' ? ageSelect.value : getAgeFromWeight(parseFloat(weightInput.value));
+    const sizing = goshAirwaySizing[selectedAge];
+    
+    if (sizing) {
+        const equipment = [
+            { name: 'Rigid Bronchoscope', value: sizing.bronchoscope },
+            { name: 'Telescope', value: sizing.telescope },
+            { name: 'Endotracheal Tube (ETT)', value: sizing.ett + ' (OD: ' + sizing.ettOD + ')' },
+            { name: 'Optical Forceps', value: sizing.forceps },
+            { name: 'Suction Catheter', value: sizing.suction },
+            { name: 'Ventilating Bronchoscope', value: sizing.ventilating },
+            { name: 'Shiley Tube', value: sizing.shileyTube },
+            { name: 'Portex Cuffed', value: sizing.portexCuffed },
+            { name: 'Portex Uncuffed', value: sizing.portexUncuffed },
+            { name: 'Storz Bronchoscope', value: sizing.bronchoscopeStorz },
+            { name: 'Alder Hey Suction', value: sizing.alderHeySuction },
+            { name: 'NPA (Nasopharyngeal Airway)', value: sizing.npa },
+            { name: 'Tracheostomy (Jackson)', value: sizing.tracheostomyJackson },
+            { name: 'Tracheostomy (ISO)', value: sizing.tracheostomyISO },
+            { name: 'Miller Blade', value: sizing.millerBlade },
+            { name: 'Macintosh Blade', value: sizing.macintoshBlade },
+            { name: 'Balloon Dilation (Larynx)', value: sizing.balloonLarynx },
+            { name: 'Balloon Dilation (Trachea)', value: sizing.balloonTrachea }
+        ];
+        
+        equipment.forEach((item, index) => {
+            if (yPos > 270) {
+                doc.addPage();
+                yPos = 20;
+            }
+            
+            // Checkbox
+            doc.rect(20, yPos - 3, 4, 4);
+            
+            // Equipment name
+            doc.setFont('helvetica', 'bold');
+            doc.text(item.name, 28, yPos);
+            
+            // Equipment value
+            doc.setFont('helvetica', 'normal');
+            const valueText = item.value || 'N/A';
+            doc.text(valueText, 120, yPos);
+            
+            yPos += 7;
+        });
+    }
+    
+    // Additional Notes Section
+    if (additionalNotes) {
+        yPos += 5;
+        if (yPos > 250) {
+            doc.addPage();
+            yPos = 20;
+        }
+        
+        doc.setFillColor(240, 240, 240);
+        doc.rect(15, yPos - 5, 180, 8, 'F');
+        doc.setFontSize(12);
+        doc.setFont('helvetica', 'bold');
+        doc.text('ADDITIONAL NOTES', 20, yPos);
+        
+        yPos += 8;
+        doc.setFontSize(10);
+        doc.setFont('helvetica', 'normal');
+        const splitNotes = doc.splitTextToSize(additionalNotes, 170);
+        doc.text(splitNotes, 20, yPos);
+        yPos += splitNotes.length * 5;
+    }
+    
+    // Footer
+    const pageCount = doc.internal.getNumberOfPages();
+    for (let i = 1; i <= pageCount; i++) {
+        doc.setPage(i);
+        doc.setFontSize(8);
+        doc.setTextColor(128, 128, 128);
+        doc.text('Generated by shahrani.me - Pediatric Airway Sizing Tool', 105, 285, { align: 'center' });
+        doc.text(`Page ${i} of ${pageCount}`, 105, 290, { align: 'center' });
+    }
+    
+    // Save PDF
+    const filename = `Equipment_List_${patientAge.replace(/\s+/g, '_')}_${dateStr.replace(/\s+/g, '_')}.pdf`;
+    doc.save(filename);
+}
+
+// Print Function
+function printEquipmentList() {
+    // Get patient information
+    const ageSelect = document.getElementById('patient-age');
+    const weightInput = document.getElementById('patient-weight');
+    const procedureSelect = document.getElementById('procedure-type');
+    const notesTextarea = document.getElementById('additional-notes');
+    
+    let patientAge = '';
+    let patientWeight = weightInput.value || 'Not specified';
+    
+    if (currentView === 'age') {
+        const selectedOption = ageSelect.options[ageSelect.selectedIndex];
+        patientAge = selectedOption ? selectedOption.text : '';
+    } else {
+        patientAge = getAgeFromWeight(parseFloat(weightInput.value));
+        const ageMap = {
+            'premature': 'Premature',
+            '0-6mo': '0-6 months',
+            '6-18mo': '6-18 months',
+            '18mo-3yr': '18 months - 3 years',
+            '3-5yr': '3-5 years',
+            '5-8yr': '5-8 years',
+            '8-12yr': '8-12 years',
+            'adult': 'Adult (>12 years)'
+        };
+        patientAge = ageMap[patientAge] || patientAge;
+    }
+    
+    const procedureText = procedureSelect.options[procedureSelect.selectedIndex].text;
+    const additionalNotes = notesTextarea.value;
+    
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+    
+    // Get equipment data
+    const selectedAge = currentView === 'age' ? ageSelect.value : getAgeFromWeight(parseFloat(weightInput.value));
+    const sizing = goshAirwaySizing[selectedAge];
+    
+    // Create print window
+    const printWindow = window.open('', '', 'width=800,height=600');
+    
+    let equipmentHTML = '';
+    if (sizing) {
+        const equipment = [
+            { name: 'Rigid Bronchoscope', value: sizing.bronchoscope },
+            { name: 'Telescope', value: sizing.telescope },
+            { name: 'Endotracheal Tube (ETT)', value: sizing.ett + ' (OD: ' + sizing.ettOD + ')' },
+            { name: 'Optical Forceps', value: sizing.forceps },
+            { name: 'Suction Catheter', value: sizing.suction },
+            { name: 'Ventilating Bronchoscope', value: sizing.ventilating },
+            { name: 'Shiley Tube', value: sizing.shileyTube },
+            { name: 'Portex Cuffed', value: sizing.portexCuffed },
+            { name: 'Portex Uncuffed', value: sizing.portexUncuffed },
+            { name: 'Storz Bronchoscope', value: sizing.bronchoscopeStorz },
+            { name: 'Alder Hey Suction', value: sizing.alderHeySuction },
+            { name: 'NPA (Nasopharyngeal Airway)', value: sizing.npa },
+            { name: 'Tracheostomy (Jackson)', value: sizing.tracheostomyJackson },
+            { name: 'Tracheostomy (ISO)', value: sizing.tracheostomyISO },
+            { name: 'Miller Blade', value: sizing.millerBlade },
+            { name: 'Macintosh Blade', value: sizing.macintoshBlade },
+            { name: 'Balloon Dilation (Larynx)', value: sizing.balloonLarynx },
+            { name: 'Balloon Dilation (Trachea)', value: sizing.balloonTrachea }
+        ];
+        
+        equipment.forEach(item => {
+            equipmentHTML += `
+                <tr>
+                    <td style="width: 30px; text-align: center;">☐</td>
+                    <td style="font-weight: 600;">${item.name}</td>
+                    <td>${item.value || 'N/A'}</td>
+                </tr>
+            `;
+        });
+    }
+    
+    printWindow.document.write(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Equipment List - ${patientAge}</title>
+            <style>
+                @media print {
+                    @page { margin: 1cm; }
+                }
+                body {
+                    font-family: Arial, sans-serif;
+                    padding: 20px;
+                    max-width: 800px;
+                    margin: 0 auto;
+                }
+                .header {
+                    background: #6c5ce7;
+                    color: white;
+                    padding: 20px;
+                    text-align: center;
+                    margin-bottom: 30px;
+                    border-radius: 8px;
+                }
+                .header h1 {
+                    margin: 0 0 10px 0;
+                    font-size: 24px;
+                }
+                .header p {
+                    margin: 5px 0;
+                    font-size: 14px;
+                }
+                .info-section {
+                    background: #f8f9fa;
+                    padding: 15px;
+                    border-radius: 8px;
+                    margin-bottom: 20px;
+                }
+                .info-row {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: 8px;
+                }
+                .info-label {
+                    font-weight: 600;
+                }
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin-bottom: 20px;
+                }
+                th {
+                    background: #6c5ce7;
+                    color: white;
+                    padding: 12px;
+                    text-align: left;
+                    font-weight: 600;
+                }
+                td {
+                    padding: 10px;
+                    border-bottom: 1px solid #dee2e6;
+                }
+                tr:hover {
+                    background: #f8f9fa;
+                }
+                .notes-section {
+                    background: #fff3cd;
+                    padding: 15px;
+                    border-radius: 8px;
+                    border-left: 4px solid #ffc107;
+                    margin-top: 20px;
+                }
+                .notes-section h3 {
+                    margin-top: 0;
+                }
+                .footer {
+                    text-align: center;
+                    color: #6c757d;
+                    font-size: 12px;
+                    margin-top: 30px;
+                    padding-top: 20px;
+                    border-top: 2px solid #dee2e6;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="header">
+                <h1>AIRWAY EQUIPMENT LIST</h1>
+                <p>Pediatric Airway & Bronchoscopy</p>
+                <p>shahrani.me</p>
+            </div>
+            
+            <div class="info-section">
+                <div class="info-row">
+                    <span><span class="info-label">Date:</span> ${dateStr}</span>
+                    <span><span class="info-label">Time:</span> ${timeStr}</span>
+                </div>
+                <div class="info-row">
+                    <span><span class="info-label">Patient Age:</span> ${patientAge}</span>
+                    <span><span class="info-label">Weight:</span> ${patientWeight} kg</span>
+                </div>
+                <div class="info-row">
+                    <span><span class="info-label">Procedure:</span> ${procedureText}</span>
+                </div>
+            </div>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 30px;">✓</th>
+                        <th>Equipment</th>
+                        <th>Size/Specification</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${equipmentHTML}
+                </tbody>
+            </table>
+            
+            ${additionalNotes ? `
+                <div class="notes-section">
+                    <h3>Additional Notes:</h3>
+                    <p>${additionalNotes.replace(/\n/g, '<br>')}</p>
+                </div>
+            ` : ''}
+            
+            <div class="footer">
+                <p>Generated by shahrani.me - Pediatric Airway Sizing Tool</p>
+                <p>This equipment list is for reference only. Always verify equipment availability and compatibility.</p>
+            </div>
+        </body>
+        </html>
+    `);
+    
+    printWindow.document.close();
+    printWindow.focus();
+    
+    setTimeout(() => {
+        printWindow.print();
+    }, 250);
+}
