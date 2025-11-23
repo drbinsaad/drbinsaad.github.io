@@ -139,11 +139,47 @@
             background: #f8f9fa;
         }
         
+        .anatomy-card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent-color);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .anatomy-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .anatomy-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        
+        .anatomy-card img {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 10px;
+            margin: 15px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .anatomy-card p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+        
         .pathology-card {
             background: white;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 12px;
             border-left: 4px solid var(--accent-color);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -158,6 +194,15 @@
             color: var(--primary-color);
             margin-bottom: 10px;
             font-size: 1.3rem;
+        }
+        
+        .pathology-card img {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            border-radius: 10px;
+            margin: 15px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
         
         .pathology-card p {
@@ -175,38 +220,29 @@
             font-weight: 600;
             color: var(--primary-color);
             margin-top: 10px;
+            margin-bottom: 15px;
         }
         
-        .interactive-label {
-            cursor: pointer;
-            transition: all 0.3s ease;
-            padding: 8px 15px;
-            margin: 5px;
-            background: white;
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
-            display: inline-block;
-        }
-        
-        .interactive-label:hover {
-            background: var(--accent-color);
-            color: white;
-            border-color: var(--accent-color);
-            transform: scale(1.05);
-        }
-        
-        .interactive-label.highlighted {
-            background: var(--gradient);
-            color: white;
-            border-color: transparent;
-            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.3);
-        }
-        
-        .labels-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 10px;
+        .classification-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
             margin: 20px 0;
+        }
+        
+        .classification-section h4 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .classification-section img {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            border-radius: 10px;
+            margin: 15px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
         
         .info-box {
@@ -239,10 +275,6 @@
             
             .anatomy-hero h1 {
                 font-size: 2rem;
-            }
-            
-            .labels-grid {
-                grid-template-columns: 1fr;
             }
         }
         
@@ -367,37 +399,41 @@
                     <div id="anatomy" class="tab-content">
                         <h2>Normal Airway Anatomy</h2>
                         
-                        <h3><i class="fas fa-lungs"></i> Laryngeal Structures</h3>
-                        <table class="anatomy-table">
-                            <thead>
-                                <tr>
-                                    <th>Structure</th>
-                                    <th>Description</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><strong>Vocal Cords</strong></td>
-                                    <td>Paired structures that control phonation and protect the lower airway. Appear white and pearly on bronchoscopy.</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Arytenoid Cartilages</strong></td>
-                                    <td>Pyramid-shaped cartilages that anchor the vocal cords posteriorly and control their movement.</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Subglottis</strong></td>
-                                    <td>The region below the vocal cords extending to the first tracheal ring. The narrowest part of the pediatric airway.</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="anatomy-card">
+                            <h3><i class="fas fa-microphone"></i> Vocal Cords</h3>
+                            <img src="images/anatomy-vocal-cords.png" alt="Vocal Cords Anatomy">
+                            <p><strong>Description:</strong> Paired structures that control phonation and protect the lower airway. During laryngoscopy, they appear white and pearly, meeting at the anterior commissure with the arytenoid cartilages positioned posteriorly.</p>
+                            <p><strong>Function:</strong> Voice production, airway protection during swallowing, and regulation of airflow during respiration.</p>
+                        </div>
                         
-                        <h3 style="margin-top: 30px;"><i class="fas fa-wind"></i> Trachea & Main Carina</h3>
-                        <p>The <strong>trachea</strong> is a tubular structure supported by C-shaped cartilaginous rings, with the posterior membranous wall completing the tube. It extends from the cricoid cartilage (C6 level) to the carina (T4-T5 level).</p>
-                        <p>The <strong>main carina</strong> is the bifurcation point where the trachea divides into the right and left main bronchi. It is a critical landmark during bronchoscopy and is highly sensitive, often triggering cough reflexes.</p>
+                        <div class="anatomy-card">
+                            <h3><i class="fas fa-shapes"></i> Arytenoid Cartilages</h3>
+                            <img src="images/anatomy-arytenoids.png" alt="Arytenoid Cartilages">
+                            <p><strong>Description:</strong> Pyramid-shaped cartilages that anchor the vocal cords posteriorly and control their movement through intrinsic laryngeal muscles.</p>
+                            <p><strong>Function:</strong> Enable vocal cord abduction (opening) and adduction (closing) for breathing, phonation, and airway protection.</p>
+                        </div>
                         
-                        <div class="info-box">
-                            <h4><i class="fas fa-exclamation-triangle"></i> Clinical Pearl</h4>
-                            <p>The right main bronchus is shorter, wider, and more vertical than the left, making it the more common site for foreign body aspiration and preferential intubation.</p>
+                        <div class="anatomy-card">
+                            <h3><i class="fas fa-compress-alt"></i> Subglottis</h3>
+                            <img src="images/anatomy-subglottis.png" alt="Subglottis Region">
+                            <p><strong>Description:</strong> The region below the vocal cords extending to the first tracheal ring. This is the narrowest part of the pediatric airway, bounded by the cricoid cartilage.</p>
+                            <p><strong>Clinical Significance:</strong> Most vulnerable site for airway obstruction in children due to its narrow diameter and complete cartilaginous ring that cannot expand.</p>
+                        </div>
+                        
+                        <div class="anatomy-card">
+                            <h3><i class="fas fa-wind"></i> Trachea & Main Carina</h3>
+                            <img src="images/anatomy-trachea-carina.png" alt="Trachea and Carina">
+                            <p><strong>Trachea:</strong> A tubular structure supported by 16-20 C-shaped cartilaginous rings, with the posterior membranous wall completing the tube. Extends from the cricoid cartilage (C6 level) to the carina (T4-T5 level).</p>
+                            <p><strong>Main Carina:</strong> The bifurcation point where the trachea divides into the right and left main bronchi. It is a critical landmark during bronchoscopy and is highly sensitive, often triggering cough reflexes.</p>
+                        </div>
+                        
+                        <div class="anatomy-card">
+                            <h3><i class="fas fa-exchange-alt"></i> Bronchial Comparison</h3>
+                            <img src="images/anatomy-comparison.png" alt="Right vs Left Bronchus Comparison">
+                            <div class="info-box">
+                                <h4><i class="fas fa-exclamation-triangle"></i> Clinical Pearl</h4>
+                                <p>The right main bronchus is shorter, wider, and more vertical than the left, making it the more common site for foreign body aspiration and preferential intubation.</p>
+                            </div>
                         </div>
                     </div>
                     
@@ -405,6 +441,12 @@
                     <div id="right-bronchus" class="tab-content">
                         <h2>Right Bronchial Tree Anatomy</h2>
                         <p>The right bronchial tree consists of three lobar bronchi (upper, middle, and lower) with a total of 10 bronchopulmonary segments.</p>
+                        
+                        <div class="anatomy-card">
+                            <h3><i class="fas fa-sitemap"></i> Right Bronchial Tree Overview</h3>
+                            <img src="images/anatomy-right-bronchus.png" alt="Right Bronchial Tree">
+                            <p>Complete visualization of the right bronchial tree showing the branching pattern from the main bronchus through all lobar and segmental divisions.</p>
+                        </div>
                         
                         <h3><i class="fas fa-arrow-up"></i> Right Upper Lobe (RUL)</h3>
                         <table class="anatomy-table">
@@ -433,6 +475,12 @@
                                 </tr>
                             </tbody>
                         </table>
+                        
+                        <div class="anatomy-card">
+                            <h3><i class="fas fa-stream"></i> Bronchus Intermedius</h3>
+                            <img src="images/anatomy-bronchus-intermedius.png" alt="Bronchus Intermedius">
+                            <p>The bronchus intermedius is the continuation of the right main bronchus after the right upper lobe bronchus branches off. It subsequently divides into the middle and lower lobe bronchi at Carina 2 (RC2).</p>
+                        </div>
                         
                         <h3 style="margin-top: 30px;"><i class="fas fa-arrows-alt-h"></i> Right Middle Lobe</h3>
                         <table class="anatomy-table">
@@ -494,17 +542,18 @@
                                 </tr>
                             </tbody>
                         </table>
-                        
-                        <div class="info-box">
-                            <h4><i class="fas fa-info-circle"></i> Bronchus Intermedius</h4>
-                            <p>The bronchus intermedius is the continuation of the right main bronchus after the right upper lobe bronchus branches off. It subsequently divides into the middle and lower lobe bronchi at Carina 2 (RC2).</p>
-                        </div>
                     </div>
                     
                     <!-- Left Bronchus Tab -->
                     <div id="left-bronchus" class="tab-content">
                         <h2>Left Bronchial Tree Anatomy</h2>
                         <p>The left bronchial tree consists of two lobar bronchi (upper and lower) with 8-10 bronchopulmonary segments, depending on anatomical variation.</p>
+                        
+                        <div class="anatomy-card">
+                            <h3><i class="fas fa-sitemap"></i> Left Bronchial Tree Overview</h3>
+                            <img src="images/anatomy-left-bronchus.png" alt="Left Bronchial Tree">
+                            <p>Complete visualization of the left bronchial tree showing the branching pattern from the main bronchus through all lobar and segmental divisions.</p>
+                        </div>
                         
                         <h3><i class="fas fa-arrow-up"></i> Left Upper Lobe</h3>
                         
@@ -554,9 +603,13 @@
                             </tbody>
                         </table>
                         
-                        <div class="info-box" style="margin: 20px 0;">
-                            <h4><i class="fas fa-info-circle"></i> Lingula</h4>
-                            <p>The lingula is the left lung's equivalent to the right middle lobe. It is part of the left upper lobe and consists of superior and inferior segments.</p>
+                        <div class="anatomy-card">
+                            <h3><i class="fas fa-leaf"></i> The Lingula</h3>
+                            <img src="images/anatomy-lingula.png" alt="Lingula Anatomy">
+                            <div class="info-box">
+                                <h4><i class="fas fa-info-circle"></i> Lingula</h4>
+                                <p>The lingula is the left lung's equivalent to the right middle lobe. It is part of the left upper lobe and consists of superior and inferior segments.</p>
+                            </div>
                         </div>
                         
                         <h3 style="margin-top: 30px;"><i class="fas fa-arrow-down"></i> Left Lower Lobe</h3>
@@ -606,6 +659,7 @@
                         <div class="pathology-card">
                             <h3><i class="fas fa-baby"></i> Laryngomalacia</h3>
                             <span class="pathology-type">Congenital</span>
+                            <img src="images/pathology-laryngomalacia.png" alt="Laryngomalacia">
                             <p><strong>Definition:</strong> The most common congenital laryngeal anomaly, characterized by abnormal collapse of supraglottic structures during inspiration.</p>
                             <p><strong>Clinical Features:</strong> Inspiratory stridor that worsens with agitation, feeding difficulties, and failure to thrive in severe cases. Usually presents within the first 2 weeks of life.</p>
                             <p><strong>Bronchoscopic Findings:</strong> Omega-shaped epiglottis, shortened aryepiglottic folds, and prolapse of supraglottic tissues into the glottis during inspiration.</p>
@@ -615,6 +669,7 @@
                         <div class="pathology-card">
                             <h3><i class="fas fa-circle"></i> Saccular Cyst</h3>
                             <span class="pathology-type">Congenital/Acquired</span>
+                            <img src="images/pathology-saccular-cyst.png" alt="Saccular Cyst">
                             <p><strong>Definition:</strong> A fluid-filled cyst arising from the laryngeal saccule, which is a small pouch extending upward from the laryngeal ventricle.</p>
                             <p><strong>Clinical Features:</strong> Hoarseness, stridor, dyspnea, and airway obstruction depending on size and location.</p>
                             <p><strong>Bronchoscopic Findings:</strong> Smooth, rounded mass in the supraglottic region, typically lateral to the false vocal cords.</p>
@@ -624,6 +679,7 @@
                         <div class="pathology-card">
                             <h3><i class="fas fa-virus"></i> Papillomatosis (Recurrent Respiratory Papillomatosis)</h3>
                             <span class="pathology-type">Acquired - Viral</span>
+                            <img src="images/pathology-papillomatosis.png" alt="Recurrent Respiratory Papillomatosis">
                             <p><strong>Definition:</strong> Benign tumors caused by human papillomavirus (HPV) types 6 and 11, most commonly affecting the larynx but can spread throughout the respiratory tract.</p>
                             <p><strong>Clinical Features:</strong> Progressive hoarseness, chronic cough, stridor, and respiratory distress. Most common in children but can occur in adults.</p>
                             <p><strong>Bronchoscopic Findings:</strong> Multiple warty, cauliflower-like growths on the vocal cords, false cords, and other laryngeal surfaces. Can extend to trachea and bronchi.</p>
@@ -633,6 +689,7 @@
                         <div class="pathology-card">
                             <h3><i class="fas fa-layer-group"></i> Laryngeal Web</h3>
                             <span class="pathology-type">Congenital</span>
+                            <img src="images/pathology-laryngeal-web.png" alt="Laryngeal Web">
                             <p><strong>Definition:</strong> A membrane of tissue connecting the vocal cords, typically at the anterior commissure, resulting from incomplete recanalization during embryonic development.</p>
                             <p><strong>Clinical Features:</strong> Severity depends on extent of web. Thin webs cause hoarseness; thick webs cause stridor and respiratory distress.</p>
                             <p><strong>Bronchoscopic Findings:</strong> Tissue bridge connecting the anterior aspects of the vocal cords, varying in thickness and posterior extension.</p>
@@ -642,22 +699,29 @@
                         <div class="pathology-card">
                             <h3><i class="fas fa-cut"></i> Laryngeal Cleft</h3>
                             <span class="pathology-type">Congenital</span>
+                            <img src="images/pathology-laryngeal-cleft.png" alt="Laryngeal Cleft">
                             <p><strong>Definition:</strong> A rare congenital anomaly characterized by incomplete separation of the larynx and esophagus, resulting in a posterior midline defect.</p>
                             <p><strong>Clinical Features:</strong> Aspiration, cyanosis with feeding, recurrent pneumonia, and chronic cough. Severity correlates with cleft extent.</p>
-                            <p><strong>Classification (Benjamin-Inglis):</strong></p>
-                            <ul style="margin-left: 20px; color: #666;">
-                                <li>Type I: Supraglottic interarytenoid cleft</li>
-                                <li>Type II: Partial cricoid cleft</li>
-                                <li>Type III: Total cricoid cleft extending into cervical trachea</li>
-                                <li>Type IV: Cleft extending into thoracic trachea</li>
-                            </ul>
                             <p><strong>Bronchoscopic Findings:</strong> Posterior midline defect between the arytenoids, with varying caudal extension.</p>
+                            
+                            <div class="classification-section">
+                                <h4><i class="fas fa-list-ol"></i> Benjamin-Inglis Classification</h4>
+                                <img src="images/classification-laryngeal-cleft.png" alt="Laryngeal Cleft Classification">
+                                <ul style="margin-left: 20px; color: #666; line-height: 1.8;">
+                                    <li><strong>Type I:</strong> Supraglottic interarytenoid cleft</li>
+                                    <li><strong>Type II:</strong> Partial cricoid cleft</li>
+                                    <li><strong>Type III:</strong> Total cricoid cleft extending into cervical trachea</li>
+                                    <li><strong>Type IV:</strong> Cleft extending into thoracic trachea</li>
+                                </ul>
+                            </div>
+                            
                             <p><strong>Management:</strong> Type I may be managed conservatively; Types II-IV typically require surgical repair.</p>
                         </div>
                         
                         <div class="pathology-card">
                             <h3><i class="fas fa-ban"></i> Laryngeal Atresia</h3>
                             <span class="pathology-type">Congenital</span>
+                            <img src="images/pathology-laryngeal-atresia.png" alt="Laryngeal Atresia">
                             <p><strong>Definition:</strong> A rare and severe congenital anomaly characterized by complete or partial obstruction of the laryngeal lumen.</p>
                             <p><strong>Clinical Features:</strong> Immediately life-threatening at birth with inability to establish an airway. Often diagnosed prenatally with ultrasound showing dilated airways and flattened diaphragm (CHAOS - Congenital High Airway Obstruction Syndrome).</p>
                             <p><strong>Management:</strong> Requires EXIT (Ex Utero Intrapartum Treatment) procedure or immediate tracheostomy at delivery.</p>
@@ -666,6 +730,7 @@
                         <div class="pathology-card">
                             <h3><i class="fas fa-heart"></i> Subglottic Hemangioma</h3>
                             <span class="pathology-type">Congenital Vascular</span>
+                            <img src="images/pathology-subglottic-hemangioma.png" alt="Subglottic Hemangioma">
                             <p><strong>Definition:</strong> A benign vascular tumor of the subglottis, typically presenting in the first 6 months of life.</p>
                             <p><strong>Clinical Features:</strong> Biphasic stridor, barky cough, and progressive respiratory distress. 50% of patients have cutaneous hemangiomas.</p>
                             <p><strong>Bronchoscopic Findings:</strong> Compressible, bluish or reddish submucosal mass in the subglottis, typically asymmetric and posterolateral.</p>
@@ -677,20 +742,26 @@
                             <span class="pathology-type">Congenital/Acquired</span>
                             <p><strong>Definition:</strong> Narrowing of the subglottic airway, either congenital (third most common congenital laryngeal anomaly) or acquired (most commonly from prolonged intubation).</p>
                             <p><strong>Clinical Features:</strong> Biphasic stridor, respiratory distress, recurrent croup-like symptoms.</p>
-                            <p><strong>Grading (Cotton-Myer):</strong></p>
-                            <ul style="margin-left: 20px; color: #666;">
-                                <li>Grade I: 0-50% obstruction</li>
-                                <li>Grade II: 51-70% obstruction</li>
-                                <li>Grade III: 71-99% obstruction</li>
-                                <li>Grade IV: Complete obstruction</li>
-                            </ul>
                             <p><strong>Bronchoscopic Findings:</strong> Circumferential or eccentric narrowing of the subglottic region, with or without visible scar tissue.</p>
+                            
+                            <div class="classification-section">
+                                <h4><i class="fas fa-list-ol"></i> Cotton-Myer Grading System</h4>
+                                <img src="images/classification-subglottic-stenosis.png" alt="Cotton-Myer Classification">
+                                <ul style="margin-left: 20px; color: #666; line-height: 1.8;">
+                                    <li><strong>Grade I:</strong> 0-50% obstruction</li>
+                                    <li><strong>Grade II:</strong> 51-70% obstruction</li>
+                                    <li><strong>Grade III:</strong> 71-99% obstruction</li>
+                                    <li><strong>Grade IV:</strong> Complete obstruction</li>
+                                </ul>
+                            </div>
+                            
                             <p><strong>Management:</strong> Mild cases may be observed; moderate to severe cases require endoscopic dilation, laser therapy, or open laryngotracheal reconstruction.</p>
                         </div>
                         
                         <div class="pathology-card">
                             <h3><i class="fas fa-ring"></i> Complete Tracheal Rings</h3>
                             <span class="pathology-type">Congenital</span>
+                            <img src="images/pathology-complete-tracheal-rings.png" alt="Complete Tracheal Rings">
                             <p><strong>Definition:</strong> A congenital anomaly where the normally C-shaped tracheal cartilages form complete O-shaped rings, resulting in a fixed, non-distensible trachea.</p>
                             <p><strong>Clinical Features:</strong> Stridor, recurrent respiratory infections, and difficulty with intubation. Often associated with other cardiovascular anomalies.</p>
                             <p><strong>Bronchoscopic Findings:</strong> Narrowed tracheal segment with loss of the normal posterior membranous wall, appearing as complete cartilaginous rings.</p>
@@ -701,16 +772,21 @@
                             <h3><i class="fas fa-exchange-alt"></i> Tracheo-Esophageal Fistula (TEF)</h3>
                             <span class="pathology-type">Congenital</span>
                             <p><strong>Definition:</strong> An abnormal connection between the trachea and esophagus, most commonly associated with esophageal atresia.</p>
-                            <p><strong>Classification (Gross):</strong></p>
-                            <ul style="margin-left: 20px; color: #666;">
-                                <li>Type A: Esophageal atresia without fistula (8%)</li>
-                                <li>Type B: Proximal TEF with distal atresia (rare)</li>
-                                <li>Type C: Proximal atresia with distal TEF (85%) - most common</li>
-                                <li>Type D: Proximal and distal TEF (rare)</li>
-                                <li>Type E: H-type TEF without atresia (4%)</li>
-                            </ul>
                             <p><strong>Clinical Features:</strong> Excessive salivation, choking with feeding, recurrent pneumonia, abdominal distension.</p>
                             <p><strong>Bronchoscopic Findings:</strong> Fistulous opening visible on the posterior tracheal wall, typically at the level of T3-T4.</p>
+                            
+                            <div class="classification-section">
+                                <h4><i class="fas fa-list-ol"></i> Gross Classification</h4>
+                                <img src="images/classification-tef.png" alt="TEF Gross Classification">
+                                <ul style="margin-left: 20px; color: #666; line-height: 1.8;">
+                                    <li><strong>Type A:</strong> Esophageal atresia without fistula (8%)</li>
+                                    <li><strong>Type B:</strong> Proximal TEF with distal atresia (rare)</li>
+                                    <li><strong>Type C:</strong> Proximal atresia with distal TEF (85%) - most common</li>
+                                    <li><strong>Type D:</strong> Proximal and distal TEF (rare)</li>
+                                    <li><strong>Type E:</strong> H-type TEF without atresia (4%)</li>
+                                </ul>
+                            </div>
+                            
                             <p><strong>Management:</strong> Surgical repair via thoracotomy or thoracoscopy, with fistula ligation and primary esophageal anastomosis.</p>
                         </div>
                         
