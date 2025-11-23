@@ -6,7 +6,7 @@
     <title>ENT Tools - Dr Ali Alshahrani | Medical Calculators</title>
     
     <!-- SEO Meta Tags -->
-    <meta name="description" content="Collection of specialized ENT medical calculators and tools developed by Dr. Ali Alshahrani, including Airway Sizing, ET Depth, and XEOMIN calculators.">
+    <meta name="description" content="Collection of specialized ENT medical calculators and tools developed by Dr. Ali Alshahrani, organized by subspecialty including Airway, Otology, and General ENT tools.">
     <meta name="author" content="Dr. Ali Alshahrani">
     
     <!-- Favicon -->
@@ -19,7 +19,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
-            padding: 50px 0;
+            padding: 30px 0;
         }
         .tool-card {
             background-color: #fff;
@@ -61,6 +61,25 @@
             color: var(--accent-color);
             margin-bottom: 15px;
         }
+        .subspecialty-section {
+            margin-bottom: 60px;
+        }
+        .subspecialty-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            color: white;
+        }
+        .subspecialty-header h2 {
+            margin: 0;
+            font-size: 2rem;
+        }
+        .subspecialty-header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+        }
     </style>
 </head>
 <body>
@@ -90,71 +109,103 @@
     <section class="hero-section" style="padding-top: 150px; padding-bottom: 50px;">
         <div class="container">
             <h1 class="section-title" data-aos="fade-up">Specialized ENT Tools</h1>
-            <p data-aos="fade-up" data-aos-delay="100" style="text-align: center; max-width: 800px; margin: 0 auto 50px;">A collection of clinical calculators and tools designed to assist Otolaryngologists and healthcare professionals in daily practice and decision-making.</p>
+            <p data-aos="fade-up" data-aos-delay="100" style="text-align: center; max-width: 800px; margin: 0 auto 50px;">A comprehensive collection of clinical calculators and tools organized by subspecialty to assist Otolaryngologists and healthcare professionals in daily practice and decision-making.</p>
         </div>
     </section>
 
     <section class="tools-list-section">
         <div class="container">
-            <div class="tools-grid">
-                
-                <div class="tool-card" data-aos="fade-up" data-aos-delay="100">
-                    <i class="fas fa-calculator"></i>
-                    <h3>Medical Calculators</h3>
-                    <p>A suite of general medical calculators relevant to Otolaryngology practice.</p>
-                    <a href="ent-calculators.html">View Calculators</a>
+            
+            <!-- Pediatric Airway & Anesthesia Tools -->
+            <div class="subspecialty-section">
+                <div class="subspecialty-header" data-aos="fade-up">
+                    <h2><i class="fas fa-lungs"></i> Pediatric Airway & Anesthesia</h2>
+                    <p>Specialized tools for pediatric airway management and procedural planning</p>
                 </div>
+                <div class="tools-grid">
+                    <div class="tool-card" data-aos="fade-up" data-aos-delay="100">
+                        <i class="fas fa-lungs"></i>
+                        <h3>Airway Sizing Tool</h3>
+                        <p>Estimate appropriate airway sizes for pediatric patients during procedures like bronchoscopy.</p>
+                        <a href="bronchoscopy-tool.html">Use Tool</a>
+                    </div>
 
-                <div class="tool-card" data-aos="fade-up" data-aos-delay="200">
-                    <i class="fas fa-lungs"></i>
-                    <h3>Airway Sizing Tool</h3>
-                    <p>A specialized tool for estimating appropriate airway sizes for pediatric patients during procedures like bronchoscopy.</p>
-                    <a href="bronchoscopy-tool.html">Use Tool</a>
+                    <div class="tool-card" data-aos="fade-up" data-aos-delay="200">
+                        <i class="fas fa-syringe"></i>
+                        <h3>ET Depth Calculator</h3>
+                        <p>Calculate the correct endotracheal tube insertion depth for pediatric patients based on age or weight.</p>
+                        <a href="et-depth-calculator.html">Use Calculator</a>
+                    </div>
+
+                    <div class="tool-card" data-aos="fade-up" data-aos-delay="300">
+                        <i class="fas fa-lungs"></i>
+                        <h3>Nebulized Epinephrine Calculator</h3>
+                        <p>Calculate nebulized epinephrine dose by age or weight for pediatric patients with quick reference guide.</p>
+                        <a href="nebulized-epinephrine-calculator.html">Use Calculator</a>
+                    </div>
+
+                    <div class="tool-card" data-aos="fade-up" data-aos-delay="400">
+                        <i class="fas fa-lungs"></i>
+                        <h3>Airway Obstruction Calculator</h3>
+                        <p>Assess percent airway obstruction based on endotracheal tube size using the Cotton-Myer grading system.</p>
+                        <a href="airway-obstruction-calculator.html">Use Calculator</a>
+                    </div>
+
+                    <div class="tool-card" data-aos="fade-up" data-aos-delay="500">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                        <h3>Airway Balloon Dilation Sizing</h3>
+                        <p>Calculate appropriate balloon dilation sizes for airway procedures based on patient age with clinical guidelines.</p>
+                        <a href="balloon-dilation-calculator.html">Use Calculator</a>
+                    </div>
+
+                    <div class="tool-card" data-aos="fade-up" data-aos-delay="600">
+                        <i class="fas fa-book-medical"></i>
+                        <h3>Airway Anatomy & Variations</h3>
+                        <p>Interactive guide to airway anatomy, anatomical variations, and pathological conditions as visualized through rigid bronchoscopy.</p>
+                        <a href="airway-anatomy.html">View Guide</a>
+                    </div>
                 </div>
-
-                <div class="tool-card" data-aos="fade-up" data-aos-delay="300">
-                    <i class="fas fa-syringe"></i>
-                    <h3>ET Depth Calculator</h3>
-                    <p>Calculate the correct endotracheal tube insertion depth for pediatric patients based on age or weight.</p>
-                    <a href="et-depth-calculator.html">Use Calculator</a>
-                </div>
-
-                <div class="tool-card" data-aos="fade-up" data-aos-delay="400">
-                    <i class="fas fa-pills"></i>
-                    <h3>XEOMIN Calculator</h3>
-                    <p>A tool to assist in the precise dosing and dilution of XEOMIN (IncobotulinumtoxinA) for various indications.</p>
-                    <a href="xeomin-calculator.html">Use Calculator</a>
-                </div>
-
-                <div class="tool-card" data-aos="fade-up" data-aos-delay="500">
-                    <i class="fas fa-lungs"></i>
-                    <h3>Nebulized Epinephrine Calculator</h3>
-                    <p>Calculate nebulized epinephrine dose by age or weight for pediatric patients with quick reference guide.</p>
-                    <a href="nebulized-epinephrine-calculator.html">Use Calculator</a>
-                </div>
-
-                <div class="tool-card" data-aos="fade-up" data-aos-delay="600">
-                    <i class="fas fa-lungs"></i>
-                    <h3>Airway Obstruction Calculator</h3>
-                    <p>Assess percent airway obstruction based on endotracheal tube size using the Cotton-Myer grading system.</p>
-                    <a href="airway-obstruction-calculator.html">Use Calculator</a>
-                </div>
-
-                <div class="tool-card" data-aos="fade-up" data-aos-delay="700">
-                    <i class="fas fa-expand-arrows-alt"></i>
-                    <h3>Airway Balloon Dilation Sizing</h3>
-                    <p>Calculate appropriate balloon dilation sizes for airway procedures based on patient age with clinical guidelines.</p>
-                    <a href="balloon-dilation-calculator.html">Use Calculator</a>
-                </div>
-
-                <div class="tool-card" data-aos="fade-up" data-aos-delay="800">
-                    <i class="fas fa-book-medical"></i>
-                    <h3>Airway Anatomy & Variations</h3>
-                    <p>Interactive guide to airway anatomy, anatomical variations, and pathological conditions as visualized through rigid bronchoscopy.</p>
-                    <a href="airway-anatomy.html">View Guide</a>
-                </div>
-
             </div>
+
+            <!-- Otology & Hearing Tools -->
+            <div class="subspecialty-section">
+                <div class="subspecialty-header" data-aos="fade-up">
+                    <h2><i class="fas fa-ear-listen"></i> Otology & Hearing Assessment</h2>
+                    <p>Comprehensive calculators for cochlear implants, hearing aids, and audiometric evaluations</p>
+                </div>
+                <div class="tools-grid">
+                    <div class="tool-card" data-aos="fade-up" data-aos-delay="100">
+                        <i class="fas fa-stethoscope"></i>
+                        <h3>Otology & Hearing Calculator Suite</h3>
+                        <p>Comprehensive suite including CI candidacy, PTA calculations, manufacturer comparisons, SNOT-22, VHI, RSI, ESS, and sleep assessment tools.</p>
+                        <a href="calculators/index.html">Open Calculator Suite</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- General ENT & Therapeutics -->
+            <div class="subspecialty-section">
+                <div class="subspecialty-header" data-aos="fade-up">
+                    <h2><i class="fas fa-user-md"></i> General ENT & Therapeutics</h2>
+                    <p>Medical calculators and dosing tools for general otolaryngology practice</p>
+                </div>
+                <div class="tools-grid">
+                    <div class="tool-card" data-aos="fade-up" data-aos-delay="100">
+                        <i class="fas fa-calculator"></i>
+                        <h3>Medical Calculators</h3>
+                        <p>A suite of general medical calculators relevant to Otolaryngology practice.</p>
+                        <a href="ent-calculators.html">View Calculators</a>
+                    </div>
+
+                    <div class="tool-card" data-aos="fade-up" data-aos-delay="200">
+                        <i class="fas fa-pills"></i>
+                        <h3>XEOMIN Calculator</h3>
+                        <p>A tool to assist in the precise dosing and dilution of XEOMIN (IncobotulinumtoxinA) for various indications.</p>
+                        <a href="xeomin-calculator.html">Use Calculator</a>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
