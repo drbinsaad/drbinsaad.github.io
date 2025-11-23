@@ -631,6 +631,154 @@
         </div>
     </section>
 
+    <!-- Instrument Selection Modal -->
+    <div id="instrument-selection-modal" class="modal" style="display: none;">
+        <div class="modal-content" style="max-width: 700px; max-height: 80vh; overflow-y: auto;">
+            <div class="modal-header">
+                <h2><i class="fas fa-check-square"></i> Select Instruments to Print</h2>
+                <span class="close-modal" onclick="closeInstrumentModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div style="margin-bottom: 1.5rem; padding: 1rem; background: #e3f2fd; border-radius: 8px;">
+                    <p style="margin: 0; color: #1565c0; font-size: 0.95rem;">
+                        <i class="fas fa-info-circle"></i> Select which instruments to include in your PDF. Uncheck items you don't need for this procedure.
+                    </p>
+                </div>
+                
+                <div style="margin-bottom: 1rem;">
+                    <button onclick="selectAllInstruments()" class="btn-secondary" style="margin-right: 0.5rem;">
+                        <i class="fas fa-check-double"></i> Select All
+                    </button>
+                    <button onclick="deselectAllInstruments()" class="btn-secondary">
+                        <i class="fas fa-times"></i> Deselect All
+                    </button>
+                </div>
+                
+                <div class="instrument-checklist">
+                    <h3 style="margin-top: 1.5rem; margin-bottom: 1rem; color: #6c5ce7; border-bottom: 2px solid #6c5ce7; padding-bottom: 0.5rem;">
+                        <i class="fas fa-tools"></i> Basic Equipment
+                    </h3>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="instrument" value="bronchoscope" checked>
+                        <span>Rigid Bronchoscope</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="instrument" value="telescope" checked>
+                        <span>Telescope</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="instrument" value="ett" checked>
+                        <span>Endotracheal Tube (ETT)</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="instrument" value="oesophagoscope" checked>
+                        <span>Oesophagoscope</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="instrument" value="forceps" checked>
+                        <span>Optical Forceps</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="instrument" value="suction" checked>
+                        <span>Suction Catheter</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="instrument" value="ventilating" checked>
+                        <span>Ventilating Bronchoscope</span>
+                    </label>
+                    
+                    <h3 style="margin-top: 1.5rem; margin-bottom: 1rem; color: #6c5ce7; border-bottom: 2px solid #6c5ce7; padding-bottom: 0.5rem;">
+                        <i class="fas fa-hospital"></i> GOSH Equipment
+                    </h3>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="instrument" value="shiley" checked>
+                        <span>Shiley Tube</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="instrument" value="portex-cuffed" checked>
+                        <span>Portex Cuffed</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="instrument" value="portex-uncuffed" checked>
+                        <span>Portex Uncuffed</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="instrument" value="storz" checked>
+                        <span>Storz Bronchoscope</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="instrument" value="alder-hey" checked>
+                        <span>Alder Hey Suction</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="instrument" value="npa" checked>
+                        <span>NPA (Nasopharyngeal Airway)</span>
+                    </label>
+                    
+                    <h3 style="margin-top: 1.5rem; margin-bottom: 1rem; color: #6c5ce7; border-bottom: 2px solid #6c5ce7; padding-bottom: 0.5rem;">
+                        <i class="fas fa-cut"></i> Tracheostomy & Laryngoscopy
+                    </h3>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="instrument" value="trach-jackson" checked>
+                        <span>Tracheostomy (Jackson)</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="instrument" value="trach-iso" checked>
+                        <span>Tracheostomy (ISO)</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="instrument" value="miller" checked>
+                        <span>Miller Blade</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="instrument" value="macintosh" checked>
+                        <span>Macintosh Blade</span>
+                    </label>
+                    
+                    <h3 style="margin-top: 1.5rem; margin-bottom: 1rem; color: #6c5ce7; border-bottom: 2px solid #6c5ce7; padding-bottom: 0.5rem;">
+                        <i class="fas fa-circle"></i> Balloon Dilation
+                    </h3>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="instrument" value="balloon-larynx" checked>
+                        <span>Balloon Dilation (Larynx)</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="instrument" value="balloon-trachea" checked>
+                        <span>Balloon Dilation (Trachea)</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="instrument" value="bryan-balloon" checked>
+                        <span>Bryan Medical Balloon</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="instrument" value="boston-balloon" checked>
+                        <span>Boston Scientific Balloon</span>
+                    </label>
+                    
+                    <h3 style="margin-top: 1.5rem; margin-bottom: 1rem; color: #6c5ce7; border-bottom: 2px solid #6c5ce7; padding-bottom: 0.5rem;">
+                        <i class="fas fa-puzzle-piece"></i> Compatibility Data
+                    </h3>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="instrument" value="scope-ett" checked>
+                        <span>Scope Fits in ETT</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="instrument" value="instruments-fit" checked>
+                        <span>Instruments That Fit Together</span>
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button onclick="closeInstrumentModal()" class="btn-secondary">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+                <button onclick="generatePDFWithSelection()" class="btn-primary">
+                    <i class="fas fa-file-pdf"></i> Generate PDF
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Inline toggle function to ensure it loads immediately -->
     <script>
         let currentView = 'age';

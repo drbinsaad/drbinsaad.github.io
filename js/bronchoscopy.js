@@ -925,8 +925,45 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-// PDF Generation Function
+// Modal Functions
+function openInstrumentModal() {
+    const modal = document.getElementById('instrument-selection-modal');
+    if (modal) {
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeInstrumentModal() {
+    const modal = document.getElementById('instrument-selection-modal');
+    if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+}
+
+function selectAllInstruments() {
+    const checkboxes = document.querySelectorAll('#instrument-selection-modal input[type="checkbox"]');
+    checkboxes.forEach(cb => cb.checked = true);
+}
+
+function deselectAllInstruments() {
+    const checkboxes = document.querySelectorAll('#instrument-selection-modal input[type="checkbox"]');
+    checkboxes.forEach(cb => cb.checked = false);
+}
+
+function getSelectedInstruments() {
+    const checkboxes = document.querySelectorAll('#instrument-selection-modal input[type="checkbox"]:checked');
+    return Array.from(checkboxes).map(cb => cb.value);
+}
+
+// PDF Generation Function (opens modal)
 function generatePDF() {
+    openInstrumentModal();
+}
+
+// PDF Generation with Selection
+function generatePDFWithSelection() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
     
@@ -1015,37 +1052,49 @@ function generatePDF() {
     const selectedAge = currentView === 'age' ? ageSelect.value : getAgeFromWeight(parseFloat(weightInput.value));
     const sizing = goshAirwaySizing[selectedAge];
     
+    // Get selected instruments
+    const selectedInstruments = getSelectedInstruments();
+    
     if (sizing) {
-        const equipment = [
-            { name: 'Rigid Bronchoscope', value: sizing.bronchoscope },
-            { name: 'Telescope', value: sizing.telescope },
-            { name: 'Endotracheal Tube (ETT)', value: sizing.ett + ' (OD: ' + sizing.ettOD + ')' },
-            { name: 'Oesophagoscope', value: sizing.oesophagoscope },
-            { name: 'Optical Forceps', value: sizing.forceps },
-            { name: 'Suction Catheter', value: sizing.suction },
-            { name: 'Ventilating Bronchoscope', value: sizing.ventilating },
-            { name: 'Shiley Tube', value: sizing.shileyTube },
-            { name: 'Portex Cuffed', value: sizing.portexCuffed },
-            { name: 'Portex Uncuffed', value: sizing.portexUncuffed },
-            { name: 'Storz Bronchoscope', value: sizing.bronchoscopeStorz },
-            { name: 'Alder Hey Suction', value: sizing.alderHeySuction },
-            { name: 'NPA (Nasopharyngeal Airway)', value: sizing.npa },
-            { name: 'Tracheostomy (Jackson)', value: sizing.tracheostomyJackson },
-            { name: 'Tracheostomy (ISO)', value: sizing.tracheostomyISO },
-            { name: 'Miller Blade', value: sizing.millerBlade },
-            { name: 'Macintosh Blade', value: sizing.macintoshBlade },
-            { name: 'Balloon Dilation (Larynx)', value: sizing.balloonLarynx },
-            { name: 'Balloon Dilation (Trachea)', value: sizing.balloonTrachea }
-        ];
+        // Map of instrument values to their data
+        const instrumentMap = {
+            'bronchoscope': { name: 'Rigid Bronchoscope', value: sizing.bronchoscope },
+            'telescope': { name: 'Telescope', value: sizing.telescope },
+            'ett': { name: 'Endotracheal Tube (ETT)', value: sizing.ett + ' (OD: ' + sizing.ettOD + ')' },
+            'oesophagoscope': { name: 'Oesophagoscope', value: sizing.oesophagoscope },
+            'forceps': { name: 'Optical Forceps', value: sizing.forceps },
+            'suction': { name: 'Suction Catheter', value: sizing.suction },
+            'ventilating': { name: 'Ventilating Bronchoscope', value: sizing.ventilating },
+            'shiley': { name: 'Shiley Tube', value: sizing.shileyTube },
+            'portex-cuffed': { name: 'Portex Cuffed', value: sizing.portexCuffed },
+            'portex-uncuffed': { name: 'Portex Uncuffed', value: sizing.portexUncuffed },
+            'storz': { name: 'Storz Bronchoscope', value: sizing.bronchoscopeStorz },
+            'alder-hey': { name: 'Alder Hey Suction', value: sizing.alderHeySuction },
+            'npa': { name: 'NPA (Nasopharyngeal Airway)', value: sizing.npa },
+            'trach-jackson': { name: 'Tracheostomy (Jackson)', value: sizing.tracheostomyJackson },
+            'trach-iso': { name: 'Tracheostomy (ISO)', value: sizing.tracheostomyISO },
+            'miller': { name: 'Miller Blade', value: sizing.millerBlade },
+            'macintosh': { name: 'Macintosh Blade', value: sizing.macintoshBlade },
+            'balloon-larynx': { name: 'Balloon Dilation (Larynx)', value: sizing.balloonLarynx },
+            'balloon-trachea': { name: 'Balloon Dilation (Trachea)', value: sizing.balloonTrachea }
+        };
         
-        // Add Airway Balloons if available
-        if (sizing.bryanBalloon) {
+        // Build equipment array based on selection
+        let equipment = [];
+        selectedInstruments.forEach(key => {
+            if (instrumentMap[key]) {
+                equipment.push(instrumentMap[key]);
+            }
+        });
+        
+        // Add Airway Balloons if available and selected
+        if (selectedInstruments.includes('bryan-balloon') && sizing.bryanBalloon) {
             equipment.push({ 
                 name: 'Bryan Medical Balloon', 
                 value: `ID ${sizing.bryanBalloon.id}, OD ${sizing.bryanBalloon.od}mm, Size ${sizing.bryanBalloon.size}, Max Pressure ${sizing.bryanBalloon.maxPressure}` 
             });
         }
-        if (sizing.bostonBalloon) {
+        if (selectedInstruments.includes('boston-balloon') && sizing.bostonBalloon) {
             equipment.push({ 
                 name: 'Boston Scientific Balloon', 
                 value: `OD ${sizing.bostonBalloon.od}mm, Length ${sizing.bostonBalloon.length}cm, Max Pressure ${sizing.bostonBalloon.maxPressure}` 
@@ -1053,7 +1102,7 @@ function generatePDF() {
         }
         
         // Add Scope Fits in ETT if available
-        if (sizing.scopeFitsETT) {
+        if (selectedInstruments.includes('scope-ett') && sizing.scopeFitsETT) {
             let scopeETTItems = [];
             if (sizing.scopeFitsETT.portex) {
                 const portexData = Array.isArray(sizing.scopeFitsETT.portex) 
@@ -1079,7 +1128,7 @@ function generatePDF() {
         }
         
         // Add Instruments That Fit Together if available
-        if (sizing.instrumentsFit) {
+        if (selectedInstruments.includes('instruments-fit') && sizing.instrumentsFit) {
             const instruments = Array.isArray(sizing.instrumentsFit) ? sizing.instrumentsFit : [sizing.instrumentsFit];
             instruments.forEach((inst, idx) => {
                 const instLabel = instruments.length > 1 ? ` (Option ${idx + 1})` : '';
@@ -1147,6 +1196,9 @@ function generatePDF() {
     // Save PDF
     const filename = `Equipment_List_${patientAge.replace(/\s+/g, '_')}_${dateStr.replace(/\s+/g, '_')}.pdf`;
     doc.save(filename);
+    
+    // Close modal after generating PDF
+    closeInstrumentModal();
 }
 
 // Print Function
