@@ -1152,12 +1152,31 @@ function generatePDFWithSelection() {
             doc.setFont('helvetica', 'bold');
             doc.text(item.name, 28, yPos);
             
-            // Equipment value
+            // Equipment value with text wrapping
             doc.setFont('helvetica', 'normal');
             const valueText = item.value || 'N/A';
-            doc.text(valueText, 120, yPos);
             
-            yPos += 7;
+            // Split text if it's too long (max width ~70mm from position 120)
+            const maxWidth = 70;
+            const splitValue = doc.splitTextToSize(valueText, maxWidth);
+            
+            // Check if we need a new page for multi-line text
+            const linesNeeded = splitValue.length;
+            if (yPos + (linesNeeded * 5) > 270) {
+                doc.addPage();
+                yPos = 20;
+                // Redraw checkbox and name on new page
+                doc.rect(20, yPos - 3, 4, 4);
+                doc.setFont('helvetica', 'bold');
+                doc.text(item.name, 28, yPos);
+                doc.setFont('helvetica', 'normal');
+            }
+            
+            // Draw the wrapped text
+            doc.text(splitValue, 120, yPos);
+            
+            // Adjust yPos based on number of lines
+            yPos += Math.max(7, linesNeeded * 5);
         });
     }
     
