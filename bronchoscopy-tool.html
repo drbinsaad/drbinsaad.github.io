@@ -60,6 +60,17 @@
             <!-- Patient Input Section -->
             <div class="tool-card" data-aos="fade-up">
                 <h2><i class="fas fa-user-md"></i> Patient Information</h2>
+                
+                <!-- View Toggle -->
+                <div style="display: flex; justify-content: center; margin-bottom: 1.5rem; gap: 1rem; flex-wrap: wrap;">
+                    <button id="age-view-btn" class="view-toggle-btn active" onclick="switchView('age')">
+                        <i class="fas fa-calendar-alt"></i> Age-Based View
+                    </button>
+                    <button id="weight-view-btn" class="view-toggle-btn" onclick="switchView('weight')">
+                        <i class="fas fa-weight"></i> Weight-Based View
+                    </button>
+                </div>
+                
                 <div class="input-grid">
                     <div class="input-group">
                         <label for="patient-age">Patient Age</label>
@@ -75,9 +86,10 @@
                             <option value="adult">Adult (>12 years)</option>
                         </select>
                     </div>
-                    <div class="input-group">
-                        <label for="patient-weight">Patient Weight (kg) - Optional</label>
-                        <input type="number" id="patient-weight" placeholder="Enter weight" min="0" step="0.1">
+                    <div class="input-group" id="weight-input-group">
+                        <label for="patient-weight">Patient Weight (kg)</label>
+                        <input type="number" id="patient-weight" placeholder="Enter weight" min="0" step="0.1" onchange="updateRecommendations()">
+                        <small style="color: #666; font-size: 0.85rem; margin-top: 0.5rem; display: block;">Optional in age-based view, required in weight-based view</small>
                     </div>
                 </div>
             </div>
@@ -165,6 +177,49 @@
                         </div>
                     </div>
                     <div class="equipment-note" id="trach-note" style="margin-top: 15px; text-align: center; color: #555;"></div>
+                </div>
+
+                <!-- GOSH Equipment Options -->
+                <div class="tool-card" data-aos="fade-up">
+                    <h2><i class="fas fa-hospital-alt"></i> GOSH Equipment Options</h2>
+                    <div class="equipment-grid">
+                        <div class="equipment-item">
+                            <div class="equipment-icon"><i class="fas fa-tube"></i></div>
+                            <h3>Shiley Tube</h3>
+                            <div class="equipment-value" id="shiley-tube">-</div>
+                            <div class="equipment-note">ID / OD (mm)</div>
+                        </div>
+                        <div class="equipment-item">
+                            <div class="equipment-icon"><i class="fas fa-tube"></i></div>
+                            <h3>Portex (Cuffed)</h3>
+                            <div class="equipment-value" id="portex-cuffed">-</div>
+                            <div class="equipment-note">ID / OD (mm)</div>
+                        </div>
+                        <div class="equipment-item">
+                            <div class="equipment-icon"><i class="fas fa-tube"></i></div>
+                            <h3>Portex (Uncuffed)</h3>
+                            <div class="equipment-value" id="portex-uncuffed">-</div>
+                            <div class="equipment-note">ID / OD (mm)</div>
+                        </div>
+                        <div class="equipment-item">
+                            <div class="equipment-icon"><i class="fas fa-microscope"></i></div>
+                            <h3>Bronchoscope (Storz)</h3>
+                            <div class="equipment-value" id="bronchoscope-storz">-</div>
+                            <div class="equipment-note">Size / ID / OD (mm)</div>
+                        </div>
+                        <div class="equipment-item">
+                            <div class="equipment-icon"><i class="fas fa-syringe"></i></div>
+                            <h3>Alder Hey Suction</h3>
+                            <div class="equipment-value" id="alder-hey-suction">-</div>
+                            <div class="equipment-note">French gauge (FG)</div>
+                        </div>
+                        <div class="equipment-item">
+                            <div class="equipment-icon"><i class="fas fa-nose"></i></div>
+                            <h3>NPA (Nasopharyngeal)</h3>
+                            <div class="equipment-value" id="npa-size">-</div>
+                            <div class="equipment-note">ID (mm)</div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Laryngoscope Blades -->
