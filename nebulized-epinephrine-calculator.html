@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nebulized Epinephrine Dosing Calculator - Dr Ali Alshahrani</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/calculator.css" rel="stylesheet">
+</head>
+<body>
+    <nav id="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">Dr Ali Alshahrani</a>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links">
+                <li>
+                    <a href="#research">Research</a>
+                    <ul class="dropdown">
+                        <li><a href="index.html#research">Research Focus</a></li>
+                        <li><a href="index.html#publications">Recent Publications</a></li>
+                    </ul>
+                </li>
+                <li><a href="curriculum_vitae.html">Brief CV</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+                <li>
+                    <a href="#ent">ENT Tools</a>
+                    <ul class="dropdown">
+                        <li><a href="ent-calculators.html">Medical Calculators</a></li>
+                        <li><a href="bronchoscopy-tool.html">Airway Sizing Tool</a></li>
+                        <li><a href="et-depth-calculator.html">ET Depth Calculator</a></li>
+                        <li><a href="xeomin-calculator.html">XEOMIN Calculator</a></li>
+                        <li><a href="nebulized-epinephrine-calculator.html">Nebulized Epinephrine</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <header style="min-height: 40vh;">
+        <div class="container">
+            <div class="header-content" style="text-align: center;">
+                <div class="profile-text" data-aos="fade-up">
+                    <h1><i class="fas fa-lungs"></i> Nebulized Epinephrine Dosing Calculator</h1>
+                    <p>Calculate nebulized epinephrine dose by age or weight for pediatric patients</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="epi-calculator">
+        <div class="container">
+            
+            <!-- Method Selection -->
+            <div class="calculator-card" data-aos="fade-up">
+                <h2><i class="fas fa-calculator"></i> Calculation Method</h2>
+                <div class="method-selector">
+                    <button class="method-btn active" onclick="selectMethod('age')" id="age-btn">
+                        <i class="fas fa-child"></i> Age-Based
+                    </button>
+                    <button class="method-btn" onclick="selectMethod('weight')" id="weight-btn">
+                        <i class="fas fa-weight"></i> Weight-Based
+                    </button>
+                </div>
+            </div>
+
+            <!-- Age-Based Calculator -->
+            <div class="calculator-card" id="age-calculator" data-aos="fade-up">
+                <h2><i class="fas fa-child"></i> Age-Based Calculation</h2>
+                
+                <div class="input-group">
+                    <label for="patient-age-select">Patient Age</label>
+                    <select id="patient-age-select">
+                        <option value="">Select age range</option>
+                        <option value="1month">1 month</option>
+                        <option value="2months">2 months</option>
+                        <option value="3months">3 months</option>
+                        <option value="4-6months">4-6 months</option>
+                        <option value="7-9months">7-9 months</option>
+                        <option value="10-11months">10-11 months</option>
+                        <option value="1-4years">1-4 years</option>
+                        <option value=">4years">&gt; 4 years</option>
+                    </select>
+                </div>
+                
+                <button class="calculate-btn" onclick="calculateAgeDose()">
+                    <i class="fas fa-calculator"></i> Calculate Dose
+                </button>
+                
+                <div id="age-result" class="result-box" style="display: none;">
+                    <div class="result-icon"><i class="fas fa-check-circle"></i></div>
+                    <div class="result-content">
+                        <h3>Recommended Dosing</h3>
+                        <div class="result-value" id="age-epi-value">-</div>
+                        <div class="result-note" id="age-nacl-value">-</div>
+                        <div class="result-warning">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            Always verify dose and monitor patient closely during and after administration
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Weight-Based Calculator -->
+            <div class="calculator-card" id="weight-calculator" style="display: none;" data-aos="fade-up">
+                <h2><i class="fas fa-weight"></i> Weight-Based Calculation</h2>
+                
+                <div class="input-group">
+                    <label for="patient-weight-input">Patient Weight (kg)</label>
+                    <input type="number" id="patient-weight-input" placeholder="Enter weight in kg" min="4" max="100" step="0.1">
+                </div>
+                
+                <button class="calculate-btn" onclick="calculateWeightDose()">
+                    <i class="fas fa-calculator"></i> Calculate Dose
+                </button>
+                
+                <div id="weight-result" class="result-box" style="display: none;">
+                    <div class="result-icon"><i class="fas fa-check-circle"></i></div>
+                    <div class="result-content">
+                        <h3>Recommended Dosing</h3>
+                        <div class="result-value" id="weight-epi-value">-</div>
+                        <div class="result-note" id="weight-nacl-value">-</div>
+                        <div class="result-warning">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            Always verify dose and monitor patient closely during and after administration
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Reference Table -->
+            <div class="calculator-card" data-aos="fade-up">
+                <h2><i class="fas fa-table"></i> Quick Reference Guide</h2>
+                <div class="reference-tables">
+                    <div class="reference-table" style="max-width: 100%;">
+                        <h3>Nebulized Epinephrine Dose by Age or Weight</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Age</th>
+                                    <th>Weight</th>
+                                    <th>Epinephrine<br>(1 mg/ml amp.)</th>
+                                    <th>0.9% NaCl<br>to be added</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>1 month</td><td>4.5 kg</td><td>2 ml</td><td>2 ml</td></tr>
+                                <tr><td>2 months</td><td>5 kg</td><td>2.5 ml</td><td>2 ml</td></tr>
+                                <tr><td>3 months</td><td>6 kg</td><td>3 ml</td><td>1 ml</td></tr>
+                                <tr><td>4-6 months</td><td>7 kg</td><td>3.5 ml</td><td>1 ml</td></tr>
+                                <tr><td>7-9 months</td><td>8 kg</td><td>4 ml</td><td>-</td></tr>
+                                <tr><td>10-11 months</td><td>9 kg</td><td>4.5 ml</td><td>-</td></tr>
+                                <tr><td>1-4 years</td><td>10-17 kg</td><td>5 ml</td><td>-</td></tr>
+                                <tr><td>&gt; 4 years</td><td>&gt; 17 kg</td><td>5 ml</td><td>-</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Clinical Notes -->
+            <div class="calculator-card" data-aos="fade-up">
+                <h2><i class="fas fa-info-circle"></i> Clinical Considerations</h2>
+                <div class="clinical-notes">
+                    <div class="note-item">
+                        <i class="fas fa-check"></i>
+                        <p><strong>Concentration:</strong> Use epinephrine 1 mg/ml ampule (1:1000)</p>
+                    </div>
+                    <div class="note-item">
+                        <i class="fas fa-check"></i>
+                        <p><strong>Diluent:</strong> Add 0.9% NaCl as indicated in the table to achieve appropriate volume</p>
+                    </div>
+                    <div class="note-item">
+                        <i class="fas fa-check"></i>
+                        <p><strong>Administration:</strong> Screw the top of the nebulizer head before use</p>
+                    </div>
+                    <div class="note-item">
+                        <i class="fas fa-check"></i>
+                        <p><strong>Indications:</strong> Commonly used for croup, laryngotracheobronchitis, and upper airway obstruction</p>
+                    </div>
+                    <div class="note-item">
+                        <i class="fas fa-check"></i>
+                        <p><strong>Monitoring:</strong> Monitor vital signs, especially heart rate and respiratory status during and after treatment</p>
+                    </div>
+                    <div class="note-item">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p><strong>Observation:</strong> Patients should be observed for at least 2-3 hours after treatment due to potential rebound effects</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Dr Ali Alshahrani. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/nebulized-epinephrine.js"></script>
+</body>
+</html>
