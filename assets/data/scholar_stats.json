@@ -1,37 +1,112 @@
 {
-    "citations": "70",
-    "publications": "13",
-    "h_index": "4",
-    "i10_index": "3",
-    "last_updated": "2025-11-23 18:00:00",
-    "recent_publications": [
-        {
-            "title": "Fractured tracheostomy tube as a foreign body in a pediatric patient: a case report and review of literature",
-            "year": "2025",
-            "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dCBScAcAAAAJ&citation_for_view=dCBScAcAAAAJ:u-x6o8ySG0sC",
-            "citation": "Journal of Surgical Case Reports 2025 (4), rjaf194",
-            "abstract": "A case report detailing the rare occurrence of a fractured tracheostomy tube acting as a foreign body in a pediatric patient, including diagnostic and management strategies."
-        },
-        {
-            "title": "Nasal Dermoid Cyst with Sinus Tract Intranasal Bone: A Case Report",
-            "year": "2024",
-            "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dCBScAcAAAAJ&citation_for_view=dCBScAcAAAAJ:u-x6o8ySG0sC",
-            "citation": "International Journal of Otolaryngology and Head & Neck Surgery 13 (NO.2)",
-            "abstract": "A detailed case report of a rare presentation of nasal dermoid cyst extending into the intranasal bone, highlighting diagnostic challenges and surgical management strategies."
-        },
-        {
-            "title": "Association of fine-needle aspiration of thyroid nodules with final histopathology in diagnosing thyroid malignancy: a single institute retrospective study",
-            "year": "2022",
-            "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dCBScAcAAAAJ&citation_for_view=dCBScAcAAAAJ:u-x6o8ySG0sC",
-            "citation": "Cureus 14 (11)",
-            "abstract": "Retrospective study evaluating the accuracy of fine-needle aspiration cytology in diagnosing thyroid malignancy compared to final histopathology results at a single medical center."
-        },
-        {
-            "title": "To Give or Not to Give? Prescribing Antibiotics to the Tonsillectomy Patients in a Tertiary Care Setting",
-            "year": "2021",
-            "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dCBScAcAAAAJ&citation_for_view=dCBScAcAAAAJ:u-x6o8ySG0sC",
-            "citation": "Cureus 13 (7)",
-            "abstract": "This study investigates the antibiotic prescribing patterns for tonsillectomy patients in a tertiary care setting, aiming to promote antibiotic stewardship."
-        }
-    ]
+  "citations": 70,
+  "h_index": 4,
+  "publications": 13,
+  "last_updated": "2025-12-21 01:23:18 UTC",
+  "recent_publications": [
+    {
+      "title": "Fractured tracheostomy tube as a foreign body in a pediatric patient: a case report and review of literature",
+      "year": 2025,
+      "citation": "Journal of Surgical Case Reports 2025 (4), rjaf194, 2025",
+      "abstract": "Tracheostomy is a common surgery in children, usually required due to chronic respiratory insufficiency or neuromuscular illnesses. While tracheostomy considerably improves respiratory control, it also increases the risk of serious consequences such as tube dislodgement and blockage. This article describes a catastrophic event in which a dislodged tracheostomy tube (TT) occurred in a 10-year-old female patient with cerebral palsy who had been on ventilator support for 5 years. The dislodged tube slipped unnoticed into the right main bronchus, causing severe respiratory distress and sudden reduction in oxygen saturation. This life-threatening condition requires rapid diagnosis and surgical management. It also reviews the relevant literature to provide insights into best practices for managing similar cases, highlighting the importance of early identification and management of rare complications to prevent …",
+      "url": "https://academic.oup.com/jscr/article-abstract/2025/4/rjaf194/8105693",
+      "authors": "Sultan K Kadasah and Abdulrazaq M Alshammari and Nader S Alharbi and Ibtihal S Alshehri and Raghad Y Alasiri and Abdulaziz Al Qahtani and Ali S Al Shahrani"
+    },
+    {
+      "title": "Sclerosing polycystic adenoma in parotid gland with rare clinical presentation: a case report",
+      "year": 2025,
+      "citation": "Acta Oto-Laryngologica Case Reports 10 (1), 229-235, 2025",
+      "abstract": "Sclerosing polycystic adenoma (SPA) is a rare benign tumor of the salivary glands, with fewer than 100 cases reported worldwide. The World Health Organization has classified SPA as neoplasms according to the Classification of Head and Neck Tumors. This report describes a 79-year-old Saudi man with a two-year history of painful left parotid mass, hearing loss, and associated skin lesions. The mass was a large, well-circumscribed cystic tumor measuring 10 × 15 cm with a grayish-pink appearance and firm consistency, accompanied by erythematous discoloration and oozing ulcers. Computed tomography revealed a mass in the superficial lobe of the left parotid gland, and histopathological examination confirmed a diagnosis of SPA with no significant atypia. Conservative management was selected because the patient refused surgical intervention. This case represents the largest tumor size and oldest age …",
+      "url": "https://www.tandfonline.com/doi/abs/10.1080/23772484.2025.2566345",
+      "authors": "Shahd Saeed Dlboh and Abdulaziz Al Qahtani and Sultan K Kadasah and Atheer A Alzubbaidi and Naif Abdulaziz M. Alqarni and Dalia Hamed Alqarni and Ali Alshahrani and Mohammed AlQarny"
+    },
+    {
+      "title": "Hearing Outcomes and Complications of Cochlear Implantation in Patients With Cochlear Ossification: A Systematic Review and Meta-analysis",
+      "year": 2025,
+      "citation": "Otology & Neurotology, 10.1097, 2025",
+      "abstract": "Background:Cochlear implantation, the primary treatment for severe to profound hearing loss, relies critically on proper electrode array design and insertion.Objectives:This systematic review and meta-analysis examined the complications and hearing outcomes of cochlear implantation in ossified cochleae, compared with non-ossified cases, and explored management strategies to enhance surgical success and patient outcomes.Methods:A comprehensive literature search was conducted using the PubMed, Scopus, Web of Science, and Cochrane Library databases, following the PRISMA guidelines. We used the following broad search strategy: Ossified OR ossification and cochlear AND implantation or implant. Two independent investigators screened titles, abstracts, and full texts and extracted data. A total of 20 studies and 971 patients were included.Results:Post implantation and intraoperative complications …",
+      "url": "https://journals.lww.com/otology-neurotology/fulltext/9900/hearing_outcomes_and_complications_of_cochlear.936.aspx",
+      "authors": "Alhassan J Algazlan and Ali S Alshahrani and Nader Alharbi and Abdulrazaqe Alshammari and Isra Aljazeeri and Salman Alhabib and Abdulrahman Alsanosi"
+    },
+    {
+      "title": "Efficacy of the ‘hole-punch’technique in recurrent auricular hematoma after excisional hemangioma: a case report",
+      "year": 2025,
+      "citation": "Journal of Surgical Case Reports 2025 (3), rjaf124, 2025",
+      "abstract": "Auricular hematoma commonly arises from trauma, often leading to significant morbidity if not addressed promptly. Traditional management techniques frequently result in high recurrence rates and may not prevent the development of cauliflower ear. We describe a case of a 12-year-old girl with autism and attention-deficit/hyperactivity disorder, presenting with a persistent, firm, and dark red mass on her right pinna following previous treatment for an auricular hemangioma. The innovative ‘hole-punch’ Technique was employed to manage this recurrent auricular hematoma. This technique, utilizing a dermal punch tool to create strategic excision sites, facilitated effective hematoma evacuation and promoted fibrosis. The procedure yielded excellent aesthetic results without complications, and no recurrence was noted at follow-up. The ‘hole-punch’ technique offers a promising alternative for managing recurrent …",
+      "url": "https://academic.oup.com/jscr/article-abstract/2025/3/rjaf124/8064704",
+      "authors": "Ali S Al Shahrani and Abdulrazaq M Alshammari and Nader S Alharbi and Mohammed Hazazi and Eman Almashharawi"
+    },
+    {
+      "title": "Comparison of Cochlear Implant Efficacy in Pre-Versus Postsynaptic Auditory Neuropathy: A Systematic Review",
+      "year": 2025,
+      "citation": "Ear, Nose & Throat Journal, 01455613251315649, 2025",
+      "abstract": "Background Etiological factors affecting outcomes of cochlear implants (Cis) are known; however, a direct comparison of efficacy based on lesion location is needed. We aimed to systematically examine the current evidence to compare the effectiveness of CIs in patients with presynaptic versus postsynaptic neuropathy. Methods A comprehensive literature search was conducted across multiple databases, including MEDLINE (via PubMed), Embase, CENTRAL, Web of Science, Scopus, CINAHL, and PsycINFO. Studies were selected based on their examination of CI efficacy in patients with auditory neuropathy spectrum disorder, distinguishing between pre- and postsynaptic lesions using genetic markers or electrophysiological assessments. Results Analysis of seven studies consistently highlighted the importance of etiological diagnosis in predicting CI outcomes. Genetic mutations were correlated with more …",
+      "url": "https://journals.sagepub.com/doi/abs/10.1177/01455613251315649",
+      "authors": "Homood M Almutairi and Mohammed Hazazi and Abdulaziz Badar Almutairi and Abdulrahman Nasser Almutairi and Amirah Fayez Almutairi and Ali Saad Alshahrani and Salman Khalid Alotaibi and Wala S AlShiha and Iman Almashharawi"
+    },
+    {
+      "title": "Nasal Dermoid Cyst with Sinus Tract Intranasal Bone: A Case Report",
+      "year": 2024,
+      "citation": "International Journal of Otolaryngology and Head & Neck Surgery 13 (NO.2), 2024",
+      "abstract": "Dermoid cysts are benign tumors originating from germ cells, which can form in various locations, including the nasal area in rare cases. They are of unknown exact etiology, but it is suggested that it is due to abnormal tissue migration during early embryonic development. Nasal dermoid cysts albeit rare, can present in various forms such as sinuses, fistulas, or intracranially extending tracts. They can be asymptomatic and incidentally discovered or present with a visible external mass or sinus that is either painful, infected or cosmetically concerning. If nasal dermoid cysts with an intra-nasal bone sinus tract are left untreated, they can lead to life-threatening complications. This report describes the case of a 6-year-old girl with a nasal dermoid cyst connected to a superficial punctum by an intra-nasal tract. She had undergone surgical excision of a nasal swelling previously diagnosed as a dermoid cyst. One year later, she returned to our clinic with a recurrence of the nasal swelling. Imaging tests revealed a nasal dermoid cyst with a tract extending to the nasal tip, without intracranial expansion. The cyst, along with the entire tract, was successfully removed surgically, and the postoperative follow-up indicated no complications. Histopathology confirmed the diagnosis of a dermoid cyst. This case underscores the significance of considering the dermoid tract in nasal cyst cases and the necessity of its complete removal to prevent recurrence.",
+      "url": "https://scholar.google.com/scholar?cluster=16001168641020430115&hl=en&oi=scholarr",
+      "authors": "Sahar Al-Otaibi Sultan Kadasah and Abdullah Al Helali and Saud Aldhabaan and Abdulaziz Al Qahtani and Abdullah Musleh and Ali Alshahrani and Shahd Dlboh"
+    },
+    {
+      "title": "Association of fine-needle aspiration of thyroid nodules with final histopathology in diagnosing thyroid malignancy: a single institute retrospective study",
+      "year": 2022,
+      "citation": "Cureus 14 (11), 2022",
+      "abstract": "BackgroundFine needle aspiration cytology (FNAC) is the gold standard for detecting thyroid nodules. It is a costefficient approach that affords prompt and accurate evaluation. It is crucial in deciding to treat patients with suspected malignancy of thyroid nodules that might have thyroid surgery. According to findings in cytology, patients may be observed when the cytology is benign, and surgery can be performed if the cytology is malignant, which leads to a reduction in the incidence of unneeded surgery.",
+      "url": "https://www.cureus.com/articles/104270-association-of-fine-needle-aspiration-of-thyroid-nodules-with-final-histopathology-in-diagnosing-thyroid-malignancy-a-single-institute-retrospective-study.pdf",
+      "authors": "Ali S Alshahrani and Alhassan G Algazlan and Montasir Junaid and Abdulrahman A Aldosari and Khaled A Amer and Musleh H Mubarki and Salmah M Alharbi and Ali M Al-Qannass and Ali Saad Alshahrani and Alhassan Algazlan Sr and Musleh Hussain Mubarki"
+    },
+    {
+      "title": "Association of ultrasonography with final histopathology in diagnosing thyroid Malignancy: A single-institute retrospective study",
+      "year": 2022,
+      "citation": "Cureus 14 (11), 2022",
+      "abstract": "BackgroundThyroid nodules are well-defined regions of aberrant echogenicity within the thyroid parenchyma that are radiologically distinct from the normal thyroid gland. The most common incidental finding in imaging scans that include the neck is a thyroid nodule. Rarely are thyroid nodules cancerous, as the majority are benign.",
+      "url": "https://www.cureus.com/articles/102676-association-of-ultrasonography-with-final-histopathology-in-diagnosing-thyroid-malignancy-a-single-institute-retrospective-study.pdf",
+      "authors": "Ali S Alshahrani and Montasir Junaid and Abdulrahman A Aldosari and Khaled A Amer and Ali M Al Qannass and Ali Saad Alshahrani and Ali M Al-Qannass"
+    },
+    {
+      "title": "To Give or Not to Give? Prescribing Antibiotics to the Tonsillectomy Patients in a Tertiary Care Setting",
+      "year": 2021,
+      "citation": "Cureus 13 (7), 2021",
+      "abstract": "Adeno-tonsillectomy is one of the most common procedures performed worldwide in pediatric age group. Antibiotics use after tonsillectomy is like any other surgical procedure; and it is thought that the antibiotic use may help to reduce post-operative morbidity. Giving antibiotics in tonsillectomy patients is a common practice for decades but recently there has been a paradigm shift towards not using the antibiotics, especially in the pediatric population.",
+      "url": "https://www.cureus.com/articles/62989-to-give-or-not-to-give-prescribing-antibiotics-to-the-tonsillectomy-patients-in-a-tertiary-care-setting.pdf",
+      "authors": "Montasir Junaid and Nadeem W Malik and Yasser Abdelsalam Soliman Galbt and Sadaf Qadeer Ahmed and Hareem U Khan and Abdullah Mohammad Alskaini and Algazlan Alhassan J and Musleh Hussain Mubarki and Ali Saad Alshahrani"
+    },
+    {
+      "title": "Association of video gaming with some risky behaviors of secondary school adolescents in Abha, Southwestern Saudi Arabia",
+      "year": 2017,
+      "citation": "Journal of Egyptian Public Health Association 92 (1), 18-28, 2017",
+      "abstract": "AIM: The aim of this study was to describe the patterns of video gaming among secondary school adolescents and to investigate their association with some risky behaviors.MATERIALS AND METHOS: A cross-sectional study was carried out on 336 students randomly selected from secondary schools in Abha City, Saudi Arabia, during the academic year 2015–2016. A predesigned self-report questionnaire was used to assess students’ sociodemographic data, pattern, motivators and drawbacks of video gaming, previous academic year grades, history of violent acts, road traffic accidents (RTA), and violation of traffic rules. Weight and height were measured for every participant and BMI was calculated.RESULTS: About 80% of students played video games and 76% owned a video game machine. The median onset of video gaming was 10 years. The most important motivator for video gaming was ‘give a chance for fun and excitement’ (93.7%), followed by ‘give a chance to get rid of the boredom and leisure’ (92.3%). The most frequently reported social drawbacks were interfering with sleep time (69%), physical activity (64%), and meal time (59%). BMI was not significantly associated with the pattern of video game playing (P>0.05). Academic performance was significantly lower among students who used to game in cybercafes (P=0.001). Prevalence of tobacco smoking and some risky behaviors such as traffic rule violations, significant RTA, and violence were significantly more encountered among those preferring race and drift games (P<0.05) and used to game in cybercafes (P<0.05).CONCLUSION: Video gaming among secondary school …",
+      "url": "https://journals.ekb.eg/article_7006.html",
+      "authors": "Nabil Awadalla and Muath Hadram and Ali Alshahrani and Yahya Hadram"
+    },
+    {
+      "title": "Nasolabial Cyst: A Case Report",
+      "year": 2016,
+      "citation": "Saudi Journal of Otorhinolaryngology Head and Neck Surgery 18 (2), 65-67, 2016",
+      "abstract": "Nasolabial cyst is a rare non-odontogenic, soft-tissue cyst arising in the maxillofacial tissues. The patient usually presents with a slowly enlarging asymptomatic swelling, alar nose elevation, and upper lip projection. We report a nasolabial cyst in a 56-year-old man and discuss the diagnosis, differential diagnosis, and treatment in the light of the literature.",
+      "url": "https://journals.lww.com/sjoh/fulltext/2016/18020/nasolabial_cyst__a_case_report.6.aspx",
+      "authors": "Ali Alshahrani"
+    },
+    {
+      "title": "Foot injuries among hajj pilgrims with and without diabetes mellitus: implications for infection management",
+      "year": 2014,
+      "citation": "Infectious Disorders-Drug TargetsDisorders) 14 (2), 140-147, 2014",
+      "abstract": "Pilgrims attending Hajj in Makkah are at high risk of suffering from trauma and foot injury as they are required to make circuits barefooted on scorching marbles around the Holy Mosque, and march between two hillocks for hours. No study has systematically described the pattern of foot  wounds among them. This observational study aimed to determine the spectrum of foot injuries among diabetic and non-diabetic Hajj pilgrims and the preventive measures adopted by them. Pilgrims who attended the Hajj 2013 and sought medical care for foot wounds at mobile podiatric clinics in  Mina during the peak days of Hajj were invited to participate in the study and fill out a questionnaire while they were serviced. Podiatric carers noted down the significant signs of foot injuries. Out of 197 pilgrims from 21 different countries who participated in this study, 60 (31%) were  diabetic. The two most common injuries observed were …",
+      "url": "https://www.benthamdirect.com/content/journals/iddt/10.2174/1871526514666140713160413",
+      "authors": "Mohammad Alfelali and Osamah Barasheed and Jassir Alshehri and Hamid Bokhary and Sami Alsaedi and Abdulrahman Alhamzi and Naji Aljohani and Tim Driscoll and Harunor Rashid on behalf of the Diabetic Foot Care Research Team in Hajj"
+    },
+    {
+      "title": "Cervical Chondrocutaneous Branchial Remnants: A Case Report",
+      "year": "Year Unknown",
+      "citation": "Journal of Pediatrics Research Reviews & Reports. SRC/JPRRR-150. DOI: doi …, 0",
+      "abstract": "Unilateral cervical chondrocutanous branchial remnants (CCBRs) are uncommon, but when they do occur, they usually occur at the anterior margin of the sternocleidomastoid muscle on the lateral side of the neck, whereas normal skin with a cartilage core makes up the lesions. They have no deep underlying tissues; however, they frequently adhere to the sternocleidomastoid muscle fascia, Surgical excision is the preferred treatment for a CCBR. To rule out underlying significant anomalies, a comprehensive physical examination and ultrasound evaluation of the abdomen and heart are required.",
+      "url": "https://www.researchgate.net/profile/Ali-Alshahrani-17/publication/363004645_Cervical_Chondrocutanous_Branchial_Remnants_A_Case_Report/links/65aee0829ce29c458ba74cf6/Cervical-Chondrocutanous-Branchial-Remnants-A-Case-Report.pdf",
+      "authors": "Musleh Mubarki and Ali Saad Alshahrani and Montasir Junaid and Ahmed Alahmari"
+    }
+  ]
 }
