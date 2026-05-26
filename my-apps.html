@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Apps - Dr Ali Alshahrani</title>
+    <meta name="description" content="Mobile apps and digital tools by Dr. Ali Alshahrani.">
+    <meta name="author" content="Dr. Ali Alshahrani">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="css/style.css?v=3" rel="stylesheet">
+    <style>
+        .apps-page { padding-top: 140px; padding-bottom: 90px; background: #fff; }
+        .apps-intro { max-width: 780px; margin: 0 auto 42px; text-align: center; color: #666; line-height: 1.75; }
+        .apps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px; }
+        .app-card { background: #fff; border-top: 5px solid var(--accent-color); border-radius: 18px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06); padding: 32px; text-align: center; }
+        .app-card i { color: var(--accent-color); font-size: 3rem; margin-bottom: 16px; }
+        .app-card h2 { color: var(--primary-color); margin-bottom: 12px; }
+        .app-card p { color: #666; line-height: 1.7; margin-bottom: 24px; }
+        .app-card a { display: inline-block; padding: 11px 25px; background: var(--gradient); color: #fff; border-radius: 999px; text-decoration: none; font-weight: 700; }
+    </style>
+</head>
+<body>
+    <nav id="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">Dr Ali Alshahrani</a>
+            <div class="hamburger"><span></span><span></span><span></span></div>
+            <ul class="nav-links">
+                <li><a href="index.html#research">Research</a></li>
+                <li><a href="curriculum_vitae.html">Brief CV</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+                <li><a href="ent-tools.html">ENT Tools</a></li>
+                <li><a href="my-apps.html">My Apps</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="apps-page">
+        <div class="container">
+            <h1 class="section-title">My Apps</h1>
+            <p class="apps-intro">A home for mobile apps and digital tools developed for healthcare professional education, reference, and clinical learning support.</p>
+
+            <div class="apps-grid">
+                <article class="app-card">
+                    <i class="fas fa-mobile-screen-button"></i>
+                    <h2>ENT Tools</h2>
+                    <p>Educational and reference app for otolaryngology professionals, including ENT tools, flashcards, announcements, patient instructions, and case logs.</p>
+                    <a href="apps/ent-tools/">Open App Page</a>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
