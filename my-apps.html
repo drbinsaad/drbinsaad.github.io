@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Apps - Dr Ali Alshahrani</title>
-    <meta name="description" content="Mobile apps and digital tools by Dr. Ali Alshahrani.">
+    <meta name="description" content="Mobile app pages, App Store support links, and public app resources by Dr. Ali Alshahrani.">
     <meta name="author" content="Dr. Ali Alshahrani">
     <link rel="icon" type="image/png" href="/favicon.png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
@@ -19,18 +19,25 @@
         .nav-links a { color: #2b2d42; text-decoration: none; font-weight: 700; }
         .hamburger { display: none; }
         .section-title { font-size: 2.5rem; margin-bottom: 3rem; text-align: center; position: relative; }
-        .apps-page { padding-top: 140px; padding-bottom: 90px; background: #fff; }
-        .apps-intro { max-width: 780px; margin: 0 auto 42px; text-align: center; color: #666; line-height: 1.75; }
-        .apps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px; }
-        .app-card { background: #fff; border: 1px solid #e5e7eb; border-top: 5px solid var(--accent-color); border-radius: 18px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06); padding: 32px; text-align: center; }
-        .app-icon { width: 86px; height: 86px; border-radius: 22px; margin-bottom: 18px; box-shadow: 0 14px 32px rgba(108, 99, 255, 0.2); }
-        .app-card h2 { color: var(--primary-color); margin-bottom: 12px; }
-        .app-card p { color: #666; line-height: 1.7; margin-bottom: 24px; }
-        .app-card a { display: inline-block; padding: 11px 25px; background: var(--gradient); color: #fff; border-radius: 999px; text-decoration: none; font-weight: 700; }
+        .apps-page { padding-top: 140px; padding-bottom: 90px; background: #f8fbff; min-height: 100vh; }
+        .apps-intro { max-width: 780px; margin: 0 auto 42px; text-align: center; color: #5d697c; line-height: 1.75; }
+        .apps-note { max-width: 860px; margin: 0 auto 30px; padding: 18px 22px; border: 1px solid #dce5f2; border-radius: 16px; background: #fff; color: #4b5563; line-height: 1.7; }
+        .apps-note a { color: var(--accent-color); font-weight: 700; text-decoration: none; }
+        .apps-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px; max-width: 940px; margin: 0 auto; }
+        .app-card { display: grid; grid-template-columns: 132px minmax(0, 1fr); gap: 26px; align-items: center; background: #fff; border: 1px solid #dce5f2; border-top: 5px solid var(--accent-color); border-radius: 18px; box-shadow: 0 16px 40px rgba(22, 32, 51, 0.08); padding: 34px; }
+        .app-icon { width: 104px; height: 104px; border-radius: 25px; box-shadow: 0 14px 32px rgba(108, 99, 255, 0.2); }
+        .app-card h2 { color: var(--primary-color); margin-bottom: 12px; font-size: 1.9rem; }
+        .app-card p { color: #5d697c; line-height: 1.75; margin-bottom: 22px; }
+        .app-links { display: flex; flex-wrap: wrap; gap: 12px; }
+        .app-links a { display: inline-flex; align-items: center; gap: 8px; min-height: 46px; padding: 11px 18px; background: #fff; color: var(--primary-color); border: 1px solid #dce5f2; border-radius: 999px; text-decoration: none; font-weight: 800; }
+        .app-links a.primary { background: var(--gradient); color: #fff; border: 0; }
         @media (max-width: 860px) {
             .nav-links { display: none; }
             .hamburger { display: flex; flex-direction: column; gap: 5px; }
             .hamburger span { width: 26px; height: 2px; background: #2b2d42; }
+            .app-card { grid-template-columns: 1fr; text-align: center; }
+            .app-icon { margin: 0 auto; }
+            .app-links { justify-content: center; }
         }
     </style>
 </head>
@@ -43,7 +50,7 @@
                 <li><a href="index.html#research">Research</a></li>
                 <li><a href="curriculum_vitae.html">Brief CV</a></li>
                 <li><a href="index.html#contact">Contact</a></li>
-                <li><a href="ent-tools.html">ENT Tools</a></li>
+                <li><a href="ent-tools.html">ENT Web Tools</a></li>
                 <li><a href="my-apps.html">My Apps</a></li>
             </ul>
         </div>
@@ -52,14 +59,23 @@
     <main class="apps-page">
         <div class="container">
             <h1 class="section-title">My Apps</h1>
-            <p class="apps-intro">A home for mobile apps and digital tools developed for healthcare professional education, reference, and clinical learning support.</p>
+            <p class="apps-intro">A clean home for mobile app pages, App Store support resources, privacy links, and app-specific previews.</p>
+            <div class="apps-note">
+                Looking for the browser-based calculators? They stay separate on <a href="ent-tools.html">ENT Web Tools</a>. This page is only for mobile app information and App Store support links.
+            </div>
 
             <div class="apps-grid">
                 <article class="app-card">
-                    <img class="app-icon" src="apps/ent-tools/assets/icon.png" alt="ENT Tools app icon" width="86" height="86">
-                    <h2>ENT Tools</h2>
-                    <p>Educational otolaryngology reference app for healthcare professionals, with airway references, calculators, flashcards, case logs, patient instructions, and privacy-first support resources.</p>
-                    <a href="apps/ent-tools/">Open App Page</a>
+                    <img class="app-icon" src="apps/ent-tools/assets/icon.png" alt="ENT Tools app icon" width="104" height="104">
+                    <div>
+                        <h2>ENT Tools Mobile App</h2>
+                        <p>Educational otolaryngology reference app for healthcare professionals, with airway references, calculators, flashcards, case logs, patient instructions, screenshots, privacy policy, and support resources.</p>
+                        <div class="app-links">
+                            <a class="primary" href="apps/ent-tools/"><i class="fas fa-mobile-screen-button"></i> App Preview</a>
+                            <a href="apps/ent-tools/privacy.html"><i class="fas fa-shield-halved"></i> Privacy</a>
+                            <a href="apps/ent-tools/support.html"><i class="fas fa-life-ring"></i> Support</a>
+                        </div>
+                    </div>
                 </article>
             </div>
         </div>

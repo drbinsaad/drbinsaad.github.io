@@ -131,6 +131,20 @@
             padding-top: 28px;
         }
 
+        .app-breadcrumb {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            margin-bottom: 20px;
+            color: var(--ent-muted);
+            font-weight: 800;
+        }
+
+        .app-breadcrumb a {
+            color: var(--ent-blue);
+            text-decoration: none;
+        }
+
         .hero-kicker {
             display: inline-flex;
             align-items: center;
@@ -213,6 +227,26 @@
             border: 1px solid var(--ent-line);
             border-radius: 999px;
             padding: 9px 13px;
+        }
+
+        .app-link-strip {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 22px;
+        }
+
+        .app-link-strip a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--ent-ink);
+            background: rgba(255, 255, 255, 0.86);
+            border: 1px solid var(--ent-line);
+            border-radius: 999px;
+            padding: 10px 14px;
+            text-decoration: none;
+            font-weight: 800;
         }
 
         .section-band {
@@ -481,7 +515,7 @@
                 <li><a href="../../index.html#research">Research</a></li>
                 <li><a href="../../curriculum_vitae.html">Brief CV</a></li>
                 <li><a href="../../index.html#contact">Contact</a></li>
-                <li><a href="../../ent-tools.html">ENT Tools</a></li>
+                <li><a href="../../ent-tools.html">ENT Web Tools</a></li>
                 <li><a href="../../my-apps.html">My Apps</a></li>
             </ul>
         </div>
@@ -491,26 +525,36 @@
         <section class="ent-hero">
             <div class="container">
                 <div class="hero-content">
+                    <div class="app-breadcrumb">
+                        <a href="../../my-apps.html">My Apps</a>
+                        <span>/</span>
+                        <span>ENT Tools Mobile App</span>
+                    </div>
                     <div class="hero-kicker">
                         <img src="assets/icon.png" alt="ENT Tools app icon" width="46" height="46">
-                        Healthcare professional education
+                        Mobile app preview
                     </div>
                     <h1>ENT Tools</h1>
                     <p class="hero-lead">A focused otolaryngology reference app for clinicians and trainees, bringing airway guidance, educational calculators, flashcards, case logs, patient instruction workflows, and App Store-ready safety information into one mobile workspace.</p>
                     <div class="hero-actions">
                         <a class="primary-link" href="support.html"><i class="fas fa-life-ring"></i> Support</a>
                         <a class="secondary-link" href="privacy.html"><i class="fas fa-shield-halved"></i> Privacy Policy</a>
+                        <a class="secondary-link" href="#screenshots"><i class="fas fa-images"></i> Screenshots</a>
                     </div>
                     <div class="hero-meta" aria-label="App positioning">
                         <span><i class="fas fa-user-doctor"></i> For healthcare professionals</span>
                         <span><i class="fas fa-book-medical"></i> Educational reference</span>
                         <span><i class="fas fa-triangle-exclamation"></i> Not a medical device</span>
                     </div>
+                    <div class="app-link-strip" aria-label="Related ENT Tools app links">
+                        <a href="../../my-apps.html"><i class="fas fa-layer-group"></i> Back to My Apps</a>
+                        <a href="../../ent-tools.html"><i class="fas fa-globe"></i> ENT Web Tools</a>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section class="section-band">
+        <section class="section-band" id="features">
             <div class="container">
                 <div class="section-heading">
                     <h2>Built for daily ENT learning and reference</h2>
@@ -552,7 +596,7 @@
             </div>
         </section>
 
-        <section class="section-band soft">
+        <section class="section-band soft" id="screenshots">
             <div class="container">
                 <div class="section-heading">
                     <h2>What the app looks like</h2>
@@ -584,7 +628,7 @@
             </div>
         </section>
 
-        <section class="section-band">
+        <section class="section-band" id="safety">
             <div class="container">
                 <div class="compliance-panel">
                     <div class="compliance-copy">
@@ -615,7 +659,7 @@
             </div>
         </section>
 
-        <section class="section-band soft">
+        <section class="section-band soft" id="creator">
             <div class="container">
                 <div class="creator-panel">
                     <div class="creator-badge">
