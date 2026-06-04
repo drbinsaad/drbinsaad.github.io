@@ -10,14 +10,28 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <link href="css/style.css?v=3" rel="stylesheet">
     <style>
+        body { margin: 0; font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif; color: #2b2d42; background: #fff; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; padding: 1.35rem 0; background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(12px); border-bottom: 1px solid #e5e7eb; }
+        nav .container { display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+        .logo { color: #2b2d42; font-weight: 800; font-size: 1.25rem; text-decoration: none; }
+        .nav-links { display: flex; gap: 2rem; margin: 0; padding: 0; list-style: none; }
+        .nav-links a { color: #2b2d42; text-decoration: none; font-weight: 700; }
+        .hamburger { display: none; }
+        .section-title { font-size: 2.5rem; margin-bottom: 3rem; text-align: center; position: relative; }
         .apps-page { padding-top: 140px; padding-bottom: 90px; background: #fff; }
         .apps-intro { max-width: 780px; margin: 0 auto 42px; text-align: center; color: #666; line-height: 1.75; }
         .apps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px; }
-        .app-card { background: #fff; border-top: 5px solid var(--accent-color); border-radius: 18px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06); padding: 32px; text-align: center; }
-        .app-card i { color: var(--accent-color); font-size: 3rem; margin-bottom: 16px; }
+        .app-card { background: #fff; border: 1px solid #e5e7eb; border-top: 5px solid var(--accent-color); border-radius: 18px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06); padding: 32px; text-align: center; }
+        .app-icon { width: 86px; height: 86px; border-radius: 22px; margin-bottom: 18px; box-shadow: 0 14px 32px rgba(108, 99, 255, 0.2); }
         .app-card h2 { color: var(--primary-color); margin-bottom: 12px; }
         .app-card p { color: #666; line-height: 1.7; margin-bottom: 24px; }
         .app-card a { display: inline-block; padding: 11px 25px; background: var(--gradient); color: #fff; border-radius: 999px; text-decoration: none; font-weight: 700; }
+        @media (max-width: 860px) {
+            .nav-links { display: none; }
+            .hamburger { display: flex; flex-direction: column; gap: 5px; }
+            .hamburger span { width: 26px; height: 2px; background: #2b2d42; }
+        }
     </style>
 </head>
 <body>
@@ -42,9 +56,9 @@
 
             <div class="apps-grid">
                 <article class="app-card">
-                    <i class="fas fa-mobile-screen-button"></i>
+                    <img class="app-icon" src="apps/ent-tools/assets/icon.png" alt="ENT Tools app icon" width="86" height="86">
                     <h2>ENT Tools</h2>
-                    <p>Educational and reference app for otolaryngology professionals, including ENT tools, flashcards, announcements, patient instructions, and case logs.</p>
+                    <p>Educational otolaryngology reference app for healthcare professionals, with airway references, calculators, flashcards, case logs, patient instructions, and privacy-first support resources.</p>
                     <a href="apps/ent-tools/">Open App Page</a>
                 </article>
             </div>

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>ENT Tools Account Action</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --text: #111827;
+      --muted: #5f6b7a;
+      --accent: #2563eb;
+      --accent-dark: #1d4ed8;
+      --border: #d9e2ef;
+      --success: #047857;
+      --danger: #b91c1c;
+      --warning-bg: #fff7ed;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0b1020;
+        --card: #151b2d;
+        --text: #f8fafc;
+        --muted: #b6c2d1;
+        --accent: #7d80ff;
+        --accent-dark: #9da0ff;
+        --border: #2d3651;
+        --success: #34d399;
+        --danger: #f87171;
+        --warning-bg: #2a2118;
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    main {
+      width: min(100%, 520px);
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 28px;
+      box-shadow: 0 18px 50px rgba(15, 23, 42, 0.14);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .mark {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: block;
+      object-fit: cover;
+      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.18);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 5vw, 40px);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      margin: 8px 0 22px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    form {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    label {
+      display: grid;
+      gap: 8px;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    input {
+      width: 100%;
+      min-height: 52px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text);
+      font-size: 16px;
+      padding: 12px 14px;
+    }
+
+    input:focus {
+      outline: 3px solid rgba(37, 99, 235, 0.22);
+      border-color: var(--accent);
+    }
+
+    button {
+      min-height: 52px;
+      border: 0;
+      border-radius: 14px;
+      background: var(--accent);
+      color: white;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: 0.62;
+      cursor: wait;
+    }
+
+    .message {
+      border-radius: 14px;
+      padding: 14px;
+      line-height: 1.5;
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .message.success { color: var(--success); }
+    .message.error { color: var(--danger); }
+
+    .notice {
+      margin-top: 18px;
+      background: var(--warning-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    a { color: var(--accent-dark); font-weight: 700; }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="brand" aria-label="ENT Tools">
+      <img class="mark" src="../assets/icon.png" alt="" width="48" height="48" aria-hidden="true">
+      <div>
+        <strong>ENT Tools</strong><br>
+        <span class="subtitle" id="brandSubtitle">Account security</span>
+      </div>
+    </div>
+
+    <h1 id="title">Account action</h1>
+    <p class="subtitle" id="subtitle">Checking your secure link.</p>
+
+    <div class="message" id="status" role="status" aria-live="polite">Please wait.</div>
+
+    <form id="resetForm" hidden>
+      <label for="password">
+        New password
+        <input id="password" name="password" type="password" minlength="8" autocomplete="new-password" required>
+      </label>
+      <label for="confirmPassword">
+        Confirm new password
+        <input id="confirmPassword" name="confirmPassword" type="password" minlength="8" autocomplete="new-password" required>
+      </label>
+      <button id="submitButton" type="submit">Reset password</button>
+    </form>
+
+    <p class="notice" id="notice">
+      If you did not request this email, you can ignore it. Do not share this link, password, or verification code with anyone.
+    </p>
+  </main>
+
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js';
+    import {
+      getAuth,
+      verifyPasswordResetCode,
+      confirmPasswordReset,
+      applyActionCode,
+    } from 'https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js';
+
+    const AUTH_DOMAIN = 'ent-tool-c978d.firebaseapp.com';
+    const PROJECT_ID = 'ent-tool-c978d';
+
+    const copy = {
+      en: {
+        accountSecurity: 'Account security',
+        resetTitle: 'Reset your password',
+        resetSubtitle: 'Enter a new password for your ENT Tools account.',
+        verifying: 'Checking your secure reset link.',
+        ready: email => `Reset link verified for ${email}.`,
+        success: 'Your password has been reset. You can now return to ENT Tools and sign in.',
+        verifyTitle: 'Verify your email',
+        verifySubtitle: 'Completing email verification for ENT Tools.',
+        verifySuccess: 'Your email has been verified. You can return to ENT Tools.',
+        recoverTitle: 'Recover email',
+        recoverSubtitle: 'Reverting the email change for your ENT Tools account.',
+        recoverSuccess: 'Your email change has been reverted.',
+        invalid: 'This link is invalid or expired. Please request a new email from ENT Tools.',
+        unsupported: 'This account action is not supported on this page.',
+        mismatch: 'Passwords do not match.',
+        weak: 'Use at least 8 characters for your new password.',
+        error: 'We could not complete this request. Please request a new email from ENT Tools.',
+        buttonBusy: 'Updating password...',
+        button: 'Reset password',
+      },
+      ar: {
+        accountSecurity: 'أمان الحساب',
+        resetTitle: 'إعادة تعيين كلمة المرور',
+        resetSubtitle: 'أدخل كلمة مرور جديدة لحساب ENT Tools.',
+        verifying: 'جار التحقق من رابط إعادة التعيين الآمن.',
+        ready: email => `تم التحقق من رابط إعادة التعيين للحساب ${email}.`,
+        success: 'تم تغيير كلمة المرور. يمكنك الآن العودة إلى ENT Tools وتسجيل الدخول.',
+        verifyTitle: 'تأكيد البريد الإلكتروني',
+        verifySubtitle: 'جار إكمال تأكيد البريد الإلكتروني في ENT Tools.',
+        verifySuccess: 'تم تأكيد بريدك الإلكتروني. يمكنك العودة إلى ENT Tools.',
+        recoverTitle: 'استرجاع البريد الإلكتروني',
+        recoverSubtitle: 'جار التراجع عن تغيير البريد الإلكتروني لحساب ENT Tools.',
+        recoverSuccess: 'تم التراجع عن تغيير البريد الإلكتروني.',
+        invalid: 'هذا الرابط غير صالح أو منتهي الصلاحية. اطلب رسالة جديدة من ENT Tools.',
+        unsupported: 'هذا الإجراء غير مدعوم في هذه الصفحة.',
+        mismatch: 'كلمتا المرور غير متطابقتين.',
+        weak: 'استخدم 8 أحرف على الأقل لكلمة المرور الجديدة.',
+        error: 'تعذر إكمال الطلب. اطلب رسالة جديدة من ENT Tools.',
+        buttonBusy: 'جار تحديث كلمة المرور...',
+        button: 'إعادة تعيين كلمة المرور',
+      },
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const language = params.get('lang') === 'ar' ? 'ar' : 'en';
+    const text = copy[language];
+    document.documentElement.lang = language;
+    document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
+    document.getElementById('brandSubtitle').textContent = text.accountSecurity;
+    document.getElementById('submitButton').textContent = text.button;
+
+    const title = document.getElementById('title');
+    const subtitle = document.getElementById('subtitle');
+    const status = document.getElementById('status');
+    const form = document.getElementById('resetForm');
+    const submitButton = document.getElementById('submitButton');
+    const passwordInput = document.getElementById('password');
+    const confirmInput = document.getElementById('confirmPassword');
+
+    function setStatus(message, kind = '') {
+      status.textContent = message;
+      status.className = kind ? `message ${kind}` : 'message';
+    }
+
+    function hasSafeCode(value) {
+      return typeof value === 'string' && /^[A-Za-z0-9_-]{20,220}$/.test(value);
+    }
+
+    function hasSafeApiKey(value) {
+      return typeof value === 'string' && /^[A-Za-z0-9_-]{20,160}$/.test(value);
+    }
+
+    const mode = params.get('mode');
+    const oobCode = params.get('oobCode');
+    const apiKey = params.get('apiKey');
+
+    if (!hasSafeCode(oobCode) || !hasSafeApiKey(apiKey)) {
+      title.textContent = 'ENT Tools';
+      subtitle.textContent = text.invalid;
+      setStatus(text.invalid, 'error');
+      throw new Error('Invalid account action parameters');
+    }
+
+    const app = initializeApp({apiKey, authDomain: AUTH_DOMAIN, projectId: PROJECT_ID});
+    const auth = getAuth(app);
+    auth.languageCode = language;
+
+    async function handleResetPassword() {
+      title.textContent = text.resetTitle;
+      subtitle.textContent = text.resetSubtitle;
+      setStatus(text.verifying);
+
+      const email = await verifyPasswordResetCode(auth, oobCode);
+      setStatus(text.ready(email), 'success');
+      form.hidden = false;
+      passwordInput.focus();
+
+      form.addEventListener('submit', async event => {
+        event.preventDefault();
+        const newPassword = passwordInput.value;
+        const confirmedPassword = confirmInput.value;
+
+        if (newPassword.length < 8) {
+          setStatus(text.weak, 'error');
+          return;
+        }
+        if (newPassword !== confirmedPassword) {
+          setStatus(text.mismatch, 'error');
+          return;
+        }
+
+        submitButton.disabled = true;
+        submitButton.textContent = text.buttonBusy;
+        try {
+          await confirmPasswordReset(auth, oobCode, newPassword);
+          form.hidden = true;
+          setStatus(text.success, 'success');
+        } catch {
+          setStatus(text.error, 'error');
+          submitButton.disabled = false;
+          submitButton.textContent = text.button;
+        }
+      });
+    }
+
+    async function handleApplyAction(actionTitle, actionSubtitle, successMessage) {
+      title.textContent = actionTitle;
+      subtitle.textContent = actionSubtitle;
+      setStatus(text.verifying);
+      await applyActionCode(auth, oobCode);
+      setStatus(successMessage, 'success');
+    }
+
+    try {
+      if (mode === 'resetPassword') {
+        await handleResetPassword();
+      } else if (mode === 'verifyEmail') {
+        await handleApplyAction(text.verifyTitle, text.verifySubtitle, text.verifySuccess);
+      } else if (mode === 'recoverEmail') {
+        await handleApplyAction(text.recoverTitle, text.recoverSubtitle, text.recoverSuccess);
+      } else {
+        title.textContent = 'ENT Tools';
+        subtitle.textContent = text.unsupported;
+        setStatus(text.unsupported, 'error');
+      }
+    } catch {
+      form.hidden = true;
+      setStatus(text.error, 'error');
+    }
+  </script>
+</body>
+</html>

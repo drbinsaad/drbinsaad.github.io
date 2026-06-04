@@ -3,22 +3,473 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ENT Tools App - Dr Ali Alshahrani</title>
-    <meta name="description" content="ENT Tools app information, privacy policy, and support links.">
+    <title>ENT Tools App - Otolaryngology Reference for Clinicians</title>
+    <meta name="description" content="ENT Tools is an educational otolaryngology reference app for healthcare professionals, with airway references, clinical calculators, flashcards, patient instructions, case logs, and App Store-ready privacy and support information.">
     <meta name="author" content="Dr. Ali Alshahrani">
-    <link rel="icon" type="image/png" href="/favicon.png">
+    <meta property="og:title" content="ENT Tools App">
+    <meta property="og:description" content="Otolaryngology reference tools, airway guidance, flashcards, case logs, and educational calculators for healthcare professionals.">
+    <meta property="og:image" content="https://shahrani.me/apps/ent-tools/assets/icon.png">
+    <meta property="og:url" content="https://shahrani.me/apps/ent-tools/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ENT Tools App">
+    <meta name="twitter:description" content="ENT reference app for clinicians and trainees.">
+    <meta name="twitter:image" content="https://shahrani.me/apps/ent-tools/assets/icon.png">
+    <meta name="twitter:site" content="@_DrAli">
+    <link rel="icon" type="image/png" href="assets/icon.png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <link href="../../css/style.css?v=3" rel="stylesheet">
     <style>
-        .app-page { padding-top: 140px; padding-bottom: 90px; background: #fff; }
-        .app-hero { max-width: 860px; margin: 0 auto 42px; text-align: center; }
-        .app-hero p { color: #666; line-height: 1.75; margin-top: 16px; }
-        .app-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 28px; }
-        .option-card { background: #fff; border-top: 5px solid var(--accent-color); border-radius: 18px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06); padding: 32px; text-align: center; }
-        .option-card i { color: var(--accent-color); font-size: 2.7rem; margin-bottom: 16px; }
-        .option-card h2 { color: var(--primary-color); margin-bottom: 12px; }
-        .option-card p { color: #666; line-height: 1.7; margin-bottom: 24px; }
-        .option-card a { display: inline-block; padding: 11px 25px; background: var(--gradient); color: #fff; border-radius: 999px; text-decoration: none; font-weight: 700; }
+        :root {
+            --ent-ink: #162033;
+            --ent-muted: #5d697c;
+            --ent-line: #dce5f2;
+            --ent-soft: #f5f8fc;
+            --ent-blue: #2563eb;
+            --ent-teal: #0891b2;
+            --ent-green: #059669;
+            --ent-gold: #b7791f;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--ent-ink);
+            background: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.35rem 0;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(220, 229, 242, 0.8);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .logo {
+            color: var(--ent-ink);
+            font-weight: 800;
+            font-size: 1.25rem;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--ent-ink);
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .hamburger {
+            display: none;
+        }
+
+        .ent-page {
+            overflow: hidden;
+        }
+
+        .ent-hero {
+            position: relative;
+            min-height: 82vh;
+            padding: 150px 0 68px;
+            background: #f8fbff;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .ent-hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: url("assets/screenshots/home.png");
+            background-repeat: no-repeat;
+            background-position: right 8vw bottom -180px;
+            background-size: min(42vw, 430px) auto;
+            opacity: 0.28;
+            pointer-events: none;
+        }
+
+        .ent-hero::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, #f8fbff 0%, rgba(248, 251, 255, 0.96) 48%, rgba(248, 251, 255, 0.64) 100%);
+            pointer-events: none;
+        }
+
+        .ent-hero .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            max-width: 780px;
+            padding-top: 28px;
+        }
+
+        .hero-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--ent-teal);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 20px;
+        }
+
+        .hero-kicker img {
+            width: 46px;
+            height: 46px;
+            border-radius: 14px;
+            box-shadow: 0 12px 30px rgba(37, 99, 235, 0.22);
+        }
+
+        .ent-hero h1 {
+            color: var(--ent-ink);
+            font-size: clamp(3rem, 9vw, 6.4rem);
+            line-height: 0.95;
+            margin: 0 0 22px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-lead {
+            color: var(--ent-muted);
+            max-width: 710px;
+            font-size: clamp(1.12rem, 2vw, 1.45rem);
+            line-height: 1.65;
+            margin-bottom: 28px;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            align-items: center;
+        }
+
+        .primary-link,
+        .secondary-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            min-height: 48px;
+            padding: 13px 22px;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 800;
+        }
+
+        .primary-link {
+            background: var(--ent-blue);
+            color: #fff;
+            box-shadow: 0 12px 28px rgba(37, 99, 235, 0.22);
+        }
+
+        .secondary-link {
+            color: var(--ent-ink);
+            background: #fff;
+            border: 1px solid var(--ent-line);
+        }
+
+        .hero-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 30px;
+            color: var(--ent-muted);
+            font-weight: 700;
+        }
+
+        .hero-meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #fff;
+            border: 1px solid var(--ent-line);
+            border-radius: 999px;
+            padding: 9px 13px;
+        }
+
+        .section-band {
+            padding: 86px 0;
+        }
+
+        .section-band.soft {
+            background: var(--ent-soft);
+        }
+
+        .section-heading {
+            max-width: 780px;
+            margin: 0 auto 38px;
+            text-align: center;
+        }
+
+        .section-heading h2 {
+            color: var(--ent-ink);
+            font-size: clamp(2rem, 4vw, 3rem);
+            line-height: 1.1;
+            margin-bottom: 14px;
+        }
+
+        .section-heading p {
+            color: var(--ent-muted);
+            line-height: 1.75;
+            font-size: 1.05rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 22px;
+        }
+
+        .feature-card {
+            background: #fff;
+            border: 1px solid var(--ent-line);
+            border-radius: 18px;
+            padding: 26px;
+            box-shadow: 0 12px 32px rgba(22, 32, 51, 0.06);
+        }
+
+        .feature-card i {
+            display: inline-grid;
+            place-items: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--ent-blue);
+            margin-bottom: 18px;
+            font-size: 1.25rem;
+        }
+
+        .feature-card h3 {
+            color: var(--ent-ink);
+            font-size: 1.22rem;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: var(--ent-muted);
+            line-height: 1.7;
+        }
+
+        .screenshot-strip {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(160px, 1fr));
+            gap: 22px;
+            align-items: end;
+            overflow-x: auto;
+            padding: 12px 4px 18px;
+            scroll-snap-type: x mandatory;
+        }
+
+        .screen-shot {
+            min-width: 180px;
+            scroll-snap-align: center;
+        }
+
+        .screen-shot img {
+            width: 100%;
+            border-radius: 28px;
+            border: 1px solid rgba(22, 32, 51, 0.12);
+            box-shadow: 0 20px 44px rgba(22, 32, 51, 0.16);
+            background: #000;
+        }
+
+        .screen-shot figcaption {
+            color: var(--ent-muted);
+            font-weight: 700;
+            margin-top: 12px;
+            text-align: center;
+        }
+
+        .compliance-panel {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 34px;
+            align-items: stretch;
+        }
+
+        .compliance-copy,
+        .status-copy {
+            background: #fff;
+            border: 1px solid var(--ent-line);
+            border-radius: 22px;
+            padding: 30px;
+            box-shadow: 0 12px 32px rgba(22, 32, 51, 0.06);
+        }
+
+        .compliance-copy h2,
+        .status-copy h2 {
+            color: var(--ent-ink);
+            margin-bottom: 14px;
+        }
+
+        .compliance-list {
+            display: grid;
+            gap: 14px;
+            margin-top: 20px;
+        }
+
+        .compliance-list li {
+            list-style: none;
+            display: flex;
+            gap: 12px;
+            color: var(--ent-muted);
+            line-height: 1.65;
+        }
+
+        .compliance-list i {
+            color: var(--ent-green);
+            margin-top: 5px;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(183, 121, 31, 0.11);
+            color: var(--ent-gold);
+            border-radius: 999px;
+            padding: 9px 13px;
+            font-weight: 800;
+            margin-bottom: 18px;
+        }
+
+        .link-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+            margin-top: 26px;
+        }
+
+        .resource-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            min-height: 68px;
+            padding: 18px 20px;
+            border: 1px solid var(--ent-line);
+            border-radius: 16px;
+            color: var(--ent-ink);
+            text-decoration: none;
+            background: #fff;
+            font-weight: 800;
+        }
+
+        .resource-link span {
+            color: var(--ent-muted);
+            font-weight: 600;
+            display: block;
+            font-size: 0.92rem;
+            margin-top: 3px;
+        }
+
+        .creator-panel {
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .creator-badge {
+            background: #fff;
+            border: 1px solid var(--ent-line);
+            border-radius: 24px;
+            padding: 34px;
+            text-align: center;
+            box-shadow: 0 12px 32px rgba(22, 32, 51, 0.06);
+        }
+
+        .creator-badge img {
+            width: 104px;
+            height: 104px;
+            border-radius: 26px;
+            box-shadow: 0 16px 34px rgba(37, 99, 235, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .creator-copy h2 {
+            color: var(--ent-ink);
+            font-size: clamp(2rem, 4vw, 3rem);
+            line-height: 1.1;
+            margin-bottom: 18px;
+        }
+
+        .creator-copy p {
+            color: var(--ent-muted);
+            line-height: 1.8;
+            margin-bottom: 18px;
+        }
+
+        @media (max-width: 860px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .hamburger span {
+                width: 26px;
+                height: 2px;
+                background: var(--ent-ink);
+            }
+
+            .ent-hero {
+                padding-top: 128px;
+                min-height: 78vh;
+            }
+
+            .ent-hero::before {
+                background-position: center bottom -230px;
+                background-size: min(86vw, 360px) auto;
+                opacity: 0.18;
+            }
+
+            .ent-hero::after {
+                background: rgba(248, 251, 255, 0.9);
+            }
+
+            .compliance-panel,
+            .creator-panel {
+                grid-template-columns: 1fr;
+            }
+
+            .screenshot-strip {
+                grid-template-columns: repeat(5, 190px);
+            }
+        }
     </style>
 </head>
 <body>
@@ -36,29 +487,155 @@
         </div>
     </nav>
 
-    <main class="app-page">
-        <div class="container">
-            <section class="app-hero">
-                <h1 class="section-title">ENT Tools</h1>
-                <p>ENT Tools is an educational and reference app for healthcare professionals in otolaryngology. It is not a medical device and does not replace clinical judgment, institutional protocols, pharmacist review, or specialist consultation.</p>
-            </section>
+    <main class="ent-page">
+        <section class="ent-hero">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-kicker">
+                        <img src="assets/icon.png" alt="ENT Tools app icon" width="46" height="46">
+                        Healthcare professional education
+                    </div>
+                    <h1>ENT Tools</h1>
+                    <p class="hero-lead">A focused otolaryngology reference app for clinicians and trainees, bringing airway guidance, educational calculators, flashcards, case logs, patient instruction workflows, and App Store-ready safety information into one mobile workspace.</p>
+                    <div class="hero-actions">
+                        <a class="primary-link" href="support.html"><i class="fas fa-life-ring"></i> Support</a>
+                        <a class="secondary-link" href="privacy.html"><i class="fas fa-shield-halved"></i> Privacy Policy</a>
+                    </div>
+                    <div class="hero-meta" aria-label="App positioning">
+                        <span><i class="fas fa-user-doctor"></i> For healthcare professionals</span>
+                        <span><i class="fas fa-book-medical"></i> Educational reference</span>
+                        <span><i class="fas fa-triangle-exclamation"></i> Not a medical device</span>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-            <section class="app-options" aria-label="ENT Tools app links">
-                <article class="option-card">
-                    <i class="fas fa-shield-halved"></i>
-                    <h2>Privacy Policy</h2>
-                    <p>Read how ENT Tools uses account data, user-created content, push tokens, and crash/performance data.</p>
-                    <a href="privacy.html">Open Privacy Policy</a>
-                </article>
+        <section class="section-band">
+            <div class="container">
+                <div class="section-heading">
+                    <h2>Built for daily ENT learning and reference</h2>
+                    <p>ENT Tools is designed to keep common otolaryngology reference workflows close at hand while preserving the clinical responsibility of the user.</p>
+                </div>
 
-                <article class="option-card">
-                    <i class="fas fa-envelope-open-text"></i>
-                    <h2>Support</h2>
-                    <p>Contact support, review the medical disclaimer, and see guidance about avoiding patient identifiers.</p>
-                    <a href="support.html">Open Support</a>
-                </article>
-            </section>
-        </div>
+                <div class="feature-grid">
+                    <article class="feature-card">
+                        <i class="fas fa-lungs"></i>
+                        <h3>Airway references</h3>
+                        <p>Structured airway, bronchoscopy, endotracheal tube, and tracheostomy sizing references for quick educational lookup.</p>
+                    </article>
+                    <article class="feature-card">
+                        <i class="fas fa-calculator"></i>
+                        <h3>Educational calculators</h3>
+                        <p>Non-drug ENT scoring and reference calculators for otology, rhinology, laryngology, airway, sleep, and general workflows.</p>
+                    </article>
+                    <article class="feature-card">
+                        <i class="fas fa-layer-group"></i>
+                        <h3>Flashcards and study</h3>
+                        <p>Study decks, tagged cards, progress tracking, and review tools for structured learning across ENT topics.</p>
+                    </article>
+                    <article class="feature-card">
+                        <i class="fas fa-clipboard-list"></i>
+                        <h3>Case logs</h3>
+                        <p>Personal case logging with clear reminders not to enter patient identifiers or protected health information.</p>
+                    </article>
+                    <article class="feature-card">
+                        <i class="fas fa-file-medical"></i>
+                        <h3>Patient instructions</h3>
+                        <p>Admin-published educational handouts and instructions for organized reference, with privacy-aware support guidance.</p>
+                    </article>
+                    <article class="feature-card">
+                        <i class="fas fa-bullhorn"></i>
+                        <h3>Announcements</h3>
+                        <p>App announcements and updates for courses, conferences, educational content, and project communication.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-band soft">
+            <div class="container">
+                <div class="section-heading">
+                    <h2>What the app looks like</h2>
+                    <p>Clean demo screenshots from the App Store submission package. These images avoid private data and patient identifiers.</p>
+                </div>
+
+                <div class="screenshot-strip" aria-label="ENT Tools screenshots">
+                    <figure class="screen-shot">
+                        <img src="assets/screenshots/home.png" alt="ENT Tools home screen">
+                        <figcaption>Home</figcaption>
+                    </figure>
+                    <figure class="screen-shot">
+                        <img src="assets/screenshots/airway-tools.png" alt="Airway tools screen">
+                        <figcaption>Airway</figcaption>
+                    </figure>
+                    <figure class="screen-shot">
+                        <img src="assets/screenshots/more-tools.png" alt="More tools screen">
+                        <figcaption>More Tools</figcaption>
+                    </figure>
+                    <figure class="screen-shot">
+                        <img src="assets/screenshots/compliance-links.png" alt="Compliance and support links screen">
+                        <figcaption>Compliance</figcaption>
+                    </figure>
+                    <figure class="screen-shot">
+                        <img src="assets/screenshots/about-app.png" alt="About ENT Tools screen">
+                        <figcaption>About</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-band">
+            <div class="container">
+                <div class="compliance-panel">
+                    <div class="compliance-copy">
+                        <h2>Safety and App Store positioning</h2>
+                        <p>ENT Tools is positioned as educational and reference software for healthcare professionals. It does not diagnose, treat, cure, mitigate, or prevent disease, and it does not replace clinical judgment, institutional policy, pharmacist review, specialist consultation, or emergency care.</p>
+                        <ul class="compliance-list">
+                            <li><i class="fas fa-check-circle"></i><span>Patient-specific drug dosage calculators are not included in the public Apple v1 navigation.</span></li>
+                            <li><i class="fas fa-check-circle"></i><span>Users are warned not to enter patient names, medical record numbers, national IDs, phone numbers, dates of birth, or other protected identifiers.</span></li>
+                            <li><i class="fas fa-check-circle"></i><span>Privacy and support pages are available publicly for App Review and users.</span></li>
+                        </ul>
+                    </div>
+                    <div class="status-copy">
+                        <span class="status-pill"><i class="fas fa-seedling"></i> Apple v1 in preparation</span>
+                        <h2>Release status</h2>
+                        <p>ENT Tools is being prepared for Apple App Store review as a healthcare professional education and reference app.</p>
+                        <div class="link-grid">
+                            <a class="resource-link" href="privacy.html">
+                                <div>Privacy Policy<span>Data use and no tracking summary</span></div>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                            <a class="resource-link" href="support.html">
+                                <div>Support<span>Contact and medical disclaimer</span></div>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-band soft">
+            <div class="container">
+                <div class="creator-panel">
+                    <div class="creator-badge">
+                        <img src="assets/icon.png" alt="ENT Tools app icon" width="104" height="104">
+                        <h2>ENT Tools</h2>
+                        <p>Created for practical ENT education and reference workflows.</p>
+                    </div>
+                    <div class="creator-copy">
+                        <h2>Created by Dr. Ali Alshahrani</h2>
+                        <p>ENT Tools was created by Dr. Ali Alshahrani to support practical ENT education, reference workflows, and structured learning for clinicians and trainees.</p>
+                        <p>For support, academic collaboration, institutional support, or sponsorship inquiries related to ongoing app development, use the support page or contact Dr. Ali Alshahrani directly.</p>
+                        <div class="hero-actions">
+                            <a class="primary-link" href="mailto:drbinsaad@gmail.com"><i class="fas fa-envelope"></i> Contact</a>
+                            <a class="secondary-link" href="https://www.linkedin.com/in/dralialshahrani/"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                            <a class="secondary-link" href="https://x.com/_DrAli"><i class="fab fa-x-twitter"></i> X</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <script src="../../js/main.js"></script>
