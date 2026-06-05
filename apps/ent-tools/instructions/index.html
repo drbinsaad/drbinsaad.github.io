@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Patient Instruction - ENT Tools</title>
+  <meta name="description" content="Public patient instruction handout shared from ENT Tools.">
+  <link rel="icon" type="image/png" href="../assets/icon.png">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f5f8fc;
+      --card: #ffffff;
+      --text: #162033;
+      --muted: #5d697c;
+      --line: #dce5f2;
+      --accent: #2563eb;
+      --accent-soft: #eaf1ff;
+      --warning: #8a5b0a;
+      --warning-bg: #fff7df;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #05070d;
+        --card: #151821;
+        --text: #f8fafc;
+        --muted: #b7c0cf;
+        --line: #2b3244;
+        --accent: #7d80ff;
+        --accent-soft: #191b34;
+        --warning: #f6c35b;
+        --warning-bg: #261f10;
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding: 18px;
+    }
+
+    main {
+      width: min(100%, 760px);
+      margin: 0 auto;
+      padding: 18px 0 40px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+    }
+
+    .brand strong { display: block; font-size: 15px; }
+    .brand span { color: var(--muted); font-size: 13px; }
+
+    article, .state {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 18px 50px rgba(15, 23, 42, 0.08);
+    }
+
+    .state {
+      padding: 28px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .cover {
+      width: 100%;
+      max-height: 320px;
+      object-fit: cover;
+      display: none;
+      background: var(--accent-soft);
+    }
+
+    .content { padding: 28px; }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 7px 11px;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(32px, 8vw, 52px);
+      line-height: 1.04;
+      letter-spacing: 0;
+    }
+
+    .meta {
+      margin: 12px 0 24px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .body {
+      font-size: 18px;
+      line-height: 1.72;
+      white-space: pre-wrap;
+    }
+
+    .body h2,
+    .body h3 {
+      margin: 28px 0 8px;
+      line-height: 1.2;
+    }
+
+    .body p { margin: 0 0 16px; }
+
+    .notice {
+      margin-top: 26px;
+      border: 1px solid rgba(138, 91, 10, 0.2);
+      background: var(--warning-bg);
+      color: var(--warning);
+      border-radius: 16px;
+      padding: 15px;
+      line-height: 1.55;
+      font-size: 14px;
+      font-weight: 650;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    a.button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      border-radius: 999px;
+      padding: 0 18px;
+      color: #fff;
+      background: var(--accent);
+      text-decoration: none;
+      font-weight: 800;
+    }
+
+    a.secondary {
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid var(--line);
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="brand" aria-label="ENT Tools">
+      <img src="../assets/icon.png" alt="" aria-hidden="true">
+      <div>
+        <strong>ENT Tools</strong>
+        <span>Patient instruction handout</span>
+      </div>
+    </div>
+
+    <div id="state" class="state" role="status" aria-live="polite">
+      Loading patient instruction...
+    </div>
+
+    <article id="instruction" hidden>
+      <img id="cover" class="cover" alt="">
+      <div class="content">
+        <div id="category" class="badge">Instruction</div>
+        <h1 id="title"></h1>
+        <div id="meta" class="meta"></div>
+        <div id="body" class="body"></div>
+        <div class="notice">
+          This patient instruction is for education and communication support only.
+          It does not replace care from your clinician or emergency medical advice.
+        </div>
+        <div class="actions">
+          <a class="button" href="../">About ENT Tools</a>
+          <a class="button secondary" href="../support.html">Support</a>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <script>
+    const PROJECT_ID = 'ent-tool-c978d';
+    const COLLECTION = 'patientInstructions';
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id') || '';
+    const state = document.getElementById('state');
+    const article = document.getElementById('instruction');
+    const cover = document.getElementById('cover');
+    const category = document.getElementById('category');
+    const title = document.getElementById('title');
+    const meta = document.getElementById('meta');
+    const body = document.getElementById('body');
+
+    const categoryLabels = {
+      'post-operative': 'Post-operative',
+      medication: 'Medication',
+      lifestyle: 'Lifestyle',
+      emergency: 'Emergency',
+      general: 'General',
+    };
+
+    function fail(message) {
+      state.textContent = message;
+      state.hidden = false;
+      article.hidden = true;
+    }
+
+    function textField(fields, key, fallback = '') {
+      return fields?.[key]?.stringValue || fallback;
+    }
+
+    function numberField(fields, key, fallback = 0) {
+      const value = fields?.[key]?.integerValue ?? fields?.[key]?.doubleValue;
+      return Number.isFinite(Number(value)) ? Number(value) : fallback;
+    }
+
+    function boolField(fields, key, fallback = false) {
+      return typeof fields?.[key]?.booleanValue === 'boolean'
+        ? fields[key].booleanValue
+        : fallback;
+    }
+
+    function timestampField(fields, key) {
+      const value = fields?.[key]?.timestampValue;
+      if (!value) return null;
+      const date = new Date(value);
+      return Number.isNaN(date.getTime()) ? null : date;
+    }
+
+    function renderMarkdownLite(markdown) {
+      const fragment = document.createDocumentFragment();
+      const blocks = markdown.split(/\n{2,}/);
+
+      for (const block of blocks) {
+        const trimmed = block.trim();
+        if (!trimmed) continue;
+
+        const heading = trimmed.match(/^(#{1,3})\s+(.+)$/);
+        if (heading) {
+          const level = heading[1].length === 1 ? 'h2' : 'h3';
+          const element = document.createElement(level);
+          element.textContent = cleanInline(heading[2]);
+          fragment.appendChild(element);
+          continue;
+        }
+
+        const paragraph = document.createElement('p');
+        paragraph.textContent = cleanInline(trimmed);
+        fragment.appendChild(paragraph);
+      }
+
+      return fragment;
+    }
+
+    function cleanInline(value) {
+      return value
+        .replace(/!\[([^\]]*)\]\([^)]+\)/g, '$1')
+        .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+        .replace(/(\*\*|__)(.*?)\1/g, '$2')
+        .replace(/(\*|_)(.*?)\1/g, '$2')
+        .replace(/`([^`]+)`/g, '$1')
+        .replace(/<[^>]+>/g, '')
+        .trim();
+    }
+
+    async function loadInstruction() {
+      if (!/^[A-Za-z0-9_-]{6,140}$/.test(id)) {
+        fail('This patient instruction link is invalid.');
+        return;
+      }
+
+      const url =
+        `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}` +
+        `/databases/(default)/documents/${COLLECTION}/${encodeURIComponent(id)}`;
+
+      const response = await fetch(url);
+      if (!response.ok) {
+        fail('This patient instruction could not be found.');
+        return;
+      }
+
+      const json = await response.json();
+      const fields = json.fields || {};
+      if (boolField(fields, 'published', true) === false) {
+        fail('This patient instruction is not currently published.');
+        return;
+      }
+
+      const instructionTitle = textField(fields, 'title', 'Patient instruction');
+      const instructionBody = textField(fields, 'body');
+      const instructionCategory = textField(fields, 'category', 'general');
+      const updatedAt = timestampField(fields, 'updatedAt') || timestampField(fields, 'createdAt');
+      const imageUrl = textField(fields, 'imageUrl');
+      const order = numberField(fields, 'order');
+
+      document.title = `${instructionTitle} - ENT Tools`;
+      title.textContent = instructionTitle;
+      category.textContent = categoryLabels[instructionCategory] || 'Instruction';
+      meta.textContent = [
+        updatedAt ? `Updated ${updatedAt.toLocaleDateString()}` : '',
+        Number.isFinite(order) && order > 0 ? `Reference ${order}` : '',
+      ].filter(Boolean).join(' · ');
+
+      body.replaceChildren(renderMarkdownLite(instructionBody));
+
+      if (imageUrl && /^https:\/\/firebasestorage\.googleapis\.com\//.test(imageUrl)) {
+        cover.src = imageUrl;
+        cover.alt = instructionTitle;
+        cover.style.display = 'block';
+      }
+
+      state.hidden = true;
+      article.hidden = false;
+    }
+
+    loadInstruction().catch(() => {
+      fail('Something went wrong while loading this patient instruction.');
+    });
+  </script>
+</body>
+</html>
