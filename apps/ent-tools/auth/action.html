@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-  <title>ENT Tools Account Action</title>
+  <title>ENT Hub Account Action</title>
   <style>
     :root {
       color-scheme: light dark;
@@ -160,10 +160,10 @@
 </head>
 <body>
   <main>
-    <div class="brand" aria-label="ENT Tools">
+    <div class="brand" aria-label="ENT Hub">
       <img class="mark" src="../assets/icon.png" alt="" width="48" height="48" aria-hidden="true">
       <div>
-        <strong>ENT Tools</strong><br>
+        <strong>ENT Hub</strong><br>
         <span class="subtitle" id="brandSubtitle">Account security</span>
       </div>
     </div>
@@ -206,42 +206,42 @@
       en: {
         accountSecurity: 'Account security',
         resetTitle: 'Reset your password',
-        resetSubtitle: 'Enter a new password for your ENT Tools account.',
+        resetSubtitle: 'Enter a new password for your ENT Hub account.',
         verifying: 'Checking your secure reset link.',
         ready: email => `Reset link verified for ${email}.`,
-        success: 'Your password has been reset. You can now return to ENT Tools and sign in.',
+        success: 'Your password has been reset. You can now return to ENT Hub and sign in.',
         verifyTitle: 'Verify your email',
-        verifySubtitle: 'Completing email verification for ENT Tools.',
-        verifySuccess: 'Your email has been verified. You can return to ENT Tools.',
+        verifySubtitle: 'Completing email verification for ENT Hub.',
+        verifySuccess: 'Your email has been verified. You can return to ENT Hub.',
         recoverTitle: 'Recover email',
-        recoverSubtitle: 'Reverting the email change for your ENT Tools account.',
+        recoverSubtitle: 'Reverting the email change for your ENT Hub account.',
         recoverSuccess: 'Your email change has been reverted.',
-        invalid: 'This link is invalid or expired. Please request a new email from ENT Tools.',
+        invalid: 'This link is invalid or expired. Please request a new email from ENT Hub.',
         unsupported: 'This account action is not supported on this page.',
         mismatch: 'Passwords do not match.',
         weak: 'Use at least 8 characters for your new password.',
-        error: 'We could not complete this request. Please request a new email from ENT Tools.',
+        error: 'We could not complete this request. Please request a new email from ENT Hub.',
         buttonBusy: 'Updating password...',
         button: 'Reset password',
       },
       ar: {
         accountSecurity: 'أمان الحساب',
         resetTitle: 'إعادة تعيين كلمة المرور',
-        resetSubtitle: 'أدخل كلمة مرور جديدة لحساب ENT Tools.',
+        resetSubtitle: 'أدخل كلمة مرور جديدة لحساب ENT Hub.',
         verifying: 'جار التحقق من رابط إعادة التعيين الآمن.',
         ready: email => `تم التحقق من رابط إعادة التعيين للحساب ${email}.`,
-        success: 'تم تغيير كلمة المرور. يمكنك الآن العودة إلى ENT Tools وتسجيل الدخول.',
+        success: 'تم تغيير كلمة المرور. يمكنك الآن العودة إلى ENT Hub وتسجيل الدخول.',
         verifyTitle: 'تأكيد البريد الإلكتروني',
-        verifySubtitle: 'جار إكمال تأكيد البريد الإلكتروني في ENT Tools.',
-        verifySuccess: 'تم تأكيد بريدك الإلكتروني. يمكنك العودة إلى ENT Tools.',
+        verifySubtitle: 'جار إكمال تأكيد البريد الإلكتروني في ENT Hub.',
+        verifySuccess: 'تم تأكيد بريدك الإلكتروني. يمكنك العودة إلى ENT Hub.',
         recoverTitle: 'استرجاع البريد الإلكتروني',
-        recoverSubtitle: 'جار التراجع عن تغيير البريد الإلكتروني لحساب ENT Tools.',
+        recoverSubtitle: 'جار التراجع عن تغيير البريد الإلكتروني لحساب ENT Hub.',
         recoverSuccess: 'تم التراجع عن تغيير البريد الإلكتروني.',
-        invalid: 'هذا الرابط غير صالح أو منتهي الصلاحية. اطلب رسالة جديدة من ENT Tools.',
+        invalid: 'هذا الرابط غير صالح أو منتهي الصلاحية. اطلب رسالة جديدة من ENT Hub.',
         unsupported: 'هذا الإجراء غير مدعوم في هذه الصفحة.',
         mismatch: 'كلمتا المرور غير متطابقتين.',
         weak: 'استخدم 8 أحرف على الأقل لكلمة المرور الجديدة.',
-        error: 'تعذر إكمال الطلب. اطلب رسالة جديدة من ENT Tools.',
+        error: 'تعذر إكمال الطلب. اطلب رسالة جديدة من ENT Hub.',
         buttonBusy: 'جار تحديث كلمة المرور...',
         button: 'إعادة تعيين كلمة المرور',
       },
@@ -281,7 +281,7 @@
     const apiKey = params.get('apiKey');
 
     if (!hasSafeCode(oobCode) || !hasSafeApiKey(apiKey)) {
-      title.textContent = 'ENT Tools';
+      title.textContent = 'ENT Hub';
       subtitle.textContent = text.invalid;
       setStatus(text.invalid, 'error');
       throw new Error('Invalid account action parameters');
@@ -345,7 +345,7 @@
       } else if (mode === 'recoverEmail') {
         await handleApplyAction(text.recoverTitle, text.recoverSubtitle, text.recoverSuccess);
       } else {
-        title.textContent = 'ENT Tools';
+        title.textContent = 'ENT Hub';
         subtitle.textContent = text.unsupported;
         setStatus(text.unsupported, 'error');
       }
