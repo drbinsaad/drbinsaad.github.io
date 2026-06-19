@@ -49,8 +49,11 @@ function calculateEpinephrine() {
         return;
     }
     
-    if (startConc <= desiredConc) {
-        showError(resultsDiv, 'Starting concentration must be higher than desired concentration.');
+    // Concentrations are stored as the ratio denominator, so a MORE concentrated
+    // stock has a SMALLER number (1:1,000 -> 1000 is stronger than 1:10,000 -> 10000).
+    // The starting stock must therefore be stronger (smaller denominator) than the target.
+    if (startConc >= desiredConc) {
+        showError(resultsDiv, 'Starting concentration must be more concentrated than the desired concentration (a smaller 1:N denominator).');
         return;
     }
     

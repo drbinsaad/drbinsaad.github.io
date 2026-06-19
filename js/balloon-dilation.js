@@ -41,21 +41,21 @@ const balloonSizingData = {
         age: '4 years',
         ettSize: '5.0mm',
         odEtt: '6.9 mm',
-        larynxDiameter: '8-8.5 mm',
+        larynxDiameter: '8 mm',
         tracheaDiameter: '8.5-9 mm'
     },
     '6-years': {
         age: '6 years',
         ettSize: '5.5mm',
         odEtt: '7.5 mm',
-        larynxDiameter: '8-9 mm',
+        larynxDiameter: '8-8.5 mm',
         tracheaDiameter: '8.5-10 mm'
     },
     '8-years': {
         age: '8 years',
         ettSize: '6.0mm',
         odEtt: '8.2 mm',
-        larynxDiameter: '8-9 mm',
+        larynxDiameter: '9 mm',
         tracheaDiameter: '10 mm'
     },
     '10-years': {
@@ -69,14 +69,14 @@ const balloonSizingData = {
         age: '12 years',
         ettSize: '7.0mm',
         odEtt: '9.5 mm',
-        larynxDiameter: '10-12 mm',
+        larynxDiameter: '10 mm',
         tracheaDiameter: '12-14 mm'
     },
     '14-years': {
         age: '14 years',
         ettSize: '7.5mm',
         odEtt: '10.2 mm',
-        larynxDiameter: '12 mm',
+        larynxDiameter: '11 mm',
         tracheaDiameter: '12-14 mm'
     },
     '16-years': {
