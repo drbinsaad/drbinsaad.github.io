@@ -74,7 +74,7 @@ const obstructionData = {
         '5.5': { percent: null, grade: 'No obstruction' }
     },
     '6yr': {
-        '2.0': { percent: 98, grade: 'III' },
+        '2.0': { percent: 89, grade: 'III' },
         '2.5': { percent: 81, grade: 'III' },
         '3.0': { percent: 73, grade: 'III' },
         '3.5': { percent: 64, grade: 'II' },

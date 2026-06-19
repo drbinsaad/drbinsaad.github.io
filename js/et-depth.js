@@ -31,19 +31,28 @@ function calculateAgeDepth() {
     const resultDiv = document.getElementById('age-result');
     const depthValue = document.getElementById('age-depth-value');
     
-    // Validation
-    if (!age || isNaN(age) || age < 0) {
+    // Validation (age 0 = term newborn is valid, so do NOT reject falsy 0)
+    if (isNaN(age) || age < 0) {
         alert('Please enter a valid age');
         return;
     }
-    
+
     if (age > 18) {
         alert('This formula is designed for pediatric patients (0-18 years). For adults, use standard adult guidelines.');
         return;
     }
-    
-    // Calculate: Depth = 12 + (Age / 2)
-    const depth = 12 + (age / 2);
+
+    // Oral ET depth (PALS). Table anchors for term newborn (9 cm), 6 months
+    // (11.5 cm) and 1 year (12 cm); the 12 + (age/2) formula applies only > 1 yr.
+    // Applying 12 + age/2 to a newborn yields ~12 cm (endobronchial) — wrong.
+    let depth;
+    if (age <= 0.5) {
+        depth = 9 + (age / 0.5) * (11.5 - 9);          // newborn 9 -> 6mo 11.5
+    } else if (age <= 1) {
+        depth = 11.5 + ((age - 0.5) / 0.5) * (12 - 11.5); // 6mo 11.5 -> 1yr 12
+    } else {
+        depth = 12 + (age / 2);                          // > 1 year
+    }
     const depthRounded = Math.round(depth * 10) / 10; // Round to 1 decimal
     
     // Display result
