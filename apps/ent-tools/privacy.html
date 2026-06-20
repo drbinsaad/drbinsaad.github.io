@@ -4,55 +4,92 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ENT Hub Mobile App Privacy Policy - Dr Ali Alshahrani</title>
-    <meta name="description" content="Privacy Policy for ENT Hub, an educational and reference app for healthcare professionals.">
+    <meta name="description" content="Privacy Policy for ENT Hub, a utility and reference app for healthcare professionals.">
     <meta name="author" content="Dr. Ali Alshahrani">
     <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-    <link href="../../css/style.css?v=3" rel="stylesheet">
     <style>
-        .policy-page { padding-top: 140px; padding-bottom: 80px; background: #fff; }
-        .policy-card { max-width: 920px; margin: 0 auto; background: #fff; border-radius: 18px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06); padding: 42px; border-top: 5px solid var(--accent-color); }
-        .policy-card h1 { color: var(--primary-color); margin-bottom: 10px; font-size: 2.4rem; }
-        .policy-card h2 { color: var(--primary-color); margin-top: 34px; margin-bottom: 12px; font-size: 1.35rem; }
-        .policy-card p, .policy-card li { color: #555; font-size: 1rem; line-height: 1.75; }
-        .policy-card ul { margin-left: 22px; margin-top: 10px; }
-        .last-updated { color: #777; margin-bottom: 24px; }
-        .app-kicker { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 16px; color: var(--accent-color); font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.82rem; }
-        .policy-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 34px; }
-        .policy-actions a { display: inline-block; padding: 11px 24px; background: var(--gradient); color: #fff; border-radius: 999px; text-decoration: none; font-weight: 700; }
-        .policy-actions a.secondary { background: #fff; color: var(--primary-color); border: 1px solid #dce5f2; }
+        *{margin:0;padding:0;box-sizing:border-box;}
+        html{scroll-behavior:smooth;}
+        body{background:#f4f1ea;color:#1c1a17;font-family:'Source Sans 3',system-ui,sans-serif;line-height:1.7;min-height:100vh;-webkit-font-smoothing:antialiased;}
+        a{color:inherit;}
+        ::selection{background:#8a302a;color:#f4f1ea;}
+
+        .site-header{position:sticky;top:0;z-index:60;background:rgba(244,241,234,0.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid #e4ded2;}
+        .site-header .inner{max-width:920px;margin:0 auto;padding:15px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px;}
+        .brand{text-decoration:none;display:flex;flex-direction:column;line-height:1.08;flex:none;white-space:nowrap;}
+        .brand .name{font-family:'Newsreader',serif;font-size:20px;font-weight:600;color:#1c1a17;letter-spacing:0.01em;}
+        .brand .sub{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:#8a302a;margin-top:4px;}
+        .site-header nav{display:flex;align-items:center;gap:28px;font-size:14.5px;font-weight:500;}
+        .site-header nav a{text-decoration:none;color:#46423b;transition:color 0.15s;}
+        .site-header nav a:hover{color:#8a302a;}
+        .site-header nav a.cta{color:#f4f1ea;background:#1c1a17;padding:9px 18px;border-radius:2px;}
+        .site-header nav a.cta:hover{background:#8a302a;color:#f4f1ea;}
+
+        .policy-page{padding:64px 0 84px;}
+        .policy-wrap{max-width:920px;margin:0 auto;padding:0 28px;}
+        .policy-card{background:#faf8f2;border:1px solid #e4ded2;border-radius:4px;padding:48px 52px;}
+        .app-kicker{display:inline-flex;align-items:center;gap:8px;margin-bottom:18px;font-family:'IBM Plex Mono',monospace;color:#8a302a;font-weight:500;text-transform:uppercase;letter-spacing:0.18em;font-size:11.5px;}
+        .policy-card h1{font-family:'Newsreader',serif;font-weight:500;color:#1c1a17;margin-bottom:12px;font-size:clamp(30px,4vw,44px);line-height:1.06;letter-spacing:-0.01em;}
+        .policy-card h2{font-family:'Newsreader',serif;font-weight:600;color:#1c1a17;margin-top:38px;margin-bottom:12px;font-size:1.4rem;}
+        .policy-card p,.policy-card li{color:#46423b;font-size:16px;line-height:1.75;}
+        .policy-card p{margin-bottom:4px;}
+        .policy-card ul{margin-left:22px;margin-top:10px;}
+        .policy-card li{margin-bottom:6px;}
+        .policy-card a{color:#8a302a;text-decoration:none;border-bottom:1px solid #c9a59f;}
+        .policy-card a:hover{color:#1c1a17;border-bottom-color:#1c1a17;}
+        .last-updated{font-family:'IBM Plex Mono',monospace;color:#9a9389;margin-bottom:26px;font-size:13px;letter-spacing:0.04em;}
+
+        .policy-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:42px;padding-top:30px;border-top:1px solid #e4ded2;}
+        .policy-actions a{display:inline-block;padding:11px 24px;background:#1c1a17;color:#f4f1ea;border-radius:2px;text-decoration:none;font-weight:600;border:none;transition:background 0.15s;}
+        .policy-actions a:hover{background:#8a302a;color:#f4f1ea;}
+        .policy-actions a.secondary{background:#faf8f2;color:#46423b;border:1px solid #d9d3c7;}
+        .policy-actions a.secondary:hover{background:#fff;color:#8a302a;border-color:#c9a59f;}
+
+        .site-footer{background:#1c1a17;color:#e9e4da;padding:48px 0 40px;}
+        .site-footer .inner{max-width:920px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:14px;align-items:center;}
+        .site-footer a{font-family:'Newsreader',serif;font-size:17px;color:#cdc6ba;text-decoration:none;}
+        .site-footer a:hover{color:#f4f1ea;}
+        .site-footer .meta{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.1em;color:#7d7869;}
+
+        @media (max-width:720px){
+            .site-header nav{display:none;}
+            .policy-card{padding:34px 24px;}
+        }
     </style>
 </head>
 <body>
-    <nav id="navbar">
-        <div class="container">
-            <a href="../../index.html" class="logo">Dr Ali Alshahrani</a>
-            <div class="hamburger"><span></span><span></span><span></span></div>
-            <ul class="nav-links">
-                <li><a href="../../dashboard.html">Dashboard</a></li>
-                <li><a href="../../index.html#research">Research</a></li>
-                <li><a href="../../curriculum_vitae.html">Brief CV</a></li>
-                <li><a href="../../index.html#contact">Contact</a></li>
-                <li><a href="../../ent-tools.html">ENT Web Tools</a></li>
-                <li><a href="../../my-apps.html">My Apps</a></li>
-            </ul>
+    <header class="site-header">
+        <div class="inner">
+            <a href="../../index.html" class="brand">
+                <span class="name">Ali Alshahrani</span>
+                <span class="sub">Otolaryngology</span>
+            </a>
+            <nav>
+                <a href="../../ent-tools.html">Tools</a>
+                <a href="../../my-apps.html">My Apps</a>
+                <a href="../../index.html#contact" class="cta">Contact</a>
+            </nav>
         </div>
-    </nav>
+    </header>
 
     <main class="policy-page">
-        <div class="container">
+        <div class="policy-wrap">
             <article class="policy-card">
                 <div class="app-kicker"><i class="fas fa-mobile-screen-button"></i> My Apps / ENT Hub Mobile App</div>
                 <h1>ENT Hub Privacy Policy</h1>
                 <p class="last-updated">Effective date: June 19, 2026</p>
-                <p>ENT Hub is an educational and reference app for healthcare professionals. It is not a medical device and does not replace clinical judgment, institutional protocols, pharmacist review, or specialist consultation.</p>
+                <p>ENT Hub is a utility and reference app for healthcare professionals and trainees. It does not diagnose, treat, prescribe, or provide patient-specific advice, and it does not replace clinical judgment, institutional protocols, pharmacist review, specialist consultation, or emergency care.</p>
 
                 <h2>Data We Collect</h2>
                 <p>ENT Hub may collect the following data to provide app functionality:</p>
                 <ul>
                     <li>Account email address.</li>
                     <li>Display name, specialty, and institution if provided by the user.</li>
-                    <li>User-created content such as case logs, flashcards, patient instructions, and announcements.</li>
+                    <li>User-created content such as case logs, flashcards, patient instructions, Knowledge Base contributions, and announcements.</li>
                     <li>Health-related information you choose to enter, such as clinical details in case logs and learning notes. This is treated as health data. You should not enter patient identifiers (see "Patient Information" below).</li>
                     <li>Push notification token and device identifier needed to deliver notifications.</li>
                     <li>Crash and performance data used to improve app reliability.</li>
@@ -70,7 +107,7 @@
                 <p>ENT Hub does not track users across apps or websites and does not sell personal data.</p>
 
                 <h2>Patient Information</h2>
-                <p>Users should not enter patient identifiers or protected health information into ENT Hub. The app warns users not to enter patient names, medical record numbers, national IDs, phone numbers, dates of birth, or other identifying information.</p>
+                <p>Users should not enter patient identifiers or protected health information into ENT Hub. The app warns users not to enter patient names, medical record numbers, national IDs, phone numbers, dates of birth, identifiable images, or other identifying information in app content, support messages, screenshots, or contributions.</p>
 
                 <h2>How Data Is Used</h2>
                 <p>Data is used to provide app functionality, sync account content, deliver notifications, maintain security, and improve app reliability.</p>
@@ -100,6 +137,11 @@
         </div>
     </main>
 
-    <script src="../../js/main.js"></script>
+    <footer class="site-footer">
+        <div class="inner">
+            <a href="../../index.html">Dr Ali Alshahrani</a>
+            <span class="meta">shahrani.me &middot; &copy; 2026</span>
+        </div>
+    </footer>
 </body>
 </html>

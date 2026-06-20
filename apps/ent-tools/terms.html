@@ -4,86 +4,134 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ENT Hub Mobile App Terms of Use - Dr Ali Alshahrani</title>
-    <meta name="description" content="Terms of Use for ENT Hub, an educational and reference app for healthcare professionals.">
+    <meta name="description" content="Terms of Use for ENT Hub, a utility and reference app for healthcare professionals.">
     <meta name="author" content="Dr. Ali Alshahrani">
     <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-    <link href="../../css/style.css?v=3" rel="stylesheet">
     <style>
-        .policy-page { padding-top: 140px; padding-bottom: 80px; background: #fff; }
-        .policy-card { max-width: 920px; margin: 0 auto; background: #fff; border-radius: 18px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06); padding: 42px; border-top: 5px solid var(--accent-color); }
-        .policy-card h1 { color: var(--primary-color); margin-bottom: 10px; font-size: 2.4rem; }
-        .policy-card h2 { color: var(--primary-color); margin-top: 34px; margin-bottom: 12px; font-size: 1.35rem; }
-        .policy-card p, .policy-card li { color: #555; font-size: 1rem; line-height: 1.75; }
-        .policy-card ul { margin-left: 22px; margin-top: 10px; }
-        .last-updated { color: #777; margin-bottom: 24px; }
-        .app-kicker { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 16px; color: var(--accent-color); font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.82rem; }
-        .policy-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 34px; }
-        .policy-actions a { display: inline-block; padding: 11px 24px; background: var(--gradient); color: #fff; border-radius: 999px; text-decoration: none; font-weight: 700; }
-        .policy-actions a.secondary { background: #fff; color: var(--primary-color); border: 1px solid #dce5f2; }
+      *{margin:0;padding:0;box-sizing:border-box;}
+      html{scroll-behavior:smooth;}
+      body{background:#f4f1ea;color:#1c1a17;font-family:'Source Sans 3',system-ui,sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased;}
+      a{color:inherit;}
+      ::selection{background:#8a302a;color:#f4f1ea;}
+
+      .site-header{position:sticky;top:0;z-index:60;background:rgba(244,241,234,0.88);backdrop-filter:blur(12px);border-bottom:1px solid #e4ded2;}
+      .site-header__inner{max-width:1080px;margin:0 auto;padding:15px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px;}
+      .brand{text-decoration:none;display:flex;flex-direction:column;line-height:1.08;flex:none;white-space:nowrap;}
+      .brand__name{font-family:'Newsreader',serif;font-size:20px;font-weight:600;color:#1c1a17;letter-spacing:0.01em;}
+      .brand__sub{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:#8a302a;margin-top:4px;}
+      .nav{display:flex;align-items:center;gap:30px;font-size:14.5px;font-weight:500;}
+      .nav a{text-decoration:none;color:#46423b;transition:color 0.15s ease;}
+      .nav a:hover{color:#8a302a;}
+      .nav a.is-active{color:#8a302a;border-bottom:1px solid #c9a59f;padding-bottom:2px;}
+      .nav a.cta{color:#f4f1ea;background:#1c1a17;padding:9px 18px;border-radius:2px;}
+      .nav a.cta:hover{background:#8a302a;color:#f4f1ea;}
+
+      .policy-page{padding:72px 0 84px;}
+      .policy-wrap{max-width:920px;margin:0 auto;padding:0 28px;}
+      .policy-card{background:#faf8f2;border:1px solid #e4ded2;padding:48px 52px;}
+      .app-kicker{display:inline-flex;align-items:center;gap:9px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#8a302a;margin-bottom:18px;}
+      .policy-card h1{font-family:'Newsreader',serif;font-weight:500;font-size:clamp(32px,4.4vw,48px);line-height:1.05;letter-spacing:-0.01em;color:#1c1a17;margin-bottom:14px;}
+      .last-updated{font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:0.04em;color:#9a9389;margin-bottom:26px;}
+      .policy-card h2{font-family:'Newsreader',serif;font-weight:600;font-size:22px;color:#1c1a17;margin-top:34px;margin-bottom:10px;}
+      .policy-card p{font-size:16px;color:#46423b;line-height:1.78;}
+      .policy-card a{color:#8a302a;font-weight:600;text-decoration:none;border-bottom:1px solid #c9a59f;}
+      .policy-card a:hover{color:#1c1a17;}
+
+      .policy-actions{display:flex;gap:1px;flex-wrap:wrap;margin-top:40px;background:#e4ded2;border:1px solid #e4ded2;}
+      .policy-actions a{flex:1;min-width:160px;text-align:center;background:#fff;color:#1c1a17;padding:16px 22px;text-decoration:none;font-weight:600;font-size:15px;border-bottom:none;transition:background 0.15s ease,color 0.15s ease;}
+      .policy-actions a:hover{background:#8a302a;color:#f4f1ea;}
+
+      .site-footer{background:#1c1a17;color:#e9e4da;padding:40px 0;}
+      .site-footer__inner{max-width:1080px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:center;}
+      .site-footer__brand{font-family:'Newsreader',serif;font-size:17px;color:#cdc6ba;text-decoration:none;}
+      .site-footer__links{display:flex;gap:24px;font-size:14px;flex-wrap:wrap;}
+      .site-footer__links a{text-decoration:none;color:#b8b1a5;transition:color 0.15s ease;}
+      .site-footer__links a:hover{color:#f4f1ea;}
+      .site-footer__meta{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.1em;color:#7d7869;}
+
+      @media (max-width:820px){
+        .nav{display:none;}
+        .policy-page{padding:48px 0 64px;}
+        .policy-card{padding:32px 24px;}
+      }
     </style>
 </head>
 <body>
-    <nav id="navbar">
-        <div class="container">
-            <a href="../../index.html" class="logo">Dr Ali Alshahrani</a>
-            <div class="hamburger"><span></span><span></span><span></span></div>
-            <ul class="nav-links">
-                <li><a href="../../dashboard.html">Dashboard</a></li>
-                <li><a href="../../index.html#research">Research</a></li>
-                <li><a href="../../curriculum_vitae.html">Brief CV</a></li>
-                <li><a href="../../index.html#contact">Contact</a></li>
-                <li><a href="../../ent-tools.html">ENT Web Tools</a></li>
-                <li><a href="../../my-apps.html">My Apps</a></li>
-            </ul>
-        </div>
-    </nav>
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a href="../../index.html" class="brand">
+          <span class="brand__name">Ali Alshahrani</span>
+          <span class="brand__sub">Otolaryngology</span>
+        </a>
+        <nav class="nav">
+          <a href="../../index.html#research">Research</a>
+          <a href="../../index.html#publications">Publications</a>
+          <a href="../../ent-tools.html">Tools</a>
+          <a href="../../my-apps.html" class="is-active">My Apps</a>
+          <a href="../../index.html#contact" class="cta">Contact</a>
+        </nav>
+      </div>
+    </header>
 
     <main class="policy-page">
-        <div class="container">
-            <article class="policy-card">
-                <div class="app-kicker"><i class="fas fa-mobile-screen-button"></i> My Apps / ENT Hub Mobile App</div>
-                <h1>ENT Hub Terms of Use</h1>
-                <p class="last-updated">Effective date: June 19, 2026</p>
-                <p>These Terms of Use ("Terms") govern your use of the ENT Hub mobile app ("the app"). By downloading or using the app you agree to these Terms. If you do not agree, do not use the app. These Terms supplement, and do not replace, the Apple Standard End User License Agreement that also applies to apps from the App Store.</p>
+      <div class="policy-wrap">
+        <article class="policy-card">
+          <div class="app-kicker"><i class="fas fa-mobile-screen-button"></i> My Apps / ENT Hub Mobile App</div>
+          <h1>ENT Hub Terms of Use</h1>
+          <p class="last-updated">Effective date: June 19, 2026</p>
+          <p>These Terms of Use ("Terms") govern your use of the ENT Hub mobile app ("the app"). By downloading or using the app you agree to these Terms. If you do not agree, do not use the app. These Terms supplement, and do not replace, the Apple Standard End User License Agreement that also applies to apps from the App Store.</p>
 
-                <h2>Educational and Reference Use Only</h2>
-                <p>ENT Hub is provided for the professional education and reference of licensed healthcare professionals and trainees. It is not a medical device, does not provide a diagnosis or treatment, and does not give patient-specific medical advice. It does not replace clinical judgment, institutional protocols, pharmacist review, or specialist consultation.</p>
+          <h2>Utility and Reference Use Only</h2>
+          <p>ENT Hub is provided as a utility and reference app for licensed healthcare professionals and trainees. It does not provide diagnosis, treatment, prescribing, or patient-specific advice, and does not replace clinical judgment, institutional protocols, pharmacist review, specialist consultation, or emergency care.</p>
 
-                <h2>Your Responsibility</h2>
-                <p>You are solely responsible for any clinical decision you make. You must independently verify all calculations, dosages, sizing, scores, and reference information against current authoritative sources before relying on them in patient care. Content may contain errors, may be incomplete, or may become out of date.</p>
+          <h2>Your Responsibility</h2>
+          <p>You are solely responsible for any clinical decision you make. You must independently verify all calculations, sizing, scores, device details, manufacturer information, and reference information against current authoritative sources and local policies before relying on them in patient care. Content may contain errors, may be incomplete, or may become out of date.</p>
 
-                <h2>No Patient Identifiers</h2>
-                <p>You must not enter patient names, medical record numbers, national IDs, phone numbers, dates of birth, or other identifying information into the app. You are responsible for complying with all privacy laws and the policies of your institution.</p>
+          <h2>No Patient Identifiers</h2>
+          <p>You must not enter patient names, medical record numbers, national IDs, phone numbers, dates of birth, identifiable images, or other identifying information into the app, support messages, screenshots, or contributions. You are responsible for complying with all privacy laws and the policies of your institution.</p>
 
-                <h2>User-Contributed Content</h2>
-                <p>If you submit content (such as knowledge-base notes, flashcards, or patient-instruction drafts), you confirm you have the right to share it, and you grant the developer a non-exclusive, worldwide, royalty-free license to review, edit, display, distribute, and remove that content within the app and its services. Submitted content may be reviewed before publication and may be edited or declined. You must not submit content that is unlawful, infringes others' rights, or contains patient identifiers.</p>
+          <h2>User-Contributed Content</h2>
+          <p>If you submit content (such as knowledge-base notes, flashcards, or patient-instruction drafts), you confirm you have the right to share it, and you grant the developer a non-exclusive, worldwide, royalty-free license to review, edit, display, distribute, and remove that content within the app and its services. Submitted content may be reviewed before publication and may be edited or declined. You must not submit content that is unlawful, infringes others' rights, or contains patient identifiers.</p>
 
-                <h2>Acceptable Use</h2>
-                <p>You agree not to misuse the app, attempt to gain unauthorized access, interfere with its operation, or use it in any way that violates applicable law or the rights of others.</p>
+          <h2>Acceptable Use</h2>
+          <p>You agree not to misuse the app, attempt to gain unauthorized access, interfere with its operation, or use it in any way that violates applicable law or the rights of others.</p>
 
-                <h2>Accounts and Termination</h2>
-                <p>You are responsible for keeping your account credentials secure. You may delete your account at any time from within the app. We may suspend or terminate access for conduct that violates these Terms or harms other users or the service.</p>
+          <h2>Accounts and Termination</h2>
+          <p>You are responsible for keeping your account credentials secure. You may delete your account at any time from within the app. We may suspend or terminate access for conduct that violates these Terms or harms other users or the service.</p>
 
-                <h2>Disclaimer of Warranties and Limitation of Liability</h2>
-                <p>The app is provided "as is" and "as available," without warranties of any kind, express or implied. To the maximum extent permitted by law, the developer is not liable for any clinical decision, outcome, loss, or damages of any kind arising from your use of, or inability to use, the app or its content.</p>
+          <h2>Disclaimer of Warranties and Limitation of Liability</h2>
+          <p>The app is provided "as is" and "as available," without warranties of any kind, express or implied. To the maximum extent permitted by law, the developer is not liable for any clinical decision, outcome, loss, or damages of any kind arising from your use of, or inability to use, the app or its content.</p>
 
-                <h2>Changes</h2>
-                <p>We may update these Terms from time to time. Continued use of the app after changes take effect constitutes acceptance of the updated Terms.</p>
+          <h2>Changes</h2>
+          <p>We may update these Terms from time to time. Continued use of the app after changes take effect constitutes acceptance of the updated Terms.</p>
 
-                <h2>Contact</h2>
-                <p>For questions about these Terms or support, contact <a href="mailto:drbinsaad@gmail.com">drbinsaad@gmail.com</a>.</p>
+          <h2>Contact</h2>
+          <p>For questions about these Terms or support, contact <a href="mailto:drbinsaad@gmail.com">drbinsaad@gmail.com</a>.</p>
 
-                <div class="policy-actions">
-                    <a href="./">App Preview</a>
-                    <a class="secondary" href="privacy.html">Privacy Policy</a>
-                    <a class="secondary" href="support.html">Support</a>
-                    <a class="secondary" href="../../my-apps.html">My Apps</a>
-                </div>
-            </article>
-        </div>
+          <div class="policy-actions">
+            <a href="./">App Preview</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="support.html">Support</a>
+            <a href="../../my-apps.html">My Apps</a>
+          </div>
+        </article>
+      </div>
     </main>
 
-    <script src="../../js/main.js"></script>
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <a href="../../index.html" class="site-footer__brand">Dr Ali Alshahrani</a>
+        <div class="site-footer__links">
+          <a href="../../ent-tools.html">All Tools</a>
+          <a href="../../curriculum_vitae.html">CV</a>
+          <a href="../../index.html#contact">Contact</a>
+        </div>
+        <span class="site-footer__meta">shahrani.me &middot; &copy; 2026</span>
+      </div>
+    </footer>
 </body>
 </html>
