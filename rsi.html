@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Noto+Kufi+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:#f4f1ea;}
+  a{color:inherit;}
+  ::selection{background:#8a302a;color:#f4f1ea;}
+  button{font-family:inherit;cursor:pointer;}
+  [dir="rtl"]{text-align:right;}
+  @media (max-width:820px){
+    [data-desktop-nav]{display:none !important;}
+    [data-mobile-btn]{display:inline-flex !important;}
+    [data-sec]{padding:44px 0 !important;}
+  }
+</style>
+</helmet>
+
+<div id="top" dir="{{ dir }}" data-screen-label="RSI" style="{{ rootStyle }}">
+
+  <!-- HEADER -->
+  <header style="position:sticky;top:0;z-index:60;background:rgba(244,241,234,0.88);backdrop-filter:blur(12px);border-bottom:1px solid #e4ded2;">
+    <div style="max-width:1080px;margin:0 auto;padding:15px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;">
+      <a href="index.html" style="text-decoration:none;display:flex;flex-direction:column;line-height:1.08;flex:none;white-space:nowrap;">
+        <span style="font-family:'Newsreader',serif;font-size:20px;font-weight:600;color:#1c1a17;">Ali Alshahrani</span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:#8a302a;margin-top:4px;">Otolaryngology</span>
+      </a>
+      <nav data-desktop-nav style="display:flex;align-items:center;gap:28px;font-size:14.5px;font-weight:500;">
+        <a href="ent-tools.html" style="text-decoration:none;color:#8a302a;border-bottom:1px solid #c9a59f;padding-bottom:2px;">Tools</a>
+        <a href="curriculum_vitae.html" style="text-decoration:none;color:#46423b;" style-hover="color:#8a302a;">CV</a>
+        <button onClick="{{ toggleLang }}" style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:#f4f1ea;background:#1c1a17;padding:9px 16px;border:none;border-radius:2px;" style-hover="background:#8a302a;">{{ langBtn }}</button>
+      </nav>
+      <button data-mobile-btn onClick="{{ toggleLang }}" aria-label="Language" style="display:none;align-items:center;justify-content:center;height:42px;padding:0 14px;background:#1c1a17;border:none;border-radius:2px;color:#f4f1ea;font-family:'IBM Plex Mono',monospace;font-size:12px;">{{ langBtn }}</button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section data-sec style="padding:52px 0 26px;">
+    <div style="max-width:820px;margin:0 auto;padding:0 28px;">
+      <a href="ent-tools.html" style="text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.1em;color:#8a302a;display:inline-block;margin-bottom:20px;">{{ backLabel }}</a>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#8a302a;margin-bottom:14px;">{{ kicker }}</div>
+      <h1 style="font-family:{{ headingFont }};font-weight:500;font-size:clamp(32px,4.4vw,50px);line-height:1.05;color:#1c1a17;margin-bottom:16px;">{{ title }}</h1>
+      <p style="font-size:17px;color:#46423b;line-height:1.7;max-width:60ch;">{{ intro }}</p>
+    </div>
+  </section>
+
+  <!-- LEGEND -->
+  <section data-sec style="padding:0 0 8px;">
+    <div style="max-width:820px;margin:0 auto;padding:0 28px;">
+      <div style="background:#efeae0;border:1px solid #e4ded2;border-radius:2px;padding:16px 18px;font-size:13px;color:#6f6a61;line-height:1.7;">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8a302a;">{{ scaleTitle }}</span><br>{{ scaleLegend }}
+      </div>
+    </div>
+  </section>
+
+  <!-- ITEMS -->
+  <section data-sec style="padding:18px 0 26px;">
+    <div style="max-width:820px;margin:0 auto;padding:0 28px;">
+      <div style="background:#faf8f2;border:1px solid #e4ded2;border-radius:2px;">
+        <sc-for list="{{ items }}" as="q" hint-placeholder-count="9">
+          <div style="padding:18px 22px;border-bottom:1px solid #ece7dc;">
+            <div style="font-size:16px;color:#1c1a17;margin-bottom:12px;"><span style="color:#b9b1a3;font-family:'IBM Plex Mono',monospace;font-size:13px;">{{ q.num }}</span> &nbsp;{{ q.text }}</div>
+            <div style="display:flex;gap:7px;flex-wrap:wrap;">
+              <sc-for list="{{ q.options }}" as="opt">
+                <button onClick="{{ opt.onPick }}" style="{{ opt.style }}">{{ opt.label }}</button>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+        <div style="padding:22px;">
+          <button onClick="{{ score }}" style="background:#1c1a17;color:#f4f1ea;font-weight:600;font-size:15px;padding:14px 30px;border:none;border-radius:2px;" style-hover="background:#8a302a;"><i class="fas fa-calculator"></i> &nbsp;{{ scoreLabel }}</button>
+        </div>
+      </div>
+
+      <!-- RESULT -->
+      <sc-if value="{{ show }}" hint-placeholder-val="{{ false }}">
+        <div style="background:#fff;border:1px solid #e4ded2;border-left:3px solid #8a302a;border-radius:2px;padding:28px;margin-top:22px;">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a302a;margin-bottom:8px;">{{ totalKicker }}</div>
+          <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;">
+            <span style="font-family:'Newsreader',serif;font-weight:500;font-size:52px;line-height:1;color:#1c1a17;">{{ totalLabel }}</span>
+            <span style="font-size:16px;font-weight:600;color:#8a302a;">{{ severityLabel }}</span>
+          </div>
+          <div style="font-size:14.5px;color:#6f6a61;margin-top:12px;line-height:1.7;">{{ thresholdLabel }}</div>
+          <sc-if value="{{ incomplete }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:14px;padding:10px 14px;background:#f6e9e7;border:1px solid #e3c4bf;border-radius:2px;color:#8a302a;font-size:13.5px;">{{ incompleteLabel }}</div>
+          </sc-if>
+          <div style="font-size:13px;color:#8c867b;margin-top:14px;">{{ mcidLabel }}</div>
+        </div>
+      </sc-if>
+
+      <!-- CITATIONS -->
+      <div style="margin-top:26px;font-size:12px;color:#8c867b;line-height:1.7;">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:#b9b1a3;margin-bottom:6px;">{{ refKicker }}</div>
+        {{ cite1 }}<br>{{ cite2 }}
+      </div>
+
+      <p style="font-size:12px;color:#8c867b;margin-top:20px;line-height:1.6;">{{ disclaimer }}</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="background:#1c1a17;color:#e9e4da;padding:40px 0;margin-top:30px;">
+    <div style="max-width:1080px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:center;">
+      <a href="index.html" style="font-family:'Newsreader',serif;font-size:17px;color:#cdc6ba;text-decoration:none;">Dr Ali Alshahrani</a>
+      <div style="display:flex;gap:22px;font-size:14px;">
+        <a href="ent-tools.html" style="text-decoration:none;color:#b8b1a5;" style-hover="color:#f4f1ea;">All Tools</a>
+        <a href="curriculum_vitae.html" style="text-decoration:none;color:#b8b1a5;" style-hover="color:#f4f1ea;">CV</a>
+      </div>
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.1em;color:#7d7869;">shahrani.me &middot; &copy; 2026</span>
+    </div>
+  </footer>
+</div>
+
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#8a302a"/><text x="50" y="50" dy="0.36em" text-anchor="middle" font-family="Georgia,serif" font-size="46" fill="#f4f1ea">A</text></svg></template>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { lang: 'en', answers: {}, show: false };
+
+  setLang(l) {
+    document.documentElement.setAttribute('dir', l === 'ar' ? 'rtl' : 'ltr');
+    document.documentElement.setAttribute('lang', l);
+  }
+  componentDidMount() { this.setLang(this.state.lang); }
+  toggleLang() {
+    var l = this.state.lang === 'en' ? 'ar' : 'en';
+    this.setLang(l);
+    this.setState({ lang: l });
+  }
+  pick(id, v) {
+    var a = Object.assign({}, this.state.answers); a[id] = v;
+    this.setState({ answers: a });
+  }
+  score() { this.setState({ show: true }); }
+
+  renderVals() {
+    var self = this, ar = this.state.lang === 'ar';
+
+    // --- Items: [id, en, ar] — EXACT en from src/data/laryngology/rsiQuestions.ts ---
+    var Q = [
+      [1,'Hoarseness or a problem with your voice','بحة في الصوت أو مشكلة في صوتك'],
+      [2,'Clearing your throat','تنحنح الحلق'],
+      [3,'Excess throat mucus or postnasal drip','زيادة المخاط في الحلق أو تنقيط أنفي خلفي'],
+      [4,'Difficulty swallowing food, liquids, or pills','صعوبة في بلع الطعام أو السوائل أو الحبوب'],
+      [5,'Coughing after you ate or after lying down','السعال بعد الأكل أو بعد الاستلقاء'],
+      [6,'Breathing difficulties or choking episodes','صعوبات في التنفس أو نوبات اختناق'],
+      [7,'Troublesome or annoying cough','سعال مزعج أو متكرر'],
+      [8,'Sensations of something sticking in your throat or a lump in your throat','الإحساس بشيء عالق في الحلق أو وجود كتلة في الحلق'],
+      [9,'Heartburn, chest pain, indigestion, or stomach acid coming up','حرقة الصدر أو ألم في الصدر أو عسر هضم أو ارتداد حمض المعدة']
+    ];
+    var labelsEn = ['No problem','Very mild','Mild','Moderate','Severe','As bad as it can be'];
+    var labelsAr = ['لا توجد مشكلة','خفيف جداً','خفيف','متوسط','شديد','في أسوأ حالاته'];
+
+    var items = Q.map(function (q) {
+      var id = q[0], active = self.state.answers[id];
+      return {
+        num: id,
+        text: ar ? q[2] : q[1],
+        options: [0,1,2,3,4,5].map(function (v) {
+          var on = active === v;
+          return {
+            label: String(v),
+            onPick: function () { self.pick(id, v); },
+            style: 'min-width:42px;font-size:15px;font-weight:600;padding:10px 12px;border-radius:2px;border:1px solid '
+              + (on ? '#1c1a17' : '#d9d3c7') + ';background:' + (on ? '#1c1a17' : '#fff')
+              + ';color:' + (on ? '#f4f1ea' : '#46423b') + ';'
+          };
+        })
+      };
+    });
+
+    // --- Scoring: RSI, 9 items, 0–5 each, sum max 45; > 13 abnormal ---
+    var total = 0, answered = 0;
+    Q.forEach(function (q) {
+      var v = self.state.answers[q[0]];
+      if (typeof v === 'number') { total += v; answered++; }
+    });
+    // Severity mirrors getRSISeverity() in rsiQuestions.ts
+    var sevEn = total <= 13 ? 'Normal (unlikely LPR)'
+      : total <= 25 ? 'Mild-Moderate (suggestive of LPR)'
+      : 'Severe (highly suggestive of LPR)';
+    var sevAr = total <= 13 ? 'طبيعي (ارتجاع غير مرجح)'
+      : total <= 25 ? 'خفيف إلى متوسط (يوحي بالارتجاع الحنجري البلعومي)'
+      : 'شديد (يوحي بشدة بالارتجاع الحنجري البلعومي)';
+
+    return {
+      dir: ar ? 'rtl' : 'ltr',
+      rootStyle: 'background:#f4f1ea;color:#1c1a17;line-height:1.7;min-height:100vh;-webkit-font-smoothing:antialiased;font-family:' + (ar ? "'Noto Kufi Arabic','Source Sans 3',sans-serif" : "'Source Sans 3',system-ui,sans-serif"),
+      headingFont: ar ? "'Noto Kufi Arabic',serif" : "'Newsreader',serif",
+      langBtn: ar ? 'EN' : 'عربي',
+      toggleLang: function () { self.toggleLang(); },
+      backLabel: ar ? 'جميع الأدوات ←' : '← All ENT tools',
+      kicker: ar ? 'الحنجرة' : 'Laryngology',
+      title: ar ? 'مؤشر أعراض الارتجاع RSI' : 'Reflux Symptom Index',
+      intro: ar
+        ? 'استبيان من 9 بنود لتقييم أعراض الارتجاع البلعومي الحنجري (LPR). قيّم تأثير كل عرض خلال الشهر الماضي من 0 إلى 5. المجموع 0–45؛ النتيجة أكبر من 13 تُعدّ غير طبيعية.'
+        : '9-item self-administered questionnaire for symptoms of laryngopharyngeal reflux (LPR). Rate how each symptom affected you over the past month from 0 to 5. Total 0–45; a score greater than 13 is considered abnormal.',
+      scaleTitle: ar ? 'مقياس التقييم 0–5' : 'Rating scale 0–5',
+      scaleLegend: (ar ? labelsAr : labelsEn).map(function (l, i) { return i + ' = ' + l; }).join('  ·  '),
+      items: items,
+      score: function () { self.score(); },
+      scoreLabel: ar ? 'احتساب النتيجة' : 'Calculate score',
+      show: this.state.show,
+      totalKicker: ar ? 'المجموع الكلي' : 'Total score',
+      totalLabel: total + ' / 45',
+      severityLabel: ar ? sevAr : sevEn,
+      thresholdLabel: ar ? 'الحدّ الفاصل للارتجاع البلعومي الحنجري: أكبر من 13.' : 'Threshold for LPR: greater than 13.',
+      incomplete: answered < 9,
+      incompleteLabel: ar ? ('تم الإجابة على ' + answered + ' من 9 بنود — أكمل جميع البنود.') : (answered + ' of 9 items answered — complete all items.'),
+      mcidLabel: ar
+        ? 'النتيجة الأعلى من 13 تُعدّ غير طبيعية وتوحي بالارتجاع البلعومي الحنجري (LPR).'
+        : 'A score above 13 is considered abnormal and suggestive of laryngopharyngeal reflux (LPR).',
+      refKicker: ar ? 'المراجع' : 'References',
+      cite1: 'Belafsky PC, Postma GN, Koufman JA. Validity and reliability of the Reflux Symptom Index (RSI). J Voice. 2002;16(2):274-277.',
+      cite2: ar
+        ? 'التحقق العربي: Salama HM, Aboras YA, Sobhy TS. Validation of the Arabic version of the Reflux Symptom Index. Egypt J Otolaryngol. 2013;29(1):79-83.'
+        : 'Arabic validation: Salama HM, Aboras YA, Sobhy TS. Validation of the Arabic version of the Reflux Symptom Index. Egypt J Otolaryngol. 2013;29(1):79-83.',
+      disclaimer: ar
+        ? 'هذه الأداة للاستخدام المرجعي من قبل المختصين ولا تُغني عن التقييم السريري.'
+        : 'For clinician reference only; does not replace clinical assessment.'
+    };
+  }
+}
+</script>
+</body>
+</html>

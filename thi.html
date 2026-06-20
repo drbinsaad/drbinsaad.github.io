@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Noto+Kufi+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:#f4f1ea;}
+  a{color:inherit;}
+  ::selection{background:#8a302a;color:#f4f1ea;}
+  button{font-family:inherit;cursor:pointer;}
+  [dir="rtl"]{text-align:right;}
+  @media (max-width:820px){
+    [data-desktop-nav]{display:none !important;}
+    [data-mobile-btn]{display:inline-flex !important;}
+    [data-sec]{padding:44px 0 !important;}
+  }
+</style>
+</helmet>
+
+<div id="top" dir="{{ dir }}" data-screen-label="THI" style="{{ rootStyle }}">
+
+  <!-- HEADER -->
+  <header style="position:sticky;top:0;z-index:60;background:rgba(244,241,234,0.88);backdrop-filter:blur(12px);border-bottom:1px solid #e4ded2;">
+    <div style="max-width:1080px;margin:0 auto;padding:15px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;">
+      <a href="index.html" style="text-decoration:none;display:flex;flex-direction:column;line-height:1.08;flex:none;white-space:nowrap;">
+        <span style="font-family:'Newsreader',serif;font-size:20px;font-weight:600;color:#1c1a17;">Ali Alshahrani</span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:#8a302a;margin-top:4px;">Otolaryngology</span>
+      </a>
+      <nav data-desktop-nav style="display:flex;align-items:center;gap:28px;font-size:14.5px;font-weight:500;">
+        <a href="ent-tools.html" style="text-decoration:none;color:#8a302a;border-bottom:1px solid #c9a59f;padding-bottom:2px;">Tools</a>
+        <a href="curriculum_vitae.html" style="text-decoration:none;color:#46423b;" style-hover="color:#8a302a;">CV</a>
+        <button onClick="{{ toggleLang }}" style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:#f4f1ea;background:#1c1a17;padding:9px 16px;border:none;border-radius:2px;" style-hover="background:#8a302a;">{{ langBtn }}</button>
+      </nav>
+      <button data-mobile-btn onClick="{{ toggleLang }}" aria-label="Language" style="display:none;align-items:center;justify-content:center;height:42px;padding:0 14px;background:#1c1a17;border:none;border-radius:2px;color:#f4f1ea;font-family:'IBM Plex Mono',monospace;font-size:12px;">{{ langBtn }}</button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section data-sec style="padding:52px 0 26px;">
+    <div style="max-width:820px;margin:0 auto;padding:0 28px;">
+      <a href="ent-tools.html" style="text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.1em;color:#8a302a;display:inline-block;margin-bottom:20px;">{{ backLabel }}</a>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#8a302a;margin-bottom:14px;">{{ kicker }}</div>
+      <h1 style="font-family:{{ headingFont }};font-weight:500;font-size:clamp(32px,4.4vw,50px);line-height:1.05;color:#1c1a17;margin-bottom:16px;">{{ title }}</h1>
+      <p style="font-size:17px;color:#46423b;line-height:1.7;max-width:60ch;">{{ intro }}</p>
+    </div>
+  </section>
+
+  <!-- LEGEND -->
+  <section data-sec style="padding:0 0 8px;">
+    <div style="max-width:820px;margin:0 auto;padding:0 28px;">
+      <div style="background:#efeae0;border:1px solid #e4ded2;border-radius:2px;padding:16px 18px;font-size:13px;color:#6f6a61;line-height:1.7;">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8a302a;">{{ scaleTitle }}</span><br>{{ scaleLegend }}
+      </div>
+    </div>
+  </section>
+
+  <!-- ITEMS -->
+  <section data-sec style="padding:18px 0 26px;">
+    <div style="max-width:820px;margin:0 auto;padding:0 28px;">
+      <div style="background:#faf8f2;border:1px solid #e4ded2;border-radius:2px;">
+        <sc-for list="{{ items }}" as="q" hint-placeholder-count="25">
+          <div style="padding:18px 22px;border-bottom:1px solid #ece7dc;">
+            <div style="font-size:16px;color:#1c1a17;margin-bottom:12px;"><span style="color:#b9b1a3;font-family:'IBM Plex Mono',monospace;font-size:13px;">{{ q.num }}</span> &nbsp;{{ q.text }}</div>
+            <div style="display:flex;gap:7px;flex-wrap:wrap;">
+              <sc-for list="{{ q.options }}" as="opt">
+                <button onClick="{{ opt.onPick }}" style="{{ opt.style }}">{{ opt.label }}</button>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+        <div style="padding:22px;">
+          <button onClick="{{ score }}" style="background:#1c1a17;color:#f4f1ea;font-weight:600;font-size:15px;padding:14px 30px;border:none;border-radius:2px;" style-hover="background:#8a302a;"><i class="fas fa-calculator"></i> &nbsp;{{ scoreLabel }}</button>
+        </div>
+      </div>
+
+      <!-- RESULT -->
+      <sc-if value="{{ show }}" hint-placeholder-val="{{ false }}">
+        <div style="background:#fff;border:1px solid #e4ded2;border-left:3px solid #8a302a;border-radius:2px;padding:28px;margin-top:22px;">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a302a;margin-bottom:8px;">{{ totalKicker }}</div>
+          <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;">
+            <span style="font-family:'Newsreader',serif;font-weight:500;font-size:52px;line-height:1;color:#1c1a17;">{{ totalLabel }}</span>
+            <span style="font-size:16px;font-weight:600;color:#8a302a;">{{ severityLabel }}</span>
+          </div>
+          <div style="font-size:14.5px;color:#6f6a61;margin-top:12px;line-height:1.7;">{{ domainLabel }}</div>
+          <sc-if value="{{ incomplete }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:14px;padding:10px 14px;background:#f6e9e7;border:1px solid #e3c4bf;border-radius:2px;color:#8a302a;font-size:13.5px;">{{ incompleteLabel }}</div>
+          </sc-if>
+          <div style="font-size:13px;color:#8c867b;margin-top:14px;">{{ mcidLabel }}</div>
+        </div>
+      </sc-if>
+
+      <!-- CITATIONS -->
+      <div style="margin-top:26px;font-size:12px;color:#8c867b;line-height:1.7;">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:#b9b1a3;margin-bottom:6px;">{{ refKicker }}</div>
+        {{ cite1 }}<br>{{ cite2 }}
+      </div>
+
+      <p style="font-size:12px;color:#8c867b;margin-top:20px;line-height:1.6;">{{ disclaimer }}</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="background:#1c1a17;color:#e9e4da;padding:40px 0;margin-top:30px;">
+    <div style="max-width:1080px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:center;">
+      <a href="index.html" style="font-family:'Newsreader',serif;font-size:17px;color:#cdc6ba;text-decoration:none;">Dr Ali Alshahrani</a>
+      <div style="display:flex;gap:22px;font-size:14px;">
+        <a href="ent-tools.html" style="text-decoration:none;color:#b8b1a5;" style-hover="color:#f4f1ea;">All Tools</a>
+        <a href="curriculum_vitae.html" style="text-decoration:none;color:#b8b1a5;" style-hover="color:#f4f1ea;">CV</a>
+      </div>
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.1em;color:#7d7869;">shahrani.me &middot; &copy; 2026</span>
+    </div>
+  </footer>
+</div>
+
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#8a302a"/><text x="50" y="50" dy="0.36em" text-anchor="middle" font-family="Georgia,serif" font-size="46" fill="#f4f1ea">A</text></svg></template>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { lang: 'en', answers: {}, show: false };
+
+  setLang(l) {
+    document.documentElement.setAttribute('dir', l === 'ar' ? 'rtl' : 'ltr');
+    document.documentElement.setAttribute('lang', l);
+  }
+  componentDidMount() { this.setLang(this.state.lang); }
+  toggleLang() {
+    var l = this.state.lang === 'en' ? 'ar' : 'en';
+    this.setLang(l);
+    this.setState({ lang: l });
+  }
+  pick(id, v) {
+    var a = Object.assign({}, this.state.answers); a[id] = v;
+    this.setState({ answers: a });
+  }
+  score() { this.setState({ show: true }); }
+
+  renderVals() {
+    var self = this, ar = this.state.lang === 'ar';
+
+    // --- Items: [id, en, ar] ---
+    var Q = [
+      [1,'Because of your tinnitus, is it difficult for you to concentrate?','هل من الصعب عليك التركيز بسبب طنين الأذن؟'],
+      [2,'Does the loudness of your tinnitus make it difficult for you to hear people?','هل ارتفاع صوت طنين الأذن لا يساعدك على سماع الآخرين؟'],
+      [3,'Does your tinnitus make you angry?','هل يجعلك طنين الأذن عصبياً؟'],
+      [4,'Does your tinnitus make you feel confused?','هل يجعلك طنين الأذن مرتبكاً أو حائراً؟'],
+      [5,'Because of your tinnitus, do you feel desperate?','هل أنت مكتئباً بسبب طنين الأذن؟'],
+      [6,'Do you complain a great deal about your tinnitus?','هل تشتكي بنسبة كبيرة من طنين الأذن؟'],
+      [7,'Because of your tinnitus, do you have trouble falling asleep at night?','هل تعاني من الأرق خلال الليل بسبب طنين الأذن؟'],
+      [8,'Do you feel as though you cannot escape your tinnitus?','هل تشعر بأنه لا يمكنك أن تتخلص من طنين الأذن؟'],
+      [9,'Does your tinnitus interfere with your ability to enjoy social activities (such as going out to dinner or the movies)?','هل لطنين الأذن أي تأثير على قدرتك للإستمتاع بحياتك الإجتماعية (كالذهاب إلى العشاء أو إلى السينما)؟'],
+      [10,'Because of your tinnitus, do you feel frustrated?','هل يسبب لك طنين الأذن الإحباط؟'],
+      [11,'Because of your tinnitus, do you feel that you have a terrible disease?','هل تظن أن طنين الأذن مرض مريع؟'],
+      [12,'Does your tinnitus make it difficult for you to enjoy life?','هل يمنعك طنين الأذن من الإستمتاع بالحياة؟'],
+      [13,'Does your tinnitus interfere with your job or household responsibilities?','هل لطنين الأذن أي تأثير على واجباتك في العمل و المنزل؟'],
+      [14,'Because of your tinnitus, do you find that you are often irritable?','هل تجد أن طنين الأذن يجعلك سريع الإنزعاج في أكثر الأوقات؟'],
+      [15,'Because of your tinnitus, is it difficult for you to read?','هل من الصعب عليك القراءة بسبب طنين الأذن؟'],
+      [16,'Does your tinnitus make you upset?','هل يجعلك طنين الأذن تعيساً؟'],
+      [17,'Do you feel that your tinnitus has placed stress on your relationships with family and friends?','هل أضاف طنين الأذن العصبية لعلاقتك بأفراد العائلة و الأصدقاء؟'],
+      [18,'Do you find it difficult to focus your attention away from your tinnitus and onto other things?','هل تظن أنه من الصعب أن تتوقف عن التفكير بطنين الأذن و تقوم بأي عمل آخر؟'],
+      [19,'Do you feel that you have no control over your tinnitus?','هل تظن أنك لا تستطيع السيطرة على طنين الأذن؟'],
+      [20,'Because of your tinnitus, do you often feel tired?','هل غالباً ما تشعر بالتعب بسبب طنين الأذن؟'],
+      [21,'Because of your tinnitus, do you feel depressed?','هل يشعرك طنين الأذن بالإحباط؟'],
+      [22,'Because of your tinnitus, do you feel anxious?','هل يشعرك طنين الأذن بالتوتر أو القلق؟'],
+      [23,'Do you feel that you can no longer cope with your tinnitus?','هل تشعر بأنك لا تستطيع التأقلم مع طنين الأذن بعد الآن؟'],
+      [24,'Does your tinnitus get worse when you are under stress?','هل تسوء حالة طنين الأذن عندما تكون تحت الضغط؟'],
+      [25,'Because of your tinnitus, do you feel insecure?','هل تشعر بعدم الإطمئنان و الإرتياح بسبب طنين الأذن؟']
+    ];
+    // Response options: No (0) / Sometimes (2) / Yes (4)
+    var OPTS = [[0,'No','كلا'],[2,'Sometimes','أحياناً'],[4,'Yes','نعم']];
+
+    // Subscales (per Newman 1996)
+    var FUNCTIONAL = [1,2,4,7,9,12,13,15,18,20,24];
+    var EMOTIONAL = [3,6,10,14,16,17,21,22,25];
+    var CATASTROPHIC = [5,8,11,19,23];
+
+    var items = Q.map(function (q) {
+      var id = q[0], active = self.state.answers[id];
+      return {
+        num: id,
+        text: ar ? q[2] : q[1],
+        options: OPTS.map(function (o) {
+          var v = o[0], on = active === v;
+          return {
+            label: ar ? o[2] : o[1],
+            onPick: function () { self.pick(id, v); },
+            style: 'min-width:96px;font-size:14px;font-weight:600;padding:10px 14px;border-radius:2px;border:1px solid '
+              + (on ? '#1c1a17' : '#d9d3c7') + ';background:' + (on ? '#1c1a17' : '#fff')
+              + ';color:' + (on ? '#f4f1ea' : '#46423b') + ';'
+          };
+        })
+      };
+    });
+
+    // --- Scoring (THI: sum responses, total = sum, max 100) ---
+    var total = 0, answered = 0;
+    var sub = { fn: 0, em: 0, ca: 0 };
+    Q.forEach(function (q) {
+      var v = self.state.answers[q[0]];
+      if (typeof v === 'number') {
+        total += v; answered++;
+        if (FUNCTIONAL.indexOf(q[0]) !== -1) sub.fn += v;
+        if (EMOTIONAL.indexOf(q[0]) !== -1) sub.em += v;
+        if (CATASTROPHIC.indexOf(q[0]) !== -1) sub.ca += v;
+      }
+    });
+
+    // Grades: 0–16 slight · 18–36 mild · 38–56 moderate · 58–76 severe · 78–100 catastrophic
+    var sevEn, sevAr;
+    if (total >= 78) { sevEn = 'Catastrophic (78–100)'; sevAr = 'كارثي (٧٨–١٠٠)'; }
+    else if (total >= 58) { sevEn = 'Severe (58–76)'; sevAr = 'شديد (٥٨–٧٦)'; }
+    else if (total >= 38) { sevEn = 'Moderate (38–56)'; sevAr = 'متوسط (٣٨–٥٦)'; }
+    else if (total >= 18) { sevEn = 'Mild (18–36)'; sevAr = 'خفيف (١٨–٣٦)'; }
+    else { sevEn = 'Slight / none (0–16)'; sevAr = 'ضئيل / لا يُذكر (٠–١٦)'; }
+
+    var domEn = 'Functional ' + sub.fn + ' / 44  ·  Emotional ' + sub.em + ' / 36  ·  Catastrophic ' + sub.ca + ' / 20';
+    var domAr = 'وظيفي ' + sub.fn + ' / 44  ·  عاطفي ' + sub.em + ' / 36  ·  كارثي ' + sub.ca + ' / 20';
+
+    return {
+      dir: ar ? 'rtl' : 'ltr',
+      rootStyle: 'background:#f4f1ea;color:#1c1a17;line-height:1.7;min-height:100vh;-webkit-font-smoothing:antialiased;font-family:' + (ar ? "'Noto Kufi Arabic','Source Sans 3',sans-serif" : "'Source Sans 3',system-ui,sans-serif"),
+      headingFont: ar ? "'Noto Kufi Arabic',serif" : "'Newsreader',serif",
+      langBtn: ar ? 'EN' : 'عربي',
+      toggleLang: function () { self.toggleLang(); },
+      backLabel: ar ? 'جميع الأدوات ←' : '← All ENT tools',
+      kicker: ar ? 'الأذن / الطنين' : 'Otology / Tinnitus',
+      title: ar ? 'مؤشر إعاقة الطنين THI' : 'Tinnitus Handicap Inventory',
+      intro: ar
+        ? 'استبيان من 25 بنداً لتقييم إعاقة الطنين المُدركة. أجب على كل بند: كلا (٠) أو أحياناً (٢) أو نعم (٤). المجموع 0–100.'
+        : '25-item inventory of self-perceived tinnitus handicap. Answer each item No (0), Sometimes (2), or Yes (4). Total 0–100.',
+      scaleTitle: ar ? 'خيارات الإجابة' : 'Response options',
+      scaleLegend: OPTS.map(function (o) { return (ar ? o[2] : o[1]) + ' = ' + o[0]; }).join('  ·  '),
+      items: items,
+      score: function () { self.score(); },
+      scoreLabel: ar ? 'احتساب النتيجة' : 'Calculate score',
+      show: this.state.show,
+      totalKicker: ar ? 'المجموع الكلي' : 'Total score',
+      totalLabel: total + ' / 100',
+      severityLabel: ar ? sevAr : sevEn,
+      domainLabel: ar ? domAr : domEn,
+      incomplete: answered < 25,
+      incompleteLabel: ar ? ('تم الإجابة على ' + answered + ' من 25 بنداً — أكمل جميع البنود.') : (answered + ' of 25 items answered — complete all items.'),
+      mcidLabel: ar
+        ? 'الأعلى = إعاقة طنين مُدركة أكبر. تقيس الإعاقة المُدركة؛ اقرنها بقياس السمع.'
+        : 'Higher = greater self-perceived tinnitus handicap. Measures self-perceived handicap; pair with audiometry.',
+      refKicker: ar ? 'المراجع' : 'References',
+      cite1: 'Newman CW, Jacobson GP, Spitzer JB. Development of the Tinnitus Handicap Inventory. Arch Otolaryngol Head Neck Surg. 1996;122(2):143-148.',
+      cite2: ar
+        ? 'التحقق العربي: El Beaino M, Eter E. Clin Otolaryngol. 2018;43(1):377-382.'
+        : 'Arabic validation: El Beaino M, Eter E. Clin Otolaryngol. 2018;43(1):377-382.',
+      disclaimer: ar
+        ? 'هذه الأداة للاستخدام المرجعي من قبل المختصين ولا تُغني عن التقييم السريري.'
+        : 'For clinician reference only; does not replace clinical assessment.'
+    };
+  }
+}
+</script>
+</body>
+</html>
