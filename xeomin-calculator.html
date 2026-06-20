@@ -18,8 +18,8 @@
   body{background:#f4f1ea;}
   a{color:inherit;}
   ::selection{background:#8a302a;color:#f4f1ea;}
-  input{font-family:'Source Sans 3',sans-serif;}
-  input:focus{outline:none;border-color:#8a302a !important;}
+  input,select{font-family:'Source Sans 3',sans-serif;}
+  input:focus,select:focus{outline:none;border-color:#8a302a !important;}
   @media (max-width:820px){
     [data-desktop-nav]{display:none !important;}
     [data-mobile-btn]{display:inline-flex !important;}
@@ -29,7 +29,7 @@
 </style>
 </helmet>
 
-<div id="top" data-screen-label="XEOMIN Calculator" style="background:#f4f1ea;color:#1c1a17;font-family:'Source Sans 3',system-ui,sans-serif;line-height:1.7;min-height:100vh;-webkit-font-smoothing:antialiased;">
+<div id="top" data-screen-label="Sialorrhea Botulinum Toxin" style="background:#f4f1ea;color:#1c1a17;font-family:'Source Sans 3',system-ui,sans-serif;line-height:1.7;min-height:100vh;-webkit-font-smoothing:antialiased;">
 
   <header style="position:sticky;top:0;z-index:60;background:rgba(244,241,234,0.88);backdrop-filter:blur(12px);border-bottom:1px solid #e4ded2;">
     <div style="max-width:1080px;margin:0 auto;padding:15px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px;">
@@ -63,68 +63,223 @@
     <div style="max-width:860px;margin:0 auto;padding:0 28px;">
       <a href="ent-tools.html" style="text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.1em;color:#8a302a;display:inline-block;margin-bottom:22px;">&larr; All ENT tools</a>
       <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#8a302a;margin-bottom:16px;">General ENT &amp; Therapeutics</div>
-      <h1 style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(34px,4.6vw,52px);line-height:1.04;letter-spacing:-0.01em;color:#1c1a17;margin-bottom:18px;">XEOMIN Dosing Calculator</h1>
-      <p style="font-size:17.5px;color:#46423b;line-height:1.7;max-width:56ch;">Weight-based incobotulinumtoxinA (XEOMIN) dosing for chronic sialorrhea, split across the parotid and submandibular glands. Concentration: 100 U reconstituted in 4 mL (25 U/mL).</p>
+      <h1 style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(34px,4.6vw,52px);line-height:1.04;letter-spacing:-0.01em;color:#1c1a17;margin-bottom:18px;">Sialorrhea Botulinum Toxin</h1>
+      <p style="font-size:17.5px;color:#46423b;line-height:1.7;max-width:60ch;">Salivary gland dosing (drooling). Multi-product per-gland dosing and injection-volume planning for the four marketed botulinum toxins. Units are product-specific and NOT interchangeable. Off-label except the incobotulinumtoxinA pediatric licence; no consensus protocol.</p>
     </div>
   </section>
 
   <section data-sec style="padding:14px 0 30px;">
     <div style="max-width:860px;margin:0 auto;padding:0 28px;">
       <div style="background:#faf8f2;border:1px solid #e4ded2;padding:34px;">
-        <h2 style="font-family:'Newsreader',serif;font-weight:600;font-size:22px;color:#1c1a17;margin-bottom:24px;">Patient weight</h2>
-        <label for="wt-in" style="display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a302a;margin-bottom:10px;">Body weight (kg)</label>
-        <input id="wt-in" type="number" min="12" step="0.5" placeholder="e.g. 24" value="{{ weight }}" onChange="{{ onWeight }}" onInput="{{ onWeight }}" onKeyDown="{{ onKey }}" style="width:100%;font-size:18px;padding:14px 16px;background:#fff;border:1px solid #d9d3c7;border-radius:2px;color:#1c1a17;margin-bottom:20px;">
-        <button onClick="{{ calc }}" style="background:#1c1a17;color:#f4f1ea;font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:15px;padding:14px 28px;border:none;border-radius:2px;cursor:pointer;" style-hover="background:#8a302a;"><i class="fas fa-calculator"></i> Calculate dose</button>
+
+        <!-- Product -->
+        <label style="display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a302a;margin-bottom:10px;">Product</label>
+        <select value="{{ product }}" onChange="{{ onProduct }}" style="width:100%;font-size:16px;padding:13px 16px;background:#fff;border:1px solid #d9d3c7;border-radius:2px;color:#1c1a17;margin-bottom:22px;cursor:pointer;">
+          <option value="onabotA">BOTOX (onabotulinumtoxinA)</option>
+          <option value="incobotA">Xeomin (incobotulinumtoxinA)</option>
+          <option value="abobotA">Dysport (abobotulinumtoxinA)</option>
+          <option value="rimabotB">Myobloc / Neurobloc (rimabotulinumtoxinB)</option>
+        </select>
+
+        <!-- Population -->
+        <label style="display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a302a;margin-bottom:10px;">Population</label>
+        <div style="display:flex;gap:1px;background:#e4ded2;border:1px solid #e4ded2;border-radius:2px;margin-bottom:22px;overflow:hidden;">
+          <button onClick="{{ setChild }}" style="{{ childBtnStyle }}">Child</button>
+          <button onClick="{{ setAdult }}" style="{{ adultBtnStyle }}">Adult</button>
+        </div>
+
+        <!-- Weight (shown for ona child weight bases, and inco child table) -->
+        <sc-if value="{{ showWeight }}" hint-placeholder-val="{{ false }}">
+          <label style="display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a302a;margin-bottom:10px;">Body weight (kg)</label>
+          <input type="number" min="0" step="0.5" placeholder="e.g. 24" value="{{ weight }}" onInput="{{ onWeight }}" onChange="{{ onWeight }}" style="width:100%;font-size:18px;padding:14px 16px;background:#fff;border:1px solid #d9d3c7;border-radius:2px;color:#1c1a17;margin-bottom:22px;">
+        </sc-if>
+
+        <!-- Child basis (onabotulinumtoxinA formula product only) -->
+        <sc-if value="{{ showBasis }}" hint-placeholder-val="{{ false }}">
+          <label style="display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a302a;margin-bottom:10px;">Dosing basis</label>
+          <select value="{{ basis }}" onChange="{{ onBasis }}" style="width:100%;font-size:16px;padding:13px 16px;background:#fff;border:1px solid #d9d3c7;border-radius:2px;color:#1c1a17;margin-bottom:6px;cursor:pointer;">
+            <sc-for list="{{ basisOptions }}" as="opt" hint-placeholder-count="3">
+              <option value="{{ opt.value }}">{{ opt.label }}</option>
+            </sc-for>
+          </select>
+          <div style="font-size:13px;color:#7a746a;margin-bottom:22px;">{{ basisNote }}</div>
+        </sc-if>
+
+        <!-- Fixed-dose selector (adult, or child fixed-dose products, or ona child 'fixed' basis) -->
+        <sc-if value="{{ showFixed }}" hint-placeholder-val="{{ false }}">
+          <label style="display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a302a;margin-bottom:10px;">Total dose</label>
+          <select value="{{ fixed }}" onChange="{{ onFixed }}" style="width:100%;font-size:16px;padding:13px 16px;background:#fff;border:1px solid #d9d3c7;border-radius:2px;color:#1c1a17;margin-bottom:6px;cursor:pointer;">
+            <sc-for list="{{ fixedOptions }}" as="opt" hint-placeholder-count="2">
+              <option value="{{ opt.value }}">{{ opt.label }}</option>
+            </sc-for>
+          </select>
+          <div style="font-size:13px;color:#7a746a;margin-bottom:22px;">{{ fixedNote }}</div>
+        </sc-if>
+
+        <!-- Gland set (hidden for inco-child table, which forces 4-gland) -->
+        <sc-if value="{{ showGlandSet }}" hint-placeholder-val="{{ false }}">
+          <label style="display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a302a;margin-bottom:10px;">Gland set</label>
+          <select value="{{ glandSet }}" onChange="{{ onGlandSet }}" style="width:100%;font-size:16px;padding:13px 16px;background:#fff;border:1px solid #d9d3c7;border-radius:2px;color:#1c1a17;margin-bottom:6px;cursor:pointer;">
+            <sc-for list="{{ glandOptions }}" as="opt" hint-placeholder-count="3">
+              <option value="{{ opt.value }}">{{ opt.label }}</option>
+            </sc-for>
+          </select>
+          <div style="font-size:13px;color:#7a746a;margin-bottom:22px;">{{ glandNote }}</div>
+        </sc-if>
+        <sc-if value="{{ glandFixedNote }}" hint-placeholder-val="{{ false }}">
+          <div style="font-size:13px;color:#7a746a;margin-bottom:22px;"><i class="fas fa-circle-info" style="color:#8a302a;margin-right:6px;"></i>{{ glandFixedNote }}</div>
+        </sc-if>
+
+        <!-- Reconstitution / concentration -->
+        <label style="display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a302a;margin-bottom:10px;">{{ reconLabel }}</label>
+        <select value="{{ recon }}" onChange="{{ onRecon }}" style="width:100%;font-size:16px;padding:13px 16px;background:#fff;border:1px solid #d9d3c7;border-radius:2px;color:#1c1a17;margin-bottom:24px;cursor:pointer;">
+          <sc-for list="{{ reconOptions }}" as="opt" hint-placeholder-count="4">
+            <option value="{{ opt.value }}">{{ opt.label }}</option>
+          </sc-for>
+        </select>
+
+        <button onClick="{{ calc }}" style="background:#1c1a17;color:#f4f1ea;font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:15px;padding:14px 28px;border:none;border-radius:2px;cursor:pointer;" style-hover="background:#8a302a;"><i class="fas fa-calculator"></i> Calculate plan</button>
+
         <sc-if value="{{ errFlag }}" hint-placeholder-val="{{ false }}">
           <div style="margin-top:22px;padding:14px 18px;background:#f6e9e7;border:1px solid #e3c4bf;border-radius:2px;color:#8a302a;font-size:14.5px;">{{ error }}</div>
         </sc-if>
+
+        <!-- Results -->
         <sc-if value="{{ show }}" hint-placeholder-val="{{ false }}">
           <div style="margin-top:26px;border-top:1px solid #e4ded2;padding-top:26px;">
-            <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a302a;margin-bottom:10px;">Total dose &middot; {{ rangeLabel }}</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a302a;margin-bottom:10px;">Total dose &middot; {{ subLabel }}</div>
             <div style="font-family:'Newsreader',serif;font-weight:500;font-size:54px;line-height:1;color:#1c1a17;">{{ totalLabel }}</div>
+
+            <sc-if value="{{ capped }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:16px;padding:13px 18px;background:#f6e9e7;border:1px solid #e3c4bf;border-radius:2px;color:#8a302a;font-size:14px;"><i class="fas fa-triangle-exclamation" style="margin-right:7px;"></i>{{ capLabel }}</div>
+            </sc-if>
+
             <div data-grid-2 style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#e4ded2;border:1px solid #e4ded2;margin-top:24px;">
+              <sc-if value="{{ hasParotid }}" hint-placeholder-val="{{ false }}">
+                <div style="background:#fff;padding:22px;">
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8a302a;margin-bottom:10px;">Per parotid gland &times;2</div>
+                  <div style="font-family:'Newsreader',serif;font-size:26px;color:#1c1a17;">{{ parotidUnits }}</div>
+                  <div style="font-size:14px;color:#6f6a61;margin-top:3px;">{{ parotidVol }} per side</div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ hasSubmand }}" hint-placeholder-val="{{ false }}">
+                <div style="background:#fff;padding:22px;">
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8a302a;margin-bottom:10px;">Per submandibular gland &times;2</div>
+                  <div style="font-family:'Newsreader',serif;font-size:26px;color:#1c1a17;">{{ submandUnits }}</div>
+                  <div style="font-size:14px;color:#6f6a61;margin-top:3px;">{{ submandVol }} per side</div>
+                </div>
+              </sc-if>
+            </div>
+
+            <div data-grid-2 style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#e4ded2;border:1px solid #e4ded2;margin-top:1px;">
               <div style="background:#fff;padding:22px;">
-                <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8a302a;margin-bottom:10px;">Per parotid gland &times;2</div>
-                <div style="font-family:'Newsreader',serif;font-size:26px;color:#1c1a17;">{{ parotidUnits }}</div>
-                <div style="font-size:14px;color:#6f6a61;margin-top:3px;">{{ parotidVol }} per side</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8a302a;margin-bottom:10px;">Concentration</div>
+                <div style="font-family:'Newsreader',serif;font-size:26px;color:#1c1a17;">{{ concLabel }}</div>
+                <div style="font-size:14px;color:#6f6a61;margin-top:3px;">{{ per01Label }}</div>
               </div>
               <div style="background:#fff;padding:22px;">
-                <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8a302a;margin-bottom:10px;">Per submandibular gland &times;2</div>
-                <div style="font-family:'Newsreader',serif;font-size:26px;color:#1c1a17;">{{ submandUnits }}</div>
-                <div style="font-size:14px;color:#6f6a61;margin-top:3px;">{{ submandVol }} per side</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8a302a;margin-bottom:10px;">Total volume injected</div>
+                <div style="font-family:'Newsreader',serif;font-size:26px;color:#1c1a17;">{{ totalVolLabel }}</div>
+                <div style="font-size:14px;color:#6f6a61;margin-top:3px;">across {{ glandsLabel }}</div>
               </div>
             </div>
-            <div style="margin-top:16px;display:flex;gap:9px;align-items:flex-start;font-size:13.5px;color:#7a746a;"><i class="fas fa-triangle-exclamation" style="color:#8a302a;margin-top:3px;"></i><span>Administer under ultrasound guidance. Doses are per gland; total reflects all four glands.</span></div>
+
+            <div style="margin-top:16px;display:flex;gap:9px;align-items:flex-start;font-size:13.5px;color:#7a746a;"><i class="fas fa-triangle-exclamation" style="color:#8a302a;margin-top:3px;"></i><span>Administer under ultrasound guidance. Volume per gland = dose &divide; concentration. Doses shown are per gland; the total reflects every selected gland (both sides).</span></div>
           </div>
+        </sc-if>
+      </div>
+
+      <!-- Permanent safety panel -->
+      <div style="margin-top:22px;padding:22px 24px;background:#f6e9e7;border:1px solid #e3c4bf;border-left:3px solid #8a302a;font-size:14px;color:#5b564d;line-height:1.7;">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a302a;margin-bottom:12px;"><i class="fas fa-shield-halved" style="margin-right:7px;"></i>Safety</div>
+        <ul style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px;">
+          <li><strong style="color:#1c1a17;">Units are NOT interchangeable</strong> between products. BOTOX, Xeomin, Dysport and Myobloc/Neurobloc each have their own unit system &mdash; never substitute dose-for-dose.</li>
+          <li>Sialorrhea injection is <strong style="color:#1c1a17;">off-label</strong> (except the incobotulinumtoxinA pediatric licence) and has <strong style="color:#1c1a17;">no consensus protocol</strong>. Figures are licence schedules or literature ranges, not validated formulae.</li>
+          <li>Inject under <strong style="color:#1c1a17;">ultrasound guidance</strong>; watch for <strong style="color:#1c1a17;">dysphagia</strong> and other adverse effects after treatment.</li>
+        </ul>
+        <sc-if value="{{ isTypeB }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:14px;padding:13px 16px;background:#8a302a;color:#f4f1ea;border-radius:2px;font-size:13.5px;line-height:1.6;"><i class="fas fa-triangle-exclamation" style="margin-right:7px;"></i><strong>Type B toxin (rimabotulinumtoxinB).</strong> Myobloc / Neurobloc is a different molecule with its own unit system &mdash; type A and type B units are NOT convertible. Doses (thousands of units) are far larger than type-A products by design. Double-check the product and the unit count.</div>
         </sc-if>
       </div>
     </div>
   </section>
 
+  <!-- Collapsible reference -->
   <section data-sec style="padding:30px 0;">
     <div style="max-width:860px;margin:0 auto;padding:0 28px;">
-      <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:26px;color:#1c1a17;margin-bottom:28px;">Weight-based dosing reference</h2>
-      <div style="border:1px solid #e4ded2;overflow-x:auto;">
-        <table style="width:100%;border-collapse:collapse;font-size:14.5px;min-width:520px;">
-          <thead>
-            <tr style="background:#efeae0;border-bottom:1px solid #e4ded2;">
-              <th style="text-align:left;padding:13px 16px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#8a302a;font-weight:500;">Body weight</th>
-              <th style="text-align:right;padding:13px 16px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#8a302a;font-weight:500;">Per parotid</th>
-              <th style="text-align:right;padding:13px 16px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#8a302a;font-weight:500;">Per submand.</th>
-              <th style="text-align:right;padding:13px 16px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#8a302a;font-weight:500;">Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr style="border-bottom:1px solid #ece7dc;"><td style="padding:12px 16px;color:#5b564d;">&ge; 12 to &lt; 15 kg</td><td style="padding:12px 16px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">6 U / 0.24 mL</td><td style="padding:12px 16px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">4 U / 0.16 mL</td><td style="padding:12px 16px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">20 U</td></tr>
-            <tr style="border-bottom:1px solid #ece7dc;"><td style="padding:12px 16px;color:#5b564d;">&ge; 15 to &lt; 19 kg</td><td style="padding:12px 16px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">9 U / 0.36 mL</td><td style="padding:12px 16px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">6 U / 0.24 mL</td><td style="padding:12px 16px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">30 U</td></tr>
-            <tr style="border-bottom:1px solid #ece7dc;"><td style="padding:12px 16px;color:#5b564d;">&ge; 19 to &lt; 23 kg</td><td style="padding:12px 16px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">12 U / 0.48 mL</td><td style="padding:12px 16px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">8 U / 0.32 mL</td><td style="padding:12px 16px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">40 U</td></tr>
-            <tr style="border-bottom:1px solid #ece7dc;"><td style="padding:12px 16px;color:#5b564d;">&ge; 23 to &lt; 27 kg</td><td style="padding:12px 16px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">15 U / 0.60 mL</td><td style="padding:12px 16px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">10 U / 0.40 mL</td><td style="padding:12px 16px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">50 U</td></tr>
-            <tr style="border-bottom:1px solid #ece7dc;"><td style="padding:12px 16px;color:#5b564d;">&ge; 27 to &lt; 30 kg</td><td style="padding:12px 16px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">18 U / 0.72 mL</td><td style="padding:12px 16px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">12 U / 0.48 mL</td><td style="padding:12px 16px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">60 U</td></tr>
-            <tr><td style="padding:12px 16px;color:#5b564d;">&ge; 30 kg</td><td style="padding:12px 16px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">22.5 U / 0.90 mL</td><td style="padding:12px 16px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">15 U / 0.60 mL</td><td style="padding:12px 16px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">75 U</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div style="margin-top:26px;padding:20px 24px;background:#efeae0;border:1px solid #e4ded2;border-left:3px solid #8a302a;font-size:13.5px;color:#6f6a61;line-height:1.7;"><strong style="color:#1c1a17;">Disclaimer.</strong> For educational and reference use by qualified clinicians only. Verify dosing against current product labeling and institutional protocols. Does not replace clinical judgment.</div>
+      <button onClick="{{ toggleRef }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:14px;background:#efeae0;border:1px solid #e4ded2;border-radius:2px;padding:18px 22px;cursor:pointer;text-align:left;">
+        <span style="font-family:'Newsreader',serif;font-weight:500;font-size:22px;color:#1c1a17;">Dosing reference &amp; literature</span>
+        <i class="fas {{ refIcon }}" style="color:#8a302a;"></i>
+      </button>
+
+      <sc-if value="{{ refOpen }}" hint-placeholder-val="{{ false }}">
+        <div style="border:1px solid #e4ded2;border-top:none;padding:28px 24px;background:#faf8f2;">
+
+          <!-- Per-product literature ranges -->
+          <h3 style="font-family:'Newsreader',serif;font-weight:600;font-size:18px;color:#1c1a17;margin-bottom:16px;">Per-product literature ranges</h3>
+          <div style="border:1px solid #e4ded2;overflow-x:auto;margin-bottom:30px;">
+            <table style="width:100%;border-collapse:collapse;font-size:14px;min-width:560px;">
+              <thead>
+                <tr style="background:#efeae0;border-bottom:1px solid #e4ded2;">
+                  <th style="text-align:left;padding:12px 14px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:#8a302a;font-weight:500;">Product</th>
+                  <th style="text-align:left;padding:12px 14px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:#8a302a;font-weight:500;">Pediatric</th>
+                  <th style="text-align:left;padding:12px 14px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:#8a302a;font-weight:500;">Adult</th>
+                </tr>
+              </thead>
+              <tbody>
+                <sc-for list="{{ referenceRows }}" as="row" hint-placeholder-count="4">
+                  <tr style="border-bottom:1px solid #ece7dc;">
+                    <td style="padding:12px 14px;color:#1c1a17;"><strong>{{ row.product }}</strong><br><span style="font-size:12.5px;color:#7a746a;">{{ row.generic }}</span></td>
+                    <td style="padding:12px 14px;color:#5b564d;">{{ row.pediatric }}</td>
+                    <td style="padding:12px 14px;color:#5b564d;">{{ row.adult }}</td>
+                  </tr>
+                </sc-for>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Conversion -->
+          <div style="padding:18px 22px;background:#efeae0;border:1px solid #e4ded2;border-left:3px solid #8a302a;font-size:14px;color:#5b564d;line-height:1.7;margin-bottom:30px;">
+            <strong style="color:#1c1a17;">Type-A unit conversion.</strong> Approximate ratio (Yu 2022): <strong style="color:#1c1a17;">BOTOX 1 : Xeomin 1 : Dysport 3</strong>. Type A and type B (Myobloc / Neurobloc) are <strong style="color:#1c1a17;">NOT convertible</strong>.
+          </div>
+
+          <!-- Xeomin weight table -->
+          <h3 style="font-family:'Newsreader',serif;font-weight:600;font-size:18px;color:#1c1a17;margin-bottom:6px;">Xeomin (incobotulinumtoxinA) pediatric weight table</h3>
+          <p style="font-size:13.5px;color:#7a746a;margin-bottom:16px;">FDA label schedule &mdash; chronic sialorrhea, patients &ge; 12 kg. 4-gland (asymmetric: parotid &gt; submandibular). Volumes shown at 25 U/mL (100 U in 4 mL).</p>
+          <div style="border:1px solid #e4ded2;overflow-x:auto;margin-bottom:30px;">
+            <table style="width:100%;border-collapse:collapse;font-size:14px;min-width:520px;">
+              <thead>
+                <tr style="background:#efeae0;border-bottom:1px solid #e4ded2;">
+                  <th style="text-align:left;padding:12px 14px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:#8a302a;font-weight:500;">Body weight</th>
+                  <th style="text-align:right;padding:12px 14px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:#8a302a;font-weight:500;">Per parotid</th>
+                  <th style="text-align:right;padding:12px 14px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:#8a302a;font-weight:500;">Per submand.</th>
+                  <th style="text-align:right;padding:12px 14px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:#8a302a;font-weight:500;">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <sc-for list="{{ xeominRows }}" as="row" hint-placeholder-count="6">
+                  <tr style="border-bottom:1px solid #ece7dc;">
+                    <td style="padding:11px 14px;color:#5b564d;">{{ row.range }}</td>
+                    <td style="padding:11px 14px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">{{ row.parotid }}</td>
+                    <td style="padding:11px 14px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">{{ row.submand }}</td>
+                    <td style="padding:11px 14px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">{{ row.total }}</td>
+                  </tr>
+                </sc-for>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Citations -->
+          <h3 style="font-family:'Newsreader',serif;font-weight:600;font-size:18px;color:#1c1a17;margin-bottom:14px;">Citations</h3>
+          <ul style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:10px;font-size:13.5px;color:#5b564d;line-height:1.6;">
+            <sc-for list="{{ citations }}" as="c" hint-placeholder-count="4">
+              <li><strong style="color:#1c1a17;">{{ c.label }}.</strong> {{ c.detail }}</li>
+            </sc-for>
+          </ul>
+        </div>
+      </sc-if>
+
+      <div style="margin-top:26px;padding:20px 24px;background:#efeae0;border:1px solid #e4ded2;border-left:3px solid #8a302a;font-size:13.5px;color:#6f6a61;line-height:1.7;"><strong style="color:#1c1a17;">Disclaimer.</strong> For educational and reference use by qualified clinicians only. Verify dosing against current product labeling and institutional protocols. Units are product-specific and not interchangeable. Does not replace clinical judgment.</div>
     </div>
   </section>
 
@@ -145,39 +300,444 @@
 <template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#8a302a"/><text x="50" y="50" dy="0.36em" text-anchor="middle" font-family="Georgia,serif" font-size="46" fill="#f4f1ea">A</text></svg></template></x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { menuOpen: false, weight: '', result: null, error: '' };
+  // ---- Ground-truth data mirrored from the app -----------------------------
+  // src/data/general/sialorrheaBotoxData.ts (TOXIN_PRODUCTS) +
+  // src/data/airway/xeominDosing.ts + src/utils/calculations/sialorrheaBoNT.ts
+  PRODUCTS = {
+    onabotA: {
+      brand: 'BOTOX', generic: 'onabotulinumtoxinA', serotype: 'A', supply: 'powder',
+      reconstitution: [
+        { value: '1', label: '100 U in 1 mL (10 U / 0.1 mL)', concentrationPerMl: 100 },
+        { value: '2', label: '100 U in 2 mL (5 U / 0.1 mL)', concentrationPerMl: 50 },
+        { value: '2.5', label: '100 U in 2.5 mL (4 U / 0.1 mL)', concentrationPerMl: 40 },
+        { value: '4', label: '100 U in 4 mL (2.5 U / 0.1 mL)', concentrationPerMl: 25 }
+      ],
+      pediatricMaxUnits: 100,
+      childMode: 'formula',
+      childBases: [
+        { value: 'perKgTotal', label: '2 U/kg total', note: 'Lin 2008; capped 100 U' },
+        { value: 'perKgPerGland', label: '1.1 U/kg per gland', note: 'Oad 2024 average; total capped 100 U' },
+        { value: 'fixed', label: 'Fixed 100 U total', note: 'Oad 2024 reported 60-100 U' }
+      ],
+      adultDoses: [{ value: '100', label: '100 U total', totalUnits: 100, note: 'Yu 2022' }],
+      defaultRecon: '2'
+    },
+    incobotA: {
+      brand: 'Xeomin', generic: 'incobotulinumtoxinA', serotype: 'A', supply: 'powder',
+      reconstitution: [
+        { value: '1', label: '100 U in 1 mL (10 U / 0.1 mL)', concentrationPerMl: 100 },
+        { value: '2', label: '100 U in 2 mL (5 U / 0.1 mL)', concentrationPerMl: 50 },
+        { value: '2.5', label: '100 U in 2.5 mL (4 U / 0.1 mL)', concentrationPerMl: 40 },
+        { value: '4', label: '100 U in 4 mL (2.5 U / 0.1 mL)', concentrationPerMl: 25 }
+      ],
+      pediatricMaxUnits: 75,
+      childMode: 'table',
+      adultDoses: [
+        { value: '100', label: '100 U total', totalUnits: 100, note: 'Yu 2022 (75-100 U)' },
+        { value: '75', label: '75 U total', totalUnits: 75, note: 'Jost 2019' }
+      ],
+      defaultRecon: '2'
+    },
+    abobotA: {
+      brand: 'Dysport', generic: 'abobotulinumtoxinA', serotype: 'A', supply: 'powder',
+      reconstitution: [
+        { value: '200', label: '300 U in 1.5 mL (200 U/mL)', concentrationPerMl: 200 },
+        { value: '250', label: '500 U in 2 mL (250 U/mL)', concentrationPerMl: 250 },
+        { value: '500', label: '500 U in 1 mL (500 U/mL)', concentrationPerMl: 500 }
+      ],
+      pediatricMaxUnits: 140,
+      childMode: 'fixed',
+      childFixedDoses: [
+        { value: '100', label: '100 U total', totalUnits: 100, note: 'Alrefai 2009' },
+        { value: '140', label: '140 U total', totalUnits: 140, note: 'Alrefai 2009 (2nd visit)' }
+      ],
+      adultDoses: [
+        { value: '100', label: '100 U total', totalUnits: 100, note: 'Yu 2022' },
+        { value: '200', label: '200 U total', totalUnits: 200, note: 'Yu 2022 (effective range)' }
+      ],
+      defaultRecon: '200'
+    },
+    rimabotB: {
+      brand: 'Myobloc / Neurobloc', generic: 'rimabotulinumtoxinB', serotype: 'B', supply: 'solution',
+      reconstitution: [
+        { value: '5000', label: 'Undiluted (5000 U/mL)', concentrationPerMl: 5000 },
+        { value: '2500', label: 'Diluted 1:1 (2500 U/mL)', concentrationPerMl: 2500 },
+        { value: '1000', label: 'Diluted 1:4 (1000 U/mL)', concentrationPerMl: 1000 }
+      ],
+      pediatricMaxUnits: 3000,
+      childMode: 'fixed',
+      childFixedDoses: [
+        { value: '1500', label: '1500 U total', totalUnits: 1500, note: 'Basciani 2011' },
+        { value: '3000', label: '3000 U total', totalUnits: 3000, note: 'Basciani 2011 (5000 U had more AEs)' }
+      ],
+      adultDoses: [
+        { value: '2500', label: '2500 U total', totalUnits: 2500, note: 'Yu 2022' },
+        { value: '3000', label: '3000 U total', totalUnits: 3000, note: 'Yu 2022' }
+      ],
+      defaultRecon: '5000'
+    }
+  };
 
-  calc() {
-    var w = parseFloat(this.state.weight);
-    if (!w || isNaN(w)) { this.setState({ result: null, error: 'Please enter a valid patient weight.' }); return; }
-    if (w < 12) { this.setState({ result: null, error: 'XEOMIN for sialorrhea is indicated for patients \u2265 12 kg. Please verify patient weight.' }); return; }
-    var t;
-    if (w < 15) t = { range: '\u2265 12 to < 15 kg', pd: 6, pv: 0.24, sd: 4, sv: 0.16, total: 20 };
-    else if (w < 19) t = { range: '\u2265 15 to < 19 kg', pd: 9, pv: 0.36, sd: 6, sv: 0.24, total: 30 };
-    else if (w < 23) t = { range: '\u2265 19 to < 23 kg', pd: 12, pv: 0.48, sd: 8, sv: 0.32, total: 40 };
-    else if (w < 27) t = { range: '\u2265 23 to < 27 kg', pd: 15, pv: 0.60, sd: 10, sv: 0.40, total: 50 };
-    else if (w < 30) t = { range: '\u2265 27 to < 30 kg', pd: 18, pv: 0.72, sd: 12, sv: 0.48, total: 60 };
-    else t = { range: '\u2265 30 kg', pd: 22.5, pv: 0.90, sd: 15, sv: 0.60, total: 75 };
-    this.setState({ result: t, error: '' });
+  GLAND_SETS = [
+    { value: 'fourGland', label: '4 glands (both parotid + both submandibular)', note: 'Most common pattern; ultrasound-guided.' },
+    { value: 'submandibularOnly', label: 'Submandibular only (both)', note: 'Bekkers 2019 used 25 U per gland.' },
+    { value: 'parotidOnly', label: 'Parotid only (both)', note: 'Used in several trials.' }
+  ];
+
+  XEOMIN_TABLE = [
+    { range: '≥ 12 to < 15 kg', parotidDose: 6, submandibularDose: 4, totalDose: 20 },
+    { range: '≥ 15 to < 19 kg', parotidDose: 9, submandibularDose: 6, totalDose: 30 },
+    { range: '≥ 19 to < 23 kg', parotidDose: 12, submandibularDose: 8, totalDose: 40 },
+    { range: '≥ 23 to < 27 kg', parotidDose: 15, submandibularDose: 10, totalDose: 50 },
+    { range: '≥ 27 to < 30 kg', parotidDose: 18, submandibularDose: 12, totalDose: 60 },
+    { range: '≥ 30 kg', parotidDose: 22.5, submandibularDose: 15, totalDose: 75 }
+  ];
+
+  REFERENCE_ROWS = [
+    { product: 'BOTOX', generic: 'onabotulinumtoxinA', pediatric: '2 U/kg total, or 1.1 U/kg/gland; total 60-100 U', adult: '~100 U total' },
+    { product: 'Xeomin', generic: 'incobotulinumtoxinA', pediatric: 'Weight-based 20-75 U (≥ 12 kg)', adult: '75-100 U total' },
+    { product: 'Dysport', generic: 'abobotulinumtoxinA', pediatric: '100 → 140 U', adult: '100-200 U (up to 450 U in one trial)' },
+    { product: 'Myobloc / Neurobloc', generic: 'rimabotulinumtoxinB', pediatric: '1500 / 3000 / 5000 U (AEs at 5000 U)', adult: '2500-3000 U' }
+  ];
+
+  CITATIONS = [
+    { label: 'Oad 2024', detail: 'Oad H, et al. Onabotulinum Toxin A for Drooling in Children: SR & meta-analysis. Laryngoscope. 2024;134:3012-3017.' },
+    { label: 'Yu 2022', detail: 'Yu YC, et al. Efficacy and Safety of Botulinum Toxin for Treating Sialorrhea: SR & meta-analysis. Eur J Neurol. 2022.' },
+    { label: 'Bekkers 2019', detail: 'Bekkers S, et al. RCT botulinum toxin vs surgery for drooling in neurodisabilities. Neurology. 2019;92(11):e1195-e1204.' },
+    { label: 'Cochrane 2022', detail: 'James E, et al. Treatment for sialorrhea in MND/ALS. Cochrane Database Syst Rev. 2022;5:CD006981.' }
+  ];
+
+  state = {
+    menuOpen: false,
+    refOpen: false,
+    product: 'onabotA',
+    population: 'child',
+    weight: '',
+    basis: 'perKgTotal',
+    fixed: '',
+    glandSet: 'fourGland',
+    recon: '2',
+    result: null,
+    error: ''
+  };
+
+  // ---- Helpers --------------------------------------------------------------
+  round(value, decimals) {
+    var factor = Math.pow(10, decimals);
+    return Math.round(value * factor) / factor;
   }
 
+  cfg() { return this.PRODUCTS[this.state.product]; }
+
+  // Reset dependent selections when product/population change so the visible
+  // selectors always carry a valid value.
+  defaultsForState(product, population) {
+    var cfg = this.PRODUCTS[product];
+    var out = { recon: cfg.defaultRecon, basis: 'perKgTotal', fixed: '' };
+    if (population === 'adult') {
+      out.fixed = cfg.adultDoses[0].value;
+    } else if (cfg.childMode === 'formula') {
+      out.basis = cfg.childBases[0].value;
+      out.fixed = ''; // fixed only used if basis === 'fixed'; ona fixed = 100
+    } else if (cfg.childMode === 'fixed') {
+      out.fixed = cfg.childFixedDoses[0].value;
+    }
+    return out;
+  }
+
+  // ---- Selector option lists (for the live form) ----------------------------
+  basisOptions() {
+    var cfg = this.cfg();
+    if (this.state.population === 'child' && cfg.childMode === 'formula') return cfg.childBases || [];
+    return [];
+  }
+
+  fixedOptions() {
+    var cfg = this.cfg();
+    if (this.state.population === 'adult') return cfg.adultDoses;
+    if (cfg.childMode === 'fixed') return cfg.childFixedDoses || [];
+    return [];
+  }
+
+  // Whether the fixed-dose selector should show.
+  showFixedNow() {
+    var cfg = this.cfg();
+    if (this.state.population === 'adult') return true;
+    if (cfg.childMode === 'fixed') return true;
+    return false;
+  }
+
+  // Whether a weight input is needed for the live form.
+  showWeightNow() {
+    var cfg = this.cfg();
+    if (this.state.population !== 'child') return false;
+    if (cfg.childMode === 'table') return true; // inco child
+    if (cfg.childMode === 'formula') {
+      return this.state.basis === 'perKgTotal' || this.state.basis === 'perKgPerGland';
+    }
+    return false;
+  }
+
+  showBasisNow() {
+    var cfg = this.cfg();
+    return this.state.population === 'child' && cfg.childMode === 'formula';
+  }
+
+  // Gland-set selector hidden for inco-child (table forces 4-gland).
+  showGlandSetNow() {
+    var cfg = this.cfg();
+    return !(this.state.population === 'child' && cfg.childMode === 'table');
+  }
+
+  currentConcentration() {
+    var cfg = this.cfg();
+    var opts = cfg.reconstitution;
+    for (var i = 0; i < opts.length; i++) {
+      if (opts[i].value === this.state.recon) return opts[i].concentrationPerMl;
+    }
+    return opts[0].concentrationPerMl;
+  }
+
+  // ---- Core calculation (mirrors calculateSialorrheaBoNT) -------------------
+  vol(units, conc) { return units == null ? null : this.round(units / conc, 2); }
+
+  calc() {
+    var s = this.state;
+    var cfg = this.cfg();
+    var conc = this.currentConcentration();
+    if (isNaN(conc) || conc <= 0) { this.setState({ result: null, error: 'Invalid concentration.' }); return; }
+
+    var weight = parseFloat(s.weight);
+    var weightOk = !isNaN(weight) && weight > 0;
+
+    // --- incobotulinumtoxinA pediatric weight-band table (4-gland) ----------
+    if (cfg.childMode === 'table' && s.population === 'child') {
+      if (!weightOk) { this.setState({ result: null, error: 'Enter a valid body weight (kg).' }); return; }
+      if (weight < 12) { this.setState({ result: null, error: 'Xeomin pediatric sialorrhea is indicated for patients ≥ 12 kg.' }); return; }
+      var entry;
+      if (weight < 15) entry = this.XEOMIN_TABLE[0];
+      else if (weight < 19) entry = this.XEOMIN_TABLE[1];
+      else if (weight < 23) entry = this.XEOMIN_TABLE[2];
+      else if (weight < 27) entry = this.XEOMIN_TABLE[3];
+      else if (weight < 30) entry = this.XEOMIN_TABLE[4];
+      else entry = this.XEOMIN_TABLE[5];
+      this.setState({
+        error: '',
+        result: {
+          serotype: cfg.serotype,
+          usesTable: true,
+          subLabel: entry.range,
+          totalDose: this.round(entry.totalDose, 1),
+          capped: false,
+          numGlands: 4,
+          parotidPerGland: this.round(entry.parotidDose, 1),
+          submandibularPerGland: this.round(entry.submandibularDose, 1),
+          parotidVolumeMl: this.vol(entry.parotidDose, conc),
+          submandibularVolumeMl: this.vol(entry.submandibularDose, conc),
+          concentrationPerMl: this.round(conc, 1),
+          unitsPer0_1ml: this.round(conc * 0.1, 2),
+          totalVolumeMl: this.round(entry.totalDose / conc, 2)
+        }
+      });
+      return;
+    }
+
+    var numGlands = s.glandSet === 'fourGland' ? 4 : 2;
+
+    // --- Total dose by population / basis -----------------------------------
+    var uncappedTotal;
+    if (s.population === 'adult') {
+      var ad = this.fixedTotalUnits();
+      if (ad == null || isNaN(ad) || ad <= 0) { this.setState({ result: null, error: 'Select a total dose.' }); return; }
+      uncappedTotal = ad;
+    } else if (cfg.childMode === 'formula') {
+      if (s.basis === 'perKgTotal') {
+        if (!weightOk) { this.setState({ result: null, error: 'Enter a valid body weight (kg).' }); return; }
+        uncappedTotal = 2 * weight;
+      } else if (s.basis === 'perKgPerGland') {
+        if (!weightOk) { this.setState({ result: null, error: 'Enter a valid body weight (kg).' }); return; }
+        uncappedTotal = 1.1 * weight * numGlands;
+      } else {
+        // fixed basis (onabotulinumtoxinA fixed 100 U)
+        uncappedTotal = 100;
+      }
+    } else {
+      // child fixed-dose products (abo / rima)
+      var cd = this.fixedTotalUnits();
+      if (cd == null || isNaN(cd) || cd <= 0) { this.setState({ result: null, error: 'Select a total dose.' }); return; }
+      uncappedTotal = cd;
+    }
+
+    var ceiling = s.population === 'child' ? cfg.pediatricMaxUnits : Number.POSITIVE_INFINITY;
+    var totalDose = Math.min(uncappedTotal, ceiling);
+    var capped = uncappedTotal > totalDose;
+
+    var perGland = totalDose / numGlands;
+    var parotidPerGland = s.glandSet === 'submandibularOnly' ? null : perGland;
+    var submandibularPerGland = s.glandSet === 'parotidOnly' ? null : perGland;
+
+    var glandName = s.glandSet === 'fourGland' ? 'all 4 glands'
+      : s.glandSet === 'submandibularOnly' ? 'both submandibular glands'
+      : 'both parotid glands';
+
+    this.setState({
+      error: '',
+      result: {
+        serotype: cfg.serotype,
+        usesTable: false,
+        subLabel: s.population === 'adult' ? 'Adult' : 'Child',
+        totalDose: this.round(totalDose, 1),
+        uncappedTotal: this.round(uncappedTotal, 1),
+        capped: capped,
+        numGlands: numGlands,
+        glandName: glandName,
+        parotidPerGland: parotidPerGland == null ? null : this.round(parotidPerGland, 1),
+        submandibularPerGland: submandibularPerGland == null ? null : this.round(submandibularPerGland, 1),
+        parotidVolumeMl: this.vol(parotidPerGland, conc),
+        submandibularVolumeMl: this.vol(submandibularPerGland, conc),
+        concentrationPerMl: this.round(conc, 1),
+        unitsPer0_1ml: this.round(conc * 0.1, 2),
+        totalVolumeMl: this.round(totalDose / conc, 2)
+      }
+    });
+  }
+
+  // Returns the selected fixed total (U) for adult or child-fixed products.
+  fixedTotalUnits() {
+    var cfg = this.cfg();
+    var list = this.state.population === 'adult' ? cfg.adultDoses : (cfg.childFixedDoses || []);
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].value === this.state.fixed) return list[i].totalUnits;
+    }
+    return list.length ? list[0].totalUnits : null;
+  }
+
+  // ---- Render binding -------------------------------------------------------
   renderVals() {
     var self = this;
-    var r = this.state.result;
+    var s = this.state;
+    var cfg = this.cfg();
+    var r = s.result;
+
+    // active button styles for the population toggle
+    var baseBtn = "flex:1;padding:13px 0;border:none;font-family:'Source Sans 3',sans-serif;font-size:15px;font-weight:600;cursor:pointer;";
+    var activeBtn = baseBtn + "background:#1c1a17;color:#f4f1ea;";
+    var idleBtn = baseBtn + "background:#fff;color:#46423b;";
+
+    // current selector note lookups
+    var basisNote = '';
+    if (this.showBasisNow()) {
+      var bo = cfg.childBases || [];
+      for (var i = 0; i < bo.length; i++) if (bo[i].value === s.basis) basisNote = bo[i].note || '';
+    }
+    var fixedNote = '';
+    if (this.showFixedNow()) {
+      var fo = this.fixedOptions();
+      for (var j = 0; j < fo.length; j++) if (fo[j].value === s.fixed) fixedNote = fo[j].note || '';
+    }
+    var glandNote = '';
+    for (var k = 0; k < this.GLAND_SETS.length; k++) if (this.GLAND_SETS[k].value === s.glandSet) glandNote = this.GLAND_SETS[k].note || '';
+
+    var reconLabel = cfg.supply === 'solution' ? 'Dilution / concentration' : 'Reconstitution / concentration';
+
+    // Xeomin reference table rows (volumes at 25 U/mL fixed for the table display)
+    var xeominRows = this.XEOMIN_TABLE.map(function (row) {
+      return {
+        range: row.range,
+        parotid: row.parotidDose + ' U / ' + (row.parotidDose / 25).toFixed(2) + ' mL',
+        submand: row.submandibularDose + ' U / ' + (row.submandibularDose / 25).toFixed(2) + ' mL',
+        total: row.totalDose + ' U'
+      };
+    });
+
     return {
-      menuOpen: this.state.menuOpen,
-      toggleMenu: function () { self.setState(function (s) { return { menuOpen: !s.menuOpen }; }); },
-      weight: this.state.weight,
+      menuOpen: s.menuOpen,
+      toggleMenu: function () { self.setState(function (st) { return { menuOpen: !st.menuOpen }; }); },
+
+      // product
+      product: s.product,
+      onProduct: function (e) {
+        var p = e.target.value;
+        var d = self.defaultsForState(p, self.state.population);
+        self.setState({ product: p, recon: d.recon, basis: d.basis, fixed: d.fixed, result: null, error: '' });
+      },
+
+      // population
+      childBtnStyle: s.population === 'child' ? activeBtn : idleBtn,
+      adultBtnStyle: s.population === 'adult' ? activeBtn : idleBtn,
+      setChild: function () {
+        var d = self.defaultsForState(self.state.product, 'child');
+        self.setState({ population: 'child', basis: d.basis, fixed: d.fixed, result: null, error: '' });
+      },
+      setAdult: function () {
+        var d = self.defaultsForState(self.state.product, 'adult');
+        self.setState({ population: 'adult', basis: d.basis, fixed: d.fixed, result: null, error: '' });
+      },
+
+      // weight
+      showWeight: this.showWeightNow(),
+      weight: s.weight,
       onWeight: function (e) { self.setState({ weight: e.target.value }); },
-      onKey: function (e) { if (e.key === 'Enter') self.calc(); },
+
+      // basis (ona child)
+      showBasis: this.showBasisNow(),
+      basisOptions: this.basisOptions(),
+      basis: s.basis,
+      basisNote: basisNote,
+      onBasis: function (e) { self.setState({ basis: e.target.value, result: null, error: '' }); },
+
+      // fixed dose
+      showFixed: this.showFixedNow(),
+      fixedOptions: this.fixedOptions(),
+      fixed: s.fixed,
+      fixedNote: fixedNote,
+      onFixed: function (e) { self.setState({ fixed: e.target.value, result: null, error: '' }); },
+
+      // gland set
+      showGlandSet: this.showGlandSetNow(),
+      glandOptions: this.GLAND_SETS,
+      glandSet: s.glandSet,
+      glandNote: glandNote,
+      onGlandSet: function (e) { self.setState({ glandSet: e.target.value, result: null, error: '' }); },
+      glandFixedNote: this.showGlandSetNow() ? '' : 'Xeomin pediatric schedule is fixed to all 4 glands (parotid + submandibular).',
+
+      // reconstitution
+      reconLabel: reconLabel,
+      reconOptions: cfg.reconstitution,
+      recon: s.recon,
+      onRecon: function (e) { self.setState({ recon: e.target.value, result: null, error: '' }); },
+
+      // calculate
       calc: function () { self.calc(); },
-      show: r != null, error: this.state.error, errFlag: !!this.state.error,
-      rangeLabel: r ? r.range : '',
-      totalLabel: r ? r.total + ' units' : '',
-      parotidUnits: r ? r.pd + ' U' : '',
-      parotidVol: r ? r.pv.toFixed(2) + ' mL' : '',
-      submandUnits: r ? r.sd + ' U' : '',
-      submandVol: r ? r.sv.toFixed(2) + ' mL' : ''
+      error: s.error, errFlag: !!s.error,
+
+      // safety panel (live, follows the product selector)
+      isTypeB: cfg.serotype === 'B',
+
+      // results
+      show: r != null,
+      subLabel: r ? r.subLabel : '',
+      totalLabel: r ? (r.totalDose + ' U') : '',
+      capped: r ? !!r.capped : false,
+      capLabel: r && r.capped ? ('Capped at the pediatric ceiling of ' + cfg.pediatricMaxUnits + ' U (uncapped ' + r.uncappedTotal + ' U).') : '',
+      hasParotid: r ? r.parotidPerGland != null : false,
+      hasSubmand: r ? r.submandibularPerGland != null : false,
+      parotidUnits: r && r.parotidPerGland != null ? (r.parotidPerGland + ' U') : '',
+      parotidVol: r && r.parotidVolumeMl != null ? (r.parotidVolumeMl.toFixed(2) + ' mL') : '',
+      submandUnits: r && r.submandibularPerGland != null ? (r.submandibularPerGland + ' U') : '',
+      submandVol: r && r.submandibularVolumeMl != null ? (r.submandibularVolumeMl.toFixed(2) + ' mL') : '',
+      concLabel: r ? (r.concentrationPerMl + ' U/mL') : '',
+      per01Label: r ? (r.unitsPer0_1ml + ' U / 0.1 mL') : '',
+      totalVolLabel: r ? (r.totalVolumeMl.toFixed(2) + ' mL') : '',
+      glandsLabel: r ? (r.usesTable ? 'all 4 glands' : r.glandName) : '',
+
+      // reference (collapsible)
+      refOpen: s.refOpen,
+      toggleRef: function () { self.setState(function (st) { return { refOpen: !st.refOpen }; }); },
+      refIcon: s.refOpen ? 'fa-chevron-up' : 'fa-chevron-down',
+      referenceRows: this.REFERENCE_ROWS,
+      xeominRows: xeominRows,
+      citations: this.CITATIONS
     };
   }
 }

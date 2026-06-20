@@ -117,7 +117,7 @@
         <div style="background:#faf8f2;border:1px solid #e4ded2;padding:34px;">
           <h2 style="font-family:'Newsreader',serif;font-weight:600;font-size:22px;color:#1c1a17;margin-bottom:24px;">Weight-based selection</h2>
           <label for="wt-in" style="display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a302a;margin-bottom:10px;">Patient weight (kg)</label>
-          <input id="wt-in" type="number" min="4" step="0.1" placeholder="e.g. 8.5" value="{{ weight }}" onChange="{{ onWeight }}" onInput="{{ onWeight }}" onKeyDown="{{ onWeightKey }}" style="width:100%;font-size:18px;padding:14px 16px;background:#fff;border:1px solid #d9d3c7;border-radius:2px;color:#1c1a17;margin-bottom:20px;">
+          <input id="wt-in" type="number" min="0.5" step="0.1" placeholder="e.g. 8.5" value="{{ weight }}" onChange="{{ onWeight }}" onInput="{{ onWeight }}" onKeyDown="{{ onWeightKey }}" style="width:100%;font-size:18px;padding:14px 16px;background:#fff;border:1px solid #d9d3c7;border-radius:2px;color:#1c1a17;margin-bottom:20px;">
           <button onClick="{{ calcWeight }}" style="background:#1c1a17;color:#f4f1ea;font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:15px;padding:14px 28px;border:none;border-radius:2px;cursor:pointer;" style-hover="background:#8a302a;"><i class="fas fa-calculator"></i> Calculate dose</button>
           <sc-if value="{{ weightErr }}" hint-placeholder-val="{{ false }}">
             <div style="margin-top:22px;padding:14px 18px;background:#f6e9e7;border:1px solid #e3c4bf;border-radius:2px;color:#8a302a;font-size:14.5px;">{{ weightError }}</div>
@@ -208,7 +208,7 @@ class Component extends DCLogic {
     { min: 8, max: 8.9, epi: 4, nacl: 0, age: '7\u20139 months' },
     { min: 9, max: 9.9, epi: 4.5, nacl: 0, age: '10\u201311 months' },
     { min: 10, max: 17, epi: 5, nacl: 0, age: '1\u20134 years' },
-    { min: 17.1, max: 999, epi: 5, nacl: 0, age: '> 4 years' }
+    { min: 17, max: 999, epi: 5, nacl: 0, age: '> 4 years' }
   ];
 
   selectMethod(m) { this.setState({ method: m, ageError: '', weightError: '' }); }
@@ -221,10 +221,18 @@ class Component extends DCLogic {
 
   calcWeight() {
     var w = parseFloat(this.state.weight);
-    if (!w || w < 4) { this.setState({ weightResult: null, weightError: 'Please enter a valid weight (minimum 4 kg).' }); return; }
+    if (isNaN(w) || w < 0.5) { this.setState({ weightResult: null, weightError: 'Please enter a valid weight (minimum 0.5 kg).' }); return; }
+    if (w < 4.5) {
+      var epi = Math.round(w * 0.5 * 10) / 10;
+      this.setState({
+        weightResult: { epi: epi, nacl: Math.max(0, Math.round((4 - epi) * 10) / 10), age: 'Small infant - verify local protocol' },
+        weightError: ''
+      });
+      return;
+    }
+    // Bands sorted ascending by min: pick the highest band whose min the weight meets.
     var dose = null;
-    for (var i = 0; i < this.WEIGHT.length; i++) { if (w >= this.WEIGHT[i].min && w <= this.WEIGHT[i].max) { dose = this.WEIGHT[i]; break; } }
-    if (!dose) { this.setState({ weightResult: null, weightError: 'Weight out of range. Please check the input.' }); return; }
+    for (var i = 0; i < this.WEIGHT.length; i++) { if (w >= this.WEIGHT[i].min) { dose = this.WEIGHT[i]; } }
     this.setState({ weightResult: dose, weightError: '' });
   }
 

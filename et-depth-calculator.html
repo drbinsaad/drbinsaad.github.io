@@ -100,9 +100,9 @@
       <sc-if value="{{ notAge }}" hint-placeholder-val="{{ false }}">
         <div style="background:#faf8f2;border:1px solid #e4ded2;padding:34px;">
           <h2 style="font-family:'Newsreader',serif;font-weight:600;font-size:22px;color:#1c1a17;margin-bottom:10px;">Weight-based calculation (Rule of Seven)</h2>
-          <p style="font-size:14.5px;color:#6f6a61;line-height:1.65;margin-bottom:26px;">For infants 1&ndash;4 kg: Depth (cm) = 6 + Weight (kg). 1 kg &rarr; 7 cm, 2 kg &rarr; 8 cm, 3 kg &rarr; 9 cm, 4 kg &rarr; 10 cm.</p>
+          <p style="font-size:14.5px;color:#6f6a61;line-height:1.65;margin-bottom:26px;">For neonates/small infants 0.5&ndash;4.5 kg: Depth (cm) = 6 + Weight (kg). 1 kg &rarr; 7 cm, 2 kg &rarr; 8 cm, 3 kg &rarr; 9 cm, 4 kg &rarr; 10 cm.</p>
           <label for="wt-in" style="display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a302a;margin-bottom:10px;">Patient weight (kg)</label>
-          <input id="wt-in" type="number" min="0.5" max="4" step="0.1" placeholder="e.g. 3.2" value="{{ weight }}" onChange="{{ onWeight }}" onInput="{{ onWeight }}" onKeyDown="{{ onWeightKey }}" style="width:100%;font-size:18px;padding:14px 16px;background:#fff;border:1px solid #d9d3c7;border-radius:2px;color:#1c1a17;margin-bottom:20px;">
+          <input id="wt-in" type="number" min="0.5" max="4.5" step="0.1" placeholder="e.g. 3.2" value="{{ weight }}" onChange="{{ onWeight }}" onInput="{{ onWeight }}" onKeyDown="{{ onWeightKey }}" style="width:100%;font-size:18px;padding:14px 16px;background:#fff;border:1px solid #d9d3c7;border-radius:2px;color:#1c1a17;margin-bottom:20px;">
           <button onClick="{{ calcWeight }}" style="background:#1c1a17;color:#f4f1ea;font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:15px;padding:14px 28px;border:none;border-radius:2px;cursor:pointer;" style-hover="background:#8a302a;"><i class="fas fa-calculator"></i> Calculate depth</button>
           <sc-if value="{{ weightErr }}" hint-placeholder-val="{{ false }}">
             <div style="margin-top:22px;padding:14px 18px;background:#f6e9e7;border:1px solid #e3c4bf;border-radius:2px;color:#8a302a;font-size:14.5px;">{{ weightError }}</div>
@@ -112,7 +112,7 @@
               <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a302a;margin-bottom:10px;">Recommended ET tube depth</div>
               <div style="font-family:'Newsreader',serif;font-weight:500;font-size:54px;line-height:1;color:#1c1a17;">{{ weightDepthLabel }}</div>
               <div style="font-size:14.5px;color:#6f6a61;margin-top:8px;">Measured at the lip</div>
-              <div style="margin-top:16px;display:flex;gap:9px;align-items:flex-start;font-size:13.5px;color:#7a746a;"><i class="fas fa-triangle-exclamation" style="color:#8a302a;margin-top:3px;"></i><span>Rule of Seven is for infants 1&ndash;4 kg only. For larger patients use the age-based formula.</span></div>
+              <div style="margin-top:16px;display:flex;gap:9px;align-items:flex-start;font-size:13.5px;color:#7a746a;"><i class="fas fa-triangle-exclamation" style="color:#8a302a;margin-top:3px;"></i><span>Rule of Seven is for neonates/small infants 0.5&ndash;4.5 kg only. For larger patients use the age-based formula.</span></div>
             </div>
           </sc-if>
         </div>
@@ -204,7 +204,7 @@ class Component extends DCLogic {
     var w = parseFloat(this.state.weight);
     if (!w || isNaN(w) || w <= 0) { this.setState({ weightDepth: null, weightError: 'Please enter a valid weight.' }); return; }
     if (w < 0.5) { this.setState({ weightDepth: null, weightError: 'Weight too low. Please verify patient weight.' }); return; }
-    if (w > 4) { this.setState({ weightDepth: null, weightError: 'Rule of Seven is for infants 1\u20134 kg. For larger patients, use the age-based formula.' }); return; }
+    if (w > 4.5) { this.setState({ weightDepth: null, weightError: 'Rule of Seven is for infants 0.5\u20134.5 kg. For larger patients, use the age-based formula.' }); return; }
     this.setState({ weightDepth: Math.round((6 + w) * 10) / 10, weightError: '' });
   }
 
