@@ -26,6 +26,51 @@
     [data-grid-2]{grid-template-columns:1fr !important;}
     [data-sec]{padding:48px 0 !important;}
   }
+
+  /* --- Prep-sheet download card --- */
+  .prep-sheet-card{display:flex;align-items:center;gap:18px;flex-wrap:wrap;justify-content:space-between;
+    padding:20px 24px;background:#faf8f2;border:1px solid #e4ded2;border-left:3px solid #8a302a;}
+  .prep-sheet-title{font-family:'Newsreader',serif;font-weight:500;font-size:21px;color:#1c1a17;margin-bottom:5px;}
+  .prep-sheet-desc{color:#7a746a;font-size:13.5px;line-height:1.6;max-width:62ch;}
+  .prep-sheet-btn{display:inline-flex;align-items:center;gap:9px;background:#1c1a17;color:#f4f1ea;
+    text-decoration:none;font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:14px;
+    padding:13px 22px;border-radius:2px;white-space:nowrap;transition:background .15s ease;}
+  .prep-sheet-btn:hover,.prep-sheet-btn:focus-visible{background:#8a302a;outline:none;}
+  .prep-sheet-btn:focus-visible{box-shadow:0 0 0 3px rgba(138,48,42,0.35);}
+
+  /* --- Export-PDF button --- */
+  .export-pdf-btn{display:inline-flex;align-items:center;gap:8px;margin-top:24px;background:#fff;
+    color:#1c1a17;border:1px solid #1c1a17;font-family:'Source Sans 3',sans-serif;font-weight:600;
+    font-size:14px;padding:12px 22px;border-radius:2px;cursor:pointer;
+    transition:background .15s ease,color .15s ease;}
+  .export-pdf-btn:hover,.export-pdf-btn:focus-visible{background:#1c1a17;color:#f4f1ea;outline:none;}
+  .export-pdf-btn:focus-visible{box-shadow:0 0 0 3px rgba(28,26,23,0.3);}
+  @media (prefers-reduced-motion: reduce){
+    .prep-sheet-btn,.export-pdf-btn{transition:none;}
+  }
+
+  /* --- Print-only clinical record --- */
+  #report{display:none;}
+  @media print{
+    #top{display:none !important;}
+    #report{display:block;font-family:'Source Sans 3',sans-serif;color:#1c1a17;}
+    @page{margin:16mm;}
+  }
+  #report h1{font-family:'Newsreader',serif;font-weight:500;font-size:23px;color:#1c1a17;margin:0;}
+  #report .r-sub{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;color:#7a746a;margin-top:5px;}
+  #report h2{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;
+    color:#8a302a;border-bottom:1px solid #e4ded2;padding-bottom:5px;margin:20px 0 8px;}
+  #report table{width:100%;border-collapse:collapse;font-size:12.5px;}
+  #report td{padding:5px 4px;border-bottom:1px solid #ece7dc;color:#1c1a17;}
+  #report td:last-child{text-align:right;font-variant-numeric:tabular-nums;}
+  #report .r-grp{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;
+    color:#8a302a;margin:10px 0 4px;}
+  #report ul{list-style:none;padding:0;margin:0;columns:2;column-gap:26px;font-size:11.5px;color:#5b564d;line-height:1.7;}
+  #report li{break-inside:avoid;-webkit-column-break-inside:avoid;}
+  #report li::before{content:"\2610  ";color:#8a302a;}
+  #report .r-foot{font-size:10.5px;color:#7a746a;font-style:italic;margin-top:12px;}
+  #report .sig{margin-top:26px;display:flex;gap:34px;font-size:11px;color:#7a746a;}
+  #report .sig div{flex:1;border-top:1px solid #9c958a;padding-top:6px;}
 </style>
 </helmet>
 
@@ -65,6 +110,19 @@
       <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#8a302a;margin-bottom:16px;">General ENT &amp; Therapeutics</div>
       <h1 style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(34px,4.6vw,52px);line-height:1.04;letter-spacing:-0.01em;color:#1c1a17;margin-bottom:18px;">Sialorrhea Botulinum Toxin</h1>
       <p style="font-size:17.5px;color:#46423b;line-height:1.7;max-width:60ch;">Salivary gland dosing (drooling). Multi-product per-gland dosing and injection-volume planning for the four marketed botulinum toxins. Units are product-specific and NOT interchangeable. Off-label except the incobotulinumtoxinA pediatric licence; no consensus protocol.</p>
+    </div>
+  </section>
+
+  <!-- Prep-sheet download -->
+  <section data-sec style="padding:0 0 10px;">
+    <div style="max-width:860px;margin:0 auto;padding:0 28px;">
+      <div class="prep-sheet-card">
+        <div>
+          <div class="prep-sheet-title">Pre-injection prep &amp; screening sheet</div>
+          <div class="prep-sheet-desc">Contraindication checklist, pediatric landmark adjustments, reconstitution &amp; technique, plus the bilingual Drooling Impact Scale &mdash; one printable file.</div>
+        </div>
+        <a class="prep-sheet-btn" download href="./files/ENT_Sialorrhea_PrepSheet.docx"><i class="fas fa-file-word"></i> Download prep sheet (.docx)</a>
+      </div>
     </div>
   </section>
 
@@ -185,6 +243,8 @@
             </div>
 
             <div style="margin-top:16px;display:flex;gap:9px;align-items:flex-start;font-size:13.5px;color:#7a746a;"><i class="fas fa-triangle-exclamation" style="color:#8a302a;margin-top:3px;"></i><span>Administer under ultrasound guidance. Volume per gland = dose &divide; concentration. Doses shown are per gland; the total reflects every selected gland (both sides).</span></div>
+
+            <button type="button" onClick="{{ exportPdf }}" class="export-pdf-btn"><i class="fas fa-file-arrow-down"></i> Export PDF &mdash; result + screening</button>
           </div>
         </sc-if>
       </div>
@@ -295,6 +355,60 @@
     </div>
   </footer>
 
+</div>
+
+<!-- Print-only clinical record: hidden on screen, shown only when printing (see #report CSS). -->
+<div id="report" aria-hidden="true">
+  <h1>Salivary BoNT Dose Plan</h1>
+  <div class="r-sub">Sialorrhea botulinum toxin &middot; {{ todayStr }}</div>
+
+  <h2>Patient &amp; plan</h2>
+  <table>
+    <tr><td>Patient / MRN</td><td>______________________</td></tr>
+    <tr><td>Product</td><td>{{ rProduct }}</td></tr>
+    <tr><td>Population</td><td>{{ rPopulation }}</td></tr>
+    <tr><td>Body weight</td><td>{{ rWeight }}</td></tr>
+    <tr><td>Dosing basis</td><td>{{ rBasis }}</td></tr>
+    <tr><td>Product lot</td><td>______________________</td></tr>
+  </table>
+
+  <h2>Dose plan</h2>
+  <table>
+    <tr><td>Total dose</td><td>{{ rTotal }}</td></tr>
+    <tr><td>Per parotid gland &times;2</td><td>{{ rParotid }}</td></tr>
+    <tr><td>Per submandibular gland &times;2</td><td>{{ rSubmand }}</td></tr>
+    <tr><td>Concentration</td><td>{{ rConc }}</td></tr>
+    <tr><td>Total volume to draw</td><td>{{ rVol }}</td></tr>
+  </table>
+
+  <h2>Pre-injection screening &mdash; confirm before injecting</h2>
+  <div class="r-grp">Absolute contraindications</div>
+  <ul>
+    <li>Myasthenia gravis</li>
+    <li>Lambert-Eaton syndrome</li>
+    <li>Prior hypersensitivity to any botulinum product</li>
+  </ul>
+  <div class="r-grp">Relative / caution</div>
+  <ul>
+    <li>Aminoglycosides (gentamicin/tobramycin/amikacin/neomycin)</li>
+    <li>Neuromuscular blockers (rocuronium/vecuronium/succinylcholine)</li>
+    <li>Polymyxins / clindamycin / magnesium sulfate</li>
+    <li>Pregnancy / lactation</li>
+    <li>Active infection at injection site</li>
+    <li>Significant dysphagia / aspiration risk</li>
+  </ul>
+
+  <h2>Reminders</h2>
+  <ul>
+    <li>Onset 48&ndash;72 h, peak 1&ndash;2 wk, duration 3&ndash;9 mo</li>
+    <li>Aspirate before each injection (facial artery near submandibular gland)</li>
+    <li>Ultrasound guidance preferred in children; scale depth to gland</li>
+    <li>Record baseline drooling score</li>
+  </ul>
+
+  <div class="r-foot">Doses are product-specific and not interchangeable; verify against the current product label and local protocol.</div>
+
+  <div class="sig"><div>Clinician &amp; signature</div><div>Date</div></div>
 </div>
 
 <template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#8a302a"/><text x="50" y="50" dy="0.36em" text-anchor="middle" font-family="Georgia,serif" font-size="46" fill="#f4f1ea">A</text></svg></template></x-dc>
@@ -650,6 +764,26 @@ class Component extends DCLogic {
       };
     });
 
+    // ---- Printable-report derivations (mirror the live form's active basis) --
+    var dosingBasisLabel = '';
+    if (s.population === 'adult') {
+      var adL = cfg.adultDoses;
+      for (var a = 0; a < adL.length; a++) if (adL[a].value === s.fixed) dosingBasisLabel = adL[a].label;
+      if (!dosingBasisLabel && adL.length) dosingBasisLabel = adL[0].label;
+    } else if (cfg.childMode === 'formula') {
+      var cbL = cfg.childBases || [];
+      for (var b = 0; b < cbL.length; b++) if (cbL[b].value === s.basis) dosingBasisLabel = cbL[b].label;
+    } else if (cfg.childMode === 'table') {
+      dosingBasisLabel = 'FDA weight-band table (≥ 12 kg)';
+    } else {
+      var cfL = cfg.childFixedDoses || [];
+      for (var cc = 0; cc < cfL.length; cc++) if (cfL[cc].value === s.fixed) dosingBasisLabel = cfL[cc].label;
+      if (!dosingBasisLabel && cfL.length) dosingBasisLabel = cfL[0].label;
+    }
+
+    var weightOkForReport = s.weight !== '' && !isNaN(parseFloat(s.weight)) && parseFloat(s.weight) > 0;
+    var todayStr = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+
     return {
       menuOpen: s.menuOpen,
       toggleMenu: function () { self.setState(function (st) { return { menuOpen: !st.menuOpen }; }); },
@@ -737,7 +871,29 @@ class Component extends DCLogic {
       refIcon: s.refOpen ? 'fa-chevron-up' : 'fa-chevron-down',
       referenceRows: this.REFERENCE_ROWS,
       xeominRows: xeominRows,
-      citations: this.CITATIONS
+      citations: this.CITATIONS,
+
+      // printable report (bound to live state / latest computed result)
+      todayStr: todayStr,
+      rProduct: cfg.brand + ' (' + cfg.generic + ')',
+      rPopulation: s.population === 'adult' ? 'Adult' : 'Child',
+      rWeight: weightOkForReport ? (s.weight + ' kg') : '—',
+      rBasis: dosingBasisLabel || '—',
+      rTotal: r ? (r.totalDose + ' U') : '—',
+      rParotid: r && r.parotidPerGland != null
+        ? (r.parotidPerGland + ' U' + (r.parotidVolumeMl != null ? ' (' + r.parotidVolumeMl.toFixed(2) + ' mL/side)' : ''))
+        : '—',
+      rSubmand: r && r.submandibularPerGland != null
+        ? (r.submandibularPerGland + ' U' + (r.submandibularVolumeMl != null ? ' (' + r.submandibularVolumeMl.toFixed(2) + ' mL/side)' : ''))
+        : '—',
+      rConc: r ? (r.concentrationPerMl + ' U/mL · ' + r.unitsPer0_1ml + ' U / 0.1 mL') : '—',
+      rVol: r ? (r.totalVolumeMl.toFixed(2) + ' mL') : '—',
+      exportPdf: function () {
+        // Recompute so the report carries the latest inputs, let React commit,
+        // then hand off to the browser's print-to-PDF.
+        self.calc();
+        setTimeout(function () { window.print(); }, 60);
+      }
     };
   }
 }
