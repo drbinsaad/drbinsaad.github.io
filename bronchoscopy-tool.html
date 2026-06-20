@@ -6,74 +6,317 @@
     <title>Pediatric Airway & Bronchoscopy Sizing Tool - Dr Ali Alshahrani</title>
     <meta name="description" content="Pediatric airway and rigid bronchoscopy sizing reference (GOSH) for clinicians. Educational reference only.">
     <link rel="icon" type="image/png" href="/favicon.png">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/calculator.css" rel="stylesheet">
-    <link href="css/bronchoscopy.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* ===== Page-scoped editorial restyle (does not touch css/style.css) ===== */
+        *{margin:0;padding:0;box-sizing:border-box;}
+        html{scroll-behavior:smooth;}
+        body{
+            background:#f4f1ea;
+            color:#1c1a17;
+            font-family:'Source Sans 3',system-ui,sans-serif;
+            line-height:1.7;
+            min-height:100vh;
+            -webkit-font-smoothing:antialiased;
+        }
+        a{color:inherit;}
+        ::selection{background:#8a302a;color:#f4f1ea;}
+
+        /* --- Header --- */
+        .site-header{
+            position:sticky;top:0;z-index:60;
+            background:rgba(244,241,234,0.88);
+            backdrop-filter:blur(12px);
+            -webkit-backdrop-filter:blur(12px);
+            border-bottom:1px solid #e4ded2;
+        }
+        .header-inner{
+            max-width:1080px;margin:0 auto;padding:15px 28px;
+            display:flex;align-items:center;justify-content:space-between;gap:24px;
+        }
+        .brand{text-decoration:none;display:flex;flex-direction:column;line-height:1.08;flex:none;white-space:nowrap;}
+        .brand-name{font-family:'Newsreader',serif;font-size:20px;font-weight:600;color:#1c1a17;letter-spacing:0.01em;}
+        .brand-sub{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:#8a302a;margin-top:4px;}
+        .desktop-nav{display:flex;align-items:center;gap:30px;font-size:14.5px;font-weight:500;}
+        .desktop-nav a{text-decoration:none;color:#46423b;transition:color .15s ease;}
+        .desktop-nav a:hover{color:#8a302a;}
+        .desktop-nav a.nav-current{color:#8a302a;border-bottom:1px solid #c9a59f;padding-bottom:2px;}
+        .desktop-nav a.nav-contact{color:#f4f1ea;background:#1c1a17;padding:9px 18px;border-radius:2px;transition:background .15s ease;}
+        .desktop-nav a.nav-contact:hover{color:#f4f1ea;background:#8a302a;}
+
+        /* CSS-only mobile menu (replaces DC runtime toggle) */
+        .mobile-menu{display:none;}
+        .mobile-menu summary{
+            list-style:none;display:flex;align-items:center;justify-content:center;
+            width:42px;height:42px;background:transparent;border:1px solid #d9d3c7;border-radius:2px;
+            cursor:pointer;color:#1c1a17;font-size:18px;
+        }
+        .mobile-menu summary::-webkit-details-marker{display:none;}
+        .mobile-menu[open] summary .fa-bars{display:none;}
+        .mobile-menu summary .fa-xmark{display:none;}
+        .mobile-menu[open] summary .fa-xmark{display:inline-block;}
+        .mobile-panel{
+            position:absolute;left:0;right:0;top:100%;
+            border-top:1px solid #e4ded2;background:#f4f1ea;
+            padding:10px 28px 18px;display:flex;flex-direction:column;gap:4px;
+        }
+        .mobile-panel a{text-decoration:none;color:#46423b;padding:11px 0;border-bottom:1px solid #ece7dc;font-weight:500;}
+        .mobile-panel a.mp-accent{color:#8a302a;font-weight:600;}
+        .mobile-panel a:last-child{border-bottom:none;}
+
+        /* --- Layout --- */
+        .wrap{max-width:1080px;margin:0 auto;padding:0 28px;}
+        .wrap-narrow{max-width:860px;margin:0 auto;padding:0 28px;}
+        .sec{padding:30px 0;}
+
+        .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#8a302a;margin-bottom:16px;}
+        .back-link{text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.1em;color:#8a302a;display:inline-block;margin-bottom:22px;}
+        .page-title{font-family:'Newsreader',serif;font-weight:500;font-size:clamp(34px,4.6vw,52px);line-height:1.04;letter-spacing:-0.01em;color:#1c1a17;margin-bottom:18px;}
+        .lede{font-size:17.5px;color:#46423b;line-height:1.7;max-width:60ch;}
+
+        /* --- Cards --- */
+        .tool-card{
+            background:#faf8f2;border:1px solid #e4ded2;border-radius:2px;
+            padding:34px;margin-bottom:24px;
+        }
+        .tool-card h2{
+            font-family:'Newsreader',serif;font-weight:600;font-size:22px;color:#1c1a17;
+            margin-bottom:22px;display:flex;align-items:center;gap:12px;
+        }
+        .tool-card h2 i{color:#8a302a;font-size:18px;}
+        .tool-card > p{font-size:14.5px;color:#6f6a61;line-height:1.65;}
+
+        /* --- View toggle --- */
+        .view-toggle{display:flex;gap:1px;background:#e4ded2;border:1px solid #e4ded2;border-radius:2px;margin-bottom:28px;}
+        .view-toggle-btn{
+            flex:1;display:flex;align-items:center;justify-content:center;gap:9px;
+            font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:15px;
+            padding:14px 18px;border:none;cursor:pointer;
+            background:#faf8f2;color:#46423b;transition:background .15s ease,color .15s ease;
+        }
+        .view-toggle-btn:hover{color:#8a302a;}
+        .view-toggle-btn.active{background:#1c1a17;color:#f4f1ea;}
+        .view-toggle-btn.active:hover{background:#8a302a;color:#f4f1ea;}
+
+        /* --- Inputs --- */
+        .input-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+        .input-group{margin-bottom:20px;}
+        .input-group:last-child{margin-bottom:0;}
+        .input-group label{
+            display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;
+            letter-spacing:0.14em;text-transform:uppercase;color:#8a302a;margin-bottom:10px;
+        }
+        .input-group select,
+        .input-group input,
+        .input-group textarea{
+            width:100%;font-family:'Source Sans 3',sans-serif;font-size:16px;
+            padding:13px 15px;background:#fff;border:1px solid #d9d3c7;border-radius:2px;
+            color:#1c1a17;
+        }
+        .input-group textarea{resize:vertical;line-height:1.6;}
+        .input-group select:focus,
+        .input-group input:focus,
+        .input-group textarea:focus{outline:none;border-color:#8a302a;}
+        .input-hint{color:#9a9389;font-size:0.85rem;margin-top:0.5rem;display:block;}
+
+        /* --- Action buttons --- */
+        .action-row{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1.5rem;}
+        .action-btn{
+            display:inline-flex;align-items:center;gap:9px;
+            font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:15px;
+            padding:13px 26px;border-radius:2px;cursor:pointer;border:1px solid transparent;
+            transition:background .15s ease,color .15s ease,border-color .15s ease;
+        }
+        .action-btn.primary-btn{background:#1c1a17;color:#f4f1ea;border-color:#1c1a17;}
+        .action-btn.primary-btn:hover{background:#8a302a;border-color:#8a302a;}
+        .action-btn.secondary-btn{background:#faf8f2;color:#46423b;border-color:#d9d3c7;}
+        .action-btn.secondary-btn:hover{background:#fff;color:#8a302a;border-color:#8a302a;}
+
+        /* --- Equipment grid --- */
+        .equipment-grid{
+            display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+            gap:1px;background:#e4ded2;border:1px solid #e4ded2;border-radius:2px;
+        }
+        .equipment-item{
+            background:#faf8f2;padding:22px 20px;text-align:center;
+            display:flex;flex-direction:column;align-items:center;
+        }
+        .equipment-icon{font-size:20px;color:#8a302a;margin-bottom:12px;}
+        .equipment-item h3{
+            font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;
+            text-transform:uppercase;color:#6f6a61;font-weight:500;margin-bottom:12px;line-height:1.4;
+        }
+        .equipment-value{
+            font-family:'Newsreader',serif;font-weight:500;font-size:30px;line-height:1.05;
+            color:#1c1a17;margin-bottom:8px;word-break:break-word;
+        }
+        .equipment-note{font-size:13px;color:#9a9389;line-height:1.5;}
+        .subgroup-title{font-family:'Newsreader',serif;font-weight:600;font-size:18px;color:#8a302a;margin-bottom:1rem;display:flex;align-items:center;gap:10px;}
+
+        /* --- Anatomy reference --- */
+        .anatomy-reference .anatomy-info h3{font-family:'Newsreader',serif;font-weight:600;font-size:18px;color:#1c1a17;margin-bottom:18px;}
+        .anatomy-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1px;background:#e4ded2;border:1px solid #e4ded2;border-radius:2px;}
+        .anatomy-section{background:#faf8f2;padding:20px;}
+        .anatomy-section h4{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8a302a;margin-bottom:12px;}
+        .anatomy-section ul{list-style:none;}
+        .anatomy-section li{font-size:14.5px;color:#5b564d;padding:5px 0;border-bottom:1px solid #ece7dc;}
+        .anatomy-section li:last-child{border-bottom:none;}
+
+        /* --- Pathology grid --- */
+        .pathology-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1px;background:#e4ded2;border:1px solid #e4ded2;border-radius:2px;}
+        .pathology-item{background:#faf8f2;padding:16px 18px;display:flex;align-items:center;gap:12px;font-size:14.5px;color:#5b564d;}
+        .pathology-item i{color:#8a302a;font-size:14px;}
+
+        /* --- Clinical notes --- */
+        .clinical-notes .notes-content{display:flex;flex-direction:column;gap:1px;background:#e4ded2;border:1px solid #e4ded2;border-radius:2px;}
+        .note-item{background:#faf8f2;padding:18px 22px;display:flex;gap:14px;align-items:flex-start;font-size:15px;color:#5b564d;line-height:1.65;}
+        .note-item i{color:#8a302a;margin-top:4px;flex:none;}
+        .note-item p{margin:0;}
+        .note-item strong{color:#1c1a17;}
+
+        /* --- Callout boxes --- */
+        .callout{margin-top:18px;padding:16px 20px;border-radius:2px;font-size:14px;font-weight:500;text-align:center;line-height:1.6;}
+        .callout-warn{background:#f6e9e7;border:1px solid #e3c4bf;color:#8a302a;}
+        .callout-info{background:#efeae0;border:1px solid #e4ded2;color:#6f6a61;}
+        .center-note{margin-top:15px;text-align:center;color:#6f6a61;font-size:14px;}
+
+        /* --- References --- */
+        .info-card{background:#efeae0;border:1px solid #e4ded2;border-radius:2px;padding:34px;margin-top:30px;}
+        .info-card h2{font-family:'Newsreader',serif;font-weight:600;font-size:22px;color:#1c1a17;margin-bottom:22px;display:flex;align-items:center;gap:12px;}
+        .info-card h2 i{color:#8a302a;font-size:18px;}
+        .references-content h3{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:#8a302a;margin:24px 0 12px;}
+        .references-content ol{margin:0 0 8px 1.2rem;padding:0;}
+        .references-content li{font-size:14px;color:#5b564d;line-height:1.65;margin-bottom:8px;}
+        .disclaimer{margin-top:2rem;padding:20px 24px;background:#f6e9e7;border:1px solid #e3c4bf;border-left:3px solid #8a302a;border-radius:2px;}
+        .disclaimer p{margin:0;color:#6f6a61;font-size:13.5px;line-height:1.7;}
+        .disclaimer strong{color:#1c1a17;}
+        .attribution{margin-top:1.5rem;padding:20px 24px;background:#efeae0;border:1px solid #e4ded2;border-left:3px solid #8a302a;border-radius:2px;}
+        .attribution p{margin:0;color:#6f6a61;font-size:13.5px;line-height:1.7;}
+        .attribution strong{color:#1c1a17;}
+
+        /* --- Instrument selection modal --- */
+        .modal{
+            position:fixed;inset:0;z-index:200;
+            background:rgba(28,26,23,0.55);
+            padding:24px;overflow-y:auto;
+        }
+        .modal-content{
+            max-width:700px;max-height:84vh;overflow-y:auto;margin:4vh auto;
+            background:#faf8f2;border:1px solid #e4ded2;border-radius:2px;
+        }
+        .modal-header{
+            display:flex;align-items:center;justify-content:space-between;gap:16px;
+            padding:22px 26px;border-bottom:1px solid #e4ded2;
+        }
+        .modal-header h2{font-family:'Newsreader',serif;font-weight:600;font-size:20px;color:#1c1a17;display:flex;align-items:center;gap:10px;}
+        .modal-header h2 i{color:#8a302a;font-size:17px;}
+        .close-modal{cursor:pointer;font-size:28px;line-height:1;color:#9a9389;}
+        .close-modal:hover{color:#8a302a;}
+        .modal-body{padding:24px 26px;}
+        .modal-footer{display:flex;gap:12px;justify-content:flex-end;padding:18px 26px;border-top:1px solid #e4ded2;}
+        .modal-info{margin-bottom:1.5rem;padding:14px 18px;background:#efeae0;border:1px solid #e4ded2;border-radius:2px;}
+        .modal-info p{margin:0;color:#6f6a61;font-size:0.95rem;}
+        .modal-info i{color:#8a302a;}
+        .checklist-actions{margin-bottom:1rem;display:flex;gap:0.5rem;flex-wrap:wrap;}
+        .btn-secondary{
+            display:inline-flex;align-items:center;gap:8px;
+            font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:14px;
+            padding:11px 20px;border-radius:2px;cursor:pointer;
+            background:#faf8f2;color:#46423b;border:1px solid #d9d3c7;transition:background .15s ease,color .15s ease,border-color .15s ease;
+        }
+        .btn-secondary:hover{background:#fff;color:#8a302a;border-color:#8a302a;}
+        .btn-primary{
+            display:inline-flex;align-items:center;gap:8px;
+            font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:14px;
+            padding:11px 22px;border-radius:2px;cursor:pointer;
+            background:#1c1a17;color:#f4f1ea;border:1px solid #1c1a17;transition:background .15s ease,border-color .15s ease;
+        }
+        .btn-primary:hover{background:#8a302a;border-color:#8a302a;}
+        .instrument-checklist h3{
+            font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;
+            color:#8a302a;margin-top:1.5rem;margin-bottom:1rem;border-bottom:1px solid #e4ded2;padding-bottom:0.5rem;
+            display:flex;align-items:center;gap:8px;
+        }
+        .checkbox-item{display:flex;align-items:center;gap:12px;padding:9px 0;font-size:15px;color:#46423b;cursor:pointer;}
+        .checkbox-item input[type="checkbox"]{width:17px;height:17px;accent-color:#8a302a;cursor:pointer;}
+
+        /* --- Footer --- */
+        .site-footer{background:#1c1a17;color:#e9e4da;padding:40px 0;margin-top:30px;}
+        .footer-inner{max-width:1080px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:center;}
+        .footer-brand{font-family:'Newsreader',serif;font-size:17px;color:#cdc6ba;text-decoration:none;}
+        .footer-links{display:flex;gap:24px;font-size:14px;}
+        .footer-links a{text-decoration:none;color:#b8b1a5;transition:color .15s ease;}
+        .footer-links a:hover{color:#f4f1ea;}
+        .footer-copy{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.1em;color:#7d7869;}
+
+        @media (max-width:820px){
+            .desktop-nav{display:none;}
+            .mobile-menu{display:block;}
+            .input-grid{grid-template-columns:1fr;}
+            .tool-card,.info-card{padding:24px;}
+            .sec{padding:24px 0;}
+        }
+    </style>
 </head>
 <body>
-    <nav id="navbar">
-        <div class="container">
-            <a href="index.html" class="logo">Dr Ali Alshahrani</a>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <ul class="nav-links">
-                <li><a href="dashboard.html">Dashboard</a></li>
-                <li>
-                    <a href="#research">Research</a>
-                    <ul class="dropdown">
-                        <li><a href="index.html#research">Research Focus</a></li>
-                        <li><a href="index.html#publications">Recent Publications</a></li>
-                    </ul>
-                </li>
-                <li><a href="curriculum_vitae.html">Brief CV</a></li>
-                <li><a href="index.html#contact">Contact</a></li>
-                <li>
-                    <a href="#ent">ENT Web Tools</a>
-                    <ul class="dropdown">
-                        <li><a href="ent-calculators.html">Medical Calculators</a></li>
-                        <li><a href="bronchoscopy-tool.html">Airway Sizing Tool</a></li>
-                        <li><a href="et-depth-calculator.html">ET Depth Calculator</a></li>
-                        <li><a href="xeomin-calculator.html">XEOMIN Calculator</a></li>
-                        <li><a href="nebulized-epinephrine-calculator.html">Nebulized Epinephrine</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-    <header style="min-height: 40vh;">
-        <div class="container">
-            <div class="header-content" style="text-align: center;">
-                <div class="profile-text" data-aos="fade-up">
-                    <h1><i class="fas fa-lungs"></i> Pediatric Airway & Bronchoscopy Sizing Tool</h1>
-                    <p>Comprehensive equipment selection guide for pediatric airway management and rigid bronchoscopy</p>
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="index.html" class="brand">
+                <span class="brand-name">Ali Alshahrani</span>
+                <span class="brand-sub">Otolaryngology</span>
+            </a>
+            <nav class="desktop-nav">
+                <a href="index.html#research">Research</a>
+                <a href="index.html#publications">Publications</a>
+                <a href="ent-tools.html" class="nav-current">Tools</a>
+                <a href="curriculum_vitae.html">CV</a>
+                <a href="index.html#contact" class="nav-contact">Contact</a>
+            </nav>
+            <details class="mobile-menu">
+                <summary aria-label="Menu">
+                    <i class="fas fa-bars"></i>
+                    <i class="fas fa-xmark"></i>
+                </summary>
+                <div class="mobile-panel">
+                    <a href="index.html#research">Research</a>
+                    <a href="index.html#publications">Publications</a>
+                    <a href="ent-tools.html" class="mp-accent">Clinical Tools</a>
+                    <a href="curriculum_vitae.html">Curriculum Vitae</a>
+                    <a href="index.html#contact" class="mp-accent">Contact</a>
                 </div>
-            </div>
+            </details>
         </div>
     </header>
 
-    <section id="bronchoscopy-tool">
-        <div class="container">
-            
+    <section class="sec" style="padding:56px 0 30px;">
+        <div class="wrap-narrow">
+            <a href="ent-tools.html" class="back-link">&larr; All ENT tools</a>
+            <div class="eyebrow">Pediatric Airway &amp; Anesthesia</div>
+            <h1 class="page-title">Pediatric Airway &amp; Bronchoscopy Sizing Tool</h1>
+            <p class="lede">A comprehensive equipment-selection reference for pediatric airway management and rigid bronchoscopy, built on the GOSH (Great Ormond Street Hospital) pediatric airway charts.</p>
+        </div>
+    </section>
+
+    <section class="sec" id="bronchoscopy-tool" style="padding:14px 0 40px;">
+        <div class="wrap">
+
             <!-- Patient Input Section -->
-            <div class="tool-card" data-aos="fade-up">
+            <div class="tool-card">
                 <h2><i class="fas fa-user-md"></i> Patient Information</h2>
-                
+
                 <!-- View Toggle -->
-                <div style="display: flex; justify-content: center; margin-bottom: 1.5rem; gap: 1rem; flex-wrap: wrap;">
+                <div class="view-toggle">
                     <button id="age-view-btn" class="view-toggle-btn active" onclick="switchView('age')">
                         <i class="fas fa-calendar-alt"></i> Age-Based View
                     </button>
                     <button id="weight-view-btn" class="view-toggle-btn" onclick="switchView('weight')">
-                        <i class="fas fa-weight"></i> Weight-Based View
+                        <i class="fas fa-weight-scale"></i> Weight-Based View
                     </button>
                 </div>
-                
+
                 <div class="input-grid">
                     <div class="input-group">
                         <label for="patient-age">Patient Age</label>
@@ -92,14 +335,14 @@
                     <div class="input-group" id="weight-input-group">
                         <label for="patient-weight">Patient Weight (kg)</label>
                         <input type="number" id="patient-weight" placeholder="Enter weight" min="0" step="0.1" oninput="updateRecommendations()" onchange="updateRecommendations()">
-                        <small style="color: #666; font-size: 0.85rem; margin-top: 0.5rem; display: block;">Optional in age-based view, required in weight-based view</small>
+                        <small class="input-hint">Optional in age-based view, required in weight-based view</small>
                     </div>
                 </div>
             </div>
 
             <!-- Procedure Selection & Actions -->
-            <div id="procedure-actions" class="tool-card" style="display: none; margin-top: 2rem;">
-                <h2><i class="fas fa-clipboard-list"></i> Procedure & Equipment List</h2>
+            <div id="procedure-actions" class="tool-card" style="display: none;">
+                <h2><i class="fas fa-clipboard-list"></i> Procedure &amp; Equipment List</h2>
                 <div class="input-group">
                     <label for="procedure-type">Procedure Type</label>
                     <select id="procedure-type">
@@ -117,7 +360,7 @@
                     <label for="additional-notes">Additional Notes (Optional)</label>
                     <textarea id="additional-notes" rows="3" placeholder="Special instructions or considerations..."></textarea>
                 </div>
-                <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem;">
+                <div class="action-row">
                     <button class="action-btn primary-btn" onclick="generatePDF()">
                         <i class="fas fa-file-pdf"></i> Download PDF
                     </button>
@@ -129,9 +372,9 @@
 
             <!-- Recommendations Section -->
             <div id="recommendations" class="recommendations-container" style="display: none;">
-                
+
                 <!-- Equipment Recommendations -->
-                <div class="tool-card" data-aos="fade-up">
+                <div class="tool-card">
                     <h2><i class="fas fa-tools"></i> Recommended Equipment</h2>
                     <div class="equipment-grid">
                         <div class="equipment-item">
@@ -147,7 +390,7 @@
                             <div class="equipment-note" id="telescope-note"></div>
                         </div>
                         <div class="equipment-item">
-                            <div class="equipment-icon"><i class="fas fa-tube"></i></div>
+                            <div class="equipment-icon"><i class="fas fa-grip-lines-vertical"></i></div>
                             <h3>ETT Size</h3>
                             <div class="equipment-value" id="ett-size">-</div>
                             <div class="equipment-note">Endotracheal tube</div>
@@ -180,7 +423,7 @@
                 </div>
 
                 <!-- Anatomical Measurements -->
-                <div class="tool-card" data-aos="fade-up">
+                <div class="tool-card">
                     <h2><i class="fas fa-ruler"></i> Anatomical Measurements</h2>
                     <div class="equipment-grid">
                         <div class="equipment-item">
@@ -199,7 +442,7 @@
                 </div>
 
                 <!-- Tracheostomy Tubes -->
-                <div class="tool-card" data-aos="fade-up">
+                <div class="tool-card">
                     <h2><i class="fas fa-procedures"></i> Tracheostomy Tubes</h2>
                     <div class="equipment-grid">
                         <div class="equipment-item">
@@ -215,27 +458,27 @@
                             <div class="equipment-note">International standard</div>
                         </div>
                     </div>
-                    <div class="equipment-note" id="trach-note" style="margin-top: 15px; text-align: center; color: #555;"></div>
+                    <div class="center-note" id="trach-note"></div>
                 </div>
 
                 <!-- GOSH Equipment Options -->
-                <div class="tool-card" data-aos="fade-up">
+                <div class="tool-card">
                     <h2><i class="fas fa-hospital-alt"></i> GOSH Equipment Options</h2>
                     <div class="equipment-grid">
                         <div class="equipment-item">
-                            <div class="equipment-icon"><i class="fas fa-tube"></i></div>
+                            <div class="equipment-icon"><i class="fas fa-grip-lines-vertical"></i></div>
                             <h3>Shiley Tube</h3>
                             <div class="equipment-value" id="shiley-tube">-</div>
                             <div class="equipment-note">ID / OD (mm)</div>
                         </div>
                         <div class="equipment-item">
-                            <div class="equipment-icon"><i class="fas fa-tube"></i></div>
+                            <div class="equipment-icon"><i class="fas fa-grip-lines-vertical"></i></div>
                             <h3>Portex (Cuffed)</h3>
                             <div class="equipment-value" id="portex-cuffed">-</div>
                             <div class="equipment-note">ID / OD (mm)</div>
                         </div>
                         <div class="equipment-item">
-                            <div class="equipment-icon"><i class="fas fa-tube"></i></div>
+                            <div class="equipment-icon"><i class="fas fa-grip-lines-vertical"></i></div>
                             <h3>Portex (Uncuffed)</h3>
                             <div class="equipment-value" id="portex-uncuffed">-</div>
                             <div class="equipment-note">ID / OD (mm)</div>
@@ -253,7 +496,7 @@
                             <div class="equipment-note">French gauge (FG)</div>
                         </div>
                         <div class="equipment-item">
-                            <div class="equipment-icon"><i class="fas fa-nose"></i></div>
+                            <div class="equipment-icon"><i class="fas fa-wind"></i></div>
                             <h3>NPA (Nasopharyngeal)</h3>
                             <div class="equipment-value" id="npa-size">-</div>
                             <div class="equipment-note">ID (mm)</div>
@@ -262,7 +505,7 @@
                 </div>
 
                 <!-- Laryngoscope Blades -->
-                <div class="tool-card" data-aos="fade-up">
+                <div class="tool-card">
                     <h2><i class="fas fa-lightbulb"></i> Laryngoscope Blades</h2>
                     <div class="equipment-grid">
                         <div class="equipment-item">
@@ -278,15 +521,15 @@
                             <div class="equipment-note">Curved blade</div>
                         </div>
                     </div>
-                    <div class="equipment-note" id="laryngoscope-note" style="margin-top: 15px; text-align: center; color: #555;"></div>
+                    <div class="center-note" id="laryngoscope-note"></div>
                 </div>
 
                 <!-- Additional Equipment -->
-                <div class="tool-card" data-aos="fade-up">
+                <div class="tool-card">
                     <h2><i class="fas fa-plus-circle"></i> Additional Equipment</h2>
                     <div class="equipment-grid">
                         <div class="equipment-item">
-                            <div class="equipment-icon"><i class="fas fa-nose"></i></div>
+                            <div class="equipment-icon"><i class="fas fa-wind"></i></div>
                             <h3>NPA (Nasopharyngeal Airway)</h3>
                             <div class="equipment-value" id="npa-size">-</div>
                             <div class="equipment-note">Inner diameter</div>
@@ -295,7 +538,7 @@
                 </div>
 
                 <!-- Balloon Dilation Guidelines -->
-                <div class="tool-card" data-aos="fade-up">
+                <div class="tool-card">
                     <h2><i class="fas fa-expand"></i> Balloon Dilation Guidelines</h2>
                     <div class="equipment-grid">
                         <div class="equipment-item">
@@ -311,18 +554,18 @@
                             <div class="equipment-note">Target dilation size</div>
                         </div>
                     </div>
-                    <div class="equipment-note" style="margin-top: 15px; text-align: center; color: #e74c3c; font-weight: 500;">
-                        ⚠️ Balloon dilation should only be performed by experienced practitioners
+                    <div class="callout callout-warn">
+                        <i class="fas fa-triangle-exclamation"></i> Balloon dilation should only be performed by experienced practitioners
                     </div>
                 </div>
 
                 <!-- Airway Balloons -->
-                <div class="tool-card" data-aos="fade-up">
+                <div class="tool-card">
                     <h2><i class="fas fa-circle-notch"></i> Airway Balloons</h2>
-                    
+
                     <!-- Bryan Medical Aeros -->
                     <div style="margin-bottom: 2rem;">
-                        <h3 style="color: #6c5ce7; margin-bottom: 1rem;"><i class="fas fa-hospital"></i> Bryan Medical Aeros</h3>
+                        <h3 class="subgroup-title"><i class="fas fa-hospital"></i> Bryan Medical Aeros</h3>
                         <div class="equipment-grid">
                             <div class="equipment-item">
                                 <div class="equipment-icon"><i class="fas fa-hashtag"></i></div>
@@ -368,10 +611,10 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Boston Scientific Mustang/CRE -->
                     <div>
-                        <h3 style="color: #6c5ce7; margin-bottom: 1rem;"><i class="fas fa-hospital"></i> Boston Scientific Mustang/CRE</h3>
+                        <h3 class="subgroup-title"><i class="fas fa-hospital"></i> Boston Scientific Mustang/CRE</h3>
                         <div class="equipment-grid">
                             <div class="equipment-item">
                                 <div class="equipment-icon"><i class="fas fa-arrows-alt-h"></i></div>
@@ -393,32 +636,32 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="equipment-note" style="margin-top: 15px; text-align: center; color: #e74c3c; font-weight: 500;">
-                        ⚠️ Always verify equipment compatibility and follow institutional protocols
+
+                    <div class="callout callout-warn">
+                        <i class="fas fa-triangle-exclamation"></i> Always verify equipment compatibility and follow institutional protocols
                     </div>
                 </div>
 
                 <!-- Scope Fits in ETT -->
-                <div class="tool-card" data-aos="fade-up">
+                <div class="tool-card">
                     <h2><i class="fas fa-search"></i> Scope Fits in ETT</h2>
-                    <p style="text-align: center; color: #666; margin-bottom: 1.5rem;">Endotracheal tube compatibility with bronchoscopes</p>
-                    
+                    <p style="margin-bottom:1.5rem;">Endotracheal tube compatibility with bronchoscopes.</p>
+
                     <div class="equipment-grid">
                         <div class="equipment-item">
-                            <div class="equipment-icon"><i class="fas fa-tube"></i></div>
+                            <div class="equipment-icon"><i class="fas fa-grip-lines-vertical"></i></div>
                             <h3>Portex ETT</h3>
                             <div class="equipment-value" id="scope-ett-portex">-</div>
                             <div class="equipment-note">ID / OD (mm)</div>
                         </div>
                         <div class="equipment-item">
-                            <div class="equipment-icon"><i class="fas fa-tube"></i></div>
+                            <div class="equipment-icon"><i class="fas fa-grip-lines-vertical"></i></div>
                             <h3>Mallinckrodt ETT</h3>
                             <div class="equipment-value" id="scope-ett-mallinckrodt">-</div>
                             <div class="equipment-note">ID / OD (mm)</div>
                         </div>
                         <div class="equipment-item">
-                            <div class="equipment-icon"><i class="fas fa-tube"></i></div>
+                            <div class="equipment-icon"><i class="fas fa-grip-lines-vertical"></i></div>
                             <h3>Halyard Microcuff</h3>
                             <div class="equipment-value" id="scope-ett-halyard">-</div>
                             <div class="equipment-note">ID / OD (mm)</div>
@@ -433,21 +676,21 @@
                 </div>
 
                 <!-- Instruments That Fit Together -->
-                <div class="tool-card" data-aos="fade-up">
+                <div class="tool-card">
                     <h2><i class="fas fa-puzzle-piece"></i> Instruments That Fit Together</h2>
-                    <p style="text-align: center; color: #666; margin-bottom: 1.5rem;">Compatible instrument combinations for bronchoscopy</p>
-                    
+                    <p style="margin-bottom:1.5rem;">Compatible instrument combinations for bronchoscopy.</p>
+
                     <div id="instruments-fit-container" style="display: none;">
                         <!-- Dynamic content will be inserted here -->
                     </div>
-                    
-                    <div class="equipment-note" style="margin-top: 15px; text-align: center; color: #0984e3; font-weight: 500;">
-                        💡 These combinations ensure proper fit and functionality during procedures
+
+                    <div class="callout callout-info">
+                        <i class="fas fa-lightbulb"></i> These combinations ensure proper fit and functionality during procedures
                     </div>
                 </div>
 
                 <!-- Anatomical Reference -->
-                <div class="tool-card" data-aos="fade-up">
+                <div class="tool-card">
                     <h2><i class="fas fa-lungs"></i> Anatomical Reference</h2>
                     <div class="anatomy-reference">
                         <div class="anatomy-info">
@@ -462,7 +705,7 @@
                                     </ul>
                                 </div>
                                 <div class="anatomy-section">
-                                    <h4>Trachea & Carina</h4>
+                                    <h4>Trachea &amp; Carina</h4>
                                     <ul>
                                         <li>Main carina</li>
                                         <li>Right main bronchus</li>
@@ -492,7 +735,7 @@
                 </div>
 
                 <!-- Common Pathologies -->
-                <div class="tool-card" data-aos="fade-up">
+                <div class="tool-card">
                     <h2><i class="fas fa-stethoscope"></i> Common Pathologies Visualized</h2>
                     <div class="pathology-grid">
                         <div class="pathology-item">
@@ -539,7 +782,7 @@
                 </div>
 
                 <!-- Clinical Notes -->
-                <div class="tool-card clinical-notes" data-aos="fade-up">
+                <div class="tool-card clinical-notes">
                     <h2><i class="fas fa-clipboard-list"></i> Clinical Considerations</h2>
                     <div class="notes-content">
                         <div class="note-item">
@@ -555,7 +798,7 @@
                             <p><strong>Optical Forceps:</strong> Size selection depends on the bronchoscope diameter and the pathology being addressed.</p>
                         </div>
                         <div class="note-item">
-                            <i class="fas fa-exclamation-triangle"></i>
+                            <i class="fas fa-triangle-exclamation"></i>
                             <p><strong>Safety:</strong> These are guidelines only. Clinical judgment and patient-specific factors should always take precedence.</p>
                         </div>
                     </div>
@@ -564,8 +807,8 @@
             </div>
 
             <!-- References Section -->
-            <div class="info-card" data-aos="fade-up" style="margin-top: 3rem; background: #f8f9fa;">
-                <h2><i class="fas fa-book"></i> References & Data Sources</h2>
+            <div class="info-card">
+                <h2><i class="fas fa-book"></i> References &amp; Data Sources</h2>
                 <div class="references-content">
                     <h3>Primary Data Sources</h3>
                     <ol>
@@ -591,7 +834,7 @@
                         <li>Jackson Tracheostomy Tube Sizing System. Traditional sizing classification for pediatric tracheostomy tubes.</li>
                     </ol>
 
-                    <h3>Laryngoscopy & Intubation</h3>
+                    <h3>Laryngoscopy &amp; Intubation</h3>
                     <ol>
                         <li>Cote CJ, et al. A Practice of Anesthesia for Infants and Children. 6th ed. Philadelphia: Elsevier; 2019.</li>
                         <li>Khine HH, et al. Comparison of cuffed and uncuffed endotracheal tubes in young children during general anesthesia. Anesthesiology. 1997;86(3):627-631.</li>
@@ -620,12 +863,12 @@
                         <li>British Thoracic Society. BTS guidelines for diagnostic flexible bronchoscopy in adults. Thorax. 2013;68 Suppl 1:i1-i44.</li>
                     </ol>
 
-                    <div class="disclaimer" style="margin-top: 2rem; padding: 1.5rem; background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 5px;">
-                        <p style="margin: 0; color: #856404; font-size: 0.9rem; line-height: 1.6;"><strong>Disclaimer:</strong> This tool is for educational and reference purposes only. Equipment sizing should be individualized based on patient anatomy, clinical condition, and procedural requirements. Always verify equipment compatibility and follow institutional protocols. This tool does not replace clinical judgment or formal training in pediatric airway management and bronchoscopy.</p>
+                    <div class="disclaimer">
+                        <p><strong>Disclaimer:</strong> This tool is for educational and reference purposes only. Equipment sizing should be individualized based on patient anatomy, clinical condition, and procedural requirements. Always verify equipment compatibility and follow institutional protocols. This tool does not replace clinical judgment or formal training in pediatric airway management and bronchoscopy.</p>
                     </div>
 
-                    <div style="margin-top: 1.5rem; padding: 1rem; background: #e3f2fd; border-left: 4px solid #2196f3; border-radius: 5px;">
-                        <p style="margin: 0; color: #1565c0; font-size: 0.9rem; line-height: 1.6;"><strong>Data Attribution:</strong> Primary sizing data adapted from GOSH (Great Ormond Street Hospital) pediatric airway charts, developed by Dr. Evan Jon Propst and colleagues at the University of Toronto and The Hospital for Sick Children. Additional data integrated from multiple evidence-based sources and clinical guidelines.</p>
+                    <div class="attribution">
+                        <p><strong>Data Attribution:</strong> Primary sizing data adapted from GOSH (Great Ormond Street Hospital) pediatric airway charts, developed by Dr. Evan Jon Propst and colleagues at the University of Toronto and The Hospital for Sick Children. Additional data integrated from multiple evidence-based sources and clinical guidelines.</p>
                     </div>
                 </div>
             </div>
@@ -635,29 +878,29 @@
 
     <!-- Instrument Selection Modal -->
     <div id="instrument-selection-modal" class="modal" style="display: none;">
-        <div class="modal-content" style="max-width: 700px; max-height: 80vh; overflow-y: auto;">
+        <div class="modal-content">
             <div class="modal-header">
                 <h2><i class="fas fa-check-square"></i> Select Instruments to Print</h2>
                 <span class="close-modal" onclick="closeInstrumentModal()">&times;</span>
             </div>
             <div class="modal-body">
-                <div style="margin-bottom: 1.5rem; padding: 1rem; background: #e3f2fd; border-radius: 8px;">
-                    <p style="margin: 0; color: #1565c0; font-size: 0.95rem;">
+                <div class="modal-info">
+                    <p>
                         <i class="fas fa-info-circle"></i> Select which instruments to include in your PDF. Uncheck items you don't need for this procedure.
                     </p>
                 </div>
-                
-                <div style="margin-bottom: 1rem;">
-                    <button onclick="selectAllInstruments()" class="btn-secondary" style="margin-right: 0.5rem;">
+
+                <div class="checklist-actions">
+                    <button onclick="selectAllInstruments()" class="btn-secondary">
                         <i class="fas fa-check-double"></i> Select All
                     </button>
                     <button onclick="deselectAllInstruments()" class="btn-secondary">
                         <i class="fas fa-times"></i> Deselect All
                     </button>
                 </div>
-                
+
                 <div class="instrument-checklist">
-                    <h3 style="margin-top: 1.5rem; margin-bottom: 1rem; color: #6c5ce7; border-bottom: 2px solid #6c5ce7; padding-bottom: 0.5rem;">
+                    <h3>
                         <i class="fas fa-tools"></i> Basic Equipment
                     </h3>
                     <label class="checkbox-item">
@@ -688,8 +931,8 @@
                         <input type="checkbox" name="instrument" value="ventilating" checked>
                         <span>Ventilating Bronchoscope</span>
                     </label>
-                    
-                    <h3 style="margin-top: 1.5rem; margin-bottom: 1rem; color: #6c5ce7; border-bottom: 2px solid #6c5ce7; padding-bottom: 0.5rem;">
+
+                    <h3>
                         <i class="fas fa-hospital"></i> GOSH Equipment
                     </h3>
                     <label class="checkbox-item">
@@ -716,9 +959,9 @@
                         <input type="checkbox" name="instrument" value="npa" checked>
                         <span>NPA (Nasopharyngeal Airway)</span>
                     </label>
-                    
-                    <h3 style="margin-top: 1.5rem; margin-bottom: 1rem; color: #6c5ce7; border-bottom: 2px solid #6c5ce7; padding-bottom: 0.5rem;">
-                        <i class="fas fa-cut"></i> Tracheostomy & Laryngoscopy
+
+                    <h3>
+                        <i class="fas fa-cut"></i> Tracheostomy &amp; Laryngoscopy
                     </h3>
                     <label class="checkbox-item">
                         <input type="checkbox" name="instrument" value="trach-jackson" checked>
@@ -736,8 +979,8 @@
                         <input type="checkbox" name="instrument" value="macintosh" checked>
                         <span>Macintosh Blade</span>
                     </label>
-                    
-                    <h3 style="margin-top: 1.5rem; margin-bottom: 1rem; color: #6c5ce7; border-bottom: 2px solid #6c5ce7; padding-bottom: 0.5rem;">
+
+                    <h3>
                         <i class="fas fa-circle"></i> Balloon Dilation
                     </h3>
                     <label class="checkbox-item">
@@ -756,8 +999,8 @@
                         <input type="checkbox" name="instrument" value="boston-balloon" checked>
                         <span>Boston Scientific Balloon</span>
                     </label>
-                    
-                    <h3 style="margin-top: 1.5rem; margin-bottom: 1rem; color: #6c5ce7; border-bottom: 2px solid #6c5ce7; padding-bottom: 0.5rem;">
+
+                    <h3>
                         <i class="fas fa-puzzle-piece"></i> Compatibility Data
                     </h3>
                     <label class="checkbox-item">
@@ -781,17 +1024,29 @@
         </div>
     </div>
 
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <a href="index.html" class="footer-brand">Dr Ali Alshahrani</a>
+            <div class="footer-links">
+                <a href="ent-tools.html">All Tools</a>
+                <a href="curriculum_vitae.html">CV</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
+            <span class="footer-copy">shahrani.me &middot; &copy; 2026</span>
+        </div>
+    </footer>
+
     <!-- Inline toggle function to ensure it loads immediately -->
     <script>
         let currentView = 'age';
-        
+
         function switchView(view) {
             currentView = view;
-            
+
             // Update button states
             const ageBtn = document.getElementById('age-view-btn');
             const weightBtn = document.getElementById('weight-view-btn');
-            
+
             if (ageBtn && weightBtn) {
                 if (view === 'age') {
                     ageBtn.classList.add('active');
@@ -801,29 +1056,29 @@
                     weightBtn.classList.add('active');
                 }
             }
-            
+
             // Update input requirements
             const ageSelect = document.getElementById('patient-age');
             const weightInput = document.getElementById('patient-weight');
-            
+
             if (weightInput) {
                 weightInput.required = (view === 'weight');
             }
             if (ageSelect) {
                 ageSelect.required = (view === 'age');
             }
-            
+
             // Trigger recommendations update if function exists
             if (typeof updateRecommendations === 'function') {
                 updateRecommendations();
             }
         }
     </script>
-    
+
     <!-- jsPDF Library for PDF Generation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- AOS: bronchoscopy.js calls AOS.init() on DOMContentLoaded; kept so the engine runs without a ReferenceError (no data-aos elements remain) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script src="js/main.js"></script>
     <script src="js/bronchoscopy.js?v=gosh2024"></script>
 </body>
 </html>

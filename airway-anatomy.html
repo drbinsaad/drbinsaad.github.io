@@ -4,923 +4,700 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Airway Anatomy & Variations - Dr Ali Alshahrani | ENT Educational Tool</title>
-    
+
     <!-- SEO Meta Tags -->
     <meta name="description" content="Interactive guide to airway anatomy, variations, and pathologies as seen in rigid bronchoscopy. Educational tool for ENT specialists and medical professionals.">
     <meta name="author" content="Dr. Ali Alshahrani">
-    
+
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/favicon.png">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+
+    <!-- Fonts + icons (match sibling pages) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
     <style>
-        .anatomy-section {
-            padding: 50px 0;
+        /* ===== Page-scoped editorial theme (matches ent-tools.html / et-depth-calculator.html) ===== */
+        .aa-page *{margin:0;padding:0;box-sizing:border-box;}
+        html{scroll-behavior:smooth;}
+        body{background:#f4f1ea;}
+        .aa-page a{color:inherit;}
+        .aa-page ::selection{background:#8a302a;color:#f4f1ea;}
+
+        .aa-page{
+            background:#f4f1ea;
+            color:#1c1a17;
+            font-family:'Source Sans 3',system-ui,sans-serif;
+            line-height:1.7;
+            min-height:100vh;
+            -webkit-font-smoothing:antialiased;
         }
-        
-        .anatomy-hero {
-            text-align: center;
-            padding: 100px 0 50px;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+
+        /* ---- Header ---- */
+        .aa-header{
+            position:sticky;top:0;z-index:60;
+            background:rgba(244,241,234,0.88);
+            backdrop-filter:blur(12px);
+            border-bottom:1px solid #e4ded2;
         }
-        
-        .anatomy-hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .aa-header-inner{
+            max-width:1080px;margin:0 auto;padding:15px 28px;
+            display:flex;align-items:center;justify-content:space-between;gap:24px;
         }
-        
-        .anatomy-hero p {
-            font-size: 1.2rem;
-            color: #666;
-            max-width: 800px;
-            margin: 0 auto;
+        .aa-logo{text-decoration:none;display:flex;flex-direction:column;line-height:1.08;flex:none;white-space:nowrap;}
+        .aa-logo .name{font-family:'Newsreader',serif;font-size:20px;font-weight:600;color:#1c1a17;letter-spacing:0.01em;}
+        .aa-logo .sub{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:#8a302a;margin-top:4px;}
+        .aa-nav{display:flex;align-items:center;gap:30px;font-size:14.5px;font-weight:500;}
+        .aa-nav a{text-decoration:none;color:#46423b;transition:color 0.2s ease;}
+        .aa-nav a:hover{color:#8a302a;}
+        .aa-nav a.current{color:#8a302a;border-bottom:1px solid #c9a59f;padding-bottom:2px;}
+        .aa-nav a.contact{color:#f4f1ea;background:#1c1a17;padding:9px 18px;border-radius:2px;}
+        .aa-nav a.contact:hover{background:#8a302a;color:#f4f1ea;}
+        .aa-mobile-btn{
+            display:none;align-items:center;justify-content:center;
+            width:42px;height:42px;background:transparent;border:1px solid #d9d3c7;
+            border-radius:2px;cursor:pointer;color:#1c1a17;font-size:18px;
         }
-        
-        .anatomy-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin-top: 50px;
-            align-items: start;
+        .aa-mobile-menu{
+            display:none;border-top:1px solid #e4ded2;background:#f4f1ea;
+            padding:10px 28px 18px;flex-direction:column;gap:4px;
         }
-        
-        .anatomy-image-container {
-            position: sticky;
-            top: 100px;
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        .aa-mobile-menu.open{display:flex;}
+        .aa-mobile-menu a{text-decoration:none;color:#46423b;padding:11px 0;border-bottom:1px solid #ece7dc;font-weight:500;}
+        .aa-mobile-menu a.accent{color:#8a302a;font-weight:600;}
+        .aa-mobile-menu a:last-child{border-bottom:none;}
+
+        /* ---- Wrapper ---- */
+        .aa-wrap{max-width:1080px;margin:0 auto;padding:0 28px;}
+
+        /* ---- Hero ---- */
+        .aa-hero{padding:56px 0 30px;}
+        .aa-back{text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.1em;color:#8a302a;display:inline-block;margin-bottom:22px;}
+        .aa-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#8a302a;margin-bottom:16px;}
+        .aa-hero h1{font-family:'Newsreader',serif;font-weight:500;font-size:clamp(34px,4.6vw,52px);line-height:1.04;letter-spacing:-0.01em;color:#1c1a17;margin-bottom:18px;}
+        .aa-hero p{font-size:17.5px;color:#46423b;line-height:1.7;max-width:62ch;}
+
+        /* ---- Tabs ---- */
+        .aa-tabs{
+            display:flex;flex-wrap:wrap;gap:1px;background:#e4ded2;border:1px solid #e4ded2;
+            margin:40px 0 36px;
         }
-        
-        .anatomy-image-container img {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
+        .aa-tab{
+            flex:1 1 auto;min-width:120px;
+            background:#faf8f2;border:none;cursor:pointer;
+            padding:14px 18px;
+            font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:0.12em;text-transform:uppercase;
+            color:#6f6a61;transition:background 0.2s ease,color 0.2s ease;
+            display:flex;align-items:center;justify-content:center;gap:8px;
         }
-        
-        .anatomy-content {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        .aa-tab:hover{background:#fff;color:#1c1a17;}
+        .aa-tab.active{background:#1c1a17;color:#f4f1ea;}
+        .aa-tab.active i{color:#d39189;}
+
+        /* ---- Tab content ---- */
+        .aa-tab-content{display:none;animation:aaFade 0.4s ease;}
+        .aa-tab-content.active{display:block;}
+        @keyframes aaFade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+        .aa-tab-content h2{font-family:'Newsreader',serif;font-weight:500;font-size:clamp(24px,3vw,32px);line-height:1.1;color:#1c1a17;margin-bottom:18px;}
+        .aa-tab-content > p{font-size:16.5px;color:#46423b;line-height:1.75;max-width:64ch;margin-bottom:22px;}
+        .aa-tab-content h3{font-family:'Newsreader',serif;font-weight:600;font-size:21px;color:#1c1a17;margin-bottom:14px;}
+        .aa-tab-content h4{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:#8a302a;margin-bottom:12px;}
+        .aa-tab-content ul{list-style:none;margin:0 0 20px;}
+        .aa-tab-content ul li{position:relative;padding-left:20px;color:#46423b;line-height:1.9;font-size:15.5px;}
+        .aa-tab-content ul li::before{content:"";position:absolute;left:0;top:13px;width:6px;height:6px;background:#8a302a;border-radius:1px;}
+        .aa-tab-content ul li strong{color:#1c1a17;}
+
+        /* ---- Hairline image card (gallery look) ---- */
+        .aa-figure{
+            background:#faf8f2;border:1px solid #e4ded2;border-radius:2px;
+            padding:14px;margin:22px 0;
         }
-        
-        .anatomy-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
+        .aa-figure img{display:block;width:100%;height:auto;border:1px solid #e4ded2;border-radius:2px;background:#fff;}
+        .aa-figure figcaption{
+            font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;
+            color:#9a9389;margin-top:12px;
         }
-        
-        .tab-button {
-            padding: 12px 24px;
-            background: #f8f9fa;
-            border: 2px solid #e9ecef;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            color: var(--text-color);
+
+        /* ---- Anatomy / pathology content card ---- */
+        .aa-card{
+            background:#faf8f2;border:1px solid #e4ded2;border-left:3px solid #8a302a;border-radius:2px;
+            padding:26px 28px;margin-bottom:24px;
         }
-        
-        .tab-button:hover {
-            background: #e9ecef;
-            transform: translateY(-2px);
+        .aa-card h3{display:flex;align-items:center;gap:10px;}
+        .aa-card h3 i{color:#8a302a;font-size:17px;}
+        .aa-card p{color:#46423b;line-height:1.8;margin-bottom:10px;font-size:15.5px;}
+        .aa-card p strong{color:#1c1a17;}
+        .aa-card .aa-figure{margin-left:0;margin-right:0;background:#fff;}
+        .aa-card .aa-figure img{max-width:560px;}
+
+        .aa-tag{
+            display:inline-block;
+            font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.14em;text-transform:uppercase;
+            color:#8a302a;background:#efeae0;border:1px solid #e4ded2;
+            padding:5px 12px;border-radius:2px;margin-bottom:14px;
         }
-        
-        .tab-button.active {
-            background: var(--gradient);
-            color: white;
-            border-color: transparent;
+
+        /* ---- Tables ---- */
+        .aa-table{width:100%;border-collapse:collapse;margin:18px 0 26px;background:#faf8f2;border:1px solid #e4ded2;border-radius:2px;overflow:hidden;}
+        .aa-table th{
+            background:#1c1a17;color:#f4f1ea;text-align:left;padding:13px 16px;
+            font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;font-weight:500;
         }
-        
-        .tab-content {
-            display: none;
+        .aa-table td{padding:12px 16px;border-bottom:1px solid #ece7dc;font-size:15px;color:#46423b;}
+        .aa-table td strong{color:#1c1a17;}
+        .aa-table tr:last-child td{border-bottom:none;}
+        .aa-table tbody tr:hover{background:#fff;}
+
+        /* ---- Info / pearl box ---- */
+        .aa-info{
+            background:#efeae0;border:1px solid #e4ded2;border-left:3px solid #8a302a;border-radius:2px;
+            padding:18px 22px;margin:22px 0;
         }
-        
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
+        .aa-info h4{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:#8a302a;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+        .aa-info p{color:#46423b;line-height:1.7;font-size:15px;margin:0;}
+
+        /* ---- Classification sub-section ---- */
+        .aa-classification{
+            background:#f4f1ea;border:1px solid #e4ded2;border-radius:2px;
+            padding:20px 22px;margin:22px 0;
         }
-        
-        .anatomy-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        .aa-classification h4{margin-bottom:12px;}
+
+        /* ---- Disclaimer ---- */
+        .aa-disclaimer{
+            margin:48px 0 0;padding:18px 22px;
+            background:#efeae0;border:1px solid #e4ded2;border-radius:2px;
+            font-size:13.5px;color:#6f6a61;line-height:1.65;
         }
-        
-        .anatomy-table th {
-            background: var(--gradient);
-            color: white;
-            padding: 15px;
-            text-align: left;
-            font-weight: 600;
-        }
-        
-        .anatomy-table td {
-            padding: 12px 15px;
-            border-bottom: 1px solid #e9ecef;
-        }
-        
-        .anatomy-table tr:last-child td {
-            border-bottom: none;
-        }
-        
-        .anatomy-table tr:hover {
-            background: #f8f9fa;
-        }
-        
-        .anatomy-card {
-            background: white;
-            padding: 25px;
-            margin-bottom: 25px;
-            border-radius: 12px;
-            border-left: 4px solid var(--accent-color);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .anatomy-card:hover {
-            transform: translateX(5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        .anatomy-card h3 {
-            color: var(--primary-color);
-            margin-bottom: 15px;
-            font-size: 1.4rem;
-        }
-        
-        .anatomy-card img {
-            width: 100%;
-            max-width: 400px;
-            height: auto;
-            border-radius: 10px;
-            margin: 15px 0;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .anatomy-card p {
-            color: #666;
-            line-height: 1.8;
-            margin-bottom: 10px;
-        }
-        
-        .pathology-card {
-            background: white;
-            padding: 25px;
-            margin-bottom: 25px;
-            border-radius: 12px;
-            border-left: 4px solid var(--accent-color);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .pathology-card:hover {
-            transform: translateX(5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        .pathology-card h3 {
-            color: var(--primary-color);
-            margin-bottom: 10px;
-            font-size: 1.3rem;
-        }
-        
-        .pathology-card img {
-            width: 100%;
-            max-width: 500px;
-            height: auto;
-            border-radius: 10px;
-            margin: 15px 0;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .pathology-card p {
-            color: #666;
-            line-height: 1.8;
-            margin-bottom: 10px;
-        }
-        
-        .pathology-card .pathology-type {
-            display: inline-block;
-            padding: 5px 15px;
-            background: #e9ecef;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--primary-color);
-            margin-top: 10px;
-            margin-bottom: 15px;
-        }
-        
-        .classification-section {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-        }
-        
-        .classification-section h4 {
-            color: var(--primary-color);
-            margin-bottom: 15px;
-            font-size: 1.2rem;
-        }
-        
-        .classification-section img {
-            width: 100%;
-            max-width: 600px;
-            height: auto;
-            border-radius: 10px;
-            margin: 15px 0;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .info-box {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-        }
-        
-        .info-box h4 {
-            margin-bottom: 10px;
-            font-size: 1.2rem;
-        }
-        
-        .info-box p {
-            margin: 0;
-            line-height: 1.6;
-        }
-        
-        @media (max-width: 968px) {
-            .anatomy-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .anatomy-image-container {
-                position: relative;
-                top: 0;
-            }
-            
-            .anatomy-hero h1 {
-                font-size: 2rem;
-            }
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        .aa-disclaimer strong{color:#1c1a17;}
+
+        /* ---- Footer (dark, matches sibling) ---- */
+        .aa-footer{padding:90px 0 56px;background:#1c1a17;color:#e9e4da;margin-top:64px;}
+        .aa-footer .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#d39189;margin-bottom:16px;}
+        .aa-footer h2{font-family:'Newsreader',serif;font-weight:500;font-size:clamp(28px,4vw,44px);line-height:1.06;color:#f4f1ea;max-width:18ch;margin-bottom:24px;}
+        .aa-footer p{font-size:16.5px;color:#b8b1a5;line-height:1.75;max-width:52ch;margin-bottom:36px;}
+        .aa-social{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:52px;}
+        .aa-social a{width:50px;height:50px;display:flex;align-items:center;justify-content:center;border:1px solid #3a3833;border-radius:2px;color:#e9e4da;text-decoration:none;font-size:18px;transition:background 0.2s ease,border-color 0.2s ease;}
+        .aa-social a:hover{background:#8a302a;border-color:#8a302a;}
+        .aa-footer-bottom{border-top:1px solid #34322d;padding-top:26px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:14px;align-items:center;}
+        .aa-footer-bottom a{font-family:'Newsreader',serif;font-size:17px;color:#cdc6ba;text-decoration:none;}
+        .aa-footer-bottom span{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.1em;color:#7d7869;}
+
+        /* ---- Responsive ---- */
+        @media (max-width:820px){
+            .aa-nav{display:none !important;}
+            .aa-mobile-btn{display:inline-flex !important;}
+            .aa-tab{flex:1 1 100%;}
         }
     </style>
 </head>
 <body>
-    <nav id="navbar">
-        <div class="container">
-            <a href="index.html" class="logo">Dr Ali Alshahrani</a>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+<div class="aa-page" id="top">
+
+    <header class="aa-header">
+        <div class="aa-header-inner">
+            <a href="index.html" class="aa-logo">
+                <span class="name">Ali Alshahrani</span>
+                <span class="sub">Otolaryngology</span>
+            </a>
+            <nav class="aa-nav">
+                <a href="index.html#research">Research</a>
+                <a href="index.html#publications">Publications</a>
+                <a href="ent-tools.html" class="current">Tools</a>
+                <a href="curriculum_vitae.html">CV</a>
+                <a href="#contact" class="contact">Contact</a>
+            </nav>
+            <button class="aa-mobile-btn" id="aaMobileBtn" aria-label="Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <div class="aa-mobile-menu" id="aaMobileMenu">
+            <a href="index.html#research">Research</a>
+            <a href="index.html#publications">Publications</a>
+            <a href="ent-tools.html" class="accent">Clinical Tools</a>
+            <a href="curriculum_vitae.html">Curriculum Vitae</a>
+            <a href="#contact" class="accent">Contact</a>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="aa-hero">
+        <div class="aa-wrap">
+            <a href="ent-tools.html" class="aa-back">&larr; All ENT tools</a>
+            <div class="aa-eyebrow">Pediatric Airway &amp; Anesthesia &middot; Visual Atlas</div>
+            <h1>Airway Anatomy &amp; Variations</h1>
+            <p>An interactive guide to understanding airway anatomy, anatomical variations, and pathological conditions as visualized through rigid bronchoscopy.</p>
+        </div>
+    </section>
+
+    <section>
+        <div class="aa-wrap">
+
+            <!-- Tabs -->
+            <div class="aa-tabs">
+                <button class="aa-tab active" onclick="aaSwitchTab(event,'overview')"><i class="fas fa-house"></i> Overview</button>
+                <button class="aa-tab" onclick="aaSwitchTab(event,'anatomy')"><i class="fas fa-lungs"></i> Anatomy</button>
+                <button class="aa-tab" onclick="aaSwitchTab(event,'right-bronchus')"><i class="fas fa-arrow-right"></i> Right Bronchus</button>
+                <button class="aa-tab" onclick="aaSwitchTab(event,'left-bronchus')"><i class="fas fa-arrow-left"></i> Left Bronchus</button>
+                <button class="aa-tab" onclick="aaSwitchTab(event,'pathology')"><i class="fas fa-stethoscope"></i> Pathologies</button>
             </div>
-            <ul class="nav-links">
-                <li><a href="dashboard.html">Dashboard</a></li>
-                <li>
-                    <a href="index.html#research">Research</a>
-                    <ul class="dropdown">
-                        <li><a href="index.html#research">Research Focus</a></li>
-                        <li><a href="index.html#publications">Recent Publications</a></li>
-                    </ul>
-                </li>
-                <li><a href="curriculum_vitae.html">Brief CV</a></li>
-                <li><a href="index.html#contact">Contact</a></li>
-                <li><a href="ent-tools.html">ENT Web Tools</a></li>
-            </ul>
-        </div>
-    </nav>
 
-    <div class="anatomy-hero">
-        <div class="container">
-            <h1 data-aos="fade-up">Airway Anatomy & Variations</h1>
-            <p data-aos="fade-up" data-aos-delay="100">An interactive guide to understanding airway anatomy, anatomical variations, and pathological conditions as visualized through rigid bronchoscopy</p>
-        </div>
-    </div>
+            <!-- Overview Tab -->
+            <div id="overview" class="aa-tab-content active">
+                <h2>Rigid Bronchoscopy: Airway Visualization</h2>
 
-    <section class="anatomy-section">
-        <div class="container">
-            <div class="anatomy-grid">
-                <div class="anatomy-image-container" data-aos="fade-right">
+                <figure class="aa-figure">
                     <img src="images/airway-anatomy.png" alt="Rigid Bronchoscopy - Airway Anatomy" id="anatomyImage">
-                    <div class="info-box" style="margin-top: 20px;">
-                        <h4><i class="fas fa-info-circle"></i> Interactive Guide</h4>
-                        <p>Click on the tabs to explore different aspects of airway anatomy, from normal structures to pathological variations.</p>
+                    <figcaption>Fig. 01 &middot; Rigid bronchoscopy &mdash; airway overview</figcaption>
+                </figure>
+
+                <p>Rigid bronchoscopy provides direct visualization of the airway from the larynx through the main bronchi and into the segmental divisions. This comprehensive view is essential for:</p>
+                <ul>
+                    <li><strong>Diagnostic evaluation</strong> of airway abnormalities</li>
+                    <li><strong>Therapeutic interventions</strong> for airway obstruction</li>
+                    <li><strong>Foreign body removal</strong> in pediatric and adult patients</li>
+                    <li><strong>Assessment of congenital anomalies</strong> and acquired pathologies</li>
+                    <li><strong>Biopsy</strong> of suspicious lesions</li>
+                </ul>
+
+                <div class="aa-info">
+                    <h4><i class="fas fa-microscope"></i> Clinical Significance</h4>
+                    <p>Understanding normal airway anatomy and its variations is crucial for accurate diagnosis and safe therapeutic interventions. The bronchoscopic view provides real-time assessment of airway patency, mucosal integrity, and structural abnormalities.</p>
+                </div>
+
+                <h3 style="margin-top:30px;">Key Anatomical Regions</h3>
+                <table class="aa-table">
+                    <thead>
+                        <tr><th>Region</th><th>Key Features</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>Larynx</strong></td><td>Vocal cords, arytenoids, subglottis</td></tr>
+                        <tr><td><strong>Trachea</strong></td><td>Main carina, C-shaped cartilage rings</td></tr>
+                        <tr><td><strong>Main Bronchi</strong></td><td>Right (shorter, wider) and Left (longer, narrower)</td></tr>
+                        <tr><td><strong>Lobar Bronchi</strong></td><td>Upper, middle (right), and lower lobes</td></tr>
+                        <tr><td><strong>Segmental Bronchi</strong></td><td>10 segments on right, 8-10 on left</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Anatomy Tab -->
+            <div id="anatomy" class="aa-tab-content">
+                <h2>Normal Airway Anatomy</h2>
+
+                <div class="aa-card">
+                    <h3><i class="fas fa-microphone"></i> Vocal Cords</h3>
+                    <figure class="aa-figure">
+                        <img src="images/real-vocal-cords.png" alt="Vocal Cords Anatomy - Real Laryngoscopy View">
+                        <figcaption>Laryngoscopy &middot; vocal cords</figcaption>
+                    </figure>
+                    <p><strong>Description:</strong> Paired structures that control phonation and protect the lower airway. During laryngoscopy, they appear white and pearly, meeting at the anterior commissure with the arytenoid cartilages positioned posteriorly.</p>
+                    <p><strong>Function:</strong> Voice production, airway protection during swallowing, and regulation of airflow during respiration.</p>
+                </div>
+
+                <div class="aa-card">
+                    <h3><i class="fas fa-shapes"></i> Arytenoid Cartilages</h3>
+                    <figure class="aa-figure">
+                        <img src="images/real-vocal-cords.png" alt="Arytenoid Cartilages - Real Laryngoscopy View">
+                        <figcaption>Laryngoscopy &middot; arytenoid cartilages</figcaption>
+                    </figure>
+                    <p><strong>Description:</strong> Pyramid-shaped cartilages that anchor the vocal cords posteriorly and control their movement through intrinsic laryngeal muscles.</p>
+                    <p><strong>Function:</strong> Enable vocal cord abduction (opening) and adduction (closing) for breathing, phonation, and airway protection.</p>
+                </div>
+
+                <div class="aa-card">
+                    <h3><i class="fas fa-compress"></i> Subglottis</h3>
+                    <figure class="aa-figure">
+                        <img src="images/anatomy-subglottis.png" alt="Subglottis Region">
+                        <figcaption>Subglottic region</figcaption>
+                    </figure>
+                    <p><strong>Description:</strong> The region below the vocal cords extending to the first tracheal ring. This is the narrowest part of the pediatric airway, bounded by the cricoid cartilage.</p>
+                    <p><strong>Clinical Significance:</strong> Most vulnerable site for airway obstruction in children due to its narrow diameter and complete cartilaginous ring that cannot expand.</p>
+                </div>
+
+                <div class="aa-card">
+                    <h3><i class="fas fa-wind"></i> Trachea &amp; Main Carina</h3>
+                    <figure class="aa-figure">
+                        <img src="images/real-carina.png" alt="Trachea and Carina - Real Bronchoscopy View">
+                        <figcaption>Bronchoscopy &middot; trachea &amp; carina</figcaption>
+                    </figure>
+                    <p><strong>Trachea:</strong> A tubular structure supported by 16-20 C-shaped cartilaginous rings, with the posterior membranous wall completing the tube. Extends from the cricoid cartilage (C6 level) to the carina (T4-T5 level).</p>
+                    <p><strong>Main Carina:</strong> The bifurcation point where the trachea divides into the right and left main bronchi. It is a critical landmark during bronchoscopy and is highly sensitive, often triggering cough reflexes.</p>
+                </div>
+
+                <div class="aa-card">
+                    <h3><i class="fas fa-right-left"></i> Bronchial Comparison</h3>
+                    <figure class="aa-figure">
+                        <img src="images/anatomy-comparison.png" alt="Right vs Left Bronchus Comparison">
+                        <figcaption>Right vs left main bronchus</figcaption>
+                    </figure>
+                    <div class="aa-info">
+                        <h4><i class="fas fa-triangle-exclamation"></i> Clinical Pearl</h4>
+                        <p>The right main bronchus is shorter, wider, and more vertical than the left, making it the more common site for foreign body aspiration and preferential intubation.</p>
                     </div>
                 </div>
-                
-                <div class="anatomy-content" data-aos="fade-left">
-                    <div class="anatomy-tabs">
-                        <button class="tab-button active" onclick="switchTab('overview')">
-                            <i class="fas fa-home"></i> Overview
-                        </button>
-                        <button class="tab-button" onclick="switchTab('anatomy')">
-                            <i class="fas fa-lungs"></i> Anatomy
-                        </button>
-                        <button class="tab-button" onclick="switchTab('right-bronchus')">
-                            <i class="fas fa-arrow-right"></i> Right Bronchus
-                        </button>
-                        <button class="tab-button" onclick="switchTab('left-bronchus')">
-                            <i class="fas fa-arrow-left"></i> Left Bronchus
-                        </button>
-                        <button class="tab-button" onclick="switchTab('pathology')">
-                            <i class="fas fa-stethoscope"></i> Pathologies
-                        </button>
+            </div>
+
+            <!-- Right Bronchus Tab -->
+            <div id="right-bronchus" class="aa-tab-content">
+                <h2>Right Bronchial Tree Anatomy</h2>
+                <p>The right bronchial tree consists of three lobar bronchi (upper, middle, and lower) with a total of 10 bronchopulmonary segments.</p>
+
+                <div class="aa-card">
+                    <h3><i class="fas fa-sitemap"></i> Right Bronchial Tree Overview</h3>
+                    <figure class="aa-figure">
+                        <img src="images/real-bronchial-tree.jpg" alt="Right Bronchial Tree - Real Bronchoscopy Views">
+                        <figcaption>Bronchoscopy &middot; right bronchial tree</figcaption>
+                    </figure>
+                    <p>Complete visualization of the right bronchial tree showing the branching pattern from the main bronchus through all lobar and segmental divisions.</p>
+                </div>
+
+                <h3><i class="fas fa-arrow-up" style="color:#8a302a;"></i> Right Upper Lobe (RUL)</h3>
+                <table class="aa-table">
+                    <thead><tr><th>Segment</th><th>Designation</th><th>Location</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Apical</strong></td><td>RB1</td><td>Apex of the right lung</td></tr>
+                        <tr><td><strong>Posterior</strong></td><td>RB2</td><td>Posterior aspect of upper lobe</td></tr>
+                        <tr><td><strong>Anterior</strong></td><td>RB3</td><td>Anterior aspect of upper lobe</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="aa-card">
+                    <h3><i class="fas fa-stream"></i> Bronchus Intermedius</h3>
+                    <figure class="aa-figure">
+                        <img src="images/anatomy-bronchus-intermedius.png" alt="Bronchus Intermedius">
+                        <figcaption>Bronchus intermedius</figcaption>
+                    </figure>
+                    <p>The bronchus intermedius is the continuation of the right main bronchus after the right upper lobe bronchus branches off. It subsequently divides into the middle and lower lobe bronchi at Carina 2 (RC2).</p>
+                </div>
+
+                <h3 style="margin-top:30px;"><i class="fas fa-arrows-left-right" style="color:#8a302a;"></i> Right Middle Lobe</h3>
+                <table class="aa-table">
+                    <thead><tr><th>Segment</th><th>Designation</th><th>Location</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Lateral</strong></td><td>RB4</td><td>Lateral aspect of middle lobe</td></tr>
+                        <tr><td><strong>Medial</strong></td><td>RB5</td><td>Medial aspect of middle lobe</td></tr>
+                    </tbody>
+                </table>
+
+                <h3 style="margin-top:30px;"><i class="fas fa-arrow-down" style="color:#8a302a;"></i> Right Lower Lobe</h3>
+                <table class="aa-table">
+                    <thead><tr><th>Segment</th><th>Designation</th><th>Location</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Superior</strong></td><td>RB6</td><td>Superior segment of lower lobe</td></tr>
+                        <tr><td><strong>Medial Basal</strong></td><td>RB7</td><td>Medial base of lower lobe</td></tr>
+                        <tr><td><strong>Anterior Basal</strong></td><td>RB8</td><td>Anterior base of lower lobe</td></tr>
+                        <tr><td><strong>Lateral Basal</strong></td><td>RB9</td><td>Lateral base of lower lobe</td></tr>
+                        <tr><td><strong>Posterior Basal</strong></td><td>RB10</td><td>Posterior base of lower lobe</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Left Bronchus Tab -->
+            <div id="left-bronchus" class="aa-tab-content">
+                <h2>Left Bronchial Tree Anatomy</h2>
+                <p>The left bronchial tree consists of two lobar bronchi (upper and lower) with 8-10 bronchopulmonary segments, depending on anatomical variation.</p>
+
+                <div class="aa-card">
+                    <h3><i class="fas fa-sitemap"></i> Left Bronchial Tree Overview</h3>
+                    <figure class="aa-figure">
+                        <img src="images/real-bronchial-tree.jpg" alt="Left Bronchial Tree - Real Bronchoscopy Views">
+                        <figcaption>Bronchoscopy &middot; left bronchial tree</figcaption>
+                    </figure>
+                    <p>Complete visualization of the left bronchial tree showing the branching pattern from the main bronchus through all lobar and segmental divisions.</p>
+                </div>
+
+                <h3><i class="fas fa-arrow-up" style="color:#8a302a;"></i> Left Upper Lobe</h3>
+
+                <h4>Upper Division</h4>
+                <table class="aa-table">
+                    <thead><tr><th>Segment</th><th>Designation</th><th>Location</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Apicoposterior</strong></td><td>LB1+LB2</td><td>Combined apical and posterior segments</td></tr>
+                        <tr><td><strong>Anterior</strong></td><td>LB3</td><td>Anterior aspect of upper lobe</td></tr>
+                    </tbody>
+                </table>
+
+                <h4 style="margin-top:20px;">Lingular Division</h4>
+                <table class="aa-table">
+                    <thead><tr><th>Segment</th><th>Designation</th><th>Location</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Superior Lingular</strong></td><td>LB4</td><td>Superior portion of lingula</td></tr>
+                        <tr><td><strong>Inferior Lingular</strong></td><td>LB5</td><td>Inferior portion of lingula</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="aa-card">
+                    <h3><i class="fas fa-leaf"></i> The Lingula</h3>
+                    <figure class="aa-figure">
+                        <img src="images/anatomy-lingula.png" alt="Lingula Anatomy">
+                        <figcaption>The lingula</figcaption>
+                    </figure>
+                    <div class="aa-info">
+                        <h4><i class="fas fa-circle-info"></i> Lingula</h4>
+                        <p>The lingula is the left lung's equivalent to the right middle lobe. It is part of the left upper lobe and consists of superior and inferior segments.</p>
                     </div>
-                    
-                    <!-- Overview Tab -->
-                    <div id="overview" class="tab-content active">
-                        <h2>Rigid Bronchoscopy: Airway Visualization</h2>
-                        <p>Rigid bronchoscopy provides direct visualization of the airway from the larynx through the main bronchi and into the segmental divisions. This comprehensive view is essential for:</p>
-                        <ul style="line-height: 2; color: #666;">
-                            <li><strong>Diagnostic evaluation</strong> of airway abnormalities</li>
-                            <li><strong>Therapeutic interventions</strong> for airway obstruction</li>
-                            <li><strong>Foreign body removal</strong> in pediatric and adult patients</li>
-                            <li><strong>Assessment of congenital anomalies</strong> and acquired pathologies</li>
-                            <li><strong>Biopsy</strong> of suspicious lesions</li>
+                </div>
+
+                <h3 style="margin-top:30px;"><i class="fas fa-arrow-down" style="color:#8a302a;"></i> Left Lower Lobe</h3>
+                <table class="aa-table">
+                    <thead><tr><th>Segment</th><th>Designation</th><th>Location</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Superior</strong></td><td>LB6</td><td>Superior segment of lower lobe</td></tr>
+                        <tr><td><strong>Anteromedial Basal</strong></td><td>LB7+LB8</td><td>Combined anterior and medial basal segments</td></tr>
+                        <tr><td><strong>Lateral Basal</strong></td><td>LB9</td><td>Lateral base of lower lobe</td></tr>
+                        <tr><td><strong>Posterior Basal</strong></td><td>LB10</td><td>Posterior base of lower lobe</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="aa-info">
+                    <h4><i class="fas fa-triangle-exclamation"></i> Anatomical Note</h4>
+                    <p>The left main bronchus is longer and more horizontal than the right, passing under the aortic arch before dividing into lobar bronchi. This anatomical difference has important clinical implications for foreign body aspiration and selective intubation.</p>
+                </div>
+            </div>
+
+            <!-- Pathology Tab -->
+            <div id="pathology" class="aa-tab-content">
+                <h2>Airway Pathologies &amp; Variations</h2>
+                <p>Understanding pathological variations of the airway is essential for accurate diagnosis and appropriate management. Below are common congenital and acquired airway abnormalities.</p>
+
+                <div class="aa-card">
+                    <h3><i class="fas fa-baby"></i> Laryngomalacia</h3>
+                    <span class="aa-tag">Congenital</span>
+                    <figure class="aa-figure">
+                        <img src="images/real-laryngomalacia.jpg" alt="Laryngomalacia - Real Endoscopic View">
+                        <figcaption>Endoscopy &middot; laryngomalacia</figcaption>
+                    </figure>
+                    <p><strong>Definition:</strong> The most common congenital laryngeal anomaly, characterized by abnormal collapse of supraglottic structures during inspiration.</p>
+                    <p><strong>Clinical Features:</strong> Inspiratory stridor that worsens with agitation, feeding difficulties, and failure to thrive in severe cases. Usually presents within the first 2 weeks of life.</p>
+                    <p><strong>Bronchoscopic Findings:</strong> Omega-shaped epiglottis, shortened aryepiglottic folds, and prolapse of supraglottic tissues into the glottis during inspiration.</p>
+                    <p><strong>Management:</strong> Most cases resolve spontaneously by 12-24 months. Severe cases may require supraglottoplasty.</p>
+                </div>
+
+                <div class="aa-card">
+                    <h3><i class="fas fa-circle"></i> Saccular Cyst</h3>
+                    <span class="aa-tag">Congenital / Acquired</span>
+                    <figure class="aa-figure">
+                        <img src="images/pathology-saccular-cyst.png" alt="Saccular Cyst">
+                        <figcaption>Saccular cyst</figcaption>
+                    </figure>
+                    <p><strong>Definition:</strong> A fluid-filled cyst arising from the laryngeal saccule, which is a small pouch extending upward from the laryngeal ventricle.</p>
+                    <p><strong>Clinical Features:</strong> Hoarseness, stridor, dyspnea, and airway obstruction depending on size and location.</p>
+                    <p><strong>Bronchoscopic Findings:</strong> Smooth, rounded mass in the supraglottic region, typically lateral to the false vocal cords.</p>
+                    <p><strong>Management:</strong> Surgical excision via endoscopic or open approach, depending on size and extent.</p>
+                </div>
+
+                <div class="aa-card">
+                    <h3><i class="fas fa-virus"></i> Papillomatosis (Recurrent Respiratory Papillomatosis)</h3>
+                    <span class="aa-tag">Acquired &mdash; Viral</span>
+                    <figure class="aa-figure">
+                        <img src="images/real-papillomatosis.png" alt="Recurrent Respiratory Papillomatosis - Real Endoscopic View">
+                        <figcaption>Endoscopy &middot; respiratory papillomatosis</figcaption>
+                    </figure>
+                    <p><strong>Definition:</strong> Benign tumors caused by human papillomavirus (HPV) types 6 and 11, most commonly affecting the larynx but can spread throughout the respiratory tract.</p>
+                    <p><strong>Clinical Features:</strong> Progressive hoarseness, chronic cough, stridor, and respiratory distress. Most common in children but can occur in adults.</p>
+                    <p><strong>Bronchoscopic Findings:</strong> Multiple warty, cauliflower-like growths on the vocal cords, false cords, and other laryngeal surfaces. Can extend to trachea and bronchi.</p>
+                    <p><strong>Management:</strong> Repeated surgical debulking (laser or microdebrider), adjuvant therapies (cidofovir, bevacizumab), and HPV vaccination for prevention.</p>
+                </div>
+
+                <div class="aa-card">
+                    <h3><i class="fas fa-layer-group"></i> Laryngeal Web</h3>
+                    <span class="aa-tag">Congenital</span>
+                    <figure class="aa-figure">
+                        <img src="images/real-laryngeal-web.jpeg" alt="Laryngeal Web - Real Endoscopic View">
+                        <figcaption>Endoscopy &middot; laryngeal web</figcaption>
+                    </figure>
+                    <p><strong>Definition:</strong> A membrane of tissue connecting the vocal cords, typically at the anterior commissure, resulting from incomplete recanalization during embryonic development.</p>
+                    <p><strong>Clinical Features:</strong> Severity depends on extent of web. Thin webs cause hoarseness; thick webs cause stridor and respiratory distress.</p>
+                    <p><strong>Bronchoscopic Findings:</strong> Tissue bridge connecting the anterior aspects of the vocal cords, varying in thickness and posterior extension.</p>
+                    <p><strong>Management:</strong> Thin webs may be divided endoscopically; thick webs require open laryngoplasty with keel placement to prevent re-adhesion.</p>
+                </div>
+
+                <div class="aa-card">
+                    <h3><i class="fas fa-scissors"></i> Laryngeal Cleft</h3>
+                    <span class="aa-tag">Congenital</span>
+                    <figure class="aa-figure">
+                        <img src="images/real-laryngeal-cleft.jpg" alt="Laryngeal Cleft - Real Endoscopic View">
+                        <figcaption>Endoscopy &middot; laryngeal cleft</figcaption>
+                    </figure>
+                    <p><strong>Definition:</strong> A rare congenital anomaly characterized by incomplete separation of the larynx and esophagus, resulting in a posterior midline defect.</p>
+                    <p><strong>Clinical Features:</strong> Aspiration, cyanosis with feeding, recurrent pneumonia, and chronic cough. Severity correlates with cleft extent.</p>
+                    <p><strong>Bronchoscopic Findings:</strong> Posterior midline defect between the arytenoids, with varying caudal extension.</p>
+
+                    <div class="aa-classification">
+                        <h4><i class="fas fa-list-ol"></i> Benjamin-Inglis Classification</h4>
+                        <figure class="aa-figure" style="background:#fff;">
+                            <img src="images/classification-laryngeal-cleft.png" alt="Laryngeal Cleft Classification">
+                            <figcaption>Benjamin-Inglis classification</figcaption>
+                        </figure>
+                        <ul>
+                            <li><strong>Type I:</strong> Supraglottic interarytenoid cleft</li>
+                            <li><strong>Type II:</strong> Partial cricoid cleft</li>
+                            <li><strong>Type III:</strong> Total cricoid cleft extending into cervical trachea</li>
+                            <li><strong>Type IV:</strong> Cleft extending into thoracic trachea</li>
                         </ul>
-                        
-                        <div class="info-box">
-                            <h4><i class="fas fa-microscope"></i> Clinical Significance</h4>
-                            <p>Understanding normal airway anatomy and its variations is crucial for accurate diagnosis and safe therapeutic interventions. The bronchoscopic view provides real-time assessment of airway patency, mucosal integrity, and structural abnormalities.</p>
-                        </div>
-                        
-                        <h3 style="margin-top: 30px;">Key Anatomical Regions</h3>
-                        <table class="anatomy-table">
-                            <thead>
-                                <tr>
-                                    <th>Region</th>
-                                    <th>Key Features</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><strong>Larynx</strong></td>
-                                    <td>Vocal cords, arytenoids, subglottis</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Trachea</strong></td>
-                                    <td>Main carina, C-shaped cartilage rings</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Main Bronchi</strong></td>
-                                    <td>Right (shorter, wider) and Left (longer, narrower)</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Lobar Bronchi</strong></td>
-                                    <td>Upper, middle (right), and lower lobes</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Segmental Bronchi</strong></td>
-                                    <td>10 segments on right, 8-10 on left</td>
-                                </tr>
-                            </tbody>
-                        </table>
                     </div>
-                    
-                    <!-- Anatomy Tab -->
-                    <div id="anatomy" class="tab-content">
-                        <h2>Normal Airway Anatomy</h2>
-                        
-                        <div class="anatomy-card">
-                            <h3><i class="fas fa-microphone"></i> Vocal Cords</h3>
-                            <img src="images/real-vocal-cords.png" alt="Vocal Cords Anatomy - Real Laryngoscopy View">
-                            <p><strong>Description:</strong> Paired structures that control phonation and protect the lower airway. During laryngoscopy, they appear white and pearly, meeting at the anterior commissure with the arytenoid cartilages positioned posteriorly.</p>
-                            <p><strong>Function:</strong> Voice production, airway protection during swallowing, and regulation of airflow during respiration.</p>
-                        </div>
-                        
-                        <div class="anatomy-card">
-                            <h3><i class="fas fa-shapes"></i> Arytenoid Cartilages</h3>
-                            <img src="images/real-vocal-cords.png" alt="Arytenoid Cartilages - Real Laryngoscopy View">
-                            <p><strong>Description:</strong> Pyramid-shaped cartilages that anchor the vocal cords posteriorly and control their movement through intrinsic laryngeal muscles.</p>
-                            <p><strong>Function:</strong> Enable vocal cord abduction (opening) and adduction (closing) for breathing, phonation, and airway protection.</p>
-                        </div>
-                        
-                        <div class="anatomy-card">
-                            <h3><i class="fas fa-compress-alt"></i> Subglottis</h3>
-                            <img src="images/anatomy-subglottis.png" alt="Subglottis Region">
-                            <p><strong>Description:</strong> The region below the vocal cords extending to the first tracheal ring. This is the narrowest part of the pediatric airway, bounded by the cricoid cartilage.</p>
-                            <p><strong>Clinical Significance:</strong> Most vulnerable site for airway obstruction in children due to its narrow diameter and complete cartilaginous ring that cannot expand.</p>
-                        </div>
-                        
-                        <div class="anatomy-card">
-                            <h3><i class="fas fa-wind"></i> Trachea & Main Carina</h3>
-                            <img src="images/real-carina.png" alt="Trachea and Carina - Real Bronchoscopy View">
-                            <p><strong>Trachea:</strong> A tubular structure supported by 16-20 C-shaped cartilaginous rings, with the posterior membranous wall completing the tube. Extends from the cricoid cartilage (C6 level) to the carina (T4-T5 level).</p>
-                            <p><strong>Main Carina:</strong> The bifurcation point where the trachea divides into the right and left main bronchi. It is a critical landmark during bronchoscopy and is highly sensitive, often triggering cough reflexes.</p>
-                        </div>
-                        
-                        <div class="anatomy-card">
-                            <h3><i class="fas fa-exchange-alt"></i> Bronchial Comparison</h3>
-                            <img src="images/anatomy-comparison.png" alt="Right vs Left Bronchus Comparison">
-                            <div class="info-box">
-                                <h4><i class="fas fa-exclamation-triangle"></i> Clinical Pearl</h4>
-                                <p>The right main bronchus is shorter, wider, and more vertical than the left, making it the more common site for foreign body aspiration and preferential intubation.</p>
-                            </div>
-                        </div>
+
+                    <p><strong>Management:</strong> Type I may be managed conservatively; Types II-IV typically require surgical repair.</p>
+                </div>
+
+                <div class="aa-card">
+                    <h3><i class="fas fa-ban"></i> Laryngeal Atresia</h3>
+                    <span class="aa-tag">Congenital</span>
+                    <figure class="aa-figure">
+                        <img src="images/pathology-laryngeal-atresia.png" alt="Laryngeal Atresia">
+                        <figcaption>Laryngeal atresia</figcaption>
+                    </figure>
+                    <p><strong>Definition:</strong> A rare and severe congenital anomaly characterized by complete or partial obstruction of the laryngeal lumen.</p>
+                    <p><strong>Clinical Features:</strong> Immediately life-threatening at birth with inability to establish an airway. Often diagnosed prenatally with ultrasound showing dilated airways and flattened diaphragm (CHAOS - Congenital High Airway Obstruction Syndrome).</p>
+                    <p><strong>Management:</strong> Requires EXIT (Ex Utero Intrapartum Treatment) procedure or immediate tracheostomy at delivery.</p>
+                </div>
+
+                <div class="aa-card">
+                    <h3><i class="fas fa-heart"></i> Subglottic Hemangioma</h3>
+                    <span class="aa-tag">Congenital Vascular</span>
+                    <figure class="aa-figure">
+                        <img src="images/real-subglottic-hemangioma.jpg" alt="Subglottic Hemangioma - Real Endoscopic View">
+                        <figcaption>Endoscopy &middot; subglottic hemangioma</figcaption>
+                    </figure>
+                    <p><strong>Definition:</strong> A benign vascular tumor of the subglottis, typically presenting in the first 6 months of life.</p>
+                    <p><strong>Clinical Features:</strong> Biphasic stridor, barky cough, and progressive respiratory distress. 50% of patients have cutaneous hemangiomas.</p>
+                    <p><strong>Bronchoscopic Findings:</strong> Compressible, bluish or reddish submucosal mass in the subglottis, typically asymmetric and posterolateral.</p>
+                    <p><strong>Management:</strong> Propranolol is first-line therapy. Severe cases may require laser therapy, surgical excision, or tracheostomy.</p>
+                </div>
+
+                <div class="aa-card">
+                    <h3><i class="fas fa-compress-arrows-alt"></i> Subglottic Stenosis</h3>
+                    <span class="aa-tag">Congenital / Acquired</span>
+                    <p><strong>Definition:</strong> Narrowing of the subglottic airway, either congenital (third most common congenital laryngeal anomaly) or acquired (most commonly from prolonged intubation).</p>
+                    <p><strong>Clinical Features:</strong> Biphasic stridor, respiratory distress, recurrent croup-like symptoms.</p>
+                    <p><strong>Bronchoscopic Findings:</strong> Circumferential or eccentric narrowing of the subglottic region, with or without visible scar tissue.</p>
+
+                    <div class="aa-classification">
+                        <h4><i class="fas fa-list-ol"></i> Cotton-Myer Grading System</h4>
+                        <figure class="aa-figure" style="background:#fff;">
+                            <img src="images/real-subglottic-stenosis.jpg" alt="Subglottic Stenosis - Real Bronchoscopy Views">
+                            <figcaption>Bronchoscopy &middot; subglottic stenosis</figcaption>
+                        </figure>
+                        <ul>
+                            <li><strong>Grade I:</strong> 0-50% obstruction</li>
+                            <li><strong>Grade II:</strong> 51-70% obstruction</li>
+                            <li><strong>Grade III:</strong> 71-99% obstruction</li>
+                            <li><strong>Grade IV:</strong> Complete obstruction</li>
+                        </ul>
                     </div>
-                    
-                    <!-- Right Bronchus Tab -->
-                    <div id="right-bronchus" class="tab-content">
-                        <h2>Right Bronchial Tree Anatomy</h2>
-                        <p>The right bronchial tree consists of three lobar bronchi (upper, middle, and lower) with a total of 10 bronchopulmonary segments.</p>
-                        
-                        <div class="anatomy-card">
-                            <h3><i class="fas fa-sitemap"></i> Right Bronchial Tree Overview</h3>
-                            <img src="images/real-bronchial-tree.jpg" alt="Right Bronchial Tree - Real Bronchoscopy Views">
-                            <p>Complete visualization of the right bronchial tree showing the branching pattern from the main bronchus through all lobar and segmental divisions.</p>
-                        </div>
-                        
-                        <h3><i class="fas fa-arrow-up"></i> Right Upper Lobe (RUL)</h3>
-                        <table class="anatomy-table">
-                            <thead>
-                                <tr>
-                                    <th>Segment</th>
-                                    <th>Designation</th>
-                                    <th>Location</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><strong>Apical</strong></td>
-                                    <td>RB1</td>
-                                    <td>Apex of the right lung</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Posterior</strong></td>
-                                    <td>RB2</td>
-                                    <td>Posterior aspect of upper lobe</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Anterior</strong></td>
-                                    <td>RB3</td>
-                                    <td>Anterior aspect of upper lobe</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        
-                        <div class="anatomy-card">
-                            <h3><i class="fas fa-stream"></i> Bronchus Intermedius</h3>
-                            <img src="images/anatomy-bronchus-intermedius.png" alt="Bronchus Intermedius">
-                            <p>The bronchus intermedius is the continuation of the right main bronchus after the right upper lobe bronchus branches off. It subsequently divides into the middle and lower lobe bronchi at Carina 2 (RC2).</p>
-                        </div>
-                        
-                        <h3 style="margin-top: 30px;"><i class="fas fa-arrows-alt-h"></i> Right Middle Lobe</h3>
-                        <table class="anatomy-table">
-                            <thead>
-                                <tr>
-                                    <th>Segment</th>
-                                    <th>Designation</th>
-                                    <th>Location</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><strong>Lateral</strong></td>
-                                    <td>RB4</td>
-                                    <td>Lateral aspect of middle lobe</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Medial</strong></td>
-                                    <td>RB5</td>
-                                    <td>Medial aspect of middle lobe</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        
-                        <h3 style="margin-top: 30px;"><i class="fas fa-arrow-down"></i> Right Lower Lobe</h3>
-                        <table class="anatomy-table">
-                            <thead>
-                                <tr>
-                                    <th>Segment</th>
-                                    <th>Designation</th>
-                                    <th>Location</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><strong>Superior</strong></td>
-                                    <td>RB6</td>
-                                    <td>Superior segment of lower lobe</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Medial Basal</strong></td>
-                                    <td>RB7</td>
-                                    <td>Medial base of lower lobe</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Anterior Basal</strong></td>
-                                    <td>RB8</td>
-                                    <td>Anterior base of lower lobe</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Lateral Basal</strong></td>
-                                    <td>RB9</td>
-                                    <td>Lateral base of lower lobe</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Posterior Basal</strong></td>
-                                    <td>RB10</td>
-                                    <td>Posterior base of lower lobe</td>
-                                </tr>
-                            </tbody>
-                        </table>
+
+                    <p><strong>Management:</strong> Mild cases may be observed; moderate to severe cases require endoscopic dilation, laser therapy, or open laryngotracheal reconstruction.</p>
+                </div>
+
+                <div class="aa-card">
+                    <h3><i class="fas fa-ring"></i> Complete Tracheal Rings</h3>
+                    <span class="aa-tag">Congenital</span>
+                    <figure class="aa-figure">
+                        <img src="images/real-complete-tracheal-rings.png" alt="Complete Tracheal Rings - Real Bronchoscopy View">
+                        <figcaption>Bronchoscopy &middot; complete tracheal rings</figcaption>
+                    </figure>
+                    <p><strong>Definition:</strong> A congenital anomaly where the normally C-shaped tracheal cartilages form complete O-shaped rings, resulting in a fixed, non-distensible trachea.</p>
+                    <p><strong>Clinical Features:</strong> Stridor, recurrent respiratory infections, and difficulty with intubation. Often associated with other cardiovascular anomalies.</p>
+                    <p><strong>Bronchoscopic Findings:</strong> Narrowed tracheal segment with loss of the normal posterior membranous wall, appearing as complete cartilaginous rings.</p>
+                    <p><strong>Management:</strong> Mild cases may be observed; severe cases require slide tracheoplasty or tracheal resection with end-to-end anastomosis.</p>
+                </div>
+
+                <div class="aa-card">
+                    <h3><i class="fas fa-right-left"></i> Tracheo-Esophageal Fistula (TEF)</h3>
+                    <span class="aa-tag">Congenital</span>
+                    <p><strong>Definition:</strong> An abnormal connection between the trachea and esophagus, most commonly associated with esophageal atresia.</p>
+                    <p><strong>Clinical Features:</strong> Excessive salivation, choking with feeding, recurrent pneumonia, abdominal distension.</p>
+                    <p><strong>Bronchoscopic Findings:</strong> Fistulous opening visible on the posterior tracheal wall, typically at the level of T3-T4.</p>
+
+                    <div class="aa-classification">
+                        <h4><i class="fas fa-list-ol"></i> Gross Classification</h4>
+                        <figure class="aa-figure" style="background:#fff;">
+                            <img src="images/real-tef.jpg" alt="TEF - Real Bronchoscopy View">
+                            <figcaption>Bronchoscopy &middot; tracheo-esophageal fistula</figcaption>
+                        </figure>
+                        <ul>
+                            <li><strong>Type A:</strong> Esophageal atresia without fistula (8%)</li>
+                            <li><strong>Type B:</strong> Proximal TEF with distal atresia (rare)</li>
+                            <li><strong>Type C:</strong> Proximal atresia with distal TEF (85%) - most common</li>
+                            <li><strong>Type D:</strong> Proximal and distal TEF (rare)</li>
+                            <li><strong>Type E:</strong> H-type TEF without atresia (4%)</li>
+                        </ul>
                     </div>
-                    
-                    <!-- Left Bronchus Tab -->
-                    <div id="left-bronchus" class="tab-content">
-                        <h2>Left Bronchial Tree Anatomy</h2>
-                        <p>The left bronchial tree consists of two lobar bronchi (upper and lower) with 8-10 bronchopulmonary segments, depending on anatomical variation.</p>
-                        
-                        <div class="anatomy-card">
-                            <h3><i class="fas fa-sitemap"></i> Left Bronchial Tree Overview</h3>
-                            <img src="images/real-bronchial-tree.jpg" alt="Left Bronchial Tree - Real Bronchoscopy Views">
-                            <p>Complete visualization of the left bronchial tree showing the branching pattern from the main bronchus through all lobar and segmental divisions.</p>
-                        </div>
-                        
-                        <h3><i class="fas fa-arrow-up"></i> Left Upper Lobe</h3>
-                        
-                        <h4>Upper Division</h4>
-                        <table class="anatomy-table">
-                            <thead>
-                                <tr>
-                                    <th>Segment</th>
-                                    <th>Designation</th>
-                                    <th>Location</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><strong>Apicoposterior</strong></td>
-                                    <td>LB1+LB2</td>
-                                    <td>Combined apical and posterior segments</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Anterior</strong></td>
-                                    <td>LB3</td>
-                                    <td>Anterior aspect of upper lobe</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        
-                        <h4 style="margin-top: 20px;">Lingular Division</h4>
-                        <table class="anatomy-table">
-                            <thead>
-                                <tr>
-                                    <th>Segment</th>
-                                    <th>Designation</th>
-                                    <th>Location</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><strong>Superior Lingular</strong></td>
-                                    <td>LB4</td>
-                                    <td>Superior portion of lingula</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Inferior Lingular</strong></td>
-                                    <td>LB5</td>
-                                    <td>Inferior portion of lingula</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        
-                        <div class="anatomy-card">
-                            <h3><i class="fas fa-leaf"></i> The Lingula</h3>
-                            <img src="images/anatomy-lingula.png" alt="Lingula Anatomy">
-                            <div class="info-box">
-                                <h4><i class="fas fa-info-circle"></i> Lingula</h4>
-                                <p>The lingula is the left lung's equivalent to the right middle lobe. It is part of the left upper lobe and consists of superior and inferior segments.</p>
-                            </div>
-                        </div>
-                        
-                        <h3 style="margin-top: 30px;"><i class="fas fa-arrow-down"></i> Left Lower Lobe</h3>
-                        <table class="anatomy-table">
-                            <thead>
-                                <tr>
-                                    <th>Segment</th>
-                                    <th>Designation</th>
-                                    <th>Location</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><strong>Superior</strong></td>
-                                    <td>LB6</td>
-                                    <td>Superior segment of lower lobe</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Anteromedial Basal</strong></td>
-                                    <td>LB7+LB8</td>
-                                    <td>Combined anterior and medial basal segments</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Lateral Basal</strong></td>
-                                    <td>LB9</td>
-                                    <td>Lateral base of lower lobe</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Posterior Basal</strong></td>
-                                    <td>LB10</td>
-                                    <td>Posterior base of lower lobe</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        
-                        <div class="info-box">
-                            <h4><i class="fas fa-exclamation-triangle"></i> Anatomical Note</h4>
-                            <p>The left main bronchus is longer and more horizontal than the right, passing under the aortic arch before dividing into lobar bronchi. This anatomical difference has important clinical implications for foreign body aspiration and selective intubation.</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Pathology Tab -->
-                    <div id="pathology" class="tab-content">
-                        <h2>Airway Pathologies & Variations</h2>
-                        <p>Understanding pathological variations of the airway is essential for accurate diagnosis and appropriate management. Below are common congenital and acquired airway abnormalities.</p>
-                        
-                        <div class="pathology-card">
-                            <h3><i class="fas fa-baby"></i> Laryngomalacia</h3>
-                            <span class="pathology-type">Congenital</span>
-                            <img src="images/real-laryngomalacia.jpg" alt="Laryngomalacia - Real Endoscopic View">
-                            <p><strong>Definition:</strong> The most common congenital laryngeal anomaly, characterized by abnormal collapse of supraglottic structures during inspiration.</p>
-                            <p><strong>Clinical Features:</strong> Inspiratory stridor that worsens with agitation, feeding difficulties, and failure to thrive in severe cases. Usually presents within the first 2 weeks of life.</p>
-                            <p><strong>Bronchoscopic Findings:</strong> Omega-shaped epiglottis, shortened aryepiglottic folds, and prolapse of supraglottic tissues into the glottis during inspiration.</p>
-                            <p><strong>Management:</strong> Most cases resolve spontaneously by 12-24 months. Severe cases may require supraglottoplasty.</p>
-                        </div>
-                        
-                        <div class="pathology-card">
-                            <h3><i class="fas fa-circle"></i> Saccular Cyst</h3>
-                            <span class="pathology-type">Congenital/Acquired</span>
-                            <img src="images/pathology-saccular-cyst.png" alt="Saccular Cyst">
-                            <p><strong>Definition:</strong> A fluid-filled cyst arising from the laryngeal saccule, which is a small pouch extending upward from the laryngeal ventricle.</p>
-                            <p><strong>Clinical Features:</strong> Hoarseness, stridor, dyspnea, and airway obstruction depending on size and location.</p>
-                            <p><strong>Bronchoscopic Findings:</strong> Smooth, rounded mass in the supraglottic region, typically lateral to the false vocal cords.</p>
-                            <p><strong>Management:</strong> Surgical excision via endoscopic or open approach, depending on size and extent.</p>
-                        </div>
-                        
-                        <div class="pathology-card">
-                            <h3><i class="fas fa-virus"></i> Papillomatosis (Recurrent Respiratory Papillomatosis)</h3>
-                            <span class="pathology-type">Acquired - Viral</span>
-                            <img src="images/real-papillomatosis.png" alt="Recurrent Respiratory Papillomatosis - Real Endoscopic View">
-                            <p><strong>Definition:</strong> Benign tumors caused by human papillomavirus (HPV) types 6 and 11, most commonly affecting the larynx but can spread throughout the respiratory tract.</p>
-                            <p><strong>Clinical Features:</strong> Progressive hoarseness, chronic cough, stridor, and respiratory distress. Most common in children but can occur in adults.</p>
-                            <p><strong>Bronchoscopic Findings:</strong> Multiple warty, cauliflower-like growths on the vocal cords, false cords, and other laryngeal surfaces. Can extend to trachea and bronchi.</p>
-                            <p><strong>Management:</strong> Repeated surgical debulking (laser or microdebrider), adjuvant therapies (cidofovir, bevacizumab), and HPV vaccination for prevention.</p>
-                        </div>
-                        
-                        <div class="pathology-card">
-                            <h3><i class="fas fa-layer-group"></i> Laryngeal Web</h3>
-                            <span class="pathology-type">Congenital</span>
-                            <img src="images/real-laryngeal-web.jpeg" alt="Laryngeal Web - Real Endoscopic View">
-                            <p><strong>Definition:</strong> A membrane of tissue connecting the vocal cords, typically at the anterior commissure, resulting from incomplete recanalization during embryonic development.</p>
-                            <p><strong>Clinical Features:</strong> Severity depends on extent of web. Thin webs cause hoarseness; thick webs cause stridor and respiratory distress.</p>
-                            <p><strong>Bronchoscopic Findings:</strong> Tissue bridge connecting the anterior aspects of the vocal cords, varying in thickness and posterior extension.</p>
-                            <p><strong>Management:</strong> Thin webs may be divided endoscopically; thick webs require open laryngoplasty with keel placement to prevent re-adhesion.</p>
-                        </div>
-                        
-                        <div class="pathology-card">
-                            <h3><i class="fas fa-cut"></i> Laryngeal Cleft</h3>
-                            <span class="pathology-type">Congenital</span>
-                            <img src="images/real-laryngeal-cleft.jpg" alt="Laryngeal Cleft - Real Endoscopic View">
-                            <p><strong>Definition:</strong> A rare congenital anomaly characterized by incomplete separation of the larynx and esophagus, resulting in a posterior midline defect.</p>
-                            <p><strong>Clinical Features:</strong> Aspiration, cyanosis with feeding, recurrent pneumonia, and chronic cough. Severity correlates with cleft extent.</p>
-                            <p><strong>Bronchoscopic Findings:</strong> Posterior midline defect between the arytenoids, with varying caudal extension.</p>
-                            
-                            <div class="classification-section">
-                                <h4><i class="fas fa-list-ol"></i> Benjamin-Inglis Classification</h4>
-                                <img src="images/classification-laryngeal-cleft.png" alt="Laryngeal Cleft Classification">
-                                <ul style="margin-left: 20px; color: #666; line-height: 1.8;">
-                                    <li><strong>Type I:</strong> Supraglottic interarytenoid cleft</li>
-                                    <li><strong>Type II:</strong> Partial cricoid cleft</li>
-                                    <li><strong>Type III:</strong> Total cricoid cleft extending into cervical trachea</li>
-                                    <li><strong>Type IV:</strong> Cleft extending into thoracic trachea</li>
-                                </ul>
-                            </div>
-                            
-                            <p><strong>Management:</strong> Type I may be managed conservatively; Types II-IV typically require surgical repair.</p>
-                        </div>
-                        
-                        <div class="pathology-card">
-                            <h3><i class="fas fa-ban"></i> Laryngeal Atresia</h3>
-                            <span class="pathology-type">Congenital</span>
-                            <img src="images/pathology-laryngeal-atresia.png" alt="Laryngeal Atresia">
-                            <p><strong>Definition:</strong> A rare and severe congenital anomaly characterized by complete or partial obstruction of the laryngeal lumen.</p>
-                            <p><strong>Clinical Features:</strong> Immediately life-threatening at birth with inability to establish an airway. Often diagnosed prenatally with ultrasound showing dilated airways and flattened diaphragm (CHAOS - Congenital High Airway Obstruction Syndrome).</p>
-                            <p><strong>Management:</strong> Requires EXIT (Ex Utero Intrapartum Treatment) procedure or immediate tracheostomy at delivery.</p>
-                        </div>
-                        
-                        <div class="pathology-card">
-                            <h3><i class="fas fa-heart"></i> Subglottic Hemangioma</h3>
-                            <span class="pathology-type">Congenital Vascular</span>
-                            <img src="images/real-subglottic-hemangioma.jpg" alt="Subglottic Hemangioma - Real Endoscopic View">
-                            <p><strong>Definition:</strong> A benign vascular tumor of the subglottis, typically presenting in the first 6 months of life.</p>
-                            <p><strong>Clinical Features:</strong> Biphasic stridor, barky cough, and progressive respiratory distress. 50% of patients have cutaneous hemangiomas.</p>
-                            <p><strong>Bronchoscopic Findings:</strong> Compressible, bluish or reddish submucosal mass in the subglottis, typically asymmetric and posterolateral.</p>
-                            <p><strong>Management:</strong> Propranolol is first-line therapy. Severe cases may require laser therapy, surgical excision, or tracheostomy.</p>
-                        </div>
-                        
-                        <div class="pathology-card">
-                            <h3><i class="fas fa-compress-arrows-alt"></i> Subglottic Stenosis</h3>
-                            <span class="pathology-type">Congenital/Acquired</span>
-                            <p><strong>Definition:</strong> Narrowing of the subglottic airway, either congenital (third most common congenital laryngeal anomaly) or acquired (most commonly from prolonged intubation).</p>
-                            <p><strong>Clinical Features:</strong> Biphasic stridor, respiratory distress, recurrent croup-like symptoms.</p>
-                            <p><strong>Bronchoscopic Findings:</strong> Circumferential or eccentric narrowing of the subglottic region, with or without visible scar tissue.</p>
-                            
-                            <div class="classification-section">
-                                <h4><i class="fas fa-list-ol"></i> Cotton-Myer Grading System</h4>
-                                <img src="images/real-subglottic-stenosis.jpg" alt="Subglottic Stenosis - Real Bronchoscopy Views">
-                                <ul style="margin-left: 20px; color: #666; line-height: 1.8;">
-                                    <li><strong>Grade I:</strong> 0-50% obstruction</li>
-                                    <li><strong>Grade II:</strong> 51-70% obstruction</li>
-                                    <li><strong>Grade III:</strong> 71-99% obstruction</li>
-                                    <li><strong>Grade IV:</strong> Complete obstruction</li>
-                                </ul>
-                            </div>
-                            
-                            <p><strong>Management:</strong> Mild cases may be observed; moderate to severe cases require endoscopic dilation, laser therapy, or open laryngotracheal reconstruction.</p>
-                        </div>
-                        
-                        <div class="pathology-card">
-                            <h3><i class="fas fa-ring"></i> Complete Tracheal Rings</h3>
-                            <span class="pathology-type">Congenital</span>
-                            <img src="images/real-complete-tracheal-rings.png" alt="Complete Tracheal Rings - Real Bronchoscopy View">
-                            <p><strong>Definition:</strong> A congenital anomaly where the normally C-shaped tracheal cartilages form complete O-shaped rings, resulting in a fixed, non-distensible trachea.</p>
-                            <p><strong>Clinical Features:</strong> Stridor, recurrent respiratory infections, and difficulty with intubation. Often associated with other cardiovascular anomalies.</p>
-                            <p><strong>Bronchoscopic Findings:</strong> Narrowed tracheal segment with loss of the normal posterior membranous wall, appearing as complete cartilaginous rings.</p>
-                            <p><strong>Management:</strong> Mild cases may be observed; severe cases require slide tracheoplasty or tracheal resection with end-to-end anastomosis.</p>
-                        </div>
-                        
-                        <div class="pathology-card">
-                            <h3><i class="fas fa-exchange-alt"></i> Tracheo-Esophageal Fistula (TEF)</h3>
-                            <span class="pathology-type">Congenital</span>
-                            <p><strong>Definition:</strong> An abnormal connection between the trachea and esophagus, most commonly associated with esophageal atresia.</p>
-                            <p><strong>Clinical Features:</strong> Excessive salivation, choking with feeding, recurrent pneumonia, abdominal distension.</p>
-                            <p><strong>Bronchoscopic Findings:</strong> Fistulous opening visible on the posterior tracheal wall, typically at the level of T3-T4.</p>
-                            
-                            <div class="classification-section">
-                                <h4><i class="fas fa-list-ol"></i> Gross Classification</h4>
-                                <img src="images/real-tef.jpg" alt="TEF - Real Bronchoscopy View">
-                                <ul style="margin-left: 20px; color: #666; line-height: 1.8;">
-                                    <li><strong>Type A:</strong> Esophageal atresia without fistula (8%)</li>
-                                    <li><strong>Type B:</strong> Proximal TEF with distal atresia (rare)</li>
-                                    <li><strong>Type C:</strong> Proximal atresia with distal TEF (85%) - most common</li>
-                                    <li><strong>Type D:</strong> Proximal and distal TEF (rare)</li>
-                                    <li><strong>Type E:</strong> H-type TEF without atresia (4%)</li>
-                                </ul>
-                            </div>
-                            
-                            <p><strong>Management:</strong> Surgical repair via thoracotomy or thoracoscopy, with fistula ligation and primary esophageal anastomosis.</p>
-                        </div>
-                        
-                        <div class="info-box" style="margin-top: 30px;">
-                            <h4><i class="fas fa-user-md"></i> Clinical Approach</h4>
-                            <p>When evaluating airway pathology, a systematic approach is essential: assess the severity of respiratory compromise, identify associated anomalies, determine the need for immediate intervention, and plan appropriate long-term management. Multidisciplinary collaboration between otolaryngology, pulmonology, and anesthesiology is often required for optimal outcomes.</p>
-                        </div>
-                    </div>
+
+                    <p><strong>Management:</strong> Surgical repair via thoracotomy or thoracoscopy, with fistula ligation and primary esophageal anastomosis.</p>
+                </div>
+
+                <div class="aa-info" style="margin-top:30px;">
+                    <h4><i class="fas fa-user-doctor"></i> Clinical Approach</h4>
+                    <p>When evaluating airway pathology, a systematic approach is essential: assess the severity of respiratory compromise, identify associated anomalies, determine the need for immediate intervention, and plan appropriate long-term management. Multidisciplinary collaboration between otolaryngology, pulmonology, and anesthesiology is often required for optimal outcomes.</p>
                 </div>
             </div>
-                <div class="disclaimer">
-                    <p><strong>Disclaimer:</strong> This page is an educational reference for qualified clinicians and trainees. It does not replace clinical judgment, direct airway assessment, or institutional protocols.</p>
-                </div>
+
+            <div class="aa-disclaimer">
+                <strong>Disclaimer:</strong> This page is an educational reference for qualified clinicians and trainees. It does not replace clinical judgment, direct airway assessment, or institutional protocols.
+            </div>
+
         </div>
     </section>
 
-    <section id="contact" class="contact-section">
-        <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Let's Connect</h2>
-            <div class="contact-grid">
-                <div class="contact-info" data-aos="fade-right">
-                    <h3>Get in Touch</h3>
-                    <p>I'm always interested in connecting with colleagues, researchers, and healthcare professionals. Feel free to reach out through any of the platforms below.</p>
-                    <div class="contact-links">
-                        <a href="https://www.linkedin.com/in/dralialshahrani/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                        <a href="https://github.com/drbinsaad" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                        <a href="https://x.com/_DrAli" target="_blank" aria-label="X (Twitter)"><i class="fab fa-twitter"></i></a>
-                        <a href="https://wa.me/966509713200" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-                        <a href="https://t.me/ENTcommunitas" target="_blank" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
-                        <a href="mailto:drbinsaad@gmail.com" target="_blank" aria-label="Email"><i class="fas fa-envelope"></i></a>
-                    </div>
-                </div>
+    <!-- Footer -->
+    <section id="contact" class="aa-footer">
+        <div class="aa-wrap">
+            <div class="eyebrow">Get in Touch</div>
+            <h2>Questions or feedback?</h2>
+            <p>These tools are provided free for education and clinical reference. Spotted an issue or have a suggestion? Reach out.</p>
+            <div class="aa-social">
+                <a href="https://www.linkedin.com/in/dralialshahrani/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/drbinsaad" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://x.com/_DrAli" target="_blank" rel="noopener" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+                <a href="https://wa.me/966509713200" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://t.me/ENTcommunitas" target="_blank" rel="noopener" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
+                <a href="mailto:drbinsaad@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+            <div class="aa-footer-bottom">
+                <a href="index.html">Dr Ali Alshahrani</a>
+                <span>shahrani.me &middot; &copy; 2026</span>
             </div>
         </div>
     </section>
 
-    <!-- Back to Top Button -->
-    <button id="back-to-top" aria-label="Back to top">
-        <i class="fas fa-arrow-up"></i>
-    </button>
+</div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script src="js/main.js"></script>
-    
-    <script>
-        // Tab switching functionality
-        function switchTab(tabName) {
-            // Hide all tab contents
-            const tabContents = document.querySelectorAll('.tab-content');
-            tabContents.forEach(content => {
-                content.classList.remove('active');
+<script src="js/main.js"></script>
+<script>
+    // Tab switching
+    function aaSwitchTab(evt, tabName) {
+        document.querySelectorAll('.aa-tab-content').forEach(function (c) { c.classList.remove('active'); });
+        document.querySelectorAll('.aa-tab').forEach(function (b) { b.classList.remove('active'); });
+        var target = document.getElementById(tabName);
+        if (target) { target.classList.add('active'); }
+        var btn = evt.target.closest('.aa-tab');
+        if (btn) { btn.classList.add('active'); }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Mobile menu toggle (vanilla)
+    (function () {
+        var btn = document.getElementById('aaMobileBtn');
+        var menu = document.getElementById('aaMobileMenu');
+        if (btn && menu) {
+            btn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                menu.classList.toggle('open');
             });
-            
-            // Remove active class from all buttons
-            const tabButtons = document.querySelectorAll('.tab-button');
-            tabButtons.forEach(button => {
-                button.classList.remove('active');
+            menu.querySelectorAll('a').forEach(function (a) {
+                a.addEventListener('click', function () { menu.classList.remove('open'); });
             });
-            
-            // Show selected tab content
-            document.getElementById(tabName).classList.add('active');
-            
-            // Add active class to clicked button
-            event.target.closest('.tab-button').classList.add('active');
+            document.addEventListener('click', function (e) {
+                if (!btn.contains(e.target) && !menu.contains(e.target)) {
+                    menu.classList.remove('open');
+                }
+            });
         }
-        
-        // Initialize AOS and other scripts
-        document.addEventListener('DOMContentLoaded', function() {
-            AOS.init({
-                duration: 800,
-                once: true,
-                offset: 100
-            });
-            
-            // Mobile menu functionality
-            const hamburger = document.querySelector('.hamburger');
-            const navLinks = document.querySelector('.nav-links');
-            const navLinksItems = document.querySelectorAll('.nav-links a');
-
-            if (hamburger && navLinks) {
-                hamburger.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    hamburger.classList.toggle('active');
-                    navLinks.classList.toggle('active');
-                });
-
-                navLinksItems.forEach(item => {
-                    item.addEventListener('click', function() {
-                        hamburger.classList.remove('active');
-                        navLinks.classList.remove('active');
-                    });
-                });
-            }
-
-            // Close menu when clicking outside
-            document.addEventListener('click', function(e) {
-                if (hamburger && navLinks) {
-                    if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
-                        hamburger.classList.remove('active');
-                        navLinks.classList.remove('active');
-                    }
-                }
-            });
-
-            // Back to top button
-            const backToTopButton = document.getElementById('back-to-top');
-            if (backToTopButton) {
-                window.addEventListener('scroll', function() {
-                    if (window.pageYOffset > 300) {
-                        backToTopButton.style.display = 'block';
-                    } else {
-                        backToTopButton.style.display = 'none';
-                    }
-                });
-                
-                backToTopButton.addEventListener('click', () => {
-                    window.scrollTo({
-                        top: 0,
-                        behavior: 'smooth'
-                    });
-                });
-            }
-            
-            // Navbar scroll effect
-            const navbar = document.getElementById('navbar');
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 50) {
-                    navbar.classList.add('scrolled');
-                } else {
-                    navbar.classList.remove('scrolled');
-                }
-            });
-        });
-    </script>
+    })();
+</script>
 </body>
 </html>
