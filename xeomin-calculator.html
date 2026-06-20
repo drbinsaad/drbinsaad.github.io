@@ -1,480 +1,186 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XEOMIN Dose Calculator - Pediatric Sialorrhea - Dr Ali Alshahrani</title>
-    <meta name="description" content="XEOMIN (incobotulinumtoxinA) dosing reference for pediatric sialorrhea. Educational reference for clinicians; follow current prescribing information.">
-    <link rel="icon" type="image/png" href="/favicon.png">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/calculator.css" rel="stylesheet">
-    <link href="css/xeomin.css" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
 </head>
 <body>
-    <nav id="navbar">
-        <div class="container">
-            <a href="index.html" class="logo">Dr Ali Alshahrani</a>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:#f4f1ea;}
+  a{color:inherit;}
+  ::selection{background:#8a302a;color:#f4f1ea;}
+  input{font-family:'Source Sans 3',sans-serif;}
+  input:focus{outline:none;border-color:#8a302a !important;}
+  @media (max-width:820px){
+    [data-desktop-nav]{display:none !important;}
+    [data-mobile-btn]{display:inline-flex !important;}
+    [data-grid-2]{grid-template-columns:1fr !important;}
+    [data-sec]{padding:48px 0 !important;}
+  }
+</style>
+</helmet>
+
+<div id="top" data-screen-label="XEOMIN Calculator" style="background:#f4f1ea;color:#1c1a17;font-family:'Source Sans 3',system-ui,sans-serif;line-height:1.7;min-height:100vh;-webkit-font-smoothing:antialiased;">
+
+  <header style="position:sticky;top:0;z-index:60;background:rgba(244,241,234,0.88);backdrop-filter:blur(12px);border-bottom:1px solid #e4ded2;">
+    <div style="max-width:1080px;margin:0 auto;padding:15px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px;">
+      <a href="index.html" style="text-decoration:none;display:flex;flex-direction:column;line-height:1.08;flex:none;white-space:nowrap;">
+        <span style="font-family:'Newsreader',serif;font-size:20px;font-weight:600;color:#1c1a17;letter-spacing:0.01em;">Ali Alshahrani</span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:#8a302a;margin-top:4px;">Otolaryngology</span>
+      </a>
+      <nav data-desktop-nav style="display:flex;align-items:center;gap:30px;font-size:14.5px;font-weight:500;">
+        <a href="index.html#research" style="text-decoration:none;color:#46423b;" style-hover="color:#8a302a;">Research</a>
+        <a href="index.html#publications" style="text-decoration:none;color:#46423b;" style-hover="color:#8a302a;">Publications</a>
+        <a href="ent-tools.html" style="text-decoration:none;color:#8a302a;border-bottom:1px solid #c9a59f;padding-bottom:2px;">Tools</a>
+        <a href="curriculum_vitae.html" style="text-decoration:none;color:#46423b;" style-hover="color:#8a302a;">CV</a>
+        <a href="index.html#contact" style="text-decoration:none;color:#f4f1ea;background:#1c1a17;padding:9px 18px;border-radius:2px;" style-hover="background:#8a302a;">Contact</a>
+      </nav>
+      <button data-mobile-btn onClick="{{ toggleMenu }}" aria-label="Menu" style="display:none;align-items:center;justify-content:center;width:42px;height:42px;background:transparent;border:1px solid #d9d3c7;border-radius:2px;cursor:pointer;color:#1c1a17;font-size:18px;">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+    <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="border-top:1px solid #e4ded2;background:#f4f1ea;padding:10px 28px 18px;display:flex;flex-direction:column;gap:4px;">
+        <a href="index.html#research" style="text-decoration:none;color:#46423b;padding:11px 0;border-bottom:1px solid #ece7dc;font-weight:500;">Research</a>
+        <a href="index.html#publications" style="text-decoration:none;color:#46423b;padding:11px 0;border-bottom:1px solid #ece7dc;font-weight:500;">Publications</a>
+        <a href="ent-tools.html" style="text-decoration:none;color:#8a302a;padding:11px 0;border-bottom:1px solid #ece7dc;font-weight:600;">Clinical Tools</a>
+        <a href="curriculum_vitae.html" style="text-decoration:none;color:#46423b;padding:11px 0;border-bottom:1px solid #ece7dc;font-weight:500;">Curriculum Vitae</a>
+        <a href="index.html#contact" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#8a302a;padding:11px 0;font-weight:600;">Contact</a>
+      </div>
+    </sc-if>
+  </header>
+
+  <section data-sec style="padding:56px 0 30px;">
+    <div style="max-width:860px;margin:0 auto;padding:0 28px;">
+      <a href="ent-tools.html" style="text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.1em;color:#8a302a;display:inline-block;margin-bottom:22px;">&larr; All ENT tools</a>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#8a302a;margin-bottom:16px;">General ENT &amp; Therapeutics</div>
+      <h1 style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(34px,4.6vw,52px);line-height:1.04;letter-spacing:-0.01em;color:#1c1a17;margin-bottom:18px;">XEOMIN Dosing Calculator</h1>
+      <p style="font-size:17.5px;color:#46423b;line-height:1.7;max-width:56ch;">Weight-based incobotulinumtoxinA (XEOMIN) dosing for chronic sialorrhea, split across the parotid and submandibular glands. Concentration: 100 U reconstituted in 4 mL (25 U/mL).</p>
+    </div>
+  </section>
+
+  <section data-sec style="padding:14px 0 30px;">
+    <div style="max-width:860px;margin:0 auto;padding:0 28px;">
+      <div style="background:#faf8f2;border:1px solid #e4ded2;padding:34px;">
+        <h2 style="font-family:'Newsreader',serif;font-weight:600;font-size:22px;color:#1c1a17;margin-bottom:24px;">Patient weight</h2>
+        <label for="wt-in" style="display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a302a;margin-bottom:10px;">Body weight (kg)</label>
+        <input id="wt-in" type="number" min="12" step="0.5" placeholder="e.g. 24" value="{{ weight }}" onChange="{{ onWeight }}" onInput="{{ onWeight }}" onKeyDown="{{ onKey }}" style="width:100%;font-size:18px;padding:14px 16px;background:#fff;border:1px solid #d9d3c7;border-radius:2px;color:#1c1a17;margin-bottom:20px;">
+        <button onClick="{{ calc }}" style="background:#1c1a17;color:#f4f1ea;font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:15px;padding:14px 28px;border:none;border-radius:2px;cursor:pointer;" style-hover="background:#8a302a;"><i class="fas fa-calculator"></i> Calculate dose</button>
+        <sc-if value="{{ errFlag }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:22px;padding:14px 18px;background:#f6e9e7;border:1px solid #e3c4bf;border-radius:2px;color:#8a302a;font-size:14.5px;">{{ error }}</div>
+        </sc-if>
+        <sc-if value="{{ show }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:26px;border-top:1px solid #e4ded2;padding-top:26px;">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a302a;margin-bottom:10px;">Total dose &middot; {{ rangeLabel }}</div>
+            <div style="font-family:'Newsreader',serif;font-weight:500;font-size:54px;line-height:1;color:#1c1a17;">{{ totalLabel }}</div>
+            <div data-grid-2 style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#e4ded2;border:1px solid #e4ded2;margin-top:24px;">
+              <div style="background:#fff;padding:22px;">
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8a302a;margin-bottom:10px;">Per parotid gland &times;2</div>
+                <div style="font-family:'Newsreader',serif;font-size:26px;color:#1c1a17;">{{ parotidUnits }}</div>
+                <div style="font-size:14px;color:#6f6a61;margin-top:3px;">{{ parotidVol }} per side</div>
+              </div>
+              <div style="background:#fff;padding:22px;">
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8a302a;margin-bottom:10px;">Per submandibular gland &times;2</div>
+                <div style="font-family:'Newsreader',serif;font-size:26px;color:#1c1a17;">{{ submandUnits }}</div>
+                <div style="font-size:14px;color:#6f6a61;margin-top:3px;">{{ submandVol }} per side</div>
+              </div>
             </div>
-            <ul class="nav-links">
-                <li><a href="dashboard.html">Dashboard</a></li>
-                <li>
-                    <a href="#research">Research</a>
-                    <ul class="dropdown">
-                        <li><a href="index.html#research">Research Focus</a></li>
-                        <li><a href="index.html#publications">Recent Publications</a></li>
-                    </ul>
-                </li>
-                <li><a href="curriculum_vitae.html">Brief CV</a></li>
-                <li><a href="index.html#contact">Contact</a></li>
-                <li>
-                    <a href="#ent">ENT Web Tools</a>
-                    <ul class="dropdown">
-                        <li><a href="ent-calculators.html">Medical Calculators</a></li>
-                        <li><a href="bronchoscopy-tool.html">Airway Sizing Tool</a></li>
-                        <li><a href="et-depth-calculator.html">ET Depth Calculator</a></li>
-                        <li><a href="xeomin-calculator.html">XEOMIN Calculator</a></li>
-                        <li><a href="nebulized-epinephrine-calculator.html">Nebulized Epinephrine</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </nav>
+            <div style="margin-top:16px;display:flex;gap:9px;align-items:flex-start;font-size:13.5px;color:#7a746a;"><i class="fas fa-triangle-exclamation" style="color:#8a302a;margin-top:3px;"></i><span>Administer under ultrasound guidance. Doses are per gland; total reflects all four glands.</span></div>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </section>
 
-    <header style="min-height: 40vh;">
-        <div class="container">
-            <div class="header-content" style="text-align: center;">
-                <div class="profile-text" data-aos="fade-up">
-                    <h1><i class="fas fa-syringe"></i> XEOMIN® Dose Calculator</h1>
-                    <p>Pediatric Chronic Sialorrhea Treatment Guide & Dosing Calculator</p>
-                    <p style="font-size: 0.9em; opacity: 0.8; margin-top: 10px;">Botulinum Toxin Type A - Individualized Body Weight-Adapted Dosing</p>
-                </div>
-            </div>
-        </div>
-    </header>
+  <section data-sec style="padding:30px 0;">
+    <div style="max-width:860px;margin:0 auto;padding:0 28px;">
+      <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:26px;color:#1c1a17;margin-bottom:28px;">Weight-based dosing reference</h2>
+      <div style="border:1px solid #e4ded2;overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;font-size:14.5px;min-width:520px;">
+          <thead>
+            <tr style="background:#efeae0;border-bottom:1px solid #e4ded2;">
+              <th style="text-align:left;padding:13px 16px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#8a302a;font-weight:500;">Body weight</th>
+              <th style="text-align:right;padding:13px 16px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#8a302a;font-weight:500;">Per parotid</th>
+              <th style="text-align:right;padding:13px 16px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#8a302a;font-weight:500;">Per submand.</th>
+              <th style="text-align:right;padding:13px 16px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#8a302a;font-weight:500;">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid #ece7dc;"><td style="padding:12px 16px;color:#5b564d;">&ge; 12 to &lt; 15 kg</td><td style="padding:12px 16px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">6 U / 0.24 mL</td><td style="padding:12px 16px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">4 U / 0.16 mL</td><td style="padding:12px 16px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">20 U</td></tr>
+            <tr style="border-bottom:1px solid #ece7dc;"><td style="padding:12px 16px;color:#5b564d;">&ge; 15 to &lt; 19 kg</td><td style="padding:12px 16px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">9 U / 0.36 mL</td><td style="padding:12px 16px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">6 U / 0.24 mL</td><td style="padding:12px 16px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">30 U</td></tr>
+            <tr style="border-bottom:1px solid #ece7dc;"><td style="padding:12px 16px;color:#5b564d;">&ge; 19 to &lt; 23 kg</td><td style="padding:12px 16px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">12 U / 0.48 mL</td><td style="padding:12px 16px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">8 U / 0.32 mL</td><td style="padding:12px 16px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">40 U</td></tr>
+            <tr style="border-bottom:1px solid #ece7dc;"><td style="padding:12px 16px;color:#5b564d;">&ge; 23 to &lt; 27 kg</td><td style="padding:12px 16px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">15 U / 0.60 mL</td><td style="padding:12px 16px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">10 U / 0.40 mL</td><td style="padding:12px 16px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">50 U</td></tr>
+            <tr style="border-bottom:1px solid #ece7dc;"><td style="padding:12px 16px;color:#5b564d;">&ge; 27 to &lt; 30 kg</td><td style="padding:12px 16px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">18 U / 0.72 mL</td><td style="padding:12px 16px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">12 U / 0.48 mL</td><td style="padding:12px 16px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">60 U</td></tr>
+            <tr><td style="padding:12px 16px;color:#5b564d;">&ge; 30 kg</td><td style="padding:12px 16px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">22.5 U / 0.90 mL</td><td style="padding:12px 16px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">15 U / 0.60 mL</td><td style="padding:12px 16px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">75 U</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="margin-top:26px;padding:20px 24px;background:#efeae0;border:1px solid #e4ded2;border-left:3px solid #8a302a;font-size:13.5px;color:#6f6a61;line-height:1.7;"><strong style="color:#1c1a17;">Disclaimer.</strong> For educational and reference use by qualified clinicians only. Verify dosing against current product labeling and institutional protocols. Does not replace clinical judgment.</div>
+    </div>
+  </section>
 
-    <section id="xeomin-calculator">
-        <div class="container">
-            
-            <!-- Important Information -->
-            <div class="calculator-card alert-info-card" data-aos="fade-up">
-                <h2><i class="fas fa-info-circle"></i> Indication</h2>
-                <p><strong>XEOMIN® (Botulinum Toxin Type A)</strong> is indicated for the symptomatic treatment in children and adolescents aged <strong>2 to 17 years</strong> and weighing <strong>≥ 12 kg</strong> of chronic sialorrhea due to neurological/neurodevelopmental disorders.</p>
-                
-                <div class="key-info-grid">
-                    <div class="key-info-item">
-                        <i class="fas fa-pills"></i>
-                        <h4>Total Dose Range</h4>
-                        <p>20 to 75 units</p>
-                    </div>
-                    <div class="key-info-item">
-                        <i class="fas fa-balance-scale"></i>
-                        <h4>Distribution Ratio</h4>
-                        <p>3:2 (Parotid:Submandibular)</p>
-                    </div>
-                    <div class="key-info-item">
-                        <i class="fas fa-clock"></i>
-                        <h4>Treatment Effect</h4>
-                        <p>At least 16 weeks</p>
-                    </div>
-                    <div class="key-info-item">
-                        <i class="fas fa-redo"></i>
-                        <h4>Frequency</h4>
-                        <p>Up to 3 injections/year</p>
-                    </div>
-                </div>
-            </div>
+  <footer style="background:#1c1a17;color:#e9e4da;padding:40px 0;">
+    <div style="max-width:1080px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:center;">
+      <a href="index.html" style="font-family:'Newsreader',serif;font-size:17px;color:#cdc6ba;text-decoration:none;">Dr Ali Alshahrani</a>
+      <div style="display:flex;gap:24px;font-size:14px;">
+        <a href="ent-tools.html" style="text-decoration:none;color:#b8b1a5;" style-hover="color:#f4f1ea;">All Tools</a>
+        <a href="curriculum_vitae.html" style="text-decoration:none;color:#b8b1a5;" style-hover="color:#f4f1ea;">CV</a>
+        <a href="index.html#contact" style="text-decoration:none;color:#b8b1a5;" style-hover="color:#f4f1ea;">Contact</a>
+      </div>
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.1em;color:#7d7869;">shahrani.me &middot; &copy; 2026</span>
+    </div>
+  </footer>
 
-            <!-- Dose Calculator -->
-            <div class="calculator-card" data-aos="fade-up">
-                <h2><i class="fas fa-calculator"></i> Dose Calculator</h2>
-                
-                <div class="input-group">
-                    <label for="patient-weight">Patient Body Weight (kg)</label>
-                    <input type="number" id="patient-weight" placeholder="Enter weight in kg" min="12" max="100" step="0.1">
-                    <small>Minimum weight: 12 kg</small>
-                </div>
-                
-                <button class="calculate-btn" onclick="calculateXeominDose()">
-                    <i class="fas fa-calculator"></i> Calculate Dose
-                </button>
-                
-                <div id="dose-results" class="dose-results" style="display: none;">
-                    <div class="result-header">
-                        <i class="fas fa-check-circle"></i>
-                        <h3>Recommended Dosing</h3>
-                    </div>
-                    
-                    <div class="total-dose-display">
-                        <div class="total-dose-label">Total Dose</div>
-                        <div class="total-dose-value" id="total-dose">-</div>
-                    </div>
-                    
-                    <div class="gland-dosing-grid">
-                        <div class="gland-card parotid-card">
-                            <div class="gland-header">
-                                <i class="fas fa-circle"></i>
-                                <h4>Parotid Gland (Each Side)</h4>
-                            </div>
-                            <div class="dose-detail">
-                                <span class="dose-label">Dose per gland:</span>
-                                <span class="dose-value" id="parotid-dose">-</span>
-                            </div>
-                            <div class="dose-detail">
-                                <span class="dose-label">Volume per injection:</span>
-                                <span class="dose-value" id="parotid-volume">-</span>
-                            </div>
-                        </div>
-                        
-                        <div class="gland-card submandibular-card">
-                            <div class="gland-header">
-                                <i class="fas fa-circle"></i>
-                                <h4>Submandibular Gland (Each Side)</h4>
-                            </div>
-                            <div class="dose-detail">
-                                <span class="dose-label">Dose per gland:</span>
-                                <span class="dose-value" id="submandibular-dose">-</span>
-                            </div>
-                            <div class="dose-detail">
-                                <span class="dose-label">Volume per injection:</span>
-                                <span class="dose-value" id="submandibular-volume">-</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="injection-summary">
-                        <p><strong>Injection Sites:</strong> 4 total (bilateral parotid and submandibular glands)</p>
-                        <p><strong>Distribution:</strong> 3:2 ratio (Parotid:Submandibular)</p>
-                    </div>
-                </div>
-            </div>
+</div>
 
-            <!-- Dosing Table Reference -->
-            <div class="calculator-card" data-aos="fade-up">
-                <h2><i class="fas fa-table"></i> Complete Dosing Table</h2>
-                <div class="table-responsive">
-                    <table class="dosing-table">
-                        <thead>
-                            <tr>
-                                <th rowspan="2">Body Weight (kg)</th>
-                                <th colspan="2" class="parotid-header">Parotid Gland (Each Side)</th>
-                                <th colspan="2" class="submandibular-header">Submandibular Gland (Each Side)</th>
-                                <th rowspan="2">Total Dose<br>(Both Glands, Both Sides)</th>
-                            </tr>
-                            <tr>
-                                <th class="parotid-header">Dose per Gland (Units)</th>
-                                <th class="parotid-header">Volume per Injection (ml)</th>
-                                <th class="submandibular-header">Dose per Gland (Units)</th>
-                                <th class="submandibular-header">Volume per Injection (ml)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>≥ 12 to < 15</td>
-                                <td class="parotid-cell">6</td>
-                                <td class="parotid-cell">0.24</td>
-                                <td class="submandibular-cell">4</td>
-                                <td class="submandibular-cell">0.16</td>
-                                <td class="total-cell">20 units</td>
-                            </tr>
-                            <tr>
-                                <td>≥ 15 to < 19</td>
-                                <td class="parotid-cell">9</td>
-                                <td class="parotid-cell">0.36</td>
-                                <td class="submandibular-cell">6</td>
-                                <td class="submandibular-cell">0.24</td>
-                                <td class="total-cell">30 units</td>
-                            </tr>
-                            <tr>
-                                <td>≥ 19 to < 23</td>
-                                <td class="parotid-cell">12</td>
-                                <td class="parotid-cell">0.48</td>
-                                <td class="submandibular-cell">8</td>
-                                <td class="submandibular-cell">0.32</td>
-                                <td class="total-cell">40 units</td>
-                            </tr>
-                            <tr>
-                                <td>≥ 23 to < 27</td>
-                                <td class="parotid-cell">15</td>
-                                <td class="parotid-cell">0.60</td>
-                                <td class="submandibular-cell">10</td>
-                                <td class="submandibular-cell">0.40</td>
-                                <td class="total-cell">50 units</td>
-                            </tr>
-                            <tr>
-                                <td>≥ 27 to < 30</td>
-                                <td class="parotid-cell">18</td>
-                                <td class="parotid-cell">0.72</td>
-                                <td class="submandibular-cell">12</td>
-                                <td class="submandibular-cell">0.48</td>
-                                <td class="total-cell">60 units</td>
-                            </tr>
-                            <tr>
-                                <td>≥ 30</td>
-                                <td class="parotid-cell">22.5</td>
-                                <td class="parotid-cell">0.90</td>
-                                <td class="submandibular-cell">15</td>
-                                <td class="submandibular-cell">0.60</td>
-                                <td class="total-cell">75 units</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <p class="table-note"><em>Note: Doses are calculated based on 3:2 ratio distribution to parotid and submandibular glands</em></p>
-            </div>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#8a302a"/><text x="50" y="50" dy="0.36em" text-anchor="middle" font-family="Georgia,serif" font-size="46" fill="#f4f1ea">A</text></svg></template></x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { menuOpen: false, weight: '', result: null, error: '' };
 
-            <!-- Step-by-Step Injection Protocol -->
-            <div class="calculator-card" data-aos="fade-up">
-                <h2><i class="fas fa-list-ol"></i> Step-by-Step Injection Protocol</h2>
-                
-                <div class="protocol-steps">
-                    <div class="step-card">
-                        <div class="step-number">1</div>
-                        <div class="step-content">
-                            <h3>Pre-Procedure Assessment</h3>
-                            <ul>
-                                <li>Confirm diagnosis of chronic sialorrhea due to neurological/neurodevelopmental disorder</li>
-                                <li>Verify patient age (2-17 years) and weight (≥12 kg)</li>
-                                <li>Review medical history and current medications</li>
-                                <li>Obtain informed consent from parent/guardian</li>
-                                <li>Assess baseline drooling severity</li>
-                            </ul>
-                        </div>
-                    </div>
+  calc() {
+    var w = parseFloat(this.state.weight);
+    if (!w || isNaN(w)) { this.setState({ result: null, error: 'Please enter a valid patient weight.' }); return; }
+    if (w < 12) { this.setState({ result: null, error: 'XEOMIN for sialorrhea is indicated for patients \u2265 12 kg. Please verify patient weight.' }); return; }
+    var t;
+    if (w < 15) t = { range: '\u2265 12 to < 15 kg', pd: 6, pv: 0.24, sd: 4, sv: 0.16, total: 20 };
+    else if (w < 19) t = { range: '\u2265 15 to < 19 kg', pd: 9, pv: 0.36, sd: 6, sv: 0.24, total: 30 };
+    else if (w < 23) t = { range: '\u2265 19 to < 23 kg', pd: 12, pv: 0.48, sd: 8, sv: 0.32, total: 40 };
+    else if (w < 27) t = { range: '\u2265 23 to < 27 kg', pd: 15, pv: 0.60, sd: 10, sv: 0.40, total: 50 };
+    else if (w < 30) t = { range: '\u2265 27 to < 30 kg', pd: 18, pv: 0.72, sd: 12, sv: 0.48, total: 60 };
+    else t = { range: '\u2265 30 kg', pd: 22.5, pv: 0.90, sd: 15, sv: 0.60, total: 75 };
+    this.setState({ result: t, error: '' });
+  }
 
-                    <div class="step-card">
-                        <div class="step-number">2</div>
-                        <div class="step-content">
-                            <h3>Anesthesia Consideration</h3>
-                            <ul>
-                                <li><strong>Options:</strong> Local anesthesia, sedation, or anesthesia in combination with sedation</li>
-                                <li>Perform careful benefit-risk evaluation per local site practice</li>
-                                <li>In SIPEXI study:
-                                    <ul>
-                                        <li>64% received local anesthetic</li>
-                                        <li>23% had general anesthetic</li>
-                                        <li>25% received hypnotics/sedatives</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="step-card">
-                        <div class="step-number">3</div>
-                        <div class="step-content">
-                            <h3>Reconstitution</h3>
-                            <ul>
-                                <li>Use preservative-free 0.9% Sodium Chloride for injection</li>
-                                <li>Standard dilution: 100 units in 4 ml (25 units/ml)</li>
-                                <li>Draw up reconstitution solution with appropriate syringe</li>
-                                <li>Slowly inject into XEOMIN vial</li>
-                                <li>Gently swirl (do not shake) to dissolve</li>
-                                <li>Inspect for particulate matter - should be clear and colorless</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="step-card">
-                        <div class="step-number">4</div>
-                        <div class="step-content">
-                            <h3>Dose Preparation</h3>
-                            <ul>
-                                <li>Calculate total dose based on patient weight (use calculator above)</li>
-                                <li>Draw up appropriate volumes for each gland</li>
-                                <li>Use separate syringes for each injection site</li>
-                                <li>Label syringes clearly (Parotid L/R, Submandibular L/R)</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="step-card">
-                        <div class="step-number">5</div>
-                        <div class="step-content">
-                            <h3>Identify Injection Sites</h3>
-                            <ul>
-                                <li><strong>Parotid Gland:</strong>
-                                    <ul>
-                                        <li>Located anterior and inferior to the ear</li>
-                                        <li>Palpate the gland between masseter muscle and mandible</li>
-                                        <li>Mark injection point in the center of the gland</li>
-                                    </ul>
-                                </li>
-                                <li><strong>Submandibular Gland:</strong>
-                                    <ul>
-                                        <li>Located below the mandible, medial to angle of jaw</li>
-                                        <li>Palpate gland in submandibular triangle</li>
-                                        <li>Mark injection point avoiding marginal mandibular nerve</li>
-                                    </ul>
-                                </li>
-                                <li>Consider ultrasound guidance for accurate localization</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="step-card">
-                        <div class="step-number">6</div>
-                        <div class="step-content">
-                            <h3>Injection Technique</h3>
-                            <ul>
-                                <li>Clean injection sites with antiseptic</li>
-                                <li>Use fine gauge needle (25-30G)</li>
-                                <li><strong>Injection sequence (bilateral):</strong>
-                                    <ol>
-                                        <li>Right parotid gland</li>
-                                        <li>Left parotid gland</li>
-                                        <li>Right submandibular gland</li>
-                                        <li>Left submandibular gland</li>
-                                    </ol>
-                                </li>
-                                <li>Insert needle directly into salivary gland</li>
-                                <li>Aspirate to ensure not in vessel</li>
-                                <li>Inject slowly over 5-10 seconds</li>
-                                <li>Apply gentle pressure post-injection (no massage)</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="step-card">
-                        <div class="step-number">7</div>
-                        <div class="step-content">
-                            <h3>Post-Procedure Care</h3>
-                            <ul>
-                                <li>Monitor patient for 15-30 minutes post-injection</li>
-                                <li>Observe for immediate adverse reactions</li>
-                                <li>Instruct to avoid rubbing/massaging injection sites</li>
-                                <li>Keep head upright for 2-4 hours post-injection</li>
-                                <li>Avoid strenuous activity for 24 hours</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="step-card">
-                        <div class="step-number">8</div>
-                        <div class="step-content">
-                            <h3>Follow-Up & Re-Treatment</h3>
-                            <ul>
-                                <li><strong>Onset of effect:</strong> Typically within 1 week</li>
-                                <li><strong>Peak effect:</strong> 2-4 weeks post-injection</li>
-                                <li><strong>Duration:</strong> At least 16 weeks</li>
-                                <li><strong>Re-treatment:</strong> Up to 3 injections per year</li>
-                                <li>Assess drooling severity at follow-up visits</li>
-                                <li>Document treatment response and adverse events</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Safety Information -->
-            <div class="calculator-card alert-warning-card" data-aos="fade-up">
-                <h2><i class="fas fa-exclamation-triangle"></i> Important Safety Information</h2>
-                
-                <div class="safety-section">
-                    <h3>Contraindications</h3>
-                    <ul>
-                        <li>Hypersensitivity to botulinum toxin type A or any excipients</li>
-                        <li>Infection at proposed injection site(s)</li>
-                        <li>Myasthenia gravis or Lambert-Eaton syndrome</li>
-                    </ul>
-                </div>
-
-                <div class="safety-section">
-                    <h3>Warnings & Precautions</h3>
-                    <ul>
-                        <li><strong>Spread of toxin effects:</strong> Monitor for symptoms of systemic weakness, dysphagia, or respiratory compromise</li>
-                        <li><strong>Dysphagia:</strong> Risk of swallowing difficulties - assess swallowing function</li>
-                        <li><strong>Respiratory compromise:</strong> Use caution in patients with compromised respiratory function</li>
-                        <li><strong>Pre-existing neuromuscular disorders:</strong> Increased risk of severe adverse effects</li>
-                    </ul>
-                </div>
-
-                <div class="safety-section">
-                    <h3>Common Adverse Reactions</h3>
-                    <ul>
-                        <li>Dental caries (tooth decay)</li>
-                        <li>Tooth disorder</li>
-                        <li>Dry mouth</li>
-                        <li>Dysphagia (swallowing difficulty)</li>
-                        <li>Injection site pain</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Clinical Tips -->
-            <div class="calculator-card" data-aos="fade-up">
-                <h2><i class="fas fa-lightbulb"></i> Clinical Tips & Best Practices</h2>
-                
-                <div class="tips-grid">
-                    <div class="tip-card">
-                        <i class="fas fa-check-circle"></i>
-                        <h4>Ultrasound Guidance</h4>
-                        <p>Consider using ultrasound to accurately identify and target salivary glands, especially in patients with anatomical variations or obesity</p>
-                    </div>
-                    
-                    <div class="tip-card">
-                        <i class="fas fa-check-circle"></i>
-                        <h4>Dilution Consistency</h4>
-                        <p>Use consistent dilution (25 units/ml) to maintain accuracy and reduce calculation errors</p>
-                    </div>
-                    
-                    <div class="tip-card">
-                        <i class="fas fa-check-circle"></i>
-                        <h4>Patient Positioning</h4>
-                        <p>Position patient semi-reclined with head slightly extended for optimal gland access</p>
-                    </div>
-                    
-                    <div class="tip-card">
-                        <i class="fas fa-check-circle"></i>
-                        <h4>Documentation</h4>
-                        <p>Record exact doses, volumes, and injection sites for each treatment session</p>
-                    </div>
-                    
-                    <div class="tip-card">
-                        <i class="fas fa-check-circle"></i>
-                        <h4>Baseline Assessment</h4>
-                        <p>Use standardized drooling scales (e.g., Drooling Severity Scale) to track treatment efficacy</p>
-                    </div>
-                    
-                    <div class="tip-card">
-                        <i class="fas fa-check-circle"></i>
-                        <h4>Timing</h4>
-                        <p>Schedule re-treatment when effect begins to wane, typically 16-20 weeks after previous injection</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- References -->
-            <div class="calculator-card references-card" data-aos="fade-up">
-                <h2><i class="fas fa-book"></i> References</h2>
-                <ol class="references-list">
-                    <li>XEOMIN® Summary of Product Characteristics. <a href="https://www.medicines.org.uk/emc/product/6202" target="_blank">https://www.medicines.org.uk/emc/product/6202</a></li>
-                    <li>Data on file, REF-1362. Merz Pharmaceuticals. September 2021</li>
-                    <li>Berweck S, et al. Neurology. 2021;97(14):e1425-e1436. doi:10.1212/WNL.0000000000012567</li>
-                    <li>Merz Therapeutics is a business of Merz Pharmaceuticals GmbH. Prescribing information available at www.merztherapeutics.com</li>
-                </ol>
-                
-                <div class="disclaimer">
-                    <p><strong>Disclaimer:</strong> This calculator is for educational purposes only. Always refer to the current prescribing information and local guidelines. Dosing should be individualized based on patient characteristics and clinical judgment. This tool does not replace professional medical advice.</p>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 Dr Ali Alshahrani. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/xeomin.js"></script>
+  renderVals() {
+    var self = this;
+    var r = this.state.result;
+    return {
+      menuOpen: this.state.menuOpen,
+      toggleMenu: function () { self.setState(function (s) { return { menuOpen: !s.menuOpen }; }); },
+      weight: this.state.weight,
+      onWeight: function (e) { self.setState({ weight: e.target.value }); },
+      onKey: function (e) { if (e.key === 'Enter') self.calc(); },
+      calc: function () { self.calc(); },
+      show: r != null, error: this.state.error, errFlag: !!this.state.error,
+      rangeLabel: r ? r.range : '',
+      totalLabel: r ? r.total + ' units' : '',
+      parotidUnits: r ? r.pd + ' U' : '',
+      parotidVol: r ? r.pv.toFixed(2) + ' mL' : '',
+      submandUnits: r ? r.sd + ' U' : '',
+      submandVol: r ? r.sv.toFixed(2) + ' mL' : ''
+    };
+  }
+}
+</script>
 </body>
 </html>

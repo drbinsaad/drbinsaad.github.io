@@ -1,319 +1,374 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ENT Medical Calculators - Dr Ali Alshahrani</title>
-    <meta name="description" content="ENT medical calculators and references for clinicians — airway, dosing, and sizing tools. Educational use only.">
-    <link rel="icon" type="image/png" href="/favicon.png">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/calculator.css" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
 </head>
 <body>
-    <nav id="navbar">
-        <div class="container">
-            <a href="index.html" class="logo">Dr Ali Alshahrani</a>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:#f4f1ea;}
+  a{color:inherit;}
+  ::selection{background:#8a302a;color:#f4f1ea;}
+  input,select{font-family:'Source Sans 3',sans-serif;}
+  input:focus,select:focus{outline:none;border-color:#8a302a !important;}
+  @media (max-width:860px){
+    [data-desktop-nav]{display:none !important;}
+    [data-mobile-btn]{display:inline-flex !important;}
+    [data-grid-2]{grid-template-columns:1fr !important;}
+    [data-sec]{padding:44px 0 !important;}
+  }
+</style>
+</helmet>
+
+<div id="top" data-screen-label="ENT Calculators" style="background:#f4f1ea;color:#1c1a17;font-family:'Source Sans 3',system-ui,sans-serif;line-height:1.7;min-height:100vh;-webkit-font-smoothing:antialiased;">
+
+  <header style="position:sticky;top:0;z-index:60;background:rgba(244,241,234,0.88);backdrop-filter:blur(12px);border-bottom:1px solid #e4ded2;">
+    <div style="max-width:1080px;margin:0 auto;padding:15px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px;">
+      <a href="index.html" style="text-decoration:none;display:flex;flex-direction:column;line-height:1.08;flex:none;white-space:nowrap;">
+        <span style="font-family:'Newsreader',serif;font-size:20px;font-weight:600;color:#1c1a17;letter-spacing:0.01em;">Ali Alshahrani</span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:#8a302a;margin-top:4px;">Otolaryngology</span>
+      </a>
+      <nav data-desktop-nav style="display:flex;align-items:center;gap:30px;font-size:14.5px;font-weight:500;">
+        <a href="index.html#research" style="text-decoration:none;color:#46423b;" style-hover="color:#8a302a;">Research</a>
+        <a href="index.html#publications" style="text-decoration:none;color:#46423b;" style-hover="color:#8a302a;">Publications</a>
+        <a href="ent-tools.html" style="text-decoration:none;color:#8a302a;border-bottom:1px solid #c9a59f;padding-bottom:2px;">Tools</a>
+        <a href="curriculum_vitae.html" style="text-decoration:none;color:#46423b;" style-hover="color:#8a302a;">CV</a>
+        <a href="index.html#contact" style="text-decoration:none;color:#f4f1ea;background:#1c1a17;padding:9px 18px;border-radius:2px;" style-hover="background:#8a302a;">Contact</a>
+      </nav>
+      <button data-mobile-btn onClick="{{ toggleMenu }}" aria-label="Menu" style="display:none;align-items:center;justify-content:center;width:42px;height:42px;background:transparent;border:1px solid #d9d3c7;border-radius:2px;cursor:pointer;color:#1c1a17;font-size:18px;">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+    <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="border-top:1px solid #e4ded2;background:#f4f1ea;padding:10px 28px 18px;display:flex;flex-direction:column;gap:4px;">
+        <a href="index.html#research" style="text-decoration:none;color:#46423b;padding:11px 0;border-bottom:1px solid #ece7dc;font-weight:500;">Research</a>
+        <a href="index.html#publications" style="text-decoration:none;color:#46423b;padding:11px 0;border-bottom:1px solid #ece7dc;font-weight:500;">Publications</a>
+        <a href="ent-tools.html" style="text-decoration:none;color:#8a302a;padding:11px 0;border-bottom:1px solid #ece7dc;font-weight:600;">Clinical Tools</a>
+        <a href="curriculum_vitae.html" style="text-decoration:none;color:#46423b;padding:11px 0;border-bottom:1px solid #ece7dc;font-weight:500;">Curriculum Vitae</a>
+        <a href="index.html#contact" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#8a302a;padding:11px 0;font-weight:600;">Contact</a>
+      </div>
+    </sc-if>
+  </header>
+
+  <section data-sec style="padding:56px 0 30px;">
+    <div style="max-width:1080px;margin:0 auto;padding:0 28px;">
+      <a href="ent-tools.html" style="text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.1em;color:#8a302a;display:inline-block;margin-bottom:22px;">&larr; All ENT tools</a>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#8a302a;margin-bottom:16px;">General ENT &amp; Therapeutics</div>
+      <h1 style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(34px,4.6vw,52px);line-height:1.04;letter-spacing:-0.01em;color:#1c1a17;margin-bottom:18px;">ENT Medical Calculators</h1>
+      <p style="font-size:17.5px;color:#46423b;line-height:1.7;max-width:56ch;">A set of everyday clinical calculators for otolaryngology practice &mdash; local anesthetic dosing, epinephrine dilution, audiometry, neck dissection classification, sinonasal scoring, and body surface area.</p>
+    </div>
+  </section>
+
+  <section data-sec style="padding:14px 0 40px;">
+    <div style="max-width:1080px;margin:0 auto;padding:0 28px;">
+      <div data-grid-2 style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+
+        <div style="background:#faf8f2;border:1px solid #e4ded2;padding:28px;">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a302a;margin-bottom:6px;">Anesthetic dosing</div>
+          <h3 style="font-family:'Newsreader',serif;font-weight:600;font-size:21px;color:#1c1a17;margin-bottom:8px;">Lidocaine Maximum Dose</h3>
+          <p style="font-size:14px;color:#6f6a61;line-height:1.6;margin-bottom:18px;">Maximum safe lidocaine with and without epinephrine.</p>
+          <label for="lid-w" style="display:block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:#8a302a;margin-bottom:7px;">Patient weight (kg)</label>
+          <input id="lid-w" type="number" min="0" step="0.1" placeholder="Enter weight" value="{{ lidWeight }}" onChange="{{ onLidWeight }}" onInput="{{ onLidWeight }}" onKeyDown="{{ onLidKey }}" style="width:100%;font-size:16px;padding:11px 13px;background:#fff;border:1px solid #d9d3c7;border-radius:2px;color:#1c1a17;margin-bottom:16px;">
+          <button onClick="{{ calcLid }}" style="background:#1c1a17;color:#f4f1ea;font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:14.5px;padding:12px 24px;border:none;border-radius:2px;cursor:pointer;" style-hover="background:#8a302a;">Calculate</button>
+          <sc-if value="{{ lidErrFlag }}" hint-placeholder-val="{{ false }}"><div style="margin-top:18px;padding:12px 15px;background:#f6e9e7;border:1px solid #e3c4bf;border-radius:2px;color:#8a302a;font-size:14px;">{{ lidErr }}</div></sc-if>
+          <sc-if value="{{ lidShow }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:20px;border-top:1px solid #e4ded2;padding-top:18px;">
+              <div style="margin-bottom:16px;"><div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#8a302a;margin-bottom:4px;">Without epinephrine</div><div style="font-family:'Newsreader',serif;font-size:30px;line-height:1;color:#1c1a17;">{{ lidNoEpi }}</div><div style="font-size:13px;color:#6f6a61;margin-top:4px;">{{ lidNoEpiNote }}</div></div>
+              <div><div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#8a302a;margin-bottom:4px;">With epinephrine</div><div style="font-family:'Newsreader',serif;font-size:30px;line-height:1;color:#1c1a17;">{{ lidEpi }}</div><div style="font-size:13px;color:#6f6a61;margin-top:4px;">{{ lidEpiNote }}</div></div>
+              <div style="margin-top:14px;font-size:12.5px;color:#7a746a;">Maximum recommended doses &mdash; always weigh patient factors and clinical context.</div>
             </div>
-            <ul class="nav-links">
-                <li><a href="dashboard.html">Dashboard</a></li>
-                <li>
-                    <a href="#research">Research</a>
-                    <ul class="dropdown">
-                        <li><a href="index.html#research">Research Focus</a></li>
-                        <li><a href="index.html#publications">Recent Publications</a></li>
-                    </ul>
-                </li>
-                <li><a href="curriculum_vitae.html">Brief CV</a></li>
-                <li><a href="index.html#contact">Contact</a></li>
-                <li>
-                    <a href="#ent">ENT Web Tools</a>
-                    <ul class="dropdown">
-                        <li><a href="ent-calculators.html">Medical Calculators</a></li>
-                        <li><a href="bronchoscopy-tool.html">Airway Sizing Tool</a></li>
-                        <li><a href="et-depth-calculator.html">ET Depth Calculator</a></li>
-                        <li><a href="xeomin-calculator.html">XEOMIN Calculator</a></li>
-                        <li><a href="nebulized-epinephrine-calculator.html">Nebulized Epinephrine</a></li>
-                        <li><a href="balloon-dilation-calculator.html">Balloon Dilation Sizing</a></li>
-                        <li><a href="airway-obstruction-calculator.html">Airway Obstruction (Cotton-Myer)</a></li>
-                    </ul>
-                </li>
-            </ul>
+          </sc-if>
         </div>
-    </nav>
 
-    <header style="min-height: 40vh;">
-        <div class="container">
-            <div class="header-content" style="text-align: center;">
-                <div class="profile-text" data-aos="fade-up">
-                    <h1>ENT Medical Calculators</h1>
-                    <p>Clinical calculation tools for otolaryngology practice</p>
-                </div>
+        <div style="background:#faf8f2;border:1px solid #e4ded2;padding:28px;">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a302a;margin-bottom:6px;">Topical preparation</div>
+          <h3 style="font-family:'Newsreader',serif;font-weight:600;font-size:21px;color:#1c1a17;margin-bottom:8px;">Epinephrine Dilution</h3>
+          <p style="font-size:14px;color:#6f6a61;line-height:1.6;margin-bottom:18px;">Prepare a target epinephrine dilution for topical use.</p>
+          <label for="epi-start" style="display:block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:#8a302a;margin-bottom:7px;">Starting concentration</label>
+          <select id="epi-start" value="{{ epiStart }}" onChange="{{ onEpiStart }}" style="width:100%;font-size:16px;padding:11px 13px;background:#fff;border:1px solid #d9d3c7;border-radius:2px;color:#1c1a17;margin-bottom:14px;">
+            <option value="1000">1:1,000 (1 mg/mL)</option>
+            <option value="10000">1:10,000 (0.1 mg/mL)</option>
+          </select>
+          <label for="epi-des" style="display:block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:#8a302a;margin-bottom:7px;">Desired concentration</label>
+          <select id="epi-des" value="{{ epiDesired }}" onChange="{{ onEpiDesired }}" style="width:100%;font-size:16px;padding:11px 13px;background:#fff;border:1px solid #d9d3c7;border-radius:2px;color:#1c1a17;margin-bottom:14px;">
+            <option value="10000">1:10,000</option>
+            <option value="20000">1:20,000</option>
+            <option value="50000">1:50,000</option>
+            <option value="100000">1:100,000</option>
+            <option value="200000">1:200,000</option>
+          </select>
+          <label for="epi-vol" style="display:block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:#8a302a;margin-bottom:7px;">Total volume (mL)</label>
+          <input id="epi-vol" type="number" min="0" step="1" placeholder="Enter volume" value="{{ epiVol }}" onChange="{{ onEpiVol }}" onInput="{{ onEpiVol }}" style="width:100%;font-size:16px;padding:11px 13px;background:#fff;border:1px solid #d9d3c7;border-radius:2px;color:#1c1a17;margin-bottom:16px;">
+          <button onClick="{{ calcEpi }}" style="background:#1c1a17;color:#f4f1ea;font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:14.5px;padding:12px 24px;border:none;border-radius:2px;cursor:pointer;" style-hover="background:#8a302a;">Calculate</button>
+          <sc-if value="{{ epiErrFlag }}" hint-placeholder-val="{{ false }}"><div style="margin-top:18px;padding:12px 15px;background:#f6e9e7;border:1px solid #e3c4bf;border-radius:2px;color:#8a302a;font-size:14px;">{{ epiErr }}</div></sc-if>
+          <sc-if value="{{ epiShow }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:20px;border-top:1px solid #e4ded2;padding-top:18px;">
+              <div style="font-size:14px;color:#5b564d;margin-bottom:14px;">{{ epiHeadline }}</div>
+              <div style="display:flex;gap:1px;background:#e4ded2;border:1px solid #e4ded2;">
+                <div style="background:#fff;padding:16px;flex:1;"><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#8a302a;margin-bottom:4px;">Epinephrine</div><div style="font-family:'Newsreader',serif;font-size:26px;line-height:1;color:#1c1a17;">{{ epiAmt }}</div></div>
+                <div style="background:#fff;padding:16px;flex:1;"><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#8a302a;margin-bottom:4px;">Normal saline</div><div style="font-family:'Newsreader',serif;font-size:26px;line-height:1;color:#1c1a17;">{{ epiSaline }}</div></div>
+              </div>
             </div>
+          </sc-if>
         </div>
-    </header>
 
-    <section id="calculators-section">
-        <div class="container">
-            <div class="calculator-grid">
-                
-                <!-- Lidocaine Dose Calculator -->
-                <div class="calculator-card" data-aos="fade-up">
-                    <div class="calculator-header">
-                        <i class="fas fa-syringe"></i>
-                        <h3>Lidocaine Dose Calculator</h3>
-                    </div>
-                    <p class="calculator-description">Calculate maximum safe lidocaine doses with and without epinephrine</p>
-                    <div class="calculator-body">
-                        <div class="input-group">
-                            <label for="lidocaine-weight">Patient Weight (kg)</label>
-                            <input type="number" id="lidocaine-weight" placeholder="Enter weight" min="0" step="0.1">
-                        </div>
-                        <button class="calc-button" onclick="calculateLidocaine()">Calculate</button>
-                        <div class="results" id="lidocaine-results"></div>
-                    </div>
-                </div>
-
-                <!-- Epinephrine Dilution Calculator -->
-                <div class="calculator-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="calculator-header">
-                        <i class="fas fa-flask"></i>
-                        <h3>Epinephrine Dilution Calculator</h3>
-                    </div>
-                    <p class="calculator-description">Calculate epinephrine dilutions for topical use in ENT procedures</p>
-                    <div class="calculator-body">
-                        <div class="input-group">
-                            <label for="epi-concentration">Starting Concentration</label>
-                            <select id="epi-concentration">
-                                <option value="1000">1:1,000 (1 mg/mL)</option>
-                                <option value="10000">1:10,000 (0.1 mg/mL)</option>
-                            </select>
-                        </div>
-                        <div class="input-group">
-                            <label for="epi-desired">Desired Concentration</label>
-                            <select id="epi-desired">
-                                <option value="10000">1:10,000</option>
-                                <option value="20000">1:20,000</option>
-                                <option value="50000">1:50,000</option>
-                                <option value="100000">1:100,000</option>
-                                <option value="200000">1:200,000</option>
-                            </select>
-                        </div>
-                        <div class="input-group">
-                            <label for="epi-volume">Total Volume Needed (mL)</label>
-                            <input type="number" id="epi-volume" placeholder="Enter volume" min="0" step="1" value="10">
-                        </div>
-                        <button class="calc-button" onclick="calculateEpinephrine()">Calculate</button>
-                        <div class="results" id="epinephrine-results"></div>
-                    </div>
-                </div>
-
-                <!-- Hearing Loss Calculator -->
-                <div class="calculator-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="calculator-header">
-                        <i class="fas fa-ear-listen"></i>
-                        <h3>Pure Tone Average (PTA) Calculator</h3>
-                    </div>
-                    <p class="calculator-description">Calculate pure tone average and classify hearing loss severity</p>
-                    <div class="calculator-body">
-                        <div class="input-group">
-                            <label for="pta-500">500 Hz (dB HL)</label>
-                            <input type="number" id="pta-500" placeholder="Enter threshold" min="0" max="120" step="5">
-                        </div>
-                        <div class="input-group">
-                            <label for="pta-1000">1000 Hz (dB HL)</label>
-                            <input type="number" id="pta-1000" placeholder="Enter threshold" min="0" max="120" step="5">
-                        </div>
-                        <div class="input-group">
-                            <label for="pta-2000">2000 Hz (dB HL)</label>
-                            <input type="number" id="pta-2000" placeholder="Enter threshold" min="0" max="120" step="5">
-                        </div>
-                        <div class="input-group">
-                            <label for="pta-4000">4000 Hz (dB HL) - Optional</label>
-                            <input type="number" id="pta-4000" placeholder="Enter threshold" min="0" max="120" step="5">
-                        </div>
-                        <button class="calc-button" onclick="calculatePTA()">Calculate</button>
-                        <div class="results" id="pta-results"></div>
-                    </div>
-                </div>
-
-                <!-- Neck Dissection Level Calculator -->
-                <div class="calculator-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="calculator-header">
-                        <i class="fas fa-notes-medical"></i>
-                        <h3>Neck Dissection Classification</h3>
-                    </div>
-                    <p class="calculator-description">Identify neck dissection type based on levels and structures removed</p>
-                    <div class="calculator-body">
-                        <div class="checkbox-group">
-                            <label class="checkbox-label">
-                                <input type="checkbox" class="neck-level" value="I"> Level I
-                            </label>
-                            <label class="checkbox-label">
-                                <input type="checkbox" class="neck-level" value="II"> Level II
-                            </label>
-                            <label class="checkbox-label">
-                                <input type="checkbox" class="neck-level" value="III"> Level III
-                            </label>
-                            <label class="checkbox-label">
-                                <input type="checkbox" class="neck-level" value="IV"> Level IV
-                            </label>
-                            <label class="checkbox-label">
-                                <input type="checkbox" class="neck-level" value="V"> Level V
-                            </label>
-                            <label class="checkbox-label">
-                                <input type="checkbox" class="neck-level" value="VI"> Level VI
-                            </label>
-                        </div>
-                        <div class="checkbox-group" style="margin-top: 1rem;">
-                            <label style="font-weight: 600; display: block; margin-bottom: 0.5rem;">Structures Preserved:</label>
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="preserve-scm"> SCM
-                            </label>
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="preserve-ijv"> IJV
-                            </label>
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="preserve-cn11"> CN XI
-                            </label>
-                        </div>
-                        <button class="calc-button" onclick="classifyNeckDissection()">Classify</button>
-                        <div class="results" id="neck-results"></div>
-                    </div>
-                </div>
-
-                <!-- Simplified 8-item sinonasal symptom score (NOT the validated 22-item SNOT-22) -->
-                <div class="calculator-card" data-aos="fade-up" data-aos-delay="400">
-                    <div class="calculator-header">
-                        <i class="fas fa-lungs"></i>
-                        <h3>Sinonasal Symptom Score (Simplified)</h3>
-                    </div>
-                    <p class="calculator-description">8-item sinonasal symptom score — not the validated 22-item SNOT-22</p>
-                    <div class="calculator-body">
-                        <p style="font-size: 0.9rem; margin-bottom: 1rem; color: #666;">Rate each symptom from 0 (no problem) to 5 (worst possible)</p>
-                        <div class="snot-symptoms">
-                            <div class="symptom-item">
-                                <label>Nasal Obstruction</label>
-                                <input type="number" class="snot-input" min="0" max="5" value="0">
-                            </div>
-                            <div class="symptom-item">
-                                <label>Nasal Discharge</label>
-                                <input type="number" class="snot-input" min="0" max="5" value="0">
-                            </div>
-                            <div class="symptom-item">
-                                <label>Post-nasal Discharge</label>
-                                <input type="number" class="snot-input" min="0" max="5" value="0">
-                            </div>
-                            <div class="symptom-item">
-                                <label>Facial Pain/Pressure</label>
-                                <input type="number" class="snot-input" min="0" max="5" value="0">
-                            </div>
-                            <div class="symptom-item">
-                                <label>Sense of Smell</label>
-                                <input type="number" class="snot-input" min="0" max="5" value="0">
-                            </div>
-                            <div class="symptom-item">
-                                <label>Thick Nasal Discharge</label>
-                                <input type="number" class="snot-input" min="0" max="5" value="0">
-                            </div>
-                            <div class="symptom-item">
-                                <label>Cough</label>
-                                <input type="number" class="snot-input" min="0" max="5" value="0">
-                            </div>
-                            <div class="symptom-item">
-                                <label>Ear Fullness</label>
-                                <input type="number" class="snot-input" min="0" max="5" value="0">
-                            </div>
-                        </div>
-                        <button class="calc-button" onclick="calculateSNOT()">Calculate Score</button>
-                        <div class="results" id="snot-results"></div>
-                    </div>
-                </div>
-
-                <!-- Body Surface Area Calculator -->
-                <div class="calculator-card" data-aos="fade-up" data-aos-delay="500">
-                    <div class="calculator-header">
-                        <i class="fas fa-calculator"></i>
-                        <h3>Body Surface Area (BSA)</h3>
-                    </div>
-                    <p class="calculator-description">Calculate BSA using Mosteller formula for medication dosing</p>
-                    <div class="calculator-body">
-                        <div class="input-group">
-                            <label for="bsa-weight">Weight (kg)</label>
-                            <input type="number" id="bsa-weight" placeholder="Enter weight" min="0" step="0.1">
-                        </div>
-                        <div class="input-group">
-                            <label for="bsa-height">Height (cm)</label>
-                            <input type="number" id="bsa-height" placeholder="Enter height" min="0" step="0.1">
-                        </div>
-                        <button class="calc-button" onclick="calculateBSA()">Calculate</button>
-                        <div class="results" id="bsa-results"></div>
-                    </div>
-                </div>
-
+        <div style="background:#faf8f2;border:1px solid #e4ded2;padding:28px;">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a302a;margin-bottom:6px;">Audiometry</div>
+          <h3 style="font-family:'Newsreader',serif;font-weight:600;font-size:21px;color:#1c1a17;margin-bottom:8px;">Pure Tone Average (PTA)</h3>
+          <p style="font-size:14px;color:#6f6a61;line-height:1.6;margin-bottom:18px;">Average thresholds and classify hearing-loss severity.</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
+            <div><label for="pta5" style="display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#8a302a;margin-bottom:6px;">500 Hz</label><input id="pta5" type="number" min="0" max="120" step="5" placeholder="dB HL" value="{{ pta500 }}" onChange="{{ onPta500 }}" onInput="{{ onPta500 }}" style="width:100%;font-size:15px;padding:10px 12px;background:#fff;border:1px solid #d9d3c7;border-radius:2px;color:#1c1a17;"></div>
+            <div><label for="pta1" style="display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#8a302a;margin-bottom:6px;">1000 Hz</label><input id="pta1" type="number" min="0" max="120" step="5" placeholder="dB HL" value="{{ pta1000 }}" onChange="{{ onPta1000 }}" onInput="{{ onPta1000 }}" style="width:100%;font-size:15px;padding:10px 12px;background:#fff;border:1px solid #d9d3c7;border-radius:2px;color:#1c1a17;"></div>
+            <div><label for="pta2" style="display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#8a302a;margin-bottom:6px;">2000 Hz</label><input id="pta2" type="number" min="0" max="120" step="5" placeholder="dB HL" value="{{ pta2000 }}" onChange="{{ onPta2000 }}" onInput="{{ onPta2000 }}" style="width:100%;font-size:15px;padding:10px 12px;background:#fff;border:1px solid #d9d3c7;border-radius:2px;color:#1c1a17;"></div>
+            <div><label for="pta4" style="display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#8a302a;margin-bottom:6px;">4000 Hz &middot; opt</label><input id="pta4" type="number" min="0" max="120" step="5" placeholder="dB HL" value="{{ pta4000 }}" onChange="{{ onPta4000 }}" onInput="{{ onPta4000 }}" style="width:100%;font-size:15px;padding:10px 12px;background:#fff;border:1px solid #d9d3c7;border-radius:2px;color:#1c1a17;"></div>
+          </div>
+          <button onClick="{{ calcPta }}" style="background:#1c1a17;color:#f4f1ea;font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:14.5px;padding:12px 24px;border:none;border-radius:2px;cursor:pointer;" style-hover="background:#8a302a;">Calculate</button>
+          <sc-if value="{{ ptaErrFlag }}" hint-placeholder-val="{{ false }}"><div style="margin-top:18px;padding:12px 15px;background:#f6e9e7;border:1px solid #e3c4bf;border-radius:2px;color:#8a302a;font-size:14px;">{{ ptaErr }}</div></sc-if>
+          <sc-if value="{{ ptaShow }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:20px;border-top:1px solid #e4ded2;padding-top:18px;">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#8a302a;margin-bottom:4px;">Pure tone average</div>
+              <div style="font-family:'Newsreader',serif;font-size:38px;line-height:1;color:#1c1a17;">{{ ptaVal }}</div>
+              <div style="font-size:13px;color:#6f6a61;margin:6px 0 12px;">{{ ptaMethod }}</div>
+              <span style="{{ ptaBadge }}">{{ ptaClass }}</span>
             </div>
-
-            <!-- References Section -->
-            <div class="calculator-card references-card" data-aos="fade-up" style="margin-top: 3rem;">
-                <h2><i class="fas fa-book"></i> References & Sources</h2>
-                <div class="references-content">
-                    <h3>Lidocaine Dose Calculator</h3>
-                    <ol>
-                        <li>American Society of Anesthesiologists. Practice Guidelines for Moderate Procedural Sedation and Analgesia 2018. Anesthesiology. 2018;128(3):437-479.</li>
-                        <li>Neal JM, et al. ASRA Practice Advisory on Local Anesthetic Systemic Toxicity. Reg Anesth Pain Med. 2018;43(2):113-123.</li>
-                        <li>Rosenberg PH, et al. Maximum recommended doses of local anesthetics: a multifactorial concept. Reg Anesth Pain Med. 2004;29(6):564-575.</li>
-                    </ol>
-
-                    <h3>Epinephrine Dilution Calculator</h3>
-                    <ol>
-                        <li>Manes RP. Evaluating and managing the patient with nosebleeds. Med Clin North Am. 2010;94(5):903-912.</li>
-                        <li>Rudmik L, Smith TL. Evidence-based practice: Postoperative care in endoscopic sinus surgery. Otolaryngol Clin North Am. 2012;45(5):1019-1032.</li>
-                    </ol>
-
-                    <h3>Pure Tone Average (PTA) Calculator</h3>
-                    <ol>
-                        <li>World Health Organization. Grades of hearing impairment. Geneva: WHO; 2021.</li>
-                        <li>American Speech-Language-Hearing Association. Degree of Hearing Loss. Available at: www.asha.org</li>
-                        <li>Clark JG. Uses and abuses of hearing loss classification. ASHA. 1981;23(7):493-500.</li>
-                    </ol>
-
-                    <h3>Neck Dissection Classification</h3>
-                    <ol>
-                        <li>Robbins KT, et al. Consensus statement on the classification and terminology of neck dissection. Arch Otolaryngol Head Neck Surg. 2008;134(5):536-538.</li>
-                        <li>Ferlito A, et al. Neck dissection: then and now. Auris Nasus Larynx. 2006;33(4):365-374.</li>
-                        <li>American Head and Neck Society. Neck Dissection Classification. Available at: www.ahns.info</li>
-                    </ol>
-
-                    <h3>Sinonasal Symptom Score (Simplified)</h3>
-                    <ol>
-                        <li>Hopkins C, et al. Psychometric validity of the 22-item Sinonasal Outcome Test. Clin Otolaryngol. 2009;34(5):447-454. (Validation of the full 22-item SNOT-22; this calculator is a simplified 8-item subset and is not equivalent.)</li>
-                        <li>Rudmik L, et al. Defining appropriateness criteria for endoscopic sinus surgery during management of uncomplicated adult chronic rhinosinusitis. Int Forum Allergy Rhinol. 2016;6(6):557-567.</li>
-                        <li>DeConde AS, et al. Responsiveness of patient-reported outcome measures in chronic rhinosinusitis. J Allergy Clin Immunol Pract. 2015;3(5):719-725.</li>
-                    </ol>
-
-                    <h3>Body Surface Area (BSA) Calculator</h3>
-                    <ol>
-                        <li>Mosteller RD. Simplified calculation of body-surface area. N Engl J Med. 1987;317(17):1098.</li>
-                        <li>Du Bois D, Du Bois EF. A formula to estimate the approximate surface area if height and weight be known. Arch Intern Med. 1916;17:863-871.</li>
-                        <li>Verbraecken J, et al. Body surface area in normal-weight, overweight, and obese adults. A comparison study. Metabolism. 2006;55(4):515-524.</li>
-                    </ol>
-
-                    <div class="disclaimer" style="margin-top: 2rem; padding: 1.5rem; background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 5px;">
-                        <p style="margin: 0; color: #856404; font-size: 0.9rem; line-height: 1.6;"><strong>Disclaimer:</strong> These calculators are for educational and informational purposes only. They do not replace professional medical judgment. Always verify calculations independently and consult current clinical guidelines. Dosing should be individualized based on patient characteristics, comorbidities, and clinical context.</p>
-                    </div>
-                </div>
-            </div>
-
+          </sc-if>
         </div>
-    </section>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/calculators.js"></script>
+        <div style="background:#faf8f2;border:1px solid #e4ded2;padding:28px;">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a302a;margin-bottom:6px;">Head &amp; neck</div>
+          <h3 style="font-family:'Newsreader',serif;font-weight:600;font-size:21px;color:#1c1a17;margin-bottom:8px;">Neck Dissection Classification</h3>
+          <p style="font-size:14px;color:#6f6a61;line-height:1.6;margin-bottom:18px;">Classify the dissection from levels and structures.</p>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:#8a302a;margin-bottom:10px;">Levels removed</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;">
+            <sc-for list="{{ neckLevels }}" as="lv" hint-placeholder-count="6">
+              <label style="display:inline-flex;align-items:center;gap:7px;font-size:14px;color:#46423b;padding:8px 12px;background:#fff;border:1px solid #d9d3c7;border-radius:2px;cursor:pointer;"><input type="checkbox" checked="{{ lv.checked }}" onChange="{{ lv.onToggle }}" style="accent-color:#8a302a;width:15px;height:15px;"> Level {{ lv.label }}</label>
+            </sc-for>
+          </div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:#8a302a;margin-bottom:10px;">Structures preserved</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;">
+            <label style="display:inline-flex;align-items:center;gap:7px;font-size:14px;color:#46423b;padding:8px 12px;background:#fff;border:1px solid #d9d3c7;border-radius:2px;cursor:pointer;"><input type="checkbox" checked="{{ scm }}" onChange="{{ onScm }}" style="accent-color:#8a302a;width:15px;height:15px;"> SCM</label>
+            <label style="display:inline-flex;align-items:center;gap:7px;font-size:14px;color:#46423b;padding:8px 12px;background:#fff;border:1px solid #d9d3c7;border-radius:2px;cursor:pointer;"><input type="checkbox" checked="{{ ijv }}" onChange="{{ onIjv }}" style="accent-color:#8a302a;width:15px;height:15px;"> IJV</label>
+            <label style="display:inline-flex;align-items:center;gap:7px;font-size:14px;color:#46423b;padding:8px 12px;background:#fff;border:1px solid #d9d3c7;border-radius:2px;cursor:pointer;"><input type="checkbox" checked="{{ cn11 }}" onChange="{{ onCn11 }}" style="accent-color:#8a302a;width:15px;height:15px;"> CN XI</label>
+          </div>
+          <button onClick="{{ calcNeck }}" style="background:#1c1a17;color:#f4f1ea;font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:14.5px;padding:12px 24px;border:none;border-radius:2px;cursor:pointer;" style-hover="background:#8a302a;">Classify</button>
+          <sc-if value="{{ neckErrFlag }}" hint-placeholder-val="{{ false }}"><div style="margin-top:18px;padding:12px 15px;background:#f6e9e7;border:1px solid #e3c4bf;border-radius:2px;color:#8a302a;font-size:14px;">{{ neckErr }}</div></sc-if>
+          <sc-if value="{{ neckShow }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:20px;border-top:1px solid #e4ded2;padding-top:18px;">
+              <div style="font-family:'Newsreader',serif;font-size:22px;color:#1c1a17;margin-bottom:6px;">{{ neckType }}</div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#8a302a;margin-bottom:10px;">Levels {{ neckLevelsStr }}</div>
+              <div style="font-size:14px;color:#5b564d;line-height:1.6;">{{ neckDesc }}</div>
+              <sc-if value="{{ neckPreservedFlag }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;font-size:13px;color:#6f6a61;">Preserved: {{ neckPreserved }}</div></sc-if>
+            </div>
+          </sc-if>
+        </div>
+
+        <div style="background:#faf8f2;border:1px solid #e4ded2;padding:28px;">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a302a;margin-bottom:6px;">Rhinology</div>
+          <h3 style="font-family:'Newsreader',serif;font-weight:600;font-size:21px;color:#1c1a17;margin-bottom:8px;">Sinonasal Symptom Score</h3>
+          <p style="font-size:14px;color:#6f6a61;line-height:1.6;margin-bottom:8px;">Simplified 8-item score &mdash; not the validated 22-item SNOT-22. Rate each 0 (none) to 5 (worst).</p>
+          <div style="display:flex;flex-direction:column;gap:8px;margin:16px 0;">
+            <sc-for list="{{ snotItems }}" as="s" hint-placeholder-count="8">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;"><label style="font-size:14px;color:#46423b;">{{ s.label }}</label><input type="number" min="0" max="5" value="{{ s.val }}" onChange="{{ s.onChange }}" onInput="{{ s.onChange }}" style="width:72px;font-size:15px;padding:8px 10px;background:#fff;border:1px solid #d9d3c7;border-radius:2px;color:#1c1a17;text-align:center;"></div>
+            </sc-for>
+          </div>
+          <button onClick="{{ calcSnot }}" style="background:#1c1a17;color:#f4f1ea;font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:14.5px;padding:12px 24px;border:none;border-radius:2px;cursor:pointer;" style-hover="background:#8a302a;">Calculate score</button>
+          <sc-if value="{{ snotShow }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:20px;border-top:1px solid #e4ded2;padding-top:18px;">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#8a302a;margin-bottom:4px;">Total score</div>
+              <div style="font-family:'Newsreader',serif;font-size:38px;line-height:1;color:#1c1a17;">{{ snotTotal }}</div>
+              <div style="font-size:13px;color:#6f6a61;margin:6px 0 12px;">{{ snotPct }}</div>
+              <span style="{{ snotBadge }}">{{ snotSeverity }}</span>
+            </div>
+          </sc-if>
+        </div>
+
+        <div style="background:#faf8f2;border:1px solid #e4ded2;padding:28px;">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a302a;margin-bottom:6px;">General</div>
+          <h3 style="font-family:'Newsreader',serif;font-weight:600;font-size:21px;color:#1c1a17;margin-bottom:8px;">Body Surface Area (BSA)</h3>
+          <p style="font-size:14px;color:#6f6a61;line-height:1.6;margin-bottom:18px;">Mosteller and Du Bois BSA for medication dosing.</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
+            <div><label for="bsa-w" style="display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#8a302a;margin-bottom:6px;">Weight (kg)</label><input id="bsa-w" type="number" min="0" step="0.1" placeholder="kg" value="{{ bsaWeight }}" onChange="{{ onBsaWeight }}" onInput="{{ onBsaWeight }}" style="width:100%;font-size:15px;padding:10px 12px;background:#fff;border:1px solid #d9d3c7;border-radius:2px;color:#1c1a17;"></div>
+            <div><label for="bsa-h" style="display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#8a302a;margin-bottom:6px;">Height (cm)</label><input id="bsa-h" type="number" min="0" step="0.1" placeholder="cm" value="{{ bsaHeight }}" onChange="{{ onBsaHeight }}" onInput="{{ onBsaHeight }}" onKeyDown="{{ onBsaKey }}" style="width:100%;font-size:15px;padding:10px 12px;background:#fff;border:1px solid #d9d3c7;border-radius:2px;color:#1c1a17;"></div>
+          </div>
+          <button onClick="{{ calcBsa }}" style="background:#1c1a17;color:#f4f1ea;font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:14.5px;padding:12px 24px;border:none;border-radius:2px;cursor:pointer;" style-hover="background:#8a302a;">Calculate</button>
+          <sc-if value="{{ bsaErrFlag }}" hint-placeholder-val="{{ false }}"><div style="margin-top:18px;padding:12px 15px;background:#f6e9e7;border:1px solid #e3c4bf;border-radius:2px;color:#8a302a;font-size:14px;">{{ bsaErr }}</div></sc-if>
+          <sc-if value="{{ bsaShow }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:20px;border-top:1px solid #e4ded2;padding-top:18px;display:flex;gap:1px;background:#e4ded2;border:1px solid #e4ded2;">
+              <div style="background:#fff;padding:16px;flex:1;"><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#8a302a;margin-bottom:4px;">Mosteller</div><div style="font-family:'Newsreader',serif;font-size:28px;line-height:1;color:#1c1a17;">{{ bsaMosteller }}</div></div>
+              <div style="background:#fff;padding:16px;flex:1;"><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#8a302a;margin-bottom:4px;">Du Bois</div><div style="font-family:'Newsreader',serif;font-size:28px;line-height:1;color:#1c1a17;">{{ bsaDuBois }}</div></div>
+            </div>
+          </sc-if>
+        </div>
+
+      </div>
+
+      <div style="margin-top:30px;padding:22px 26px;background:#efeae0;border:1px solid #e4ded2;border-left:3px solid #8a302a;font-size:13.5px;color:#6f6a61;line-height:1.7;"><strong style="color:#1c1a17;">Disclaimer.</strong> These calculators are for educational and informational purposes only and do not replace professional medical judgment. Always verify calculations independently and consult current clinical guidelines. Dosing must be individualized.</div>
+    </div>
+  </section>
+
+  <footer style="background:#1c1a17;color:#e9e4da;padding:40px 0;">
+    <div style="max-width:1080px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:center;">
+      <a href="index.html" style="font-family:'Newsreader',serif;font-size:17px;color:#cdc6ba;text-decoration:none;">Dr Ali Alshahrani</a>
+      <div style="display:flex;gap:24px;font-size:14px;">
+        <a href="ent-tools.html" style="text-decoration:none;color:#b8b1a5;" style-hover="color:#f4f1ea;">All Tools</a>
+        <a href="curriculum_vitae.html" style="text-decoration:none;color:#b8b1a5;" style-hover="color:#f4f1ea;">CV</a>
+        <a href="index.html#contact" style="text-decoration:none;color:#b8b1a5;" style-hover="color:#f4f1ea;">Contact</a>
+      </div>
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.1em;color:#7d7869;">shahrani.me &middot; &copy; 2026</span>
+    </div>
+  </footer>
+
+</div>
+
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#8a302a"/><text x="50" y="50" dy="0.36em" text-anchor="middle" font-family="Georgia,serif" font-size="46" fill="#f4f1ea">A</text></svg></template></x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    menuOpen: false,
+    lidWeight: '', lidRes: null, lidErr: '',
+    epiStart: '1000', epiDesired: '10000', epiVol: '10', epiRes: null, epiErr: '',
+    pta500: '', pta1000: '', pta2000: '', pta4000: '', ptaRes: null, ptaErr: '',
+    neck: { I: false, II: false, III: false, IV: false, V: false, VI: false }, scm: false, ijv: false, cn11: false, neckRes: null, neckErr: '',
+    snot: [0, 0, 0, 0, 0, 0, 0, 0], snotRes: null,
+    bsaWeight: '', bsaHeight: '', bsaRes: null, bsaErr: ''
+  };
+
+  SNOT_LABELS = ['Nasal obstruction', 'Nasal discharge', 'Post-nasal discharge', 'Facial pain / pressure', 'Sense of smell', 'Thick nasal discharge', 'Cough', 'Ear fullness'];
+
+  badge(type) {
+    var map = {
+      normal: { bg: '#e7efe9', fg: '#2f6b48' }, mild: { bg: '#f1ecdd', fg: '#836a1f' },
+      moderate: { bg: '#f3e7da', fg: '#9a5a1f' }, severe: { bg: '#f6e9e7', fg: '#8a302a' }, profound: { bg: '#f6e9e7', fg: '#8a302a' }
+    };
+    var c = map[type] || map.moderate;
+    return { display: 'inline-block', fontFamily: "'IBM Plex Mono',monospace", fontSize: '12px', letterSpacing: '0.08em', textTransform: 'uppercase', padding: '7px 13px', borderRadius: '2px', background: c.bg, color: c.fg };
+  }
+
+  calcLid() {
+    var w = parseFloat(this.state.lidWeight);
+    if (isNaN(w) || w <= 0) { this.setState({ lidRes: null, lidErr: 'Please enter a valid weight.' }); return; }
+    var noEpi = Math.min(w * 4.5, 300), epi = Math.min(w * 7, 500);
+    this.setState({ lidErr: '', lidRes: {
+      noEpi: noEpi.toFixed(1) + ' mg', noEpiNote: '\u2248 ' + (noEpi / 10).toFixed(1) + ' mL of 1% or ' + (noEpi / 20).toFixed(1) + ' mL of 2%',
+      epi: epi.toFixed(1) + ' mg', epiNote: '\u2248 ' + (epi / 10).toFixed(1) + ' mL of 1% or ' + (epi / 20).toFixed(1) + ' mL of 2%'
+    } });
+  }
+
+  calcEpi() {
+    var s = parseFloat(this.state.epiStart), d = parseFloat(this.state.epiDesired), v = parseFloat(this.state.epiVol);
+    if (isNaN(v) || v <= 0) { this.setState({ epiRes: null, epiErr: 'Please enter a valid volume.' }); return; }
+    if (s >= d) { this.setState({ epiRes: null, epiErr: 'Starting concentration must be more concentrated than the desired one (a smaller 1:N denominator).' }); return; }
+    var ev = (v * s) / d, sv = v - ev;
+    if (ev > v) { this.setState({ epiRes: null, epiErr: 'Cannot achieve this dilution. Choose a different starting concentration.' }); return; }
+    this.setState({ epiErr: '', epiRes: {
+      headline: 'To make ' + v + ' mL of 1:' + Number(d).toLocaleString() + ' epinephrine:',
+      amt: ev.toFixed(2) + ' mL', saline: sv.toFixed(2) + ' mL'
+    } });
+  }
+
+  calcPta() {
+    var f5 = parseFloat(this.state.pta500), f1 = parseFloat(this.state.pta1000), f2 = parseFloat(this.state.pta2000), f4 = parseFloat(this.state.pta4000);
+    if (isNaN(f5) || isNaN(f1) || isNaN(f2)) { this.setState({ ptaRes: null, ptaErr: 'Please enter thresholds for 500, 1000, and 2000 Hz.' }); return; }
+    var pta, method;
+    if (!isNaN(f4) && f4 > 0) { pta = (f5 + f1 + f2 + f4) / 4; method = '4-frequency average (500/1000/2000/4000 Hz)'; }
+    else { pta = (f5 + f1 + f2) / 3; method = '3-frequency average (500/1000/2000 Hz)'; }
+    var cls, ct;
+    if (pta <= 25) { cls = 'Normal hearing'; ct = 'normal'; }
+    else if (pta <= 40) { cls = 'Mild hearing loss'; ct = 'mild'; }
+    else if (pta <= 55) { cls = 'Moderate hearing loss'; ct = 'moderate'; }
+    else if (pta <= 70) { cls = 'Moderately severe hearing loss'; ct = 'moderate'; }
+    else if (pta <= 90) { cls = 'Severe hearing loss'; ct = 'severe'; }
+    else { cls = 'Profound hearing loss'; ct = 'profound'; }
+    this.setState({ ptaErr: '', ptaRes: { val: pta.toFixed(1) + ' dB HL', method: method, cls: cls, ct: ct } });
+  }
+
+  calcNeck() {
+    var n = this.state.neck;
+    var levels = Object.keys(n).filter(function (k) { return n[k]; });
+    if (levels.length === 0) { this.setState({ neckRes: null, neckErr: 'Please select at least one neck level.' }); return; }
+    var scm = this.state.scm, ijv = this.state.ijv, cn11 = this.state.cn11;
+    var all5 = levels.length === 5 && n.I && n.II && n.III && n.IV && n.V;
+    var type, desc;
+    if (all5 && !scm && !ijv && !cn11) { type = 'Radical Neck Dissection (RND)'; desc = 'Removal of levels I\u2013V with sacrifice of SCM, IJV, and CN XI.'; }
+    else if (all5) {
+      var pres = [];
+      if (scm) pres.push('SCM'); if (ijv) pres.push('IJV'); if (cn11) pres.push('CN XI');
+      if (pres.length > 0) { type = 'Modified Radical Neck Dissection (MRND)'; desc = 'Removal of levels I\u2013V with preservation of ' + pres.join(', ') + '.'; }
+      else { type = 'Radical Neck Dissection (RND)'; desc = 'Removal of levels I\u2013V with sacrifice of SCM, IJV, and CN XI.'; }
+    } else {
+      type = 'Selective Neck Dissection (SND)';
+      var ls = levels.join('-');
+      if (ls === 'I-II-III') desc = 'Supraomohyoid neck dissection (levels I\u2013III) \u2014 typically for oral cavity cancers.';
+      else if (ls === 'II-III-IV') desc = 'Lateral neck dissection (levels II\u2013IV) \u2014 typically for laryngeal / hypopharyngeal cancers.';
+      else if (ls === 'II-III-IV-V') desc = 'Posterolateral neck dissection (levels II\u2013V) \u2014 typically for cutaneous malignancies.';
+      else if (ls === 'VI') desc = 'Central compartment dissection (level VI) \u2014 typically for thyroid cancers.';
+      else desc = 'Custom selective neck dissection of levels ' + levels.join(', ') + '.';
+    }
+    var preserved = [scm ? 'SCM' : null, ijv ? 'IJV' : null, cn11 ? 'CN XI' : null].filter(Boolean).join(', ');
+    this.setState({ neckErr: '', neckRes: { type: type, levels: levels.join(', '), desc: desc, preserved: preserved } });
+  }
+
+  calcSnot() {
+    var arr = this.state.snot, total = 0, valid = 0;
+    arr.forEach(function (v) { var x = parseFloat(v); if (!isNaN(x) && x >= 0 && x <= 5) { total += x; valid++; } });
+    if (valid === 0) { return; }
+    var max = valid * 5, pct = (total / max) * 100;
+    var sev, ct;
+    if (total <= 10) { sev = 'Minimal impact'; ct = 'normal'; }
+    else if (total <= 20) { sev = 'Mild impact'; ct = 'mild'; }
+    else if (total <= 30) { sev = 'Moderate impact'; ct = 'moderate'; }
+    else { sev = 'Severe impact'; ct = 'severe'; }
+    this.setState({ snotRes: { total: total + ' / ' + max, pct: pct.toFixed(1) + '% of maximum', sev: sev, ct: ct } });
+  }
+
+  calcBsa() {
+    var w = parseFloat(this.state.bsaWeight), h = parseFloat(this.state.bsaHeight);
+    if (isNaN(w) || w <= 0 || isNaN(h) || h <= 0) { this.setState({ bsaRes: null, bsaErr: 'Please enter valid weight and height.' }); return; }
+    var m = Math.sqrt((h * w) / 3600), db = 0.007184 * Math.pow(h, 0.725) * Math.pow(w, 0.425);
+    this.setState({ bsaErr: '', bsaRes: { m: m.toFixed(2) + ' m\u00b2', db: db.toFixed(2) + ' m\u00b2' } });
+  }
+
+  renderVals() {
+    var self = this;
+    var s = this.state;
+    var lr = s.lidRes, er = s.epiRes, pr = s.ptaRes, nr = s.neckRes, sr = s.snotRes, br = s.bsaRes;
+    var fld = function (k) { return function (e) { var o = {}; o[k] = e.target.value; self.setState(o); }; };
+    var neckLevels = ['I', 'II', 'III', 'IV', 'V', 'VI'].map(function (lv) {
+      return { label: lv, checked: s.neck[lv], onToggle: function () { self.setState(function (st) { var nn = Object.assign({}, st.neck); nn[lv] = !nn[lv]; return { neck: nn }; }); } };
+    });
+    var snotItems = this.SNOT_LABELS.map(function (lab, i) {
+      return { label: lab, val: s.snot[i], onChange: function (e) { var v = e.target.value; self.setState(function (st) { var a = st.snot.slice(); a[i] = v === '' ? 0 : parseFloat(v); return { snot: a }; }); } };
+    });
+    return {
+      menuOpen: s.menuOpen,
+      toggleMenu: function () { self.setState(function (st) { return { menuOpen: !st.menuOpen }; }); },
+      lidWeight: s.lidWeight, onLidWeight: fld('lidWeight'), onLidKey: function (e) { if (e.key === 'Enter') self.calcLid(); }, calcLid: function () { self.calcLid(); },
+      lidShow: lr != null, lidErrFlag: !!s.lidErr, lidErr: s.lidErr, lidNoEpi: lr ? lr.noEpi : '', lidNoEpiNote: lr ? lr.noEpiNote : '', lidEpi: lr ? lr.epi : '', lidEpiNote: lr ? lr.epiNote : '',
+      epiStart: s.epiStart, epiDesired: s.epiDesired, epiVol: s.epiVol, onEpiStart: fld('epiStart'), onEpiDesired: fld('epiDesired'), onEpiVol: fld('epiVol'), calcEpi: function () { self.calcEpi(); },
+      epiShow: er != null, epiErrFlag: !!s.epiErr, epiErr: s.epiErr, epiHeadline: er ? er.headline : '', epiAmt: er ? er.amt : '', epiSaline: er ? er.saline : '',
+      pta500: s.pta500, pta1000: s.pta1000, pta2000: s.pta2000, pta4000: s.pta4000,
+      onPta500: fld('pta500'), onPta1000: fld('pta1000'), onPta2000: fld('pta2000'), onPta4000: fld('pta4000'), calcPta: function () { self.calcPta(); },
+      ptaShow: pr != null, ptaErrFlag: !!s.ptaErr, ptaErr: s.ptaErr, ptaVal: pr ? pr.val : '', ptaMethod: pr ? pr.method : '', ptaClass: pr ? pr.cls : '', ptaBadge: pr ? this.badge(pr.ct) : {},
+      neckLevels: neckLevels, scm: s.scm, ijv: s.ijv, cn11: s.cn11,
+      onScm: function () { self.setState(function (st) { return { scm: !st.scm }; }); }, onIjv: function () { self.setState(function (st) { return { ijv: !st.ijv }; }); }, onCn11: function () { self.setState(function (st) { return { cn11: !st.cn11 }; }); },
+      calcNeck: function () { self.calcNeck(); },
+      neckShow: nr != null, neckErrFlag: !!s.neckErr, neckErr: s.neckErr, neckType: nr ? nr.type : '', neckLevelsStr: nr ? nr.levels : '', neckDesc: nr ? nr.desc : '', neckPreserved: nr ? nr.preserved : '', neckPreservedFlag: !!(nr && nr.preserved),
+      snotItems: snotItems, calcSnot: function () { self.calcSnot(); },
+      snotShow: sr != null, snotTotal: sr ? sr.total : '', snotPct: sr ? sr.pct : '', snotSeverity: sr ? sr.sev : '', snotBadge: sr ? this.badge(sr.ct) : {},
+      bsaWeight: s.bsaWeight, bsaHeight: s.bsaHeight, onBsaWeight: fld('bsaWeight'), onBsaHeight: fld('bsaHeight'), onBsaKey: function (e) { if (e.key === 'Enter') self.calcBsa(); }, calcBsa: function () { self.calcBsa(); },
+      bsaShow: br != null, bsaErrFlag: !!s.bsaErr, bsaErr: s.bsaErr, bsaMosteller: br ? br.m : '', bsaDuBois: br ? br.db : ''
+    };
+  }
+}
+</script>
 </body>
 </html>

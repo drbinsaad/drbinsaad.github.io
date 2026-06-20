@@ -1,299 +1,232 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Airway Obstruction Calculator - Dr Ali Alshahrani</title>
-    <meta name="description" content="Myer-Cotton airway obstruction grading estimator by age and ETT size. Educational reference for clinicians; endoscopy is essential for diagnosis.">
-    <link rel="icon" type="image/png" href="/favicon.png">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/calculator.css" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
 </head>
 <body>
-    <nav id="navbar">
-        <div class="container">
-            <a href="index.html" class="logo">Dr Ali Alshahrani</a>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <ul class="nav-links">
-                <li><a href="dashboard.html">Dashboard</a></li>
-                <li>
-                    <a href="#research">Research</a>
-                    <ul class="dropdown">
-                        <li><a href="index.html#research">Research Focus</a></li>
-                        <li><a href="index.html#publications">Recent Publications</a></li>
-                    </ul>
-                </li>
-                <li><a href="curriculum_vitae.html">Brief CV</a></li>
-                <li><a href="index.html#contact">Contact</a></li>
-                <li>
-                    <a href="#ent">ENT Web Tools</a>
-                    <ul class="dropdown">
-                        <li><a href="ent-calculators.html">Medical Calculators</a></li>
-                        <li><a href="bronchoscopy-tool.html">Airway Sizing Tool</a></li>
-                        <li><a href="et-depth-calculator.html">ET Depth Calculator</a></li>
-                        <li><a href="xeomin-calculator.html">XEOMIN Calculator</a></li>
-                        <li><a href="nebulized-epinephrine-calculator.html">Nebulized Epinephrine</a></li>
-                        <li><a href="airway-obstruction-calculator.html">Airway Obstruction</a></li>
-                    </ul>
-                </li>
-            </ul>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:#f4f1ea;}
+  a{color:inherit;}
+  ::selection{background:#8a302a;color:#f4f1ea;}
+  select{font-family:'Source Sans 3',sans-serif;}
+  select:focus{outline:none;border-color:#8a302a !important;}
+  @media (max-width:820px){
+    [data-desktop-nav]{display:none !important;}
+    [data-mobile-btn]{display:inline-flex !important;}
+    [data-grid-2]{grid-template-columns:1fr !important;}
+    [data-grid-4]{grid-template-columns:1fr 1fr !important;}
+    [data-sec]{padding:48px 0 !important;}
+  }
+</style>
+</helmet>
+
+<div id="top" data-screen-label="Airway Obstruction" style="background:#f4f1ea;color:#1c1a17;font-family:'Source Sans 3',system-ui,sans-serif;line-height:1.7;min-height:100vh;-webkit-font-smoothing:antialiased;">
+
+  <header style="position:sticky;top:0;z-index:60;background:rgba(244,241,234,0.88);backdrop-filter:blur(12px);border-bottom:1px solid #e4ded2;">
+    <div style="max-width:1080px;margin:0 auto;padding:15px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px;">
+      <a href="index.html" style="text-decoration:none;display:flex;flex-direction:column;line-height:1.08;flex:none;white-space:nowrap;">
+        <span style="font-family:'Newsreader',serif;font-size:20px;font-weight:600;color:#1c1a17;letter-spacing:0.01em;">Ali Alshahrani</span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:#8a302a;margin-top:4px;">Otolaryngology</span>
+      </a>
+      <nav data-desktop-nav style="display:flex;align-items:center;gap:30px;font-size:14.5px;font-weight:500;">
+        <a href="index.html#research" style="text-decoration:none;color:#46423b;" style-hover="color:#8a302a;">Research</a>
+        <a href="index.html#publications" style="text-decoration:none;color:#46423b;" style-hover="color:#8a302a;">Publications</a>
+        <a href="ent-tools.html" style="text-decoration:none;color:#8a302a;border-bottom:1px solid #c9a59f;padding-bottom:2px;">Tools</a>
+        <a href="curriculum_vitae.html" style="text-decoration:none;color:#46423b;" style-hover="color:#8a302a;">CV</a>
+        <a href="index.html#contact" style="text-decoration:none;color:#f4f1ea;background:#1c1a17;padding:9px 18px;border-radius:2px;" style-hover="background:#8a302a;">Contact</a>
+      </nav>
+      <button data-mobile-btn onClick="{{ toggleMenu }}" aria-label="Menu" style="display:none;align-items:center;justify-content:center;width:42px;height:42px;background:transparent;border:1px solid #d9d3c7;border-radius:2px;cursor:pointer;color:#1c1a17;font-size:18px;">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+    <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="border-top:1px solid #e4ded2;background:#f4f1ea;padding:10px 28px 18px;display:flex;flex-direction:column;gap:4px;">
+        <a href="index.html#research" style="text-decoration:none;color:#46423b;padding:11px 0;border-bottom:1px solid #ece7dc;font-weight:500;">Research</a>
+        <a href="index.html#publications" style="text-decoration:none;color:#46423b;padding:11px 0;border-bottom:1px solid #ece7dc;font-weight:500;">Publications</a>
+        <a href="ent-tools.html" style="text-decoration:none;color:#8a302a;padding:11px 0;border-bottom:1px solid #ece7dc;font-weight:600;">Clinical Tools</a>
+        <a href="curriculum_vitae.html" style="text-decoration:none;color:#46423b;padding:11px 0;border-bottom:1px solid #ece7dc;font-weight:500;">Curriculum Vitae</a>
+        <a href="index.html#contact" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#8a302a;padding:11px 0;font-weight:600;">Contact</a>
+      </div>
+    </sc-if>
+  </header>
+
+  <section data-sec style="padding:56px 0 30px;">
+    <div style="max-width:920px;margin:0 auto;padding:0 28px;">
+      <a href="ent-tools.html" style="text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.1em;color:#8a302a;display:inline-block;margin-bottom:22px;">&larr; All ENT tools</a>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#8a302a;margin-bottom:16px;">Pediatric Airway &amp; Anesthesia</div>
+      <h1 style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(34px,4.6vw,52px);line-height:1.04;letter-spacing:-0.01em;color:#1c1a17;margin-bottom:18px;">Airway Obstruction Calculator</h1>
+      <p style="font-size:17.5px;color:#46423b;line-height:1.7;max-width:56ch;">Estimate percent subglottic obstruction and Cotton-Myer grade from patient age and the largest endotracheal tube that passes the stenosis.</p>
+    </div>
+  </section>
+
+  <section data-sec style="padding:14px 0 30px;">
+    <div style="max-width:920px;margin:0 auto;padding:0 28px;">
+      <div style="background:#faf8f2;border:1px solid #e4ded2;padding:34px;">
+        <h2 style="font-family:'Newsreader',serif;font-weight:600;font-size:22px;color:#1c1a17;margin-bottom:24px;">Calculate obstruction</h2>
+        <div data-grid-2 style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+          <div>
+            <label for="age-sel" style="display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a302a;margin-bottom:10px;">Patient age</label>
+            <select id="age-sel" value="{{ ageVal }}" onChange="{{ onAge }}" style="width:100%;font-size:17px;padding:14px 16px;background:#fff;border:1px solid #d9d3c7;border-radius:2px;color:#1c1a17;">
+              <option value="">Select age...</option>
+              <option value="preterm1">Pre-term (younger)</option>
+              <option value="preterm2">Pre-term (older)</option>
+              <option value="0-3mo">0&ndash;3 months</option>
+              <option value="3-9mo">3&ndash;9 months</option>
+              <option value="9mo-2yr">9 months &ndash; 2 years</option>
+              <option value="2yr">2 years</option>
+              <option value="4yr">4 years</option>
+              <option value="6yr">6 years</option>
+            </select>
+          </div>
+          <div>
+            <label for="ett-sel" style="display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a302a;margin-bottom:10px;">ETT size that passes (mm)</label>
+            <select id="ett-sel" value="{{ ettVal }}" onChange="{{ onEtt }}" style="width:100%;font-size:17px;padding:14px 16px;background:#fff;border:1px solid #d9d3c7;border-radius:2px;color:#1c1a17;">
+              <option value="">Select ETT size...</option>
+              <option value="2.0">2.0</option>
+              <option value="2.5">2.5</option>
+              <option value="3.0">3.0</option>
+              <option value="3.5">3.5</option>
+              <option value="4.0">4.0</option>
+              <option value="4.5">4.5</option>
+              <option value="5.0">5.0</option>
+              <option value="5.5">5.5</option>
+            </select>
+          </div>
         </div>
-    </nav>
-
-    <header style="min-height: 40vh;">
-        <div class="container">
-            <div class="header-content" style="text-align: center;">
-                <div class="profile-text" data-aos="fade-up">
-                    <h1><i class="fas fa-lungs"></i> Airway Obstruction Calculator</h1>
-                    <p>Assess percent airway obstruction based on endotracheal tube size</p>
-                </div>
+        <sc-if value="{{ show }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:30px;border-top:1px solid #e4ded2;padding-top:26px;">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a302a;margin-bottom:10px;">Airway obstruction assessment</div>
+            <div style="display:flex;align-items:baseline;gap:18px;flex-wrap:wrap;">
+              <div style="font-family:'Newsreader',serif;font-weight:500;font-size:54px;line-height:1;color:#1c1a17;">{{ obstructionLabel }}</div>
+              <span style="{{ gradeBadgeStyle }}">{{ gradeShort }}</span>
             </div>
-        </div>
-    </header>
+            <div style="font-size:15.5px;color:#5b564d;margin-top:12px;">{{ gradeText }}</div>
+            <div style="margin-top:16px;display:flex;gap:9px;align-items:flex-start;font-size:13.5px;color:#7a746a;"><i class="fas fa-triangle-exclamation" style="color:#8a302a;margin-top:3px;"></i><span>Clinical correlation required. This estimates grade from ETT sizing; direct endoscopy is essential for diagnosis.</span></div>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </section>
 
-    <section id="airway-calculator">
-        <div class="container">
-            
-            <!-- Calculator Input -->
-            <div class="calculator-card" data-aos="fade-up">
-                <h2><i class="fas fa-calculator"></i> Calculate Airway Obstruction</h2>
-                <p class="formula-display">Based on Cotton-Myer Grading System for Subglottic Stenosis</p>
-                
-                <div class="input-group">
-                    <label for="patient-age-select">Patient Age</label>
-                    <select id="patient-age-select" onchange="calculateObstruction()">
-                        <option value="">Select age...</option>
-                        <option value="preterm1">Pre-term (younger)</option>
-                        <option value="preterm2">Pre-term (older)</option>
-                        <option value="0-3mo">0-3 months</option>
-                        <option value="3-9mo">3-9 months</option>
-                        <option value="9mo-2yr">9 months - 2 years</option>
-                        <option value="2yr">2 years</option>
-                        <option value="4yr">4 years</option>
-                        <option value="6yr">6 years</option>
-                    </select>
-                </div>
-                
-                <div class="input-group">
-                    <label for="ett-size-select">Endotracheal Tube Size (mm)</label>
-                    <select id="ett-size-select" onchange="calculateObstruction()">
-                        <option value="">Select ETT size...</option>
-                        <option value="2.0">2.0</option>
-                        <option value="2.5">2.5</option>
-                        <option value="3.0">3.0</option>
-                        <option value="3.5">3.5</option>
-                        <option value="4.0">4.0</option>
-                        <option value="4.5">4.5</option>
-                        <option value="5.0">5.0</option>
-                        <option value="5.5">5.5</option>
-                    </select>
-                </div>
-                
-                <div id="obstruction-result" class="result-box" style="display: none;">
-                    <div class="result-icon"><i class="fas fa-check-circle"></i></div>
-                    <div class="result-content">
-                        <h3>Airway Obstruction Assessment</h3>
-                        <div class="result-value" id="obstruction-value">-</div>
-                        <div class="result-note" id="grade-value">-</div>
-                        <div class="result-warning">
-                            <i class="fas fa-exclamation-triangle"></i>
-                            Clinical correlation required. This is an estimation tool based on ETT sizing.
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <section data-sec style="padding:30px 0;">
+    <div style="max-width:920px;margin:0 auto;padding:0 28px;">
+      <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:26px;color:#1c1a17;margin-bottom:28px;">Cotton-Myer grades</h2>
+      <div data-grid-4 style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#e4ded2;border:1px solid #e4ded2;">
+        <div style="background:#faf8f2;padding:22px;"><div style="font-family:'Newsreader',serif;font-size:22px;color:#1c1a17;margin-bottom:6px;">Grade I</div><div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#8a302a;margin-bottom:8px;">0&ndash;50%</div><div style="font-size:13.5px;color:#6f6a61;line-height:1.55;">Mild stenosis &mdash; usually well tolerated.</div></div>
+        <div style="background:#faf8f2;padding:22px;"><div style="font-family:'Newsreader',serif;font-size:22px;color:#1c1a17;margin-bottom:6px;">Grade II</div><div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#8a302a;margin-bottom:8px;">51&ndash;70%</div><div style="font-size:13.5px;color:#6f6a61;line-height:1.55;">Moderate stenosis &mdash; may cause respiratory symptoms.</div></div>
+        <div style="background:#faf8f2;padding:22px;"><div style="font-family:'Newsreader',serif;font-size:22px;color:#1c1a17;margin-bottom:6px;">Grade III</div><div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#8a302a;margin-bottom:8px;">71&ndash;99%</div><div style="font-size:13.5px;color:#6f6a61;line-height:1.55;">Severe stenosis &mdash; significant airway compromise.</div></div>
+        <div style="background:#faf8f2;padding:22px;"><div style="font-family:'Newsreader',serif;font-size:22px;color:#1c1a17;margin-bottom:6px;">Grade IV</div><div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#8a302a;margin-bottom:8px;">No lumen</div><div style="font-size:13.5px;color:#6f6a61;line-height:1.55;">Complete obstruction &mdash; critical airway emergency.</div></div>
+      </div>
+    </div>
+  </section>
 
-            <!-- Quick Reference Table -->
-            <div class="calculator-card" data-aos="fade-up">
-                <h2><i class="fas fa-table"></i> Percent Airway Obstruction Reference Table</h2>
-                <div class="table-responsive">
-                    <table class="reference-table-full">
-                        <thead>
-                            <tr>
-                                <th>Age</th>
-                                <th>ETT 2.0</th>
-                                <th>ETT 2.5</th>
-                                <th>ETT 3.0</th>
-                                <th>ETT 3.5</th>
-                                <th>ETT 4.0</th>
-                                <th>ETT 4.5</th>
-                                <th>ETT 5.0</th>
-                                <th>ETT 5.5</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Pre-term (younger)</td>
-                                <td class="grade-4">40%</td>
-                                <td colspan="4" class="no-obstruction">No obstruction</td>
-                                <td class="no-obstruction">-</td>
-                                <td class="no-obstruction">-</td>
-                                <td class="no-obstruction">-</td>
-                            </tr>
-                            <tr>
-                                <td>Pre-term (older)</td>
-                                <td class="grade-4">58%</td>
-                                <td class="grade-3">30%</td>
-                                <td colspan="3" class="no-obstruction">No obstruction</td>
-                                <td class="no-obstruction">-</td>
-                                <td class="no-obstruction">-</td>
-                                <td class="no-obstruction">-</td>
-                            </tr>
-                            <tr>
-                                <td>0-3 months</td>
-                                <td class="grade-4">68%</td>
-                                <td class="grade-3">48%</td>
-                                <td class="grade-3">26%</td>
-                                <td colspan="2" class="no-obstruction">No obstruction</td>
-                                <td class="no-obstruction">-</td>
-                                <td class="no-obstruction">-</td>
-                                <td class="no-obstruction">-</td>
-                            </tr>
-                            <tr>
-                                <td>3-9 months</td>
-                                <td class="grade-4">75%</td>
-                                <td class="grade-4">59%</td>
-                                <td class="grade-3">41%</td>
-                                <td class="grade-3">22%</td>
-                                <td class="no-obstruction">No obstruction</td>
-                                <td class="no-obstruction">-</td>
-                                <td class="no-obstruction">-</td>
-                                <td class="no-obstruction">-</td>
-                            </tr>
-                            <tr>
-                                <td>9 months - 2 years</td>
-                                <td class="grade-4">80%</td>
-                                <td class="grade-4">67%</td>
-                                <td class="grade-4">53%</td>
-                                <td class="grade-3">38%</td>
-                                <td class="grade-2">20%</td>
-                                <td class="no-obstruction">-</td>
-                                <td class="no-obstruction">-</td>
-                                <td class="no-obstruction">-</td>
-                            </tr>
-                            <tr>
-                                <td>2 years</td>
-                                <td class="grade-4">84%</td>
-                                <td class="grade-4">74%</td>
-                                <td class="grade-4">62%</td>
-                                <td class="grade-3">50%</td>
-                                <td class="grade-2">35%</td>
-                                <td class="grade-2">19%</td>
-                                <td class="no-obstruction">-</td>
-                                <td class="no-obstruction">-</td>
-                            </tr>
-                            <tr>
-                                <td>4 years</td>
-                                <td class="grade-4">86%</td>
-                                <td class="grade-4">78%</td>
-                                <td class="grade-4">68%</td>
-                                <td class="grade-4">57%</td>
-                                <td class="grade-2">45%</td>
-                                <td class="grade-2">32%</td>
-                                <td class="grade-1">17%</td>
-                                <td class="no-obstruction">-</td>
-                            </tr>
-                            <tr>
-                                <td>6 years</td>
-                                <td class="grade-4">89%</td>
-                                <td class="grade-4">81%</td>
-                                <td class="grade-4">73%</td>
-                                <td class="grade-4">64%</td>
-                                <td class="grade-4">54%</td>
-                                <td class="grade-2">43%</td>
-                                <td class="grade-2">30%</td>
-                                <td class="grade-1">16%</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+  <section data-sec style="padding:30px 0;">
+    <div style="max-width:920px;margin:0 auto;padding:0 28px;">
+      <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:26px;color:#1c1a17;margin-bottom:28px;">Percent obstruction reference</h2>
+      <div style="border:1px solid #e4ded2;overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;font-size:13.5px;min-width:680px;">
+          <thead>
+            <tr style="background:#efeae0;border-bottom:1px solid #e4ded2;">
+              <th style="text-align:left;padding:11px 12px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:#8a302a;font-weight:500;">Age</th>
+              <th style="text-align:center;padding:11px 12px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:#8a302a;font-weight:500;">2.0</th>
+              <th style="text-align:center;padding:11px 12px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:#8a302a;font-weight:500;">2.5</th>
+              <th style="text-align:center;padding:11px 12px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:#8a302a;font-weight:500;">3.0</th>
+              <th style="text-align:center;padding:11px 12px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:#8a302a;font-weight:500;">3.5</th>
+              <th style="text-align:center;padding:11px 12px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:#8a302a;font-weight:500;">4.0</th>
+              <th style="text-align:center;padding:11px 12px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:#8a302a;font-weight:500;">4.5</th>
+              <th style="text-align:center;padding:11px 12px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:#8a302a;font-weight:500;">5.0</th>
+              <th style="text-align:center;padding:11px 12px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:#8a302a;font-weight:500;">5.5</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid #ece7dc;"><td style="padding:10px 12px;color:#5b564d;">Pre-term (younger)</td><td style="padding:10px 12px;text-align:center;font-family:'IBM Plex Mono',monospace;color:#8a302a;">40%</td><td style="padding:10px 12px;text-align:center;color:#bcb5a8;">&ndash;</td><td style="padding:10px 12px;text-align:center;color:#bcb5a8;">&ndash;</td><td style="padding:10px 12px;text-align:center;color:#bcb5a8;">&ndash;</td><td style="padding:10px 12px;text-align:center;color:#bcb5a8;">&ndash;</td><td style="padding:10px 12px;text-align:center;color:#bcb5a8;">&ndash;</td><td style="padding:10px 12px;text-align:center;color:#bcb5a8;">&ndash;</td><td style="padding:10px 12px;text-align:center;color:#bcb5a8;">&ndash;</td></tr>
+            <tr style="border-bottom:1px solid #ece7dc;"><td style="padding:10px 12px;color:#5b564d;">Pre-term (older)</td><td style="padding:10px 12px;text-align:center;font-family:'IBM Plex Mono',monospace;color:#8a302a;">58%</td><td style="padding:10px 12px;text-align:center;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">30%</td><td style="padding:10px 12px;text-align:center;color:#bcb5a8;">&ndash;</td><td style="padding:10px 12px;text-align:center;color:#bcb5a8;">&ndash;</td><td style="padding:10px 12px;text-align:center;color:#bcb5a8;">&ndash;</td><td style="padding:10px 12px;text-align:center;color:#bcb5a8;">&ndash;</td><td style="padding:10px 12px;text-align:center;color:#bcb5a8;">&ndash;</td><td style="padding:10px 12px;text-align:center;color:#bcb5a8;">&ndash;</td></tr>
+            <tr style="border-bottom:1px solid #ece7dc;"><td style="padding:10px 12px;color:#5b564d;">0&ndash;3 months</td><td style="padding:10px 12px;text-align:center;font-family:'IBM Plex Mono',monospace;color:#8a302a;">68%</td><td style="padding:10px 12px;text-align:center;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">48%</td><td style="padding:10px 12px;text-align:center;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">26%</td><td style="padding:10px 12px;text-align:center;color:#bcb5a8;">&ndash;</td><td style="padding:10px 12px;text-align:center;color:#bcb5a8;">&ndash;</td><td style="padding:10px 12px;text-align:center;color:#bcb5a8;">&ndash;</td><td style="padding:10px 12px;text-align:center;color:#bcb5a8;">&ndash;</td><td style="padding:10px 12px;text-align:center;color:#bcb5a8;">&ndash;</td></tr>
+            <tr style="border-bottom:1px solid #ece7dc;"><td style="padding:10px 12px;color:#5b564d;">3&ndash;9 months</td><td style="padding:10px 12px;text-align:center;font-family:'IBM Plex Mono',monospace;color:#8a302a;">75%</td><td style="padding:10px 12px;text-align:center;font-family:'IBM Plex Mono',monospace;color:#8a302a;">59%</td><td style="padding:10px 12px;text-align:center;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">41%</td><td style="padding:10px 12px;text-align:center;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">22%</td><td style="padding:10px 12px;text-align:center;color:#bcb5a8;">&ndash;</td><td style="padding:10px 12px;text-align:center;color:#bcb5a8;">&ndash;</td><td style="padding:10px 12px;text-align:center;color:#bcb5a8;">&ndash;</td><td style="padding:10px 12px;text-align:center;color:#bcb5a8;">&ndash;</td></tr>
+            <tr style="border-bottom:1px solid #ece7dc;"><td style="padding:10px 12px;color:#5b564d;">9 months &ndash; 2 years</td><td style="padding:10px 12px;text-align:center;font-family:'IBM Plex Mono',monospace;color:#8a302a;">80%</td><td style="padding:10px 12px;text-align:center;font-family:'IBM Plex Mono',monospace;color:#8a302a;">67%</td><td style="padding:10px 12px;text-align:center;font-family:'IBM Plex Mono',monospace;color:#8a302a;">53%</td><td style="padding:10px 12px;text-align:center;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">38%</td><td style="padding:10px 12px;text-align:center;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">20%</td><td style="padding:10px 12px;text-align:center;color:#bcb5a8;">&ndash;</td><td style="padding:10px 12px;text-align:center;color:#bcb5a8;">&ndash;</td><td style="padding:10px 12px;text-align:center;color:#bcb5a8;">&ndash;</td></tr>
+            <tr style="border-bottom:1px solid #ece7dc;"><td style="padding:10px 12px;color:#5b564d;">2 years</td><td style="padding:10px 12px;text-align:center;font-family:'IBM Plex Mono',monospace;color:#8a302a;">84%</td><td style="padding:10px 12px;text-align:center;font-family:'IBM Plex Mono',monospace;color:#8a302a;">74%</td><td style="padding:10px 12px;text-align:center;font-family:'IBM Plex Mono',monospace;color:#8a302a;">62%</td><td style="padding:10px 12px;text-align:center;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">50%</td><td style="padding:10px 12px;text-align:center;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">35%</td><td style="padding:10px 12px;text-align:center;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">19%</td><td style="padding:10px 12px;text-align:center;color:#bcb5a8;">&ndash;</td><td style="padding:10px 12px;text-align:center;color:#bcb5a8;">&ndash;</td></tr>
+            <tr style="border-bottom:1px solid #ece7dc;"><td style="padding:10px 12px;color:#5b564d;">4 years</td><td style="padding:10px 12px;text-align:center;font-family:'IBM Plex Mono',monospace;color:#8a302a;">86%</td><td style="padding:10px 12px;text-align:center;font-family:'IBM Plex Mono',monospace;color:#8a302a;">78%</td><td style="padding:10px 12px;text-align:center;font-family:'IBM Plex Mono',monospace;color:#8a302a;">68%</td><td style="padding:10px 12px;text-align:center;font-family:'IBM Plex Mono',monospace;color:#8a302a;">57%</td><td style="padding:10px 12px;text-align:center;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">45%</td><td style="padding:10px 12px;text-align:center;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">32%</td><td style="padding:10px 12px;text-align:center;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">17%</td><td style="padding:10px 12px;text-align:center;color:#bcb5a8;">&ndash;</td></tr>
+            <tr><td style="padding:10px 12px;color:#5b564d;">6 years</td><td style="padding:10px 12px;text-align:center;font-family:'IBM Plex Mono',monospace;color:#8a302a;">89%</td><td style="padding:10px 12px;text-align:center;font-family:'IBM Plex Mono',monospace;color:#8a302a;">81%</td><td style="padding:10px 12px;text-align:center;font-family:'IBM Plex Mono',monospace;color:#8a302a;">73%</td><td style="padding:10px 12px;text-align:center;font-family:'IBM Plex Mono',monospace;color:#8a302a;">64%</td><td style="padding:10px 12px;text-align:center;font-family:'IBM Plex Mono',monospace;color:#8a302a;">54%</td><td style="padding:10px 12px;text-align:center;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">43%</td><td style="padding:10px 12px;text-align:center;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">30%</td><td style="padding:10px 12px;text-align:center;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">16%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="margin-top:22px;font-size:13px;color:#6f6a61;line-height:1.7;">
+        <strong style="color:#1c1a17;">References.</strong> Myer CM 3rd, O&rsquo;Connor DM, Cotton RT. Proposed grading system for subglottic stenosis based on endotracheal tube sizes. <em>Ann Otol Rhinol Laryngol</em>. 1994;103(4):319&ndash;23. &middot; Propst EJ, et al. Myer-Cotton grade of subglottic stenosis depends on style of endotracheal tube used. <em>Laryngoscope</em>. 2023;133(10):2721&ndash;2725.
+      </div>
+      <div style="margin-top:22px;padding:20px 24px;background:#efeae0;border:1px solid #e4ded2;border-left:3px solid #8a302a;font-size:13.5px;color:#6f6a61;line-height:1.7;"><strong style="color:#1c1a17;">Disclaimer.</strong> For educational and reference use by qualified clinicians only. Percentages are Myer-Cotton estimates; direct endoscopic visualization is essential for diagnosis and grading. Does not replace clinical judgment.</div>
+    </div>
+  </section>
 
-            <!-- Grading System -->
-            <div class="calculator-card" data-aos="fade-up">
-                <h2><i class="fas fa-layer-group"></i> Cotton-Myer Grading System</h2>
-                <div class="grading-system">
-                    <div class="grade-item grade-1-bg">
-                        <h3>Grade I</h3>
-                        <p><strong>0-50% obstruction</strong></p>
-                        <p>Mild stenosis - Usually well tolerated</p>
-                    </div>
-                    <div class="grade-item grade-2-bg">
-                        <h3>Grade II</h3>
-                        <p><strong>51-70% obstruction</strong></p>
-                        <p>Moderate stenosis - May cause respiratory symptoms</p>
-                    </div>
-                    <div class="grade-item grade-3-bg">
-                        <h3>Grade III</h3>
-                        <p><strong>71-99% obstruction</strong></p>
-                        <p>Severe stenosis - Significant airway compromise</p>
-                    </div>
-                    <div class="grade-item grade-4-bg">
-                        <h3>Grade IV</h3>
-                        <p><strong>No detectable lumen</strong></p>
-                        <p>Complete obstruction - Critical airway emergency</p>
-                    </div>
-                </div>
-            </div>
+  <footer style="background:#1c1a17;color:#e9e4da;padding:40px 0;">
+    <div style="max-width:1080px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:center;">
+      <a href="index.html" style="font-family:'Newsreader',serif;font-size:17px;color:#cdc6ba;text-decoration:none;">Dr Ali Alshahrani</a>
+      <div style="display:flex;gap:24px;font-size:14px;">
+        <a href="ent-tools.html" style="text-decoration:none;color:#b8b1a5;" style-hover="color:#f4f1ea;">All Tools</a>
+        <a href="curriculum_vitae.html" style="text-decoration:none;color:#b8b1a5;" style-hover="color:#f4f1ea;">CV</a>
+        <a href="index.html#contact" style="text-decoration:none;color:#b8b1a5;" style-hover="color:#f4f1ea;">Contact</a>
+      </div>
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.1em;color:#7d7869;">shahrani.me &middot; &copy; 2026</span>
+    </div>
+  </footer>
 
-            <!-- Clinical Notes -->
-            <div class="calculator-card" data-aos="fade-up">
-                <h2><i class="fas fa-info-circle"></i> Clinical Considerations</h2>
-                <div class="clinical-notes">
-                    <div class="note-item">
-                        <i class="fas fa-check"></i>
-                        <p><strong>Assessment Method:</strong> The percentage of obstruction is determined by comparing the size of ETT that can pass through the stenotic area with age-appropriate normal ETT sizes</p>
-                    </div>
-                    <div class="note-item">
-                        <i class="fas fa-check"></i>
-                        <p><strong>Clinical Application:</strong> This grading system is widely used for pediatric subglottic stenosis assessment and treatment planning</p>
-                    </div>
-                    <div class="note-item">
-                        <i class="fas fa-check"></i>
-                        <p><strong>Tube Variability:</strong> The grading may depend on the style and outer diameter of the specific ETT used</p>
-                    </div>
-                    <div class="note-item">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <p><strong>Limitations:</strong> This is an estimation tool. Direct visualization via endoscopy and imaging studies are essential for accurate diagnosis</p>
-                    </div>
-                </div>
-            </div>
+</div>
 
-            <!-- References -->
-            <div class="calculator-card" data-aos="fade-up">
-                <h2><i class="fas fa-book"></i> References</h2>
-                <div class="references">
-                    <ol>
-                        <li>
-                            Myer CM 3rd, O'Connor DM, Cotton RT. Proposed grading system for subglottic stenosis based on endotracheal tube sizes. <em>Ann Otol Rhinol Laryngol</em>. 1994 Apr;103(4 Pt 1):319-23. doi: 10.1177/000348949410300410. PMID: 8154776.
-                        </li>
-                        <li>
-                            Propst EJ, Funamura JL, Kawai K, Watters K, Rahbar R. Myer‐Cotton Grade of Subglottic Stenosis Depends on Style of Endotracheal Tube Used. <em>Laryngoscope</em>. 2023 Oct;133(10):2721-2725. doi: 10.1002/lary.30577. PMID: 36688266.
-                        </li>
-                    </ol>
-                </div>
-            </div>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#8a302a"/><text x="50" y="50" dy="0.36em" text-anchor="middle" font-family="Georgia,serif" font-size="46" fill="#f4f1ea">A</text></svg></template></x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { menuOpen: false, ageVal: '', ettVal: '' };
 
-                <div class="disclaimer">
-                    <p><strong>Disclaimer:</strong> This calculator is for educational and reference use by qualified clinicians only. Percentages are Myer&ndash;Cotton estimates; direct endoscopic visualization is essential for diagnosis and grading. It does not replace clinical judgment.</p>
-                </div>
-        </div>
-    </section>
+  DATA = {
+    'preterm1': { '2.0': 40, '2.5': null, '3.0': null, '3.5': null, '4.0': null, '4.5': null, '5.0': null, '5.5': null },
+    'preterm2': { '2.0': 58, '2.5': 30, '3.0': null, '3.5': null, '4.0': null, '4.5': null, '5.0': null, '5.5': null },
+    '0-3mo': { '2.0': 68, '2.5': 48, '3.0': 26, '3.5': null, '4.0': null, '4.5': null, '5.0': null, '5.5': null },
+    '3-9mo': { '2.0': 75, '2.5': 59, '3.0': 41, '3.5': 22, '4.0': null, '4.5': null, '5.0': null, '5.5': null },
+    '9mo-2yr': { '2.0': 80, '2.5': 67, '3.0': 53, '3.5': 38, '4.0': 20, '4.5': null, '5.0': null, '5.5': null },
+    '2yr': { '2.0': 84, '2.5': 74, '3.0': 62, '3.5': 50, '4.0': 35, '4.5': 19, '5.0': null, '5.5': null },
+    '4yr': { '2.0': 86, '2.5': 78, '3.0': 68, '3.5': 57, '4.0': 45, '4.5': 32, '5.0': 17, '5.5': null },
+    '6yr': { '2.0': 89, '2.5': 81, '3.0': 73, '3.5': 64, '4.0': 54, '4.5': 43, '5.0': 30, '5.5': 16 }
+  };
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 Dr Ali Alshahrani. All rights reserved.</p>
-        </div>
-    </footer>
+  grade(p) {
+    if (p === null) return { short: 'No obstruction', text: 'Age-appropriate ETT size \u2014 no stenosis detected at this tube size.' };
+    if (p <= 50) return { short: 'Grade I', text: 'Grade I (0\u201350% obstruction) \u2014 mild stenosis, usually well tolerated.' };
+    if (p <= 70) return { short: 'Grade II', text: 'Grade II (51\u201370% obstruction) \u2014 moderate stenosis, may cause respiratory symptoms.' };
+    if (p < 100) return { short: 'Grade III', text: 'Grade III (71\u201399% obstruction) \u2014 severe stenosis, significant airway compromise.' };
+    return { short: 'Grade IV', text: 'Grade IV \u2014 no detectable lumen, critical airway emergency.' };
+  }
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/airway-obstruction.js"></script>
+  renderVals() {
+    var self = this;
+    var a = this.state.ageVal, e = this.state.ettVal;
+    var has = a && e;
+    var pct = has ? this.DATA[a][e] : undefined;
+    var g = has ? this.grade(pct) : null;
+    var badge = { fontFamily: "'IBM Plex Mono',monospace", fontSize: '12px', letterSpacing: '0.1em', textTransform: 'uppercase', padding: '6px 12px', borderRadius: '2px', background: '#1c1a17', color: '#f4f1ea' };
+    if (g && pct === null) badge = Object.assign({}, badge, { background: '#efeae0', color: '#5b564d', border: '1px solid #d9d3c7' });
+    return {
+      menuOpen: this.state.menuOpen,
+      toggleMenu: function () { self.setState(function (s) { return { menuOpen: !s.menuOpen }; }); },
+      ageVal: a, ettVal: e,
+      onAge: function (ev) { self.setState({ ageVal: ev.target.value }); },
+      onEtt: function (ev) { self.setState({ ettVal: ev.target.value }); },
+      show: !!has,
+      obstructionLabel: has ? (pct === null ? 'No obstruction' : pct + '%') : '',
+      gradeShort: g ? g.short : '',
+      gradeText: g ? g.text : '',
+      gradeBadgeStyle: badge
+    };
+  }
+}
+</script>
 </body>
 </html>

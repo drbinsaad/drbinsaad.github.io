@@ -1,395 +1,183 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ENT Web Tools - Dr Ali Alshahrani | Medical Calculators</title>
-    
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Collection of specialized web-based ENT medical calculators and clinical reference tools developed by Dr. Ali Alshahrani, organized by subspecialty.">
-    <meta name="author" content="Dr. Ali Alshahrani">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/favicon.png">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
-    <link href="css/style.css?v=3" rel="stylesheet">
-    <style>
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            padding: 30px 0;
-        }
-        .tool-card {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            text-align: center;
-            border-top: 5px solid var(--accent-color);
-        }
-        .tool-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
-        }
-        .tool-card h3 {
-            color: var(--primary-color);
-            margin-top: 0;
-            font-size: 1.5rem;
-        }
-        .tool-card p {
-            color: #666;
-            margin-bottom: 20px;
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-        .tool-card a {
-            display: inline-block;
-            padding: 10px 25px;
-            background: var(--gradient);
-            color: white;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-        }
-        .tool-card a:hover {
-            background: var(--secondary-color);
-        }
-        .tool-card i {
-            font-size: 3rem;
-            color: var(--accent-color);
-            margin-bottom: 15px;
-        }
-        .subspecialty-section {
-            margin-bottom: 60px;
-        }
-        .subspecialty-header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 15px;
-            color: white;
-        }
-        .subspecialty-header h2 {
-            margin: 0;
-            font-size: 2rem;
-        }
-        .subspecialty-header p {
-            margin: 10px 0 0 0;
-            opacity: 0.9;
-        }
-        .page-context {
-            max-width: 900px;
-            margin: 0 auto 44px;
-            padding: 22px 24px;
-            background: #f8fbff;
-            border: 1px solid #dce5f2;
-            border-radius: 16px;
-            color: #4b5563;
-            line-height: 1.7;
-        }
-        .page-context strong {
-            color: var(--primary-color);
-        }
-        .page-context a {
-            color: var(--accent-color);
-            font-weight: 700;
-            text-decoration: none;
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
 </head>
 <body>
-    <nav id="navbar">
-        <div class="container">
-            <a href="index.html" class="logo">Dr Ali Alshahrani</a>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <ul class="nav-links">
-                <li><a href="dashboard.html">Dashboard</a></li>
-                <li>
-                    <a href="index.html#research">Research</a>
-                    <ul class="dropdown">
-                        <li><a href="index.html#research">Research Focus</a></li>
-                        <li><a href="index.html#publications">Recent Publications</a></li>
-                    </ul>
-                </li>
-                <li><a href="curriculum_vitae.html">Brief CV</a></li>
-                <li><a href="index.html#contact">Contact</a></li>
-                <li><a href="ent-tools.html">ENT Web Tools</a></li>
-                <li><a href="my-apps.html">My Apps</a></li>
-            </ul>
-        </div>
-    </nav>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:#f4f1ea;}
+  a{color:inherit;}
+  ::selection{background:#8a302a;color:#f4f1ea;}
+  @media (max-width:820px){
+    [data-desktop-nav]{display:none !important;}
+    [data-mobile-btn]{display:inline-flex !important;}
+    [data-grid-2]{grid-template-columns:1fr !important;}
+    [data-grid-3]{grid-template-columns:1fr !important;}
+    [data-sec]{padding:56px 0 !important;}
+  }
+</style>
+</helmet>
 
-    <section class="hero-section" style="padding-top: 150px; padding-bottom: 50px;">
-        <div class="container">
-            <h1 class="section-title" data-aos="fade-up">ENT Web Tools</h1>
-            <p data-aos="fade-up" data-aos-delay="100" style="text-align: center; max-width: 800px; margin: 0 auto 50px;">A focused collection of web-based clinical calculators and reference tools organized by subspecialty for otolaryngology education and workflow support.</p>
-        </div>
-    </section>
+<div id="top" data-screen-label="ENT Tools" style="background:#f4f1ea;color:#1c1a17;font-family:'Source Sans 3',system-ui,sans-serif;line-height:1.7;min-height:100vh;-webkit-font-smoothing:antialiased;">
 
-    <section class="tools-list-section">
-        <div class="container">
-            <div class="page-context" data-aos="fade-up">
-                <strong>This page is for browser-based ENT calculators and reference tools.</strong>
-                The mobile app preview, App Store privacy policy, support page, screenshots, and account action page are organized separately under <a href="my-apps.html">My Apps</a>.
-            </div>
-            
-            <!-- Pediatric Airway & Anesthesia Tools -->
-            <div class="subspecialty-section">
-                <div class="subspecialty-header" data-aos="fade-up">
-                    <h2><i class="fas fa-lungs"></i> Pediatric Airway & Anesthesia</h2>
-                    <p>Specialized tools for pediatric airway management and procedural planning</p>
-                </div>
-                <div class="tools-grid">
-                    <div class="tool-card" data-aos="fade-up" data-aos-delay="100">
-                        <i class="fas fa-lungs"></i>
-                        <h3>Airway Sizing Tool</h3>
-                        <p>Age-based bronchoscope sizing (2.5-6.0mm) with ETT, LMA, and suction catheter recommendations for pediatric bronchoscopy procedures.</p>
-                        <a href="bronchoscopy-tool.html">Use Tool</a>
-                    </div>
+  <header style="position:sticky;top:0;z-index:60;background:rgba(244,241,234,0.88);backdrop-filter:blur(12px);border-bottom:1px solid #e4ded2;">
+    <div style="max-width:1080px;margin:0 auto;padding:15px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px;">
+      <a href="index.html" style="text-decoration:none;display:flex;flex-direction:column;line-height:1.08;flex:none;white-space:nowrap;">
+        <span style="font-family:'Newsreader',serif;font-size:20px;font-weight:600;color:#1c1a17;letter-spacing:0.01em;">Ali Alshahrani</span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:#8a302a;margin-top:4px;">Otolaryngology</span>
+      </a>
+      <nav data-desktop-nav style="display:flex;align-items:center;gap:30px;font-size:14.5px;font-weight:500;">
+        <a href="index.html#research" style="text-decoration:none;color:#46423b;" style-hover="color:#8a302a;">Research</a>
+        <a href="index.html#publications" style="text-decoration:none;color:#46423b;" style-hover="color:#8a302a;">Publications</a>
+        <a href="ent-tools.html" style="text-decoration:none;color:#8a302a;border-bottom:1px solid #c9a59f;padding-bottom:2px;">Tools</a>
+        <a href="curriculum_vitae.html" style="text-decoration:none;color:#46423b;" style-hover="color:#8a302a;">CV</a>
+        <a href="index.html#contact" style="text-decoration:none;color:#f4f1ea;background:#1c1a17;padding:9px 18px;border-radius:2px;" style-hover="background:#8a302a;">Contact</a>
+      </nav>
+      <button data-mobile-btn onClick="{{ toggleMenu }}" aria-label="Menu" style="display:none;align-items:center;justify-content:center;width:42px;height:42px;background:transparent;border:1px solid #d9d3c7;border-radius:2px;cursor:pointer;color:#1c1a17;font-size:18px;">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+    <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="border-top:1px solid #e4ded2;background:#f4f1ea;padding:10px 28px 18px;display:flex;flex-direction:column;gap:4px;">
+        <a href="index.html#research" style="text-decoration:none;color:#46423b;padding:11px 0;border-bottom:1px solid #ece7dc;font-weight:500;">Research</a>
+        <a href="index.html#publications" style="text-decoration:none;color:#46423b;padding:11px 0;border-bottom:1px solid #ece7dc;font-weight:500;">Publications</a>
+        <a href="ent-tools.html" style="text-decoration:none;color:#8a302a;padding:11px 0;border-bottom:1px solid #ece7dc;font-weight:600;">Clinical Tools</a>
+        <a href="curriculum_vitae.html" style="text-decoration:none;color:#46423b;padding:11px 0;border-bottom:1px solid #ece7dc;font-weight:500;">Curriculum Vitae</a>
+        <a href="index.html#contact" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#8a302a;padding:11px 0;font-weight:600;">Contact</a>
+      </div>
+    </sc-if>
+  </header>
 
-                    <div class="tool-card" data-aos="fade-up" data-aos-delay="200">
-                        <i class="fas fa-syringe"></i>
-                        <h3>ET Depth Calculator</h3>
-                        <p>Calculate optimal ETT insertion depth (cm at lip) using age-based formula (age/2 + 12) or weight-based method for pediatric intubation.</p>
-                        <a href="et-depth-calculator.html">Use Calculator</a>
-                    </div>
+  <section data-sec style="padding:72px 0 48px;">
+    <div style="max-width:1080px;margin:0 auto;padding:0 28px;">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#8a302a;margin-bottom:18px;">Open Clinical Tools &middot; 17 calculators</div>
+      <h1 style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(36px,5vw,58px);line-height:1.04;letter-spacing:-0.01em;color:#1c1a17;margin-bottom:22px;max-width:18ch;">ENT Web Tools</h1>
+      <p style="font-size:17.5px;color:#46423b;line-height:1.75;max-width:58ch;">A free collection of browser-based clinical calculators and validated screening instruments, organized by subspecialty for otolaryngology education and workflow support.</p>
+      <div style="margin-top:22px;padding:16px 20px;background:#efeae0;border:1px solid #e4ded2;border-radius:2px;font-size:14.5px;color:#6f6a61;max-width:58ch;">Looking for the mobile app? The ENT Hub app, App Store privacy policy and support pages live under <a href="my-apps.html" style="color:#8a302a;font-weight:600;text-decoration:none;border-bottom:1px solid #c9a59f;">My Apps &rarr;</a></div>
+    </div>
+  </section>
 
-                    <div class="tool-card" data-aos="fade-up" data-aos-delay="300">
-                        <i class="fas fa-lungs"></i>
-                        <h3>Nebulized Epinephrine Calculator</h3>
-                        <p>Racemic epinephrine dosing (0.05 mL/kg, max 0.5 mL) for croup and airway edema with dilution instructions and administration guidelines.</p>
-                        <a href="nebulized-epinephrine-calculator.html">Use Calculator</a>
-                    </div>
+  <section data-sec data-screen-label="Airway" style="padding:0 0 56px;">
+    <div style="max-width:1080px;margin:0 auto;padding:0 28px;">
+      <div style="display:flex;align-items:baseline;gap:16px;border-bottom:1px solid #ddd6c8;padding-bottom:14px;margin-bottom:34px;">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#8a302a;">01</span>
+        <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(24px,3vw,32px);color:#1c1a17;">Pediatric Airway &amp; Anesthesia</h2>
+        <span style="margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#9a9389;">6 tools</span>
+      </div>
+      <div data-grid-3 style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#e4ded2;border:1px solid #e4ded2;">
+        <a href="bronchoscopy-tool.html" style="text-decoration:none;background:#faf8f2;padding:28px 26px;display:flex;flex-direction:column;" style-hover="background:#fff;"><h3 style="font-family:'Newsreader',serif;font-weight:600;font-size:19px;color:#1c1a17;margin-bottom:10px;">Airway Sizing Tool</h3><p style="font-size:14.5px;color:#6f6a61;line-height:1.65;flex:1;">Age-based bronchoscope sizing (2.5&ndash;6.0 mm) with ETT, LMA and suction-catheter recommendations.</p><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8a302a;margin-top:16px;">Use tool &rarr;</span></a>
+        <a href="et-depth-calculator.html" style="text-decoration:none;background:#faf8f2;padding:28px 26px;display:flex;flex-direction:column;" style-hover="background:#fff;"><h3 style="font-family:'Newsreader',serif;font-weight:600;font-size:19px;color:#1c1a17;margin-bottom:10px;">ET Depth Calculator</h3><p style="font-size:14.5px;color:#6f6a61;line-height:1.65;flex:1;">Optimal ETT insertion depth (cm at lip) using the age-based formula or weight-based method.</p><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8a302a;margin-top:16px;">Use tool &rarr;</span></a>
+        <a href="nebulized-epinephrine-calculator.html" style="text-decoration:none;background:#faf8f2;padding:28px 26px;display:flex;flex-direction:column;" style-hover="background:#fff;"><h3 style="font-family:'Newsreader',serif;font-weight:600;font-size:19px;color:#1c1a17;margin-bottom:10px;">Nebulized Epinephrine</h3><p style="font-size:14.5px;color:#6f6a61;line-height:1.65;flex:1;">Racemic epinephrine dosing (0.05 mL/kg, max 0.5 mL) for croup and airway edema with dilution.</p><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8a302a;margin-top:16px;">Use tool &rarr;</span></a>
+        <a href="airway-obstruction-calculator.html" style="text-decoration:none;background:#faf8f2;padding:28px 26px;display:flex;flex-direction:column;" style-hover="background:#fff;"><h3 style="font-family:'Newsreader',serif;font-weight:600;font-size:19px;color:#1c1a17;margin-bottom:10px;">Airway Obstruction</h3><p style="font-size:14.5px;color:#6f6a61;line-height:1.65;flex:1;">Cotton-Myer grading (I&ndash;IV) for subglottic stenosis based on ETT-size reduction.</p><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8a302a;margin-top:16px;">Use tool &rarr;</span></a>
+        <a href="balloon-dilation-calculator.html" style="text-decoration:none;background:#faf8f2;padding:28px 26px;display:flex;flex-direction:column;" style-hover="background:#fff;"><h3 style="font-family:'Newsreader',serif;font-weight:600;font-size:19px;color:#1c1a17;margin-bottom:10px;">Balloon Dilation Sizing</h3><p style="font-size:14.5px;color:#6f6a61;line-height:1.65;flex:1;">Age-specific balloon catheter sizing (4&ndash;20 mm) for laryngotracheal stenosis dilation.</p><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8a302a;margin-top:16px;">Use tool &rarr;</span></a>
+        <a href="airway-anatomy.html" style="text-decoration:none;background:#faf8f2;padding:28px 26px;display:flex;flex-direction:column;" style-hover="background:#fff;"><h3 style="font-family:'Newsreader',serif;font-weight:600;font-size:19px;color:#1c1a17;margin-bottom:10px;">Airway Anatomy Atlas</h3><p style="font-size:14.5px;color:#6f6a61;line-height:1.65;flex:1;">Visual atlas of normal bronchoscopic anatomy, congenital variations and pathological findings.</p><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8a302a;margin-top:16px;">View guide &rarr;</span></a>
+      </div>
+    </div>
+  </section>
 
-                    <div class="tool-card" data-aos="fade-up" data-aos-delay="400">
-                        <i class="fas fa-lungs"></i>
-                        <h3>Airway Obstruction Calculator</h3>
-                        <p>Cotton-Myer grading (I-IV) calculator for subglottic stenosis based on ETT size reduction with percentage obstruction and surgical planning guidance.</p>
-                        <a href="airway-obstruction-calculator.html">Use Calculator</a>
-                    </div>
+  <section data-sec data-screen-label="Otology" style="padding:0 0 56px;">
+    <div style="max-width:1080px;margin:0 auto;padding:0 28px;">
+      <div style="display:flex;align-items:baseline;gap:16px;border-bottom:1px solid #ddd6c8;padding-bottom:14px;margin-bottom:34px;">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#8a302a;">02</span>
+        <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(24px,3vw,32px);color:#1c1a17;">Otology &amp; Hearing</h2>
+        <span style="margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#9a9389;">4 tools</span>
+      </div>
+      <div data-grid-2 style="display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:#e4ded2;border:1px solid #e4ded2;">
+        <a href="/calculators/#/ci-calculator" target="_blank" rel="noopener" style="text-decoration:none;background:#faf8f2;padding:28px 26px;display:flex;flex-direction:column;" style-hover="background:#fff;"><h3 style="font-family:'Newsreader',serif;font-weight:600;font-size:19px;color:#1c1a17;margin-bottom:10px;">CI Candidacy Calculator</h3><p style="font-size:14.5px;color:#6f6a61;line-height:1.65;flex:1;">Cochlear-implant screening using validated FDA criteria (HF-PTA &ge;65 dB HL, WRS &le;70%).</p><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8a302a;margin-top:16px;">Use tool &rarr;</span></a>
+        <a href="/calculators/#/pta-calculator" target="_blank" rel="noopener" style="text-decoration:none;background:#faf8f2;padding:28px 26px;display:flex;flex-direction:column;" style-hover="background:#fff;"><h3 style="font-family:'Newsreader',serif;font-weight:600;font-size:19px;color:#1c1a17;margin-bottom:10px;">PTA Calculator</h3><p style="font-size:14.5px;color:#6f6a61;line-height:1.65;flex:1;">3-, 4- and high-frequency pure-tone averages with automatic hearing-loss classification.</p><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8a302a;margin-top:16px;">Use tool &rarr;</span></a>
+        <a href="/calculators/#/ci-comparison" target="_blank" rel="noopener" style="text-decoration:none;background:#faf8f2;padding:28px 26px;display:flex;flex-direction:column;" style-hover="background:#fff;"><h3 style="font-family:'Newsreader',serif;font-weight:600;font-size:19px;color:#1c1a17;margin-bottom:10px;">CI Manufacturer Comparison</h3><p style="font-size:14.5px;color:#6f6a61;line-height:1.65;flex:1;">Compare Advanced Bionics, Cochlear and MED-EL systems &mdash; processors, arrays, MRI compatibility.</p><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8a302a;margin-top:16px;">View comparison &rarr;</span></a>
+        <a href="/calculators/#/ha-comparison" target="_blank" rel="noopener" style="text-decoration:none;background:#faf8f2;padding:28px 26px;display:flex;flex-direction:column;" style-hover="background:#fff;"><h3 style="font-family:'Newsreader',serif;font-weight:600;font-size:19px;color:#1c1a17;margin-bottom:10px;">Hearing Aid Comparison</h3><p style="font-size:14.5px;color:#6f6a61;line-height:1.65;flex:1;">Compare major manufacturers with NAL-NL2 vs DSL v5 fitting-formula comparison.</p><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8a302a;margin-top:16px;">View comparison &rarr;</span></a>
+      </div>
+    </div>
+  </section>
 
-                    <div class="tool-card" data-aos="fade-up" data-aos-delay="500">
-                        <i class="fas fa-expand-arrows-alt"></i>
-                        <h3>Airway Balloon Dilation Sizing</h3>
-                        <p>Age-specific balloon catheter sizing (4-20mm) for laryngotracheal stenosis dilation with pressure recommendations and technique guidelines.</p>
-                        <a href="balloon-dilation-calculator.html">Use Calculator</a>
-                    </div>
+  <section data-sec data-screen-label="Laryngology" style="padding:0 0 56px;">
+    <div style="max-width:1080px;margin:0 auto;padding:0 28px;">
+      <div style="display:flex;align-items:baseline;gap:16px;border-bottom:1px solid #ddd6c8;padding-bottom:14px;margin-bottom:34px;">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#8a302a;">03</span>
+        <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(24px,3vw,32px);color:#1c1a17;">Laryngology &amp; Voice</h2>
+        <span style="margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#9a9389;">2 tools</span>
+      </div>
+      <div data-grid-2 style="display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:#e4ded2;border:1px solid #e4ded2;">
+        <a href="/calculators/#/vhi" target="_blank" rel="noopener" style="text-decoration:none;background:#faf8f2;padding:28px 26px;display:flex;flex-direction:column;" style-hover="background:#fff;"><h3 style="font-family:'Newsreader',serif;font-weight:600;font-size:19px;color:#1c1a17;margin-bottom:10px;">Voice Handicap Index (VHI)</h3><p style="font-size:14.5px;color:#6f6a61;line-height:1.65;flex:1;">Validated voice quality-of-life assessment with VHI-10 and VHI-30 versions.</p><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8a302a;margin-top:16px;">Use tool &rarr;</span></a>
+        <a href="/calculators/#/rsi" target="_blank" rel="noopener" style="text-decoration:none;background:#faf8f2;padding:28px 26px;display:flex;flex-direction:column;" style-hover="background:#fff;"><h3 style="font-family:'Newsreader',serif;font-weight:600;font-size:19px;color:#1c1a17;margin-bottom:10px;">Reflux Symptom Index (RSI)</h3><p style="font-size:14.5px;color:#6f6a61;line-height:1.65;flex:1;">9-item laryngopharyngeal reflux screening tool (0&ndash;45); score &gt;13 suggests LPR.</p><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8a302a;margin-top:16px;">Use tool &rarr;</span></a>
+      </div>
+    </div>
+  </section>
 
-                    <div class="tool-card" data-aos="fade-up" data-aos-delay="600">
-                        <i class="fas fa-book-medical"></i>
-                        <h3>Airway Anatomy & Variations</h3>
-                        <p>Visual atlas of normal bronchoscopic anatomy, congenital variations (tracheomalacia, laryngomalacia), and pathological findings with clinical images.</p>
-                        <a href="airway-anatomy.html">View Guide</a>
-                    </div>
-                </div>
-            </div>
+  <section data-sec data-screen-label="Sleep" style="padding:0 0 56px;">
+    <div style="max-width:1080px;margin:0 auto;padding:0 28px;">
+      <div style="display:flex;align-items:baseline;gap:16px;border-bottom:1px solid #ddd6c8;padding-bottom:14px;margin-bottom:34px;">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#8a302a;">04</span>
+        <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(24px,3vw,32px);color:#1c1a17;">Sleep Medicine</h2>
+        <span style="margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#9a9389;">2 tools</span>
+      </div>
+      <div data-grid-2 style="display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:#e4ded2;border:1px solid #e4ded2;">
+        <a href="/calculators/#/ess" target="_blank" rel="noopener" style="text-decoration:none;background:#faf8f2;padding:28px 26px;display:flex;flex-direction:column;" style-hover="background:#fff;"><h3 style="font-family:'Newsreader',serif;font-weight:600;font-size:19px;color:#1c1a17;margin-bottom:10px;">Epworth Sleepiness Scale</h3><p style="font-size:14.5px;color:#6f6a61;line-height:1.65;flex:1;">8-item validated questionnaire (0&ndash;24) for excessive daytime sleepiness screening.</p><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8a302a;margin-top:16px;">Use tool &rarr;</span></a>
+        <a href="/calculators/#/sleep-assessment" target="_blank" rel="noopener" style="text-decoration:none;background:#faf8f2;padding:28px 26px;display:flex;flex-direction:column;" style-hover="background:#fff;"><h3 style="font-family:'Newsreader',serif;font-weight:600;font-size:19px;color:#1c1a17;margin-bottom:10px;">Sleep &amp; Airway Assessment</h3><p style="font-size:14.5px;color:#6f6a61;line-height:1.65;flex:1;">Mallampati classification (I&ndash;IV) and Friedman staging (I&ndash;IV) for OSA surgical planning.</p><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8a302a;margin-top:16px;">Use tool &rarr;</span></a>
+      </div>
+    </div>
+  </section>
 
-            <!-- Otology & Hearing Assessment -->
-            <div class="subspecialty-section">
-                <div class="subspecialty-header" data-aos="fade-up">
-                    <h2><i class="fas fa-ear-listen"></i> Otology & Hearing Assessment</h2>
-                    <p>Comprehensive calculators for cochlear implants, hearing aids, and audiometric evaluations</p>
-                </div>
-                <div class="tools-grid">
-                    <div class="tool-card" data-aos="fade-up" data-aos-delay="100">
-                        <i class="fas fa-calculator"></i>
-                        <h3>CI Candidacy Calculator</h3>
-                        <p>Cochlear implant screening using validated FDA criteria: high-frequency PTA ≥65 dB HL and word recognition score ≤70% in best-aided condition.</p>
-                        <a href="/calculators/#/ci-calculator" target="_blank">Use Calculator</a>
-                    </div>
+  <section data-sec data-screen-label="Rhinology + General" style="padding:0 0 84px;">
+    <div style="max-width:1080px;margin:0 auto;padding:0 28px;">
+      <div style="display:flex;align-items:baseline;gap:16px;border-bottom:1px solid #ddd6c8;padding-bottom:14px;margin-bottom:34px;">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#8a302a;">05</span>
+        <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(24px,3vw,32px);color:#1c1a17;">Rhinology &amp; General ENT</h2>
+        <span style="margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#9a9389;">3 tools</span>
+      </div>
+      <div data-grid-3 style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#e4ded2;border:1px solid #e4ded2;">
+        <a href="/calculators/#/snot22" target="_blank" rel="noopener" style="text-decoration:none;background:#faf8f2;padding:28px 26px;display:flex;flex-direction:column;" style-hover="background:#fff;"><h3 style="font-family:'Newsreader',serif;font-weight:600;font-size:19px;color:#1c1a17;margin-bottom:10px;">SNOT-22 Calculator</h3><p style="font-size:14.5px;color:#6f6a61;line-height:1.65;flex:1;">22-item sino-nasal outcome test (0&ndash;110) for chronic rhinosinusitis symptom tracking.</p><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8a302a;margin-top:16px;">Use tool &rarr;</span></a>
+        <a href="ent-calculators.html" style="text-decoration:none;background:#faf8f2;padding:28px 26px;display:flex;flex-direction:column;" style-hover="background:#fff;"><h3 style="font-family:'Newsreader',serif;font-weight:600;font-size:19px;color:#1c1a17;margin-bottom:10px;">General Medical Calculators</h3><p style="font-size:14.5px;color:#6f6a61;line-height:1.65;flex:1;">BMI, BSA, ideal body weight, fluid requirements and other general ENT calculations.</p><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8a302a;margin-top:16px;">View calculators &rarr;</span></a>
+        <a href="xeomin-calculator.html" style="text-decoration:none;background:#faf8f2;padding:28px 26px;display:flex;flex-direction:column;" style-hover="background:#fff;"><h3 style="font-family:'Newsreader',serif;font-weight:600;font-size:19px;color:#1c1a17;margin-bottom:10px;">XEOMIN Dosing Calculator</h3><p style="font-size:14.5px;color:#6f6a61;line-height:1.65;flex:1;">IncobotulinumtoxinA reconstitution calculator with dilution ratios and indication-specific dosing.</p><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8a302a;margin-top:16px;">Use tool &rarr;</span></a>
+      </div>
+    </div>
+  </section>
 
-                    <div class="tool-card" data-aos="fade-up" data-aos-delay="200">
-                        <i class="fas fa-chart-line"></i>
-                        <h3>PTA Calculator</h3>
-                        <p>Calculate 3-frequency (500/1000/2000 Hz), 4-frequency (500/1000/2000/4000 Hz), and high-frequency (2000/4000/8000 Hz) pure tone averages with automatic hearing loss classification.</p>
-                        <a href="/calculators/#/pta-calculator" target="_blank">Use Calculator</a>
-                    </div>
+  <section id="contact" data-sec data-screen-label="Contact" style="padding:90px 0 56px;background:#1c1a17;color:#e9e4da;">
+    <div style="max-width:1080px;margin:0 auto;padding:0 28px;">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#d39189;margin-bottom:16px;">Get in Touch</div>
+      <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(28px,4vw,44px);line-height:1.06;color:#f4f1ea;max-width:18ch;margin-bottom:24px;">Questions or feedback?</h2>
+      <p style="font-size:16.5px;color:#b8b1a5;line-height:1.75;max-width:52ch;margin-bottom:36px;">These tools are provided free for education and clinical reference. Spotted an issue or have a suggestion? Reach out.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:52px;">
+        <a href="https://www.linkedin.com/in/dralialshahrani/" target="_blank" rel="noopener" aria-label="LinkedIn" style="width:50px;height:50px;display:flex;align-items:center;justify-content:center;border:1px solid #3a3833;border-radius:2px;color:#e9e4da;text-decoration:none;font-size:18px;" style-hover="background:#8a302a;border-color:#8a302a;"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://github.com/drbinsaad" target="_blank" rel="noopener" aria-label="GitHub" style="width:50px;height:50px;display:flex;align-items:center;justify-content:center;border:1px solid #3a3833;border-radius:2px;color:#e9e4da;text-decoration:none;font-size:18px;" style-hover="background:#8a302a;border-color:#8a302a;"><i class="fab fa-github"></i></a>
+        <a href="https://x.com/_DrAli" target="_blank" rel="noopener" aria-label="X" style="width:50px;height:50px;display:flex;align-items:center;justify-content:center;border:1px solid #3a3833;border-radius:2px;color:#e9e4da;text-decoration:none;font-size:17px;" style-hover="background:#8a302a;border-color:#8a302a;"><i class="fab fa-x-twitter"></i></a>
+        <a href="https://wa.me/966509713200" target="_blank" rel="noopener" aria-label="WhatsApp" style="width:50px;height:50px;display:flex;align-items:center;justify-content:center;border:1px solid #3a3833;border-radius:2px;color:#e9e4da;text-decoration:none;font-size:18px;" style-hover="background:#8a302a;border-color:#8a302a;"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://t.me/ENTcommunitas" target="_blank" rel="noopener" aria-label="Telegram" style="width:50px;height:50px;display:flex;align-items:center;justify-content:center;border:1px solid #3a3833;border-radius:2px;color:#e9e4da;text-decoration:none;font-size:18px;" style-hover="background:#8a302a;border-color:#8a302a;"><i class="fab fa-telegram"></i></a>
+        <a href="mailto:drbinsaad@gmail.com" aria-label="Email" style="width:50px;height:50px;display:flex;align-items:center;justify-content:center;border:1px solid #3a3833;border-radius:2px;color:#e9e4da;text-decoration:none;font-size:18px;" style-hover="background:#8a302a;border-color:#8a302a;"><i class="fas fa-envelope"></i></a>
+      </div>
+      <div style="border-top:1px solid #34322d;padding-top:26px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:14px;align-items:center;">
+        <a href="index.html" style="font-family:'Newsreader',serif;font-size:17px;color:#cdc6ba;text-decoration:none;">Dr Ali Alshahrani</a>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.1em;color:#7d7869;">shahrani.me &middot; &copy; 2026</span>
+      </div>
+    </div>
+  </section>
 
-                    <div class="tool-card" data-aos="fade-up" data-aos-delay="300">
-                        <i class="fas fa-microscope"></i>
-                        <h3>CI Manufacturer Comparison</h3>
-                        <p>Detailed comparison of cochlear implant systems from Advanced Bionics, Cochlear, and MED-EL including processor features, electrode arrays, and MRI compatibility.</p>
-                        <a href="/calculators/#/ci-comparison" target="_blank">View Comparison</a>
-                    </div>
+</div>
 
-                    <div class="tool-card" data-aos="fade-up" data-aos-delay="400">
-                        <i class="fas fa-headphones"></i>
-                        <h3>Hearing Aid Comparison</h3>
-                        <p>Compare major hearing aid manufacturers (Phonak, Widex, Oticon, ReSound, Starkey, Signia) with NAL-NL2 vs DSL v5 fitting formula comparison.</p>
-                        <a href="/calculators/#/ha-comparison" target="_blank">View Comparison</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Rhinology Tools -->
-            <div class="subspecialty-section">
-                <div class="subspecialty-header" data-aos="fade-up">
-                    <h2><i class="fas fa-wind"></i> Rhinology & Sinus</h2>
-                    <p>Assessment tools for chronic rhinosinusitis and sinonasal quality of life</p>
-                </div>
-                <div class="tools-grid">
-                    <div class="tool-card" data-aos="fade-up" data-aos-delay="100">
-                        <i class="fas fa-wind"></i>
-                        <h3>SNOT-22 Calculator</h3>
-                        <p>Sino-Nasal Outcome Test: 22-item validated questionnaire (0-110 scale) for chronic rhinosinusitis symptom assessment and treatment response tracking. Clinically meaningful difference ≥8.9 points.</p>
-                        <a href="/calculators/#/snot22" target="_blank">Use Calculator</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Laryngology Tools -->
-            <div class="subspecialty-section">
-                <div class="subspecialty-header" data-aos="fade-up">
-                    <h2><i class="fas fa-microphone"></i> Laryngology & Voice</h2>
-                    <p>Voice and laryngopharyngeal reflux assessment instruments</p>
-                </div>
-                <div class="tools-grid">
-                    <div class="tool-card" data-aos="fade-up" data-aos-delay="100">
-                        <i class="fas fa-microphone"></i>
-                        <h3>Voice Handicap Index (VHI)</h3>
-                        <p>Validated voice quality-of-life assessment with VHI-10 (0-40 scale) and VHI-30 (0-120 scale) versions covering functional, physical, and emotional voice impact domains.</p>
-                        <a href="/calculators/#/vhi" target="_blank">Use Calculator</a>
-                    </div>
-
-                    <div class="tool-card" data-aos="fade-up" data-aos-delay="200">
-                        <i class="fas fa-droplet"></i>
-                        <h3>Reflux Symptom Index (RSI)</h3>
-                        <p>9-item laryngopharyngeal reflux screening tool (0-45 scale). Score >13 suggests LPR. Includes hoarseness, throat clearing, dysphagia, and heartburn assessment.</p>
-                        <a href="/calculators/#/rsi" target="_blank">Use Calculator</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Sleep Medicine Tools -->
-            <div class="subspecialty-section">
-                <div class="subspecialty-header" data-aos="fade-up">
-                    <h2><i class="fas fa-moon"></i> Sleep Medicine</h2>
-                    <p>Obstructive sleep apnea screening and airway assessment tools</p>
-                </div>
-                <div class="tools-grid">
-                    <div class="tool-card" data-aos="fade-up" data-aos-delay="100">
-                        <i class="fas fa-moon"></i>
-                        <h3>Epworth Sleepiness Scale (ESS)</h3>
-                        <p>8-item validated questionnaire (0-24 scale) for excessive daytime sleepiness screening. Score >10 indicates abnormal sleepiness; >16 suggests severe sleep disorder.</p>
-                        <a href="/calculators/#/ess" target="_blank">Use Calculator</a>
-                    </div>
-
-                    <div class="tool-card" data-aos="fade-up" data-aos-delay="200">
-                        <i class="fas fa-bed"></i>
-                        <h3>Sleep & Airway Assessment</h3>
-                        <p>Mallampati classification (I-IV) for intubation difficulty and Friedman staging (I-IV) for OSA surgical planning based on tonsil size, palate position, and BMI.</p>
-                        <a href="/calculators/#/sleep-assessment" target="_blank">Use Tool</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- General ENT & Therapeutics -->
-            <div class="subspecialty-section">
-                <div class="subspecialty-header" data-aos="fade-up">
-                    <h2><i class="fas fa-user-md"></i> General ENT & Therapeutics</h2>
-                    <p>Medical calculators and dosing tools for general otolaryngology practice</p>
-                </div>
-                <div class="tools-grid">
-                    <div class="tool-card" data-aos="fade-up" data-aos-delay="100">
-                        <i class="fas fa-calculator"></i>
-                        <h3>General Medical Calculators</h3>
-                        <p>BMI, BSA, ideal body weight, fluid requirements, and other general medical calculations commonly used in ENT practice.</p>
-                        <a href="ent-calculators.html">View Calculators</a>
-                    </div>
-
-                    <div class="tool-card" data-aos="fade-up" data-aos-delay="200">
-                        <i class="fas fa-pills"></i>
-                        <h3>XEOMIN Dosing Calculator</h3>
-                        <p>IncobotulinumtoxinA reconstitution calculator with dilution ratios, concentration tables, and indication-specific dosing for laryngeal dystonia and spasmodic dysphonia.</p>
-                        <a href="xeomin-calculator.html">Use Calculator</a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <section id="contact" class="contact-section">
-        <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Let's Connect</h2>
-            <div class="contact-grid">
-                <div class="contact-info" data-aos="fade-right">
-                    <h3>Get in Touch</h3>
-                    <p>I'm always interested in connecting with colleagues, researchers, and healthcare professionals. Feel free to reach out through any of the platforms below.</p>
-                    <div class="contact-links">
-                        <a href="https://www.linkedin.com/in/dralialshahrani/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                        <a href="https://github.com/drbinsaad" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                        <a href="https://x.com/_DrAli" target="_blank" aria-label="X (Twitter)"><i class="fab fa-twitter"></i></a>
-                        <a href="https://wa.me/966509713200" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-                        <a href="https://t.me/ENTcommunitas" target="_blank" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
-                        <a href="mailto:drbinsaad@gmail.com" target="_blank" aria-label="Email"><i class="fas fa-envelope"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Back to Top Button -->
-    <button id="back-to-top" aria-label="Back to top">
-        <i class="fas fa-arrow-up"></i>
-    </button>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script src="js/main.js"></script>
-    
-    <script>
-        // Initialize AOS and other scripts on this page
-        document.addEventListener('DOMContentLoaded', function() {
-            // Mobile menu functionality (copied from main.js)
-            const hamburger = document.querySelector('.hamburger');
-            const navLinks = document.querySelector('.nav-links');
-            const navLinksItems = document.querySelectorAll('.nav-links a');
-
-            if (hamburger && navLinks) {
-                hamburger.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    hamburger.classList.toggle('active');
-                    navLinks.classList.toggle('active');
-                });
-
-                navLinksItems.forEach(item => {
-                    item.addEventListener('click', function() {
-                        hamburger.classList.remove('active');
-                        navLinks.classList.remove('active');
-                    });
-                });
-            }
-
-            // Close menu when clicking outside
-            document.addEventListener('click', function(e) {
-                if (hamburger && navLinks) {
-                    if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
-                        hamburger.classList.remove('active');
-                        navLinks.classList.remove('active');
-                    }
-                }
-            });
-
-            // Back to top button
-            const backToTopButton = document.getElementById('back-to-top');
-            if (backToTopButton) {
-                backToTopButton.addEventListener('click', () => {
-                    window.scrollTo({
-                        top: 0,
-                        behavior: 'smooth'
-                    });
-                });
-            }
-        });
-    </script>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#8a302a"/><text x="50" y="50" dy="0.36em" text-anchor="middle" font-family="Georgia,serif" font-size="46" fill="#f4f1ea">A</text></svg></template></x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { menuOpen: false };
+  renderVals() {
+    var self = this;
+    return {
+      menuOpen: this.state.menuOpen,
+      toggleMenu: function () { self.setState(function (s) { return { menuOpen: !s.menuOpen }; }); }
+    };
+  }
+}
+</script>
 </body>
 </html>

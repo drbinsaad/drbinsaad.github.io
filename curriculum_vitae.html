@@ -1,178 +1,270 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CV - Dr Ali Alshahrani | Pediatric ENT Specialist</title>
-    
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Curriculum Vitae of Dr. Ali Alshahrani - Pediatric Otolaryngology & Airway Surgery Fellow. Education, experience, and complete publication list.">
-    <meta name="author" content="Dr. Ali Alshahrani">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/favicon.png">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
 </head>
 <body>
-    <nav id="navbar">
-        <div class="container">
-            <a href="index.html" class="logo">Dr Ali Alshahrani</a>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <ul class="nav-links">
-                <li><a href="dashboard.html">Dashboard</a></li>
-                <li>
-                    <a href="#research">Research</a>
-                    <ul class="dropdown">
-                        <li><a href="index.html#research">Research Focus</a></li>
-                        <li><a href="index.html#publications">Recent Publications</a></li>
-                    </ul>
-                </li>
-                <li><a href="curriculum_vitae.html">Brief CV</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="ent-tools.html">ENT Web Tools</a></li>
-                <li><a href="my-apps.html">My Apps</a></li>
-            </ul>
-        </div>
-    </nav>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:#f4f1ea;}
+  a{color:inherit;}
+  ::selection{background:#8a302a;color:#f4f1ea;}
+  @media (max-width:820px){
+    [data-desktop-nav]{display:none !important;}
+    [data-mobile-btn]{display:inline-flex !important;}
+    [data-row]{grid-template-columns:1fr !important;gap:4px !important;}
+    [data-pub]{grid-template-columns:1fr !important;gap:6px !important;}
+    [data-metrics]{gap:28px !important;}
+    [data-sec]{padding:60px 0 !important;}
+  }
+</style>
+</helmet>
 
-    
-    <section class="education-section">
-        <h2 class="section-title" data-aos="fade-up">Education</h2>     
-        <!-- Pediatric Otolaryngology & Airway Surgery Fellow -->
-    <div class="education-item">
-        <div class="degree-header">
-            <div class="degree-title">Pediatric Otolaryngology & Airway Surgery Fellow</div>
-            <div class="degree-subject">Otolaryngology</div>
-        </div>
-        <div class="university-info">
-            <div class="university-name">Prince Sultan Military Medical City, Riyadh</div>
-            <div class="graduation-year">2024 - Present</div>
-        </div>
+<div id="top" data-screen-label="CV" style="background:#f4f1ea;color:#1c1a17;font-family:'Source Sans 3',system-ui,sans-serif;line-height:1.7;min-height:100vh;-webkit-font-smoothing:antialiased;">
+
+  <header style="position:sticky;top:0;z-index:60;background:rgba(244,241,234,0.88);backdrop-filter:blur(12px);border-bottom:1px solid #e4ded2;">
+    <div style="max-width:1080px;margin:0 auto;padding:15px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px;">
+      <a href="index.html" style="text-decoration:none;display:flex;flex-direction:column;line-height:1.08;flex:none;white-space:nowrap;">
+        <span style="font-family:'Newsreader',serif;font-size:20px;font-weight:600;color:#1c1a17;letter-spacing:0.01em;">Ali Alshahrani</span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:#8a302a;margin-top:4px;">Otolaryngology</span>
+      </a>
+      <nav data-desktop-nav style="display:flex;align-items:center;gap:30px;font-size:14.5px;font-weight:500;">
+        <a href="index.html#research" style="text-decoration:none;color:#46423b;" style-hover="color:#8a302a;">Research</a>
+        <a href="index.html#publications" style="text-decoration:none;color:#46423b;" style-hover="color:#8a302a;">Publications</a>
+        <a href="ent-tools.html" style="text-decoration:none;color:#46423b;" style-hover="color:#8a302a;">Tools</a>
+        <a href="curriculum_vitae.html" style="text-decoration:none;color:#8a302a;border-bottom:1px solid #c9a59f;padding-bottom:2px;">CV</a>
+        <a href="index.html#contact" style="text-decoration:none;color:#f4f1ea;background:#1c1a17;padding:9px 18px;border-radius:2px;" style-hover="background:#8a302a;">Contact</a>
+      </nav>
+      <button data-mobile-btn onClick="{{ toggleMenu }}" aria-label="Menu" style="display:none;align-items:center;justify-content:center;width:42px;height:42px;background:transparent;border:1px solid #d9d3c7;border-radius:2px;cursor:pointer;color:#1c1a17;font-size:18px;">
+        <i class="fas fa-bars"></i>
+      </button>
     </div>
-         <!-- Saudi Board -->
-        <div class="education-item">
-            <div class="degree-header">
-                <div class="degree-title">Saudi Board in Otorhinolaryngology – Head and Neck Surgery</div>
-                <div class="degree-subject">Otolaryngology</div>
-            </div>
-            <div class="university-info">
-                <div class="university-name">Saudi Commission for Health Specialties</div>
-                <div class="graduation-year">2023</div>
-            </div>
-        </div>
-    
-        <!-- MBBS -->
-        <div class="education-item">
-            <div class="degree-header">
-                <div class="degree-title">MBBS</div>
-                <div class="degree-subject">Medicine</div>
-            </div>
-            <div class="university-info">
-                <div class="university-name">College of Medicine, King Khalid University</div>
-                <div class="graduation-year">2017</div>
-            </div>
-        </div>
-    </section>
+    <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="border-top:1px solid #e4ded2;background:#f4f1ea;padding:10px 28px 18px;display:flex;flex-direction:column;gap:4px;">
+        <a href="index.html#research" style="text-decoration:none;color:#46423b;padding:11px 0;border-bottom:1px solid #ece7dc;font-weight:500;">Research</a>
+        <a href="index.html#publications" style="text-decoration:none;color:#46423b;padding:11px 0;border-bottom:1px solid #ece7dc;font-weight:500;">Publications</a>
+        <a href="ent-tools.html" style="text-decoration:none;color:#46423b;padding:11px 0;border-bottom:1px solid #ece7dc;font-weight:500;">Clinical Tools</a>
+        <a href="curriculum_vitae.html" style="text-decoration:none;color:#8a302a;padding:11px 0;border-bottom:1px solid #ece7dc;font-weight:600;">Curriculum Vitae</a>
+        <a href="index.html#contact" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#8a302a;padding:11px 0;font-weight:600;">Contact</a>
+      </div>
+    </sc-if>
+  </header>
 
+  <section data-sec style="padding:72px 0 40px;">
+    <div style="max-width:1080px;margin:0 auto;padding:0 28px;">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#8a302a;margin-bottom:18px;">Curriculum Vitae</div>
+      <h1 style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(36px,5vw,58px);line-height:1.04;letter-spacing:-0.01em;color:#1c1a17;margin-bottom:18px;">Dr Ali Alshahrani</h1>
+      <p style="font-family:'Newsreader',serif;font-size:clamp(17px,2vw,21px);font-style:italic;color:#605a50;max-width:40ch;">Pediatric Otolaryngology Consultant &amp; Deputy Residency Program Director &mdash; Armed Forces Hospitals Southern Region</p>
+    </div>
+  </section>
 
-    <section class="experience-section">
-        <h2 class="section-title" data-aos="fade-up">Professional Experience</h2>
-        <div class="experience-item">
-            <div class="experience-header">
-                <div class="company-info">
-                    <h3 class="company-name">Senior Registrar</h3>
-                    <div class="job-title">Dr. Sulaiman AlHabib Medical Centers, Riyadh</div>
-                </div>
-                <div class="employment-period">May 2024 - Present</div>
-            </div>
+  <section style="border-top:1px solid #e4ded2;border-bottom:1px solid #e4ded2;background:#efeae0;">
+    <div style="max-width:1080px;margin:0 auto;padding:0 28px;">
+      <div data-metrics style="display:flex;flex-wrap:wrap;align-items:flex-end;gap:56px;padding:30px 0;">
+        <div><div style="font-family:'Newsreader',serif;font-size:42px;font-weight:500;line-height:1;color:#1c1a17;"><span data-stat="citations">71</span></div><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#8a302a;margin-top:8px;">Citations</div></div>
+        <div><div style="font-family:'Newsreader',serif;font-size:42px;font-weight:500;line-height:1;color:#1c1a17;"><span data-stat="publications">13</span></div><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#8a302a;margin-top:8px;">Publications</div></div>
+        <div><div style="font-family:'Newsreader',serif;font-size:42px;font-weight:500;line-height:1;color:#1c1a17;"><span data-stat="hindex">4</span></div><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#8a302a;margin-top:8px;">h-index</div></div>
+        <div style="margin-left:auto;font-size:12.5px;color:#8c867b;line-height:1.5;">Source: Google Scholar<br>Updated <span data-updated>2026-01-18</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section data-sec data-screen-label="Education" style="padding:84px 0;">
+    <div style="max-width:1080px;margin:0 auto;padding:0 28px;">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#8a302a;margin-bottom:14px;">Education</div>
+      <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(26px,3.4vw,38px);line-height:1.1;color:#1c1a17;margin-bottom:44px;">Training &amp; qualifications</h2>
+      <div style="border-top:1px solid #ddd6c8;">
+        <div data-row style="display:grid;grid-template-columns:160px 1fr;gap:32px;padding:26px 0;border-bottom:1px solid #ddd6c8;">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#8a302a;padding-top:4px;">2024 &ndash; 2025</div>
+          <div>
+            <h3 style="font-family:'Newsreader',serif;font-weight:600;font-size:21px;color:#1c1a17;margin-bottom:5px;">Pediatric Otolaryngology &amp; Airway Surgery Fellowship</h3>
+            <div style="font-size:15.5px;color:#6f6a61;">Prince Sultan Military Medical City, Riyadh</div>
+          </div>
         </div>
-        <div class="experience-item">
-            <div class="experience-header">
-                <div class="company-info">
-                    <h3 class="company-name">Senior Registrar</h3>
-                    <div class="job-title">Alslama Medical Center, Khamis Mushait</div>
-                </div>
-                <div class="employment-period">September 2023 - December 2023</div>
-            </div>
+        <div data-row style="display:grid;grid-template-columns:160px 1fr;gap:32px;padding:26px 0;border-bottom:1px solid #ddd6c8;">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#8a302a;padding-top:4px;">2023</div>
+          <div>
+            <h3 style="font-family:'Newsreader',serif;font-weight:600;font-size:21px;color:#1c1a17;margin-bottom:5px;">Saudi Board in Otorhinolaryngology &ndash; Head &amp; Neck Surgery</h3>
+            <div style="font-size:15.5px;color:#6f6a61;">Saudi Commission for Health Specialties</div>
+          </div>
         </div>
-        <div class="experience-item">
-            <div class="experience-header">
-                <div class="company-info">
-                    <h3 class="company-name">Senior Registrar</h3>
-                    <div class="job-title">Armed Forces Hospitals Southern Region (AFHSR)</div>
-                </div>
-                <div class="employment-period">January 2022 - December 2023</div>
-            </div>
+        <div data-row style="display:grid;grid-template-columns:160px 1fr;gap:32px;padding:26px 0;border-bottom:1px solid #ddd6c8;">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#8a302a;padding-top:4px;">2017</div>
+          <div>
+            <h3 style="font-family:'Newsreader',serif;font-weight:600;font-size:21px;color:#1c1a17;margin-bottom:5px;">MBBS, Doctor of Medicine</h3>
+            <div style="font-size:15.5px;color:#6f6a61;">College of Medicine, King Khalid University</div>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-      <section id="publications">
-        <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Publication List</h2>
-            <div class="scholar-stats">
-                <div class="stat-box">
-                    <h3>Citations</h3>
-                    <b><p id="citation-count">Loading...</p></b>
-                </div>
-                <div class="stat-box">
-                    <h3>Publications</h3>
-                    <b><p id="publication-count">Loading...</p></b>
-                </div>
-                <div class="stat-box">
-                    <h3>H-Index</h3>
-                    <b><p id="h-index">Loading...</p></b>
-                </div>
-                <p class="update-time">Data sourced from Google Scholar. Last updated: <span id="last-updated">Loading...</span></p>
-            </div>
-            <div class="publication-list" id="all-publications">
-                <!-- Publications will be inserted here by JavaScript -->
-            </div>
-            </div>
-            <center><a href="https://scholar.google.com/citations?user=dCBScAcAAAAJ&hl=en&authuser=1" class="cv-button" target="_blank">Google Scholar</a>
-           
+  <section data-sec data-screen-label="Experience" style="padding:84px 0;background:#efeae0;border-top:1px solid #e4ded2;border-bottom:1px solid #e4ded2;">
+    <div style="max-width:1080px;margin:0 auto;padding:0 28px;">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#8a302a;margin-bottom:14px;">Professional Experience</div>
+      <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(26px,3.4vw,38px);line-height:1.1;color:#1c1a17;margin-bottom:44px;">Clinical appointments</h2>
+      <div style="border-top:1px solid #ddd6c8;">
+        <div data-row style="display:grid;grid-template-columns:200px 1fr;gap:32px;padding:26px 0;border-bottom:1px solid #ddd6c8;">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#8a302a;padding-top:4px;">2025 &ndash; Present</div>
+          <div>
+            <h3 style="font-family:'Newsreader',serif;font-weight:600;font-size:21px;color:#1c1a17;margin-bottom:5px;">Consultant, Pediatric Otolaryngology &middot; Deputy Residency Program Director</h3>
+            <div style="font-size:15.5px;color:#6f6a61;">Armed Forces Hospitals Southern Region (AFHSR)</div>
+          </div>
         </div>
-    </section>
-
-    <section id="contact" class="contact-section">
-        <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Let's Connect</h2>
-            <div class="contact-grid">
-                <div class="contact-info" data-aos="fade-right">
-                    <h3>Get in Touch</h3>
-                    <p>I'm always interested in connecting with colleagues, researchers, and healthcare professionals. Feel free to reach out through any of the platforms below.</p>
-                    <div class="contact-links">
-                        <a href="https://www.linkedin.com/in/dralialshahrani/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                        <a href="https://github.com/drbinsaad" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                        <a href="https://x.com/_DrAli" target="_blank" aria-label="X (Twitter)"><i class="fab fa-twitter"></i></a>
-                        <a href="https://wa.me/966509713200" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-                        <a href="https://t.me/ENTcommunitas" target="_blank" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
-                        <a href="mailto:drbinsaad@gmail.com" target="_blank" aria-label="Email"><i class="fas fa-envelope"></i></a>
-                    </div>
-                </div>
-            </div>
+        <div data-row style="display:grid;grid-template-columns:200px 1fr;gap:32px;padding:26px 0;border-bottom:1px solid #ddd6c8;">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#8a302a;padding-top:4px;">May 2024 &ndash; Present</div>
+          <div>
+            <h3 style="font-family:'Newsreader',serif;font-weight:600;font-size:21px;color:#1c1a17;margin-bottom:5px;">Senior Registrar, Otolaryngology</h3>
+            <div style="font-size:15.5px;color:#6f6a61;">Dr. Sulaiman AlHabib Medical Centers, Riyadh</div>
+          </div>
         </div>
-    </section>
+        <div data-row style="display:grid;grid-template-columns:200px 1fr;gap:32px;padding:26px 0;border-bottom:1px solid #ddd6c8;">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#8a302a;padding-top:4px;">Jan 2022 &ndash; Dec 2023</div>
+          <div>
+            <h3 style="font-family:'Newsreader',serif;font-weight:600;font-size:21px;color:#1c1a17;margin-bottom:5px;">Senior Registrar, Otolaryngology</h3>
+            <div style="font-size:15.5px;color:#6f6a61;">Armed Forces Hospitals Southern Region (AFHSR)</div>
+          </div>
+        </div>
+        <div data-row style="display:grid;grid-template-columns:200px 1fr;gap:32px;padding:26px 0;border-bottom:1px solid #ddd6c8;">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#8a302a;padding-top:4px;">Sep 2023 &ndash; Dec 2023</div>
+          <div>
+            <h3 style="font-family:'Newsreader',serif;font-weight:600;font-size:21px;color:#1c1a17;margin-bottom:5px;">Senior Registrar, Otolaryngology</h3>
+            <div style="font-size:15.5px;color:#6f6a61;">Alslama Medical Center, Khamis Mushait</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- Back to Top Button -->
-    <button id="back-to-top" aria-label="Back to top">
-        <i class="fas fa-arrow-up"></i>
-    </button>
+  <section data-sec data-screen-label="Publications" style="padding:84px 0;">
+    <div style="max-width:1080px;margin:0 auto;padding:0 28px;">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:44px;">
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#8a302a;margin-bottom:14px;">Publications</div>
+          <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(26px,3.4vw,38px);line-height:1.1;color:#1c1a17;">Complete list &mdash; 13 papers</h2>
+        </div>
+        <a href="https://scholar.google.com/citations?user=dCBScAcAAAAJ&amp;hl=en&amp;authuser=1" target="_blank" rel="noopener" style="text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:0.04em;color:#8a302a;border-bottom:1px solid #c9a59f;padding-bottom:3px;">Google Scholar &rarr;</a>
+      </div>
+      <div style="border-top:1px solid #ddd6c8;">
+        <a href="https://academic.oup.com/jscr/article-abstract/2025/4/rjaf194/8105693" target="_blank" rel="noopener" data-pub style="display:grid;grid-template-columns:78px 1fr;gap:28px;padding:24px 0;border-bottom:1px solid #ddd6c8;text-decoration:none;" style-hover="background:rgba(138,48,42,0.035);">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#8a302a;padding-top:3px;">2025</div>
+          <div><h3 style="font-family:'Newsreader',serif;font-weight:500;font-size:19px;line-height:1.35;color:#1c1a17;margin-bottom:6px;">Fractured tracheostomy tube as a foreign body in a pediatric patient: a case report and review of literature</h3><div style="font-size:13.5px;font-style:italic;color:#7a746a;">Journal of Surgical Case Reports, 2025 (4), rjaf194</div></div>
+        </a>
+        <a href="https://www.tandfonline.com/doi/abs/10.1080/23772484.2025.2566345" target="_blank" rel="noopener" data-pub style="display:grid;grid-template-columns:78px 1fr;gap:28px;padding:24px 0;border-bottom:1px solid #ddd6c8;text-decoration:none;" style-hover="background:rgba(138,48,42,0.035);">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#8a302a;padding-top:3px;">2025</div>
+          <div><h3 style="font-family:'Newsreader',serif;font-weight:500;font-size:19px;line-height:1.35;color:#1c1a17;margin-bottom:6px;">Sclerosing polycystic adenoma in parotid gland with rare clinical presentation: a case report</h3><div style="font-size:13.5px;font-style:italic;color:#7a746a;">Acta Oto-Laryngologica Case Reports, 10 (1), 229&ndash;235</div></div>
+        </a>
+        <a href="https://journals.lww.com/otology-neurotology/fulltext/9900/hearing_outcomes_and_complications_of_cochlear.936.aspx" target="_blank" rel="noopener" data-pub style="display:grid;grid-template-columns:78px 1fr;gap:28px;padding:24px 0;border-bottom:1px solid #ddd6c8;text-decoration:none;" style-hover="background:rgba(138,48,42,0.035);">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#8a302a;padding-top:3px;">2025</div>
+          <div><h3 style="font-family:'Newsreader',serif;font-weight:500;font-size:19px;line-height:1.35;color:#1c1a17;margin-bottom:6px;">Hearing outcomes and complications of cochlear implantation in patients with cochlear ossification: a systematic review and meta-analysis</h3><div style="font-size:13.5px;font-style:italic;color:#7a746a;">Otology &amp; Neurotology, 2025</div></div>
+        </a>
+        <a href="https://academic.oup.com/jscr/article-abstract/2025/3/rjaf124/8064704" target="_blank" rel="noopener" data-pub style="display:grid;grid-template-columns:78px 1fr;gap:28px;padding:24px 0;border-bottom:1px solid #ddd6c8;text-decoration:none;" style-hover="background:rgba(138,48,42,0.035);">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#8a302a;padding-top:3px;">2025</div>
+          <div><h3 style="font-family:'Newsreader',serif;font-weight:500;font-size:19px;line-height:1.35;color:#1c1a17;margin-bottom:6px;">Efficacy of the &lsquo;hole-punch&rsquo; technique in recurrent auricular hematoma after excisional hemangioma: a case report</h3><div style="font-size:13.5px;font-style:italic;color:#7a746a;">Journal of Surgical Case Reports, 2025 (3), rjaf124</div></div>
+        </a>
+        <a href="https://journals.sagepub.com/doi/abs/10.1177/01455613251315649" target="_blank" rel="noopener" data-pub style="display:grid;grid-template-columns:78px 1fr;gap:28px;padding:24px 0;border-bottom:1px solid #ddd6c8;text-decoration:none;" style-hover="background:rgba(138,48,42,0.035);">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#8a302a;padding-top:3px;">2025</div>
+          <div><h3 style="font-family:'Newsreader',serif;font-weight:500;font-size:19px;line-height:1.35;color:#1c1a17;margin-bottom:6px;">Comparison of cochlear implant efficacy in pre- versus postsynaptic auditory neuropathy: a systematic review</h3><div style="font-size:13.5px;font-style:italic;color:#7a746a;">Ear, Nose &amp; Throat Journal, 2025</div></div>
+        </a>
+        <a href="https://scholar.google.com/scholar?cluster=16001168641020430115&amp;hl=en&amp;oi=scholarr" target="_blank" rel="noopener" data-pub style="display:grid;grid-template-columns:78px 1fr;gap:28px;padding:24px 0;border-bottom:1px solid #ddd6c8;text-decoration:none;" style-hover="background:rgba(138,48,42,0.035);">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#8a302a;padding-top:3px;">2024</div>
+          <div><h3 style="font-family:'Newsreader',serif;font-weight:500;font-size:19px;line-height:1.35;color:#1c1a17;margin-bottom:6px;">Nasal dermoid cyst with sinus tract intranasal bone: a case report</h3><div style="font-size:13.5px;font-style:italic;color:#7a746a;">International Journal of Otolaryngology and Head &amp; Neck Surgery, 13 (2)</div></div>
+        </a>
+        <a href="https://www.cureus.com/articles/104270-association-of-fine-needle-aspiration-of-thyroid-nodules-with-final-histopathology-in-diagnosing-thyroid-malignancy-a-single-institute-retrospective-study.pdf" target="_blank" rel="noopener" data-pub style="display:grid;grid-template-columns:78px 1fr;gap:28px;padding:24px 0;border-bottom:1px solid #ddd6c8;text-decoration:none;" style-hover="background:rgba(138,48,42,0.035);">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#8a302a;padding-top:3px;">2022</div>
+          <div><h3 style="font-family:'Newsreader',serif;font-weight:500;font-size:19px;line-height:1.35;color:#1c1a17;margin-bottom:6px;">Association of fine-needle aspiration of thyroid nodules with final histopathology in diagnosing thyroid malignancy: a single-institute retrospective study</h3><div style="font-size:13.5px;font-style:italic;color:#7a746a;">Cureus, 14 (11)</div></div>
+        </a>
+        <a href="https://www.cureus.com/articles/102676-association-of-ultrasonography-with-final-histopathology-in-diagnosing-thyroid-malignancy-a-single-institute-retrospective-study.pdf" target="_blank" rel="noopener" data-pub style="display:grid;grid-template-columns:78px 1fr;gap:28px;padding:24px 0;border-bottom:1px solid #ddd6c8;text-decoration:none;" style-hover="background:rgba(138,48,42,0.035);">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#8a302a;padding-top:3px;">2022</div>
+          <div><h3 style="font-family:'Newsreader',serif;font-weight:500;font-size:19px;line-height:1.35;color:#1c1a17;margin-bottom:6px;">Association of ultrasonography with final histopathology in diagnosing thyroid malignancy: a single-institute retrospective study</h3><div style="font-size:13.5px;font-style:italic;color:#7a746a;">Cureus, 14 (11)</div></div>
+        </a>
+        <a href="https://www.cureus.com/articles/62989-to-give-or-not-to-give-prescribing-antibiotics-to-the-tonsillectomy-patients-in-a-tertiary-care-setting.pdf" target="_blank" rel="noopener" data-pub style="display:grid;grid-template-columns:78px 1fr;gap:28px;padding:24px 0;border-bottom:1px solid #ddd6c8;text-decoration:none;" style-hover="background:rgba(138,48,42,0.035);">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#8a302a;padding-top:3px;">2021</div>
+          <div><h3 style="font-family:'Newsreader',serif;font-weight:500;font-size:19px;line-height:1.35;color:#1c1a17;margin-bottom:6px;">To give or not to give? Prescribing antibiotics to the tonsillectomy patients in a tertiary care setting</h3><div style="font-size:13.5px;font-style:italic;color:#7a746a;">Cureus, 13 (7)</div></div>
+        </a>
+        <a href="https://journals.ekb.eg/article_7006.html" target="_blank" rel="noopener" data-pub style="display:grid;grid-template-columns:78px 1fr;gap:28px;padding:24px 0;border-bottom:1px solid #ddd6c8;text-decoration:none;" style-hover="background:rgba(138,48,42,0.035);">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#8a302a;padding-top:3px;">2017</div>
+          <div><h3 style="font-family:'Newsreader',serif;font-weight:500;font-size:19px;line-height:1.35;color:#1c1a17;margin-bottom:6px;">Association of video gaming with some risky behaviors of secondary school adolescents in Abha, Southwestern Saudi Arabia</h3><div style="font-size:13.5px;font-style:italic;color:#7a746a;">Journal of the Egyptian Public Health Association, 92 (1), 18&ndash;28</div></div>
+        </a>
+        <a href="https://journals.lww.com/sjoh/fulltext/2016/18020/nasolabial_cyst__a_case_report.6.aspx" target="_blank" rel="noopener" data-pub style="display:grid;grid-template-columns:78px 1fr;gap:28px;padding:24px 0;border-bottom:1px solid #ddd6c8;text-decoration:none;" style-hover="background:rgba(138,48,42,0.035);">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#8a302a;padding-top:3px;">2016</div>
+          <div><h3 style="font-family:'Newsreader',serif;font-weight:500;font-size:19px;line-height:1.35;color:#1c1a17;margin-bottom:6px;">Nasolabial cyst: a case report</h3><div style="font-size:13.5px;font-style:italic;color:#7a746a;">Saudi Journal of Otorhinolaryngology Head and Neck Surgery, 18 (2), 65&ndash;67</div></div>
+        </a>
+        <a href="https://www.benthamdirect.com/content/journals/iddt/10.2174/1871526514666140713160413" target="_blank" rel="noopener" data-pub style="display:grid;grid-template-columns:78px 1fr;gap:28px;padding:24px 0;border-bottom:1px solid #ddd6c8;text-decoration:none;" style-hover="background:rgba(138,48,42,0.035);">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#8a302a;padding-top:3px;">2014</div>
+          <div><h3 style="font-family:'Newsreader',serif;font-weight:500;font-size:19px;line-height:1.35;color:#1c1a17;margin-bottom:6px;">Foot injuries among Hajj pilgrims with and without diabetes mellitus: implications for infection management</h3><div style="font-size:13.5px;font-style:italic;color:#7a746a;">Infectious Disorders &ndash; Drug Targets, 14 (2), 140&ndash;147</div></div>
+        </a>
+        <a href="https://www.researchgate.net/profile/Ali-Alshahrani-17/publication/363004645_Cervical_Chondrocutanous_Branchial_Remnants_A_Case_Report" target="_blank" rel="noopener" data-pub style="display:grid;grid-template-columns:78px 1fr;gap:28px;padding:24px 0;border-bottom:1px solid #ddd6c8;text-decoration:none;" style-hover="background:rgba(138,48,42,0.035);">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#8a302a;padding-top:3px;">&mdash;</div>
+          <div><h3 style="font-family:'Newsreader',serif;font-weight:500;font-size:19px;line-height:1.35;color:#1c1a17;margin-bottom:6px;">Cervical chondrocutaneous branchial remnants: a case report</h3><div style="font-size:13.5px;font-style:italic;color:#7a746a;">Journal of Pediatrics Research Reviews &amp; Reports</div></div>
+        </a>
+      </div>
+    </div>
+  </section>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script src="js/main.js"></script>
+  <section id="contact" data-sec data-screen-label="Contact" style="padding:90px 0 56px;background:#1c1a17;color:#e9e4da;">
+    <div style="max-width:1080px;margin:0 auto;padding:0 28px;">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#d39189;margin-bottom:16px;">Get in Touch</div>
+      <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(28px,4vw,44px);line-height:1.06;color:#f4f1ea;max-width:18ch;margin-bottom:36px;">Let&rsquo;s connect</h2>
+      <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:52px;">
+        <a href="https://www.linkedin.com/in/dralialshahrani/" target="_blank" rel="noopener" aria-label="LinkedIn" style="width:50px;height:50px;display:flex;align-items:center;justify-content:center;border:1px solid #3a3833;border-radius:2px;color:#e9e4da;text-decoration:none;font-size:18px;" style-hover="background:#8a302a;border-color:#8a302a;"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://github.com/drbinsaad" target="_blank" rel="noopener" aria-label="GitHub" style="width:50px;height:50px;display:flex;align-items:center;justify-content:center;border:1px solid #3a3833;border-radius:2px;color:#e9e4da;text-decoration:none;font-size:18px;" style-hover="background:#8a302a;border-color:#8a302a;"><i class="fab fa-github"></i></a>
+        <a href="https://x.com/_DrAli" target="_blank" rel="noopener" aria-label="X" style="width:50px;height:50px;display:flex;align-items:center;justify-content:center;border:1px solid #3a3833;border-radius:2px;color:#e9e4da;text-decoration:none;font-size:17px;" style-hover="background:#8a302a;border-color:#8a302a;"><i class="fab fa-x-twitter"></i></a>
+        <a href="https://wa.me/966509713200" target="_blank" rel="noopener" aria-label="WhatsApp" style="width:50px;height:50px;display:flex;align-items:center;justify-content:center;border:1px solid #3a3833;border-radius:2px;color:#e9e4da;text-decoration:none;font-size:18px;" style-hover="background:#8a302a;border-color:#8a302a;"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://t.me/ENTcommunitas" target="_blank" rel="noopener" aria-label="Telegram" style="width:50px;height:50px;display:flex;align-items:center;justify-content:center;border:1px solid #3a3833;border-radius:2px;color:#e9e4da;text-decoration:none;font-size:18px;" style-hover="background:#8a302a;border-color:#8a302a;"><i class="fab fa-telegram"></i></a>
+        <a href="mailto:drbinsaad@gmail.com" aria-label="Email" style="width:50px;height:50px;display:flex;align-items:center;justify-content:center;border:1px solid #3a3833;border-radius:2px;color:#e9e4da;text-decoration:none;font-size:18px;" style-hover="background:#8a302a;border-color:#8a302a;"><i class="fas fa-envelope"></i></a>
+      </div>
+      <div style="border-top:1px solid #34322d;padding-top:26px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:14px;align-items:center;">
+        <a href="index.html" style="font-family:'Newsreader',serif;font-size:17px;color:#cdc6ba;text-decoration:none;">Dr Ali Alshahrani</a>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.1em;color:#7d7869;">shahrani.me &middot; &copy; 2026</span>
+      </div>
+    </div>
+  </section>
 
-<script>
-    // Call when page loads
-    document.addEventListener('DOMContentLoaded', function() {
-        updateScholarStats();
-        updatePublications_all();
-    });
+</div>
+
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#8a302a"/><text x="50" y="50" dy="0.36em" text-anchor="middle" font-family="Georgia,serif" font-size="46" fill="#f4f1ea">A</text></svg></template></x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { menuOpen: false };
+
+  componentDidMount() {
+    fetch('assets/data/scholar_stats.json')
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        if (!d) return;
+        var set = function (k, v) {
+          var n = document.querySelector('[data-stat="' + k + '"]');
+          if (n && v != null) n.textContent = v;
+        };
+        set('citations', d.citations);
+        set('publications', d.publications);
+        set('hindex', d.h_index);
+        if (d.last_updated) {
+          var u = document.querySelector('[data-updated]');
+          if (u) u.textContent = String(d.last_updated).split(' ')[0];
+        }
+      })
+      .catch(function () {});
+  }
+
+  renderVals() {
+    var self = this;
+    return {
+      menuOpen: this.state.menuOpen,
+      toggleMenu: function () { self.setState(function (s) { return { menuOpen: !s.menuOpen }; }); }
+    };
+  }
+}
 </script>
 </body>
 </html>

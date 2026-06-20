@@ -1,220 +1,240 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pediatric ET Depth Calculator - Dr Ali Alshahrani</title>
-    <meta name="description" content="Pediatric endotracheal tube depth estimator (age- and weight-based) for clinicians. Educational reference only; always confirm tube placement clinically.">
-    <link rel="icon" type="image/png" href="/favicon.png">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/calculator.css" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
 </head>
 <body>
-    <nav id="navbar">
-        <div class="container">
-            <a href="index.html" class="logo">Dr Ali Alshahrani</a>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:#f4f1ea;}
+  a{color:inherit;}
+  ::selection{background:#8a302a;color:#f4f1ea;}
+  input{font-family:'Source Sans 3',sans-serif;}
+  input:focus{outline:none;border-color:#8a302a !important;}
+  @media (max-width:820px){
+    [data-desktop-nav]{display:none !important;}
+    [data-mobile-btn]{display:inline-flex !important;}
+    [data-seg]{flex-direction:column !important;}
+    [data-ref]{grid-template-columns:1fr !important;}
+    [data-sec]{padding:48px 0 !important;}
+  }
+</style>
+</helmet>
+
+<div id="top" data-screen-label="ET Depth Calculator" style="background:#f4f1ea;color:#1c1a17;font-family:'Source Sans 3',system-ui,sans-serif;line-height:1.7;min-height:100vh;-webkit-font-smoothing:antialiased;">
+
+  <header style="position:sticky;top:0;z-index:60;background:rgba(244,241,234,0.88);backdrop-filter:blur(12px);border-bottom:1px solid #e4ded2;">
+    <div style="max-width:1080px;margin:0 auto;padding:15px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px;">
+      <a href="index.html" style="text-decoration:none;display:flex;flex-direction:column;line-height:1.08;flex:none;white-space:nowrap;">
+        <span style="font-family:'Newsreader',serif;font-size:20px;font-weight:600;color:#1c1a17;letter-spacing:0.01em;">Ali Alshahrani</span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:#8a302a;margin-top:4px;">Otolaryngology</span>
+      </a>
+      <nav data-desktop-nav style="display:flex;align-items:center;gap:30px;font-size:14.5px;font-weight:500;">
+        <a href="index.html#research" style="text-decoration:none;color:#46423b;" style-hover="color:#8a302a;">Research</a>
+        <a href="index.html#publications" style="text-decoration:none;color:#46423b;" style-hover="color:#8a302a;">Publications</a>
+        <a href="ent-tools.html" style="text-decoration:none;color:#8a302a;border-bottom:1px solid #c9a59f;padding-bottom:2px;">Tools</a>
+        <a href="curriculum_vitae.html" style="text-decoration:none;color:#46423b;" style-hover="color:#8a302a;">CV</a>
+        <a href="index.html#contact" style="text-decoration:none;color:#f4f1ea;background:#1c1a17;padding:9px 18px;border-radius:2px;" style-hover="background:#8a302a;">Contact</a>
+      </nav>
+      <button data-mobile-btn onClick="{{ toggleMenu }}" aria-label="Menu" style="display:none;align-items:center;justify-content:center;width:42px;height:42px;background:transparent;border:1px solid #d9d3c7;border-radius:2px;cursor:pointer;color:#1c1a17;font-size:18px;">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+    <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="border-top:1px solid #e4ded2;background:#f4f1ea;padding:10px 28px 18px;display:flex;flex-direction:column;gap:4px;">
+        <a href="index.html#research" style="text-decoration:none;color:#46423b;padding:11px 0;border-bottom:1px solid #ece7dc;font-weight:500;">Research</a>
+        <a href="index.html#publications" style="text-decoration:none;color:#46423b;padding:11px 0;border-bottom:1px solid #ece7dc;font-weight:500;">Publications</a>
+        <a href="ent-tools.html" style="text-decoration:none;color:#8a302a;padding:11px 0;border-bottom:1px solid #ece7dc;font-weight:600;">Clinical Tools</a>
+        <a href="curriculum_vitae.html" style="text-decoration:none;color:#46423b;padding:11px 0;border-bottom:1px solid #ece7dc;font-weight:500;">Curriculum Vitae</a>
+        <a href="index.html#contact" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#8a302a;padding:11px 0;font-weight:600;">Contact</a>
+      </div>
+    </sc-if>
+  </header>
+
+  <section data-sec style="padding:56px 0 30px;">
+    <div style="max-width:860px;margin:0 auto;padding:0 28px;">
+      <a href="ent-tools.html" style="text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.1em;color:#8a302a;display:inline-block;margin-bottom:22px;">&larr; All ENT tools</a>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#8a302a;margin-bottom:16px;">Pediatric Airway &amp; Anesthesia</div>
+      <h1 style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(34px,4.6vw,52px);line-height:1.04;letter-spacing:-0.01em;color:#1c1a17;margin-bottom:18px;">ET Depth Calculator</h1>
+      <p style="font-size:17.5px;color:#46423b;line-height:1.7;max-width:54ch;">Estimate pediatric endotracheal tube insertion depth (cm at the lip) using an age-based formula or the weight-based Rule of Seven.</p>
+    </div>
+  </section>
+
+  <section data-sec style="padding:14px 0 30px;">
+    <div style="max-width:860px;margin:0 auto;padding:0 28px;">
+      <div data-seg style="display:flex;gap:1px;background:#e4ded2;border:1px solid #e4ded2;margin-bottom:32px;">
+        <button onClick="{{ selectAge }}" style="{{ ageBtnStyle }}"><i class="fas fa-child"></i> Age-based</button>
+        <button onClick="{{ selectWeight }}" style="{{ weightBtnStyle }}"><i class="fas fa-weight-scale"></i> Weight-based (Rule of Seven)</button>
+      </div>
+
+      <sc-if value="{{ isAge }}" hint-placeholder-val="{{ true }}">
+        <div style="background:#faf8f2;border:1px solid #e4ded2;padding:34px;">
+          <h2 style="font-family:'Newsreader',serif;font-weight:600;font-size:22px;color:#1c1a17;margin-bottom:10px;">Age-based calculation</h2>
+          <p style="font-size:14.5px;color:#6f6a61;line-height:1.65;margin-bottom:26px;">Age &gt; 1 yr: Depth (cm) = 12 + (Age &divide; 2). Infants use fixed anchors &mdash; newborn &asymp; 9 cm, 6 mo &asymp; 11.5 cm, 1 yr &asymp; 12 cm. The 12 + Age/2 formula is not valid below 1 year.</p>
+          <label for="age-in" style="display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a302a;margin-bottom:10px;">Patient age (years)</label>
+          <input id="age-in" type="number" min="0" max="18" step="0.5" placeholder="e.g. 4" value="{{ age }}" onChange="{{ onAge }}" onInput="{{ onAge }}" onKeyDown="{{ onAgeKey }}" style="width:100%;font-size:18px;padding:14px 16px;background:#fff;border:1px solid #d9d3c7;border-radius:2px;color:#1c1a17;margin-bottom:20px;">
+          <button onClick="{{ calcAge }}" style="background:#1c1a17;color:#f4f1ea;font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:15px;padding:14px 28px;border:none;border-radius:2px;cursor:pointer;" style-hover="background:#8a302a;"><i class="fas fa-calculator"></i> Calculate depth</button>
+          <sc-if value="{{ ageErr }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:22px;padding:14px 18px;background:#f6e9e7;border:1px solid #e3c4bf;border-radius:2px;color:#8a302a;font-size:14.5px;">{{ ageError }}</div>
+          </sc-if>
+          <sc-if value="{{ ageShow }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:26px;border-top:1px solid #e4ded2;padding-top:26px;">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a302a;margin-bottom:10px;">Recommended ET tube depth</div>
+              <div style="font-family:'Newsreader',serif;font-weight:500;font-size:54px;line-height:1;color:#1c1a17;">{{ ageDepthLabel }}</div>
+              <div style="font-size:14.5px;color:#6f6a61;margin-top:8px;">Measured at the lip &middot; add 2&ndash;3 cm for nasotracheal intubation</div>
+              <div style="margin-top:16px;display:flex;gap:9px;align-items:flex-start;font-size:13.5px;color:#7a746a;"><i class="fas fa-triangle-exclamation" style="color:#8a302a;margin-top:3px;"></i><span>Always confirm placement with auscultation, capnography, and chest X-ray.</span></div>
             </div>
-            <ul class="nav-links">
-                <li><a href="dashboard.html">Dashboard</a></li>
-                <li>
-                    <a href="#research">Research</a>
-                    <ul class="dropdown">
-                        <li><a href="index.html#research">Research Focus</a></li>
-                        <li><a href="index.html#publications">Recent Publications</a></li>
-                    </ul>
-                </li>
-                <li><a href="curriculum_vitae.html">Brief CV</a></li>
-                <li><a href="index.html#contact">Contact</a></li>
-                <li>
-                    <a href="#ent">ENT Web Tools</a>
-                    <ul class="dropdown">
-                        <li><a href="ent-calculators.html">Medical Calculators</a></li>
-                        <li><a href="bronchoscopy-tool.html">Airway Sizing Tool</a></li>
-                        <li><a href="et-depth-calculator.html">ET Depth Calculator</a></li>
-                        <li><a href="xeomin-calculator.html">XEOMIN Calculator</a></li>
-                        <li><a href="nebulized-epinephrine-calculator.html">Nebulized Epinephrine</a></li>
-                    </ul>
-                </li>
-            </ul>
+          </sc-if>
         </div>
-    </nav>
+      </sc-if>
 
-    <header style="min-height: 40vh;">
-        <div class="container">
-            <div class="header-content" style="text-align: center;">
-                <div class="profile-text" data-aos="fade-up">
-                    <h1><i class="fas fa-ruler-vertical"></i> Pediatric ET Depth Calculator</h1>
-                    <p>Calculate endotracheal tube insertion depth using age or weight</p>
-                </div>
+      <sc-if value="{{ notAge }}" hint-placeholder-val="{{ false }}">
+        <div style="background:#faf8f2;border:1px solid #e4ded2;padding:34px;">
+          <h2 style="font-family:'Newsreader',serif;font-weight:600;font-size:22px;color:#1c1a17;margin-bottom:10px;">Weight-based calculation (Rule of Seven)</h2>
+          <p style="font-size:14.5px;color:#6f6a61;line-height:1.65;margin-bottom:26px;">For infants 1&ndash;4 kg: Depth (cm) = 6 + Weight (kg). 1 kg &rarr; 7 cm, 2 kg &rarr; 8 cm, 3 kg &rarr; 9 cm, 4 kg &rarr; 10 cm.</p>
+          <label for="wt-in" style="display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a302a;margin-bottom:10px;">Patient weight (kg)</label>
+          <input id="wt-in" type="number" min="0.5" max="4" step="0.1" placeholder="e.g. 3.2" value="{{ weight }}" onChange="{{ onWeight }}" onInput="{{ onWeight }}" onKeyDown="{{ onWeightKey }}" style="width:100%;font-size:18px;padding:14px 16px;background:#fff;border:1px solid #d9d3c7;border-radius:2px;color:#1c1a17;margin-bottom:20px;">
+          <button onClick="{{ calcWeight }}" style="background:#1c1a17;color:#f4f1ea;font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:15px;padding:14px 28px;border:none;border-radius:2px;cursor:pointer;" style-hover="background:#8a302a;"><i class="fas fa-calculator"></i> Calculate depth</button>
+          <sc-if value="{{ weightErr }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:22px;padding:14px 18px;background:#f6e9e7;border:1px solid #e3c4bf;border-radius:2px;color:#8a302a;font-size:14.5px;">{{ weightError }}</div>
+          </sc-if>
+          <sc-if value="{{ weightShow }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:26px;border-top:1px solid #e4ded2;padding-top:26px;">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a302a;margin-bottom:10px;">Recommended ET tube depth</div>
+              <div style="font-family:'Newsreader',serif;font-weight:500;font-size:54px;line-height:1;color:#1c1a17;">{{ weightDepthLabel }}</div>
+              <div style="font-size:14.5px;color:#6f6a61;margin-top:8px;">Measured at the lip</div>
+              <div style="margin-top:16px;display:flex;gap:9px;align-items:flex-start;font-size:13.5px;color:#7a746a;"><i class="fas fa-triangle-exclamation" style="color:#8a302a;margin-top:3px;"></i><span>Rule of Seven is for infants 1&ndash;4 kg only. For larger patients use the age-based formula.</span></div>
             </div>
+          </sc-if>
         </div>
-    </header>
+      </sc-if>
+    </div>
+  </section>
 
-    <section id="et-calculator">
-        <div class="container">
-            
-            <!-- Method Selection -->
-            <div class="calculator-card" data-aos="fade-up">
-                <h2><i class="fas fa-calculator"></i> Calculation Method</h2>
-                <div class="method-selector">
-                    <button class="method-btn active" onclick="selectMethod('age')" id="age-btn">
-                        <i class="fas fa-child"></i> Age-Based Formula
-                    </button>
-                    <button class="method-btn" onclick="selectMethod('weight')" id="weight-btn">
-                        <i class="fas fa-weight"></i> Weight-Based (Rule of Seven)
-                    </button>
-                </div>
-            </div>
-
-            <!-- Age-Based Calculator -->
-            <div class="calculator-card" id="age-calculator" data-aos="fade-up">
-                <h2><i class="fas fa-child"></i> Age-Based Calculation</h2>
-                <p class="formula-display">Age &gt; 1 yr: Depth (cm) = 12 + (Age ÷ 2). Infants use fixed anchors: Newborn ≈ 9 cm, 6 mo ≈ 11.5 cm, 1 yr ≈ 12 cm (the 12 + Age/2 formula is not valid below 1 yr and would give a dangerous endobronchial 12 cm at birth).</p>
-                
-                <div class="input-group">
-                    <label for="patient-age-input">Patient Age (years)</label>
-                    <input type="number" id="patient-age-input" placeholder="Enter age in years" min="0" max="18" step="0.5">
-                </div>
-                
-                <button class="calculate-btn" onclick="calculateAgeDepth()">
-                    <i class="fas fa-calculator"></i> Calculate Depth
-                </button>
-                
-                <div id="age-result" class="result-box" style="display: none;">
-                    <div class="result-icon"><i class="fas fa-check-circle"></i></div>
-                    <div class="result-content">
-                        <h3>Recommended ET Tube Depth</h3>
-                        <div class="result-value" id="age-depth-value">-</div>
-                        <div class="result-note">Measured at the lip</div>
-                        <div class="result-warning">
-                            <i class="fas fa-exclamation-triangle"></i>
-                            Always confirm placement with clinical assessment and imaging
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Weight-Based Calculator -->
-            <div class="calculator-card" id="weight-calculator" style="display: none;" data-aos="fade-up">
-                <h2><i class="fas fa-weight"></i> Weight-Based Calculation (Rule of Seven)</h2>
-                <p class="formula-display">For infants 1-4 kg: Depth (cm) = 6 + Weight (kg)</p>
-                
-                <div class="input-group">
-                    <label for="patient-weight-input">Patient Weight (kg)</label>
-                    <input type="number" id="patient-weight-input" placeholder="Enter weight in kg" min="0.5" max="4" step="0.1">
-                </div>
-                
-                <button class="calculate-btn" onclick="calculateWeightDepth()">
-                    <i class="fas fa-calculator"></i> Calculate Depth
-                </button>
-                
-                <div id="weight-result" class="result-box" style="display: none;">
-                    <div class="result-icon"><i class="fas fa-check-circle"></i></div>
-                    <div class="result-content">
-                        <h3>Recommended ET Tube Depth</h3>
-                        <div class="result-value" id="weight-depth-value">-</div>
-                        <div class="result-note">Measured at the lip</div>
-                        <div class="result-warning">
-                            <i class="fas fa-exclamation-triangle"></i>
-                            Rule of Seven is for infants 1-4 kg only. For larger patients, use age-based formula.
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Quick Reference Table -->
-            <div class="calculator-card" data-aos="fade-up">
-                <h2><i class="fas fa-table"></i> Quick Reference Guide</h2>
-                <div class="reference-tables">
-                    <div class="reference-table">
-                        <h3>Age-Based Depths</h3>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Age</th>
-                                    <th>Depth (cm)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr><td>Newborn</td><td>9</td></tr>
-                                <tr><td>6 months</td><td>11.5</td></tr>
-                                <tr><td>1 year</td><td>12</td></tr>
-                                <tr><td>2 years</td><td>13</td></tr>
-                                <tr><td>4 years</td><td>14</td></tr>
-                                <tr><td>6 years</td><td>15</td></tr>
-                                <tr><td>8 years</td><td>16</td></tr>
-                                <tr><td>10 years</td><td>17</td></tr>
-                                <tr><td>12 years</td><td>18</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="reference-table">
-                        <h3>Weight-Based Depths (Rule of Seven)</h3>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Weight</th>
-                                    <th>Depth (cm)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr><td>1 kg</td><td>7</td></tr>
-                                <tr><td>2 kg</td><td>8</td></tr>
-                                <tr><td>3 kg</td><td>9</td></tr>
-                                <tr><td>4 kg</td><td>10</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Clinical Notes -->
-            <div class="calculator-card" data-aos="fade-up">
-                <h2><i class="fas fa-info-circle"></i> Clinical Considerations</h2>
-                <div class="clinical-notes">
-                    <div class="note-item">
-                        <i class="fas fa-check"></i>
-                        <p><strong>Verification Required:</strong> Always confirm ET tube placement with auscultation, chest rise, capnography, and chest X-ray</p>
-                    </div>
-                    <div class="note-item">
-                        <i class="fas fa-check"></i>
-                        <p><strong>Tube Position:</strong> Ideal position is 2-3 cm above the carina (T2-T4 vertebral level)</p>
-                    </div>
-                    <div class="note-item">
-                        <i class="fas fa-check"></i>
-                        <p><strong>Adjustments:</strong> May need adjustment based on patient anatomy, neck position, and clinical assessment</p>
-                    </div>
-                    <div class="note-item">
-                        <i class="fas fa-check"></i>
-                        <p><strong>Nasal Intubation:</strong> Add 2-3 cm to calculated depth for nasotracheal intubation</p>
-                    </div>
-                    <div class="note-item">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <p><strong>Limitations:</strong> Formulas provide estimates only. Individual patient factors may require depth adjustments</p>
-                    </div>
-                </div>
-            </div>
-
-                <div class="disclaimer">
-                    <p><strong>Disclaimer:</strong> This calculator is for educational and reference use by qualified clinicians only. Endotracheal tube depth is an estimate &mdash; always confirm placement with auscultation, capnography, and a chest X-ray. It does not replace clinical judgment or institutional protocols.</p>
-                </div>
+  <section data-sec style="padding:30px 0;">
+    <div style="max-width:860px;margin:0 auto;padding:0 28px;">
+      <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:26px;color:#1c1a17;margin-bottom:28px;">Quick reference</h2>
+      <div data-ref style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+        <div style="border:1px solid #e4ded2;">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a302a;padding:14px 18px;border-bottom:1px solid #e4ded2;background:#efeae0;">Age-based depths</div>
+          <table style="width:100%;border-collapse:collapse;font-size:15px;">
+            <tbody>
+              <tr style="border-bottom:1px solid #ece7dc;"><td style="padding:11px 18px;color:#5b564d;">Newborn</td><td style="padding:11px 18px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">9 cm</td></tr>
+              <tr style="border-bottom:1px solid #ece7dc;"><td style="padding:11px 18px;color:#5b564d;">6 months</td><td style="padding:11px 18px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">11.5 cm</td></tr>
+              <tr style="border-bottom:1px solid #ece7dc;"><td style="padding:11px 18px;color:#5b564d;">1 year</td><td style="padding:11px 18px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">12 cm</td></tr>
+              <tr style="border-bottom:1px solid #ece7dc;"><td style="padding:11px 18px;color:#5b564d;">2 years</td><td style="padding:11px 18px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">13 cm</td></tr>
+              <tr style="border-bottom:1px solid #ece7dc;"><td style="padding:11px 18px;color:#5b564d;">4 years</td><td style="padding:11px 18px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">14 cm</td></tr>
+              <tr style="border-bottom:1px solid #ece7dc;"><td style="padding:11px 18px;color:#5b564d;">6 years</td><td style="padding:11px 18px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">15 cm</td></tr>
+              <tr style="border-bottom:1px solid #ece7dc;"><td style="padding:11px 18px;color:#5b564d;">8 years</td><td style="padding:11px 18px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">16 cm</td></tr>
+              <tr style="border-bottom:1px solid #ece7dc;"><td style="padding:11px 18px;color:#5b564d;">10 years</td><td style="padding:11px 18px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">17 cm</td></tr>
+              <tr><td style="padding:11px 18px;color:#5b564d;">12 years</td><td style="padding:11px 18px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">18 cm</td></tr>
+            </tbody>
+          </table>
         </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 Dr Ali Alshahrani. All rights reserved.</p>
+        <div style="border:1px solid #e4ded2;align-self:start;">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a302a;padding:14px 18px;border-bottom:1px solid #e4ded2;background:#efeae0;">Weight-based (Rule of Seven)</div>
+          <table style="width:100%;border-collapse:collapse;font-size:15px;">
+            <tbody>
+              <tr style="border-bottom:1px solid #ece7dc;"><td style="padding:11px 18px;color:#5b564d;">1 kg</td><td style="padding:11px 18px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">7 cm</td></tr>
+              <tr style="border-bottom:1px solid #ece7dc;"><td style="padding:11px 18px;color:#5b564d;">2 kg</td><td style="padding:11px 18px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">8 cm</td></tr>
+              <tr style="border-bottom:1px solid #ece7dc;"><td style="padding:11px 18px;color:#5b564d;">3 kg</td><td style="padding:11px 18px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">9 cm</td></tr>
+              <tr><td style="padding:11px 18px;color:#5b564d;">4 kg</td><td style="padding:11px 18px;text-align:right;font-family:'IBM Plex Mono',monospace;color:#1c1a17;">10 cm</td></tr>
+            </tbody>
+          </table>
         </div>
-    </footer>
+      </div>
+    </div>
+  </section>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/et-depth.js"></script>
+  <section data-sec style="padding:30px 0 60px;">
+    <div style="max-width:860px;margin:0 auto;padding:0 28px;">
+      <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:26px;color:#1c1a17;margin-bottom:24px;">Clinical considerations</h2>
+      <div style="display:flex;flex-direction:column;gap:1px;background:#e4ded2;border:1px solid #e4ded2;">
+        <div style="background:#faf8f2;padding:18px 22px;font-size:15px;color:#5b564d;line-height:1.65;"><strong style="color:#1c1a17;">Verification required.</strong> Confirm ET tube placement with auscultation, chest rise, capnography, and chest X-ray.</div>
+        <div style="background:#faf8f2;padding:18px 22px;font-size:15px;color:#5b564d;line-height:1.65;"><strong style="color:#1c1a17;">Tube position.</strong> Ideal tip position is 2&ndash;3 cm above the carina (T2&ndash;T4 vertebral level).</div>
+        <div style="background:#faf8f2;padding:18px 22px;font-size:15px;color:#5b564d;line-height:1.65;"><strong style="color:#1c1a17;">Adjustments.</strong> May vary with patient anatomy, neck position, and clinical assessment.</div>
+        <div style="background:#faf8f2;padding:18px 22px;font-size:15px;color:#5b564d;line-height:1.65;"><strong style="color:#1c1a17;">Nasal intubation.</strong> Add 2&ndash;3 cm to the calculated depth for nasotracheal intubation.</div>
+      </div>
+      <div style="margin-top:26px;padding:20px 24px;background:#efeae0;border:1px solid #e4ded2;border-left:3px solid #8a302a;font-size:13.5px;color:#6f6a61;line-height:1.7;"><strong style="color:#1c1a17;">Disclaimer.</strong> This calculator is for educational and reference use by qualified clinicians only. Endotracheal tube depth is an estimate &mdash; always confirm placement clinically. It does not replace clinical judgment or institutional protocols.</div>
+    </div>
+  </section>
+
+  <footer style="background:#1c1a17;color:#e9e4da;padding:40px 0;">
+    <div style="max-width:1080px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:center;">
+      <a href="index.html" style="font-family:'Newsreader',serif;font-size:17px;color:#cdc6ba;text-decoration:none;">Dr Ali Alshahrani</a>
+      <div style="display:flex;gap:24px;font-size:14px;">
+        <a href="ent-tools.html" style="text-decoration:none;color:#b8b1a5;" style-hover="color:#f4f1ea;">All Tools</a>
+        <a href="curriculum_vitae.html" style="text-decoration:none;color:#b8b1a5;" style-hover="color:#f4f1ea;">CV</a>
+        <a href="index.html#contact" style="text-decoration:none;color:#b8b1a5;" style-hover="color:#f4f1ea;">Contact</a>
+      </div>
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.1em;color:#7d7869;">shahrani.me &middot; &copy; 2026</span>
+    </div>
+  </footer>
+
+</div>
+
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#8a302a"/><text x="50" y="50" dy="0.36em" text-anchor="middle" font-family="Georgia,serif" font-size="46" fill="#f4f1ea">A</text></svg></template></x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { menuOpen: false, method: 'age', age: '', weight: '', ageDepth: null, weightDepth: null, ageError: '', weightError: '' };
+
+  selectMethod(m) { this.setState({ method: m, ageError: '', weightError: '' }); }
+
+  calcAge() {
+    var age = parseFloat(this.state.age);
+    if (isNaN(age) || age < 0) { this.setState({ ageDepth: null, ageError: 'Please enter a valid age (0\u201318 years).' }); return; }
+    if (age > 18) { this.setState({ ageDepth: null, ageError: 'This formula is for pediatric patients (0\u201318 years). For adults, use standard adult guidelines.' }); return; }
+    var depth;
+    if (age <= 0.5) depth = 9 + (age / 0.5) * (11.5 - 9);
+    else if (age <= 1) depth = 11.5 + ((age - 0.5) / 0.5) * (12 - 11.5);
+    else depth = 12 + (age / 2);
+    this.setState({ ageDepth: Math.round(depth * 10) / 10, ageError: '' });
+  }
+
+  calcWeight() {
+    var w = parseFloat(this.state.weight);
+    if (!w || isNaN(w) || w <= 0) { this.setState({ weightDepth: null, weightError: 'Please enter a valid weight.' }); return; }
+    if (w < 0.5) { this.setState({ weightDepth: null, weightError: 'Weight too low. Please verify patient weight.' }); return; }
+    if (w > 4) { this.setState({ weightDepth: null, weightError: 'Rule of Seven is for infants 1\u20134 kg. For larger patients, use the age-based formula.' }); return; }
+    this.setState({ weightDepth: Math.round((6 + w) * 10) / 10, weightError: '' });
+  }
+
+  renderVals() {
+    var self = this;
+    var isAge = this.state.method === 'age';
+    var base = { fontFamily: "'Source Sans 3',sans-serif", fontWeight: 600, fontSize: '15px', padding: '14px 18px', border: '1px solid', cursor: 'pointer', flex: '1', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '9px' };
+    function mk(on) { return Object.assign({}, base, on ? { background: '#1c1a17', color: '#f4f1ea', borderColor: '#1c1a17' } : { background: '#faf8f2', color: '#46423b', borderColor: '#e4ded2' }); }
+    return {
+      menuOpen: this.state.menuOpen,
+      toggleMenu: function () { self.setState(function (s) { return { menuOpen: !s.menuOpen }; }); },
+      method: this.state.method, isAge: isAge, notAge: !isAge,
+      age: this.state.age, weight: this.state.weight,
+      ageBtnStyle: mk(isAge), weightBtnStyle: mk(!isAge),
+      onAge: function (e) { self.setState({ age: e.target.value }); },
+      onWeight: function (e) { self.setState({ weight: e.target.value }); },
+      onAgeKey: function (e) { if (e.key === 'Enter') self.calcAge(); },
+      onWeightKey: function (e) { if (e.key === 'Enter') self.calcWeight(); },
+      selectAge: function () { self.selectMethod('age'); },
+      selectWeight: function () { self.selectMethod('weight'); },
+      calcAge: function () { self.calcAge(); },
+      calcWeight: function () { self.calcWeight(); },
+      ageShow: this.state.ageDepth != null, weightShow: this.state.weightDepth != null,
+      ageErr: !!this.state.ageError, weightErr: !!this.state.weightError,
+      ageError: this.state.ageError, weightError: this.state.weightError,
+      ageDepthLabel: this.state.ageDepth != null ? this.state.ageDepth + ' cm' : '',
+      weightDepthLabel: this.state.weightDepth != null ? this.state.weightDepth + ' cm' : ''
+    };
+  }
+}
+</script>
 </body>
 </html>
