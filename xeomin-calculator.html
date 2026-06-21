@@ -49,28 +49,71 @@
     .prep-sheet-btn,.export-pdf-btn{transition:none;}
   }
 
-  /* --- Print-only clinical record --- */
+  /* --- Print-only clinical record (styled to match the site) --- */
   #report{display:none;}
   @media print{
     #top{display:none !important;}
-    #report{display:block;font-family:'Source Sans 3',sans-serif;color:#1c1a17;}
-    @page{margin:16mm;}
+    #report{display:block;}
+    @page{margin:14mm;}
   }
-  #report h1{font-family:'Newsreader',serif;font-weight:500;font-size:23px;color:#1c1a17;margin:0;}
-  #report .r-sub{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;color:#7a746a;margin-top:5px;}
-  #report h2{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;
-    color:#8a302a;border-bottom:1px solid #e4ded2;padding-bottom:5px;margin:20px 0 8px;}
-  #report table{width:100%;border-collapse:collapse;font-size:12.5px;}
-  #report td{padding:5px 4px;border-bottom:1px solid #ece7dc;color:#1c1a17;}
-  #report td:last-child{text-align:right;font-variant-numeric:tabular-nums;}
-  #report .r-grp{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;
-    color:#8a302a;margin:10px 0 4px;}
-  #report ul{list-style:none;padding:0;margin:0;columns:2;column-gap:26px;font-size:11.5px;color:#5b564d;line-height:1.7;}
-  #report li{break-inside:avoid;-webkit-column-break-inside:avoid;}
+  #report{font-family:'Source Sans 3',sans-serif;color:#1c1a17;line-height:1.5;}
+
+  /* Branded header — mirrors the site header */
+  #report .rep-head{display:flex;justify-content:space-between;align-items:flex-start;
+    border-bottom:1px solid #e4ded2;padding-bottom:14px;}
+  #report .rep-name{font-family:'Newsreader',serif;font-size:22px;font-weight:600;color:#1c1a17;line-height:1.1;}
+  #report .rep-spec{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.22em;
+    text-transform:uppercase;color:#8a302a;margin-top:5px;}
+  #report .rep-meta{text-align:right;font-family:'IBM Plex Mono',monospace;font-size:9.5px;
+    letter-spacing:0.08em;color:#7a746a;line-height:1.8;}
+
+  /* Title block */
+  #report .rep-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.2em;
+    text-transform:uppercase;color:#8a302a;margin:16px 0 7px;}
+  #report h1{font-family:'Newsreader',serif;font-weight:500;font-size:29px;line-height:1.05;color:#1c1a17;margin:0;}
+
+  /* Headline total dose — mirrors the on-page result card */
+  #report .rep-total{margin:15px 0 4px;padding:14px 20px;background:#faf8f2;border:1px solid #e4ded2;
+    border-left:3px solid #8a302a;display:flex;justify-content:space-between;align-items:baseline;gap:14px;}
+  #report .rep-total-lbl{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;
+    text-transform:uppercase;color:#8a302a;}
+  #report .rep-total-val{font-family:'Newsreader',serif;font-size:34px;color:#1c1a17;line-height:1;}
+
+  /* Section headers — mono eyebrow with rule */
+  #report h2{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.14em;text-transform:uppercase;
+    color:#8a302a;border-bottom:1px solid #e4ded2;padding-bottom:5px;margin:18px 0 8px;}
+
+  /* Two-column band for plan + dose */
+  #report .rep-cols{display:flex;gap:26px;}
+  #report .rep-cols > div{flex:1;}
+  #report table{width:100%;border-collapse:collapse;font-size:12px;}
+  #report td{padding:5px 4px;border-bottom:1px solid #ece7dc;color:#1c1a17;vertical-align:top;}
+  #report td:first-child{color:#5b564d;}
+  #report td:last-child{text-align:right;font-variant-numeric:tabular-nums;font-weight:600;}
+
+  /* Checklists */
+  #report .r-grp{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.1em;text-transform:uppercase;
+    color:#8a302a;margin:9px 0 3px;}
+  #report ul{list-style:none;padding:0;margin:0;columns:2;column-gap:24px;font-size:11px;color:#5b564d;line-height:1.6;}
+  #report li{break-inside:avoid;-webkit-column-break-inside:avoid;margin-bottom:1px;}
   #report li::before{content:"\2610  ";color:#8a302a;}
-  #report .r-foot{font-size:10.5px;color:#7a746a;font-style:italic;margin-top:12px;}
-  #report .sig{margin-top:26px;display:flex;gap:34px;font-size:11px;color:#7a746a;}
+
+  /* References — single column, no checkbox glyph */
+  #report ul.rep-refs{columns:1;font-size:10px;color:#5b564d;line-height:1.5;}
+  #report ul.rep-refs li{margin-bottom:4px;}
+  #report ul.rep-refs li::before{content:"";}
+  #report ul.rep-refs strong{color:#1c1a17;}
+
+  /* Disclaimer + signatures */
+  #report .r-foot{font-size:10px;color:#7a746a;font-style:italic;margin-top:10px;}
+  #report .sig{margin-top:20px;display:flex;gap:34px;font-size:10.5px;color:#7a746a;}
   #report .sig div{flex:1;border-top:1px solid #9c958a;padding-top:6px;}
+
+  /* Dark footer bar — mirrors the site footer */
+  #report .rep-footer{margin-top:22px;background:#1c1a17;color:#cdc6ba;padding:12px 18px;
+    display:flex;justify-content:space-between;align-items:center;font-size:10px;}
+  #report .rep-footer .rf-name{font-family:'Newsreader',serif;font-size:13px;color:#e9e4da;}
+  #report .rep-footer .rf-site{font-family:'IBM Plex Mono',monospace;letter-spacing:0.1em;color:#8d8775;}
 </style>
 </helmet>
 
@@ -359,27 +402,46 @@
 
 <!-- Print-only clinical record: hidden on screen, shown only when printing (see #report CSS). -->
 <div id="report" aria-hidden="true">
+
+  <!-- Branded header (mirrors the site header) -->
+  <div class="rep-head">
+    <div>
+      <div class="rep-name">Ali Alshahrani</div>
+      <div class="rep-spec">Otolaryngology</div>
+    </div>
+    <div class="rep-meta">Clinical record<br>{{ todayStr }}<br>shahrani.me</div>
+  </div>
+
+  <div class="rep-eyebrow">Sialorrhea Botulinum Toxin</div>
   <h1>Salivary BoNT Dose Plan</h1>
-  <div class="r-sub">Sialorrhea botulinum toxin &middot; {{ todayStr }}</div>
 
-  <h2>Patient &amp; plan</h2>
-  <table>
-    <tr><td>Patient / MRN</td><td>______________________</td></tr>
-    <tr><td>Product</td><td>{{ rProduct }}</td></tr>
-    <tr><td>Population</td><td>{{ rPopulation }}</td></tr>
-    <tr><td>Body weight</td><td>{{ rWeight }}</td></tr>
-    <tr><td>Dosing basis</td><td>{{ rBasis }}</td></tr>
-    <tr><td>Product lot</td><td>______________________</td></tr>
-  </table>
+  <div class="rep-total">
+    <span class="rep-total-lbl">Total dose &middot; {{ rPopulation }}</span>
+    <span class="rep-total-val">{{ rTotal }}</span>
+  </div>
 
-  <h2>Dose plan</h2>
-  <table>
-    <tr><td>Total dose</td><td>{{ rTotal }}</td></tr>
-    <tr><td>Per parotid gland &times;2</td><td>{{ rParotid }}</td></tr>
-    <tr><td>Per submandibular gland &times;2</td><td>{{ rSubmand }}</td></tr>
-    <tr><td>Concentration</td><td>{{ rConc }}</td></tr>
-    <tr><td>Total volume to draw</td><td>{{ rVol }}</td></tr>
-  </table>
+  <div class="rep-cols">
+    <div>
+      <h2>Patient &amp; plan</h2>
+      <table>
+        <tr><td>Patient / MRN</td><td>____________</td></tr>
+        <tr><td>Product</td><td>{{ rProduct }}</td></tr>
+        <tr><td>Population</td><td>{{ rPopulation }}</td></tr>
+        <tr><td>Body weight</td><td>{{ rWeight }}</td></tr>
+        <tr><td>Dosing basis</td><td>{{ rBasis }}</td></tr>
+        <tr><td>Product lot</td><td>____________</td></tr>
+      </table>
+    </div>
+    <div>
+      <h2>Dose plan</h2>
+      <table>
+        <tr><td>Per parotid &times;2</td><td>{{ rParotid }}</td></tr>
+        <tr><td>Per submandibular &times;2</td><td>{{ rSubmand }}</td></tr>
+        <tr><td>Concentration</td><td>{{ rConc }}</td></tr>
+        <tr><td>Total volume to draw</td><td>{{ rVol }}</td></tr>
+      </table>
+    </div>
+  </div>
 
   <h2>Pre-injection screening &mdash; confirm before injecting</h2>
   <div class="r-grp">Absolute contraindications</div>
@@ -406,9 +468,22 @@
     <li>Record baseline drooling score</li>
   </ul>
 
-  <div class="r-foot">Doses are product-specific and not interchangeable; verify against the current product label and local protocol.</div>
+  <h2>References</h2>
+  <ul class="rep-refs">
+    <sc-for list="{{ citations }}" as="c" hint-placeholder-count="4">
+      <li><strong>{{ c.label }}.</strong> {{ c.detail }}</li>
+    </sc-for>
+  </ul>
+
+  <div class="r-foot">Doses are product-specific and not interchangeable; verify against the current product label and local protocol. For educational and reference use by qualified clinicians &mdash; does not replace clinical judgment.</div>
 
   <div class="sig"><div>Clinician &amp; signature</div><div>Date</div></div>
+
+  <!-- Dark footer bar (mirrors the site footer) -->
+  <div class="rep-footer">
+    <span class="rf-name">Dr Ali Alshahrani</span>
+    <span class="rf-site">shahrani.me &middot; &copy; 2026</span>
+  </div>
 </div>
 
 <template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#8a302a"/><text x="50" y="50" dy="0.36em" text-anchor="middle" font-family="Georgia,serif" font-size="46" fill="#f4f1ea">A</text></svg></template></x-dc>
