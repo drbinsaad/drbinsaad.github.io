@@ -1,8 +1,11 @@
 /* ============================================================================
- * ENT Exam Hub — frontend logic
- * Static GitHub Pages front end that talks to a Google Apps Script Web App
- * (see apps/exam-hub/Code.gs + SETUP.md). All passcode validation, grading
- * storage, and statistics happen server-side. No passcode list ships here.
+ * ENT Exam Hub — examiner + passcode-admin frontend logic
+ * Static GitHub Pages front end that talks to the Supabase Edge Function
+ * `exam-hub` (see supabase/functions/exam-hub/index.ts + apps/exam-hub/
+ * SETUP-supabase.md). All passcode validation, grading storage, and statistics
+ * happen server-side. No passcode list ships here. The admin screen itself is
+ * the shared module js/exam-admin-ui.js (also used by the Google-login
+ * owner page admin.html).
  * ==========================================================================*/
 
 /* ---------------------------------------------------------------------------
@@ -216,202 +219,15 @@ async function saveAll(btn) {
 }
 
 /* ============================== ADMIN VIEW ============================== */
+/* The admin screen lives in the shared module js/exam-admin-ui.js. Here it is
+ * used as a break-glass fallback: logging in with the admin passcode opens it.
+ * We pass an `api` that injects the passcode (the server also accepts a Google
+ * owner JWT on admin.html). adminUi is created on DOMContentLoaded. */
+let adminUi = null;
 function enterAdmin(config) {
-  config = config || {};
-  $("cfg-title").value = config.examTitle || "";
-  $("cfg-max").value = config.scoreMax || 100;
-  $("cfg-admincode").value = config.adminCode || session.code || "";
-
-  // Examiner rows (fixed stations, editable passcodes)
-  const exWrap = $("cfg-examiners");
-  exWrap.innerHTML = "";
-  const exMap = {};
-  (config.examiners || []).forEach(function (e) { exMap[e.station] = e.passcode; });
-  STATIONS.forEach(function (st) {
-    const row = document.createElement("div");
-    row.className = "config-row";
-    row.innerHTML =
-      '<label>' + escapeHtml(st) + '</label>' +
-      '<input type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="off" ' +
-        'data-station="' + escapeHtml(st) + '" value="' + escapeHtml(exMap[st] != null ? String(exMap[st]) : "") + '" placeholder="code">';
-    exWrap.appendChild(row);
-  });
-
-  // Resident rows (fixed ids R1..R6, editable names)
-  const resWrap = $("cfg-residents");
-  resWrap.innerHTML = "";
-  const resMap = {};
-  (config.residents || []).forEach(function (r) { resMap[r.residentId] = r.name; });
-  RESIDENT_IDS.forEach(function (rid) {
-    const row = document.createElement("div");
-    row.className = "config-row";
-    row.innerHTML =
-      '<label>' + rid + '</label>' +
-      '<input type="text" data-rid="' + rid + '" value="' + escapeHtml(resMap[rid] || "") + '" placeholder="Resident name" style="grid-column:auto;">';
-    // make name field full-width by overriding the second column with a wide input
-    row.style.gridTemplateColumns = "70px minmax(0,1fr)";
-    resWrap.appendChild(row);
-  });
-
-  if (SHEET_URL) {
-    const a = $("admin-open-sheet");
-    a.href = SHEET_URL;
-    a.classList.remove("is-hidden");
-  }
-
-  setMsg("admin-config-msg", "", "info");
-  setMsg("admin-results-msg", "", "info");
+  if (!adminUi) return;
   show("view-admin");
-  refreshResults(); // auto-load current grid
-}
-
-async function saveConfig(btn) {
-  const examTitle = $("cfg-title").value.trim();
-  const scoreMax = Number($("cfg-max").value);
-  const adminCode = $("cfg-admincode").value.trim();
-
-  if (!examTitle) { setMsg("admin-config-msg", "Enter an exam title.", "warn"); return; }
-  if (isNaN(scoreMax) || scoreMax < 1) { setMsg("admin-config-msg", "Maximum score must be a positive number.", "warn"); return; }
-  if (!adminCode) { setMsg("admin-config-msg", "Set an admin passcode.", "warn"); return; }
-
-  const examiners = [];
-  document.querySelectorAll("#cfg-examiners input[data-station]").forEach(function (i) {
-    examiners.push({ station: i.getAttribute("data-station"), passcode: i.value.trim() });
-  });
-  const residents = [];
-  document.querySelectorAll("#cfg-residents input[data-rid]").forEach(function (i) {
-    residents.push({ residentId: i.getAttribute("data-rid"), name: i.value.trim() });
-  });
-
-  // client-side duplicate / collision checks (server re-checks too)
-  const codes = examiners.filter(function (e) { return e.passcode; }).map(function (e) { return e.passcode; });
-  if (new Set(codes).size !== codes.length) { setMsg("admin-config-msg", "Examiner passcodes must be unique.", "warn"); return; }
-  if (codes.indexOf(adminCode) !== -1) { setMsg("admin-config-msg", "The admin passcode must differ from every examiner code.", "warn"); return; }
-
-  busy(btn, true);
-  const r = await api("saveConfig", {
-    code: session.code, examTitle: examTitle, scoreMax: scoreMax,
-    adminCode: adminCode, examiners: examiners, residents: residents
-  });
-  busy(btn, false, '<i class="fas fa-floppy-disk"></i> Save configuration');
-  if (!r.ok) { setMsg("admin-config-msg", r.error || "Could not save configuration.", "warn"); return; }
-
-  // adminCode may have changed -> update the live session so the next call still works
-  session.code = adminCode;
-  sessionStorage.setItem("examHubSession", JSON.stringify(session));
-  setMsg("admin-config-msg", "Configuration saved.", "ok");
-  refreshResults();
-}
-
-let lastResults = null;
-async function refreshResults(btn) {
-  if (btn) busy(btn, true);
-  setMsg("admin-results-msg", "Loading…", "info");
-  const r = await api("getResults", { code: session.code });
-  if (btn) busy(btn, false, '<i class="fas fa-rotate"></i> Refresh results');
-  if (!r.ok) { setMsg("admin-results-msg", r.error || "Could not load results.", "warn"); $("admin-results-wrap").classList.add("is-hidden"); return; }
-  lastResults = r;
-  renderResults(r);
-  setMsg("admin-results-msg", "", "info");
-}
-
-function renderResults(r) {
-  const stations = r.stations && r.stations.length ? r.stations : STATIONS;
-  const residents = r.residents || [];
-  const grid = r.grid || {};
-  const stats = r.stats || { perResident: {}, perStation: {} };
-  const max = r.scoreMax || cfgCache.scoreMax || 100;
-
-  if (!residents.length) {
-    $("admin-results-wrap").classList.add("is-hidden");
-    setMsg("admin-results-msg", "No residents configured yet — add them in Exam Setup above.", "info");
-    return;
-  }
-
-  let html = "<thead><tr><th class='r-head'>Resident</th>";
-  stations.forEach(function (st) { html += "<th>" + escapeHtml(st) + "</th>"; });
-  html += "<th>Total</th><th>Average</th></tr></thead><tbody>";
-
-  residents.forEach(function (res) {
-    const row = grid[res.residentId] || {};
-    html += "<tr><td class='r-head'>" + escapeHtml(res.name || res.residentId) + "</td>";
-    stations.forEach(function (st) {
-      const cell = row[st];
-      if (cell && cell.score != null && cell.score !== "") {
-        html += "<td><span class='cell-score'>" + escapeHtml(String(cell.score)) + "</span></td>";
-      } else {
-        html += "<td class='empty'>—</td>";
-      }
-    });
-    const ps = stats.perResident[res.residentId] || {};
-    html += "<td class='total'>" + (ps.total != null ? ps.total : "—") + "</td>";
-    html += "<td class='total'>" + (ps.average != null ? round1(ps.average) : "—") + "</td>";
-    html += "</tr>";
-  });
-
-  // station-average footer row
-  html += "<tr class='station-avg'><td class='r-head'>Station average</td>";
-  stations.forEach(function (st) {
-    const ss = stats.perStation[st] || {};
-    html += "<td>" + (ss.average != null ? round1(ss.average) : "—") + "</td>";
-  });
-  html += "<td></td><td></td></tr>";
-  html += "</tbody>";
-
-  const table = $("admin-results-table");
-  table.innerHTML = html;
-  $("admin-results-wrap").classList.remove("is-hidden");
-}
-
-/* ----------------------------- Excel export ----------------------------- */
-function exportXlsx() {
-  if (!lastResults || !(lastResults.residents || []).length) {
-    setMsg("admin-results-msg", "Nothing to export yet — refresh results first.", "warn");
-    return;
-  }
-  if (typeof XLSX === "undefined") {
-    setMsg("admin-results-msg", "Excel library failed to load. Check your connection and retry.", "warn");
-    return;
-  }
-  const r = lastResults;
-  const stations = r.stations && r.stations.length ? r.stations : STATIONS;
-  const residents = r.residents || [];
-  const grid = r.grid || {};
-  const stats = r.stats || { perResident: {}, perStation: {} };
-
-  const aoa = [];
-  aoa.push([r.examTitle || "ENT Exam", "", "", "", "", "", "", ""]);
-  aoa.push(["Exported", new Date().toLocaleString()]);
-  aoa.push([]);
-  const header = ["Resident"].concat(stations).concat(["Total", "Average"]);
-  aoa.push(header);
-
-  residents.forEach(function (res) {
-    const row = grid[res.residentId] || {};
-    const line = [res.name || res.residentId];
-    stations.forEach(function (st) {
-      const cell = row[st];
-      line.push(cell && cell.score != null && cell.score !== "" ? cell.score : "");
-    });
-    const ps = stats.perResident[res.residentId] || {};
-    line.push(ps.total != null ? ps.total : "");
-    line.push(ps.average != null ? round1(ps.average) : "");
-    aoa.push(line);
-  });
-
-  const avgLine = ["Station average"];
-  stations.forEach(function (st) {
-    const ss = stats.perStation[st] || {};
-    avgLine.push(ss.average != null ? round1(ss.average) : "");
-  });
-  avgLine.push("", "");
-  aoa.push(avgLine);
-
-  const ws = XLSX.utils.aoa_to_sheet(aoa);
-  const wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, ws, "Results");
-  const safe = (r.examTitle || "ENT-Exam").replace(/[^a-z0-9]+/gi, "-").replace(/^-+|-+$/g, "");
-  XLSX.writeFile(wb, safe + "-results.xlsx");
+  adminUi.enterAdmin(config);
 }
 
 /* ------------------------------- utils ---------------------------------- */
@@ -420,18 +236,25 @@ function escapeHtml(s) {
     .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 }
-function round1(n) { return Math.round(Number(n) * 10) / 10; }
 
 /* ------------------------------- wiring --------------------------------- */
 document.addEventListener("DOMContentLoaded", function () {
+  // Shared admin UI, authenticated here with the admin passcode (break-glass).
+  adminUi = window.ExamAdminUI({
+    api: function (action, payload) {
+      return api(action, Object.assign({ code: session.code }, payload || {}));
+    },
+    onConfigSaved: function (newAdminCode) {
+      session.code = newAdminCode; // admin code may have changed; keep session valid
+      sessionStorage.setItem("examHubSession", JSON.stringify(session));
+    }
+  });
+
   $("login-btn").addEventListener("click", doLogin);
   $("login-code").addEventListener("keydown", function (e) { if (e.key === "Enter") doLogin(); });
   $("examiner-logout").addEventListener("click", logout);
   $("admin-logout").addEventListener("click", logout);
   $("examiner-save-all").addEventListener("click", function () { saveAll(this); });
-  $("admin-save-config").addEventListener("click", function () { saveConfig(this); });
-  $("admin-refresh").addEventListener("click", function () { refreshResults(this); });
-  $("admin-export-xlsx").addEventListener("click", exportXlsx);
 
   // Restore a session on refresh (re-validate against the server for fresh config)
   const saved = sessionStorage.getItem("examHubSession");

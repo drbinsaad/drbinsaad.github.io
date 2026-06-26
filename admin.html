@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ENT Exam Hub - Dr Ali Alshahrani</title>
-    <meta name="description" content="Passcode-protected otolaryngology OSCE grading hub for AFHSR. Examiners log in with a number to score residents.">
+    <title>Owner Admin - Dr Ali Alshahrani</title>
+    <meta name="description" content="Owner-only admin area for shahrani.me, protected by Google sign-in.">
     <meta name="robots" content="noindex, nofollow">
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,132 +12,65 @@
     <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        /* ===== Page-scoped editorial restyle (mirrors bronchoscopy-tool.html; does not touch css/style.css) ===== */
+        /* ===== Page-scoped editorial restyle (mirrors exam-hub.html) ===== */
         *{margin:0;padding:0;box-sizing:border-box;}
         html{scroll-behavior:smooth;}
-        body{
-            background:#f4f1ea;
-            color:#1c1a17;
-            font-family:'Source Sans 3',system-ui,sans-serif;
-            line-height:1.7;
-            min-height:100vh;
-            -webkit-font-smoothing:antialiased;
-        }
+        body{background:#f4f1ea;color:#1c1a17;font-family:'Source Sans 3',system-ui,sans-serif;line-height:1.7;min-height:100vh;-webkit-font-smoothing:antialiased;}
         a{color:inherit;}
         ::selection{background:#8a302a;color:#f4f1ea;}
 
-        /* --- Header --- */
-        .site-header{
-            position:sticky;top:0;z-index:60;
-            background:rgba(244,241,234,0.88);
-            backdrop-filter:blur(12px);
-            -webkit-backdrop-filter:blur(12px);
-            border-bottom:1px solid #e4ded2;
-        }
-        .header-inner{
-            max-width:1080px;margin:0 auto;padding:15px 28px;
-            display:flex;align-items:center;justify-content:space-between;gap:24px;
-        }
+        .site-header{position:sticky;top:0;z-index:60;background:rgba(244,241,234,0.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid #e4ded2;}
+        .header-inner{max-width:1080px;margin:0 auto;padding:15px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px;}
         .brand{text-decoration:none;display:flex;flex-direction:column;line-height:1.08;flex:none;white-space:nowrap;}
         .brand-name{font-family:'Newsreader',serif;font-size:20px;font-weight:600;color:#1c1a17;letter-spacing:0.01em;}
         .brand-sub{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:#8a302a;margin-top:4px;}
         .header-tag{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#6f6a61;display:flex;align-items:center;gap:8px;}
         .header-tag i{color:#8a302a;}
 
-        /* --- Layout --- */
         .wrap{max-width:1080px;margin:0 auto;padding:0 28px;}
-        .wrap-narrow{max-width:860px;margin:0 auto;padding:0 28px;}
         .wrap-tight{max-width:520px;margin:0 auto;padding:0 28px;}
         .sec{padding:30px 0;}
-
         .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#8a302a;margin-bottom:16px;}
-        .page-title{font-family:'Newsreader',serif;font-weight:500;font-size:clamp(34px,4.6vw,52px);line-height:1.04;letter-spacing:-0.01em;color:#1c1a17;margin-bottom:18px;}
-        .lede{font-size:17.5px;color:#46423b;line-height:1.7;max-width:60ch;}
+        .page-title{font-family:'Newsreader',serif;font-weight:500;font-size:clamp(30px,4.6vw,46px);line-height:1.04;letter-spacing:-0.01em;color:#1c1a17;margin-bottom:18px;}
+        .lede{font-size:16px;color:#46423b;line-height:1.7;max-width:60ch;}
 
-        /* --- Cards --- */
-        .tool-card{
-            background:#faf8f2;border:1px solid #e4ded2;border-radius:2px;
-            padding:34px;margin-bottom:24px;
-        }
-        .tool-card h2{
-            font-family:'Newsreader',serif;font-weight:600;font-size:22px;color:#1c1a17;
-            margin-bottom:22px;display:flex;align-items:center;gap:12px;
-        }
+        .tool-card{background:#faf8f2;border:1px solid #e4ded2;border-radius:2px;padding:34px;margin-bottom:24px;}
+        .tool-card h2{font-family:'Newsreader',serif;font-weight:600;font-size:22px;color:#1c1a17;margin-bottom:22px;display:flex;align-items:center;gap:12px;}
         .tool-card h2 i{color:#8a302a;font-size:18px;}
         .tool-card > p{font-size:14.5px;color:#6f6a61;line-height:1.65;}
         .card-sub{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#6f6a61;margin:-12px 0 22px;}
 
-        /* --- Inputs --- */
         .input-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
         .input-group{margin-bottom:20px;}
         .input-group:last-child{margin-bottom:0;}
-        .input-group label{
-            display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;
-            letter-spacing:0.14em;text-transform:uppercase;color:#8a302a;margin-bottom:10px;
-        }
-        .input-group select,
-        .input-group input,
-        .input-group textarea{
-            width:100%;font-family:'Source Sans 3',sans-serif;font-size:16px;
-            padding:13px 15px;background:#fff;border:1px solid #d9d3c7;border-radius:2px;
-            color:#1c1a17;
-        }
-        .input-group textarea{resize:vertical;line-height:1.6;}
-        .input-group select:focus,
-        .input-group input:focus,
-        .input-group textarea:focus{outline:none;border-color:#8a302a;}
+        .input-group label{display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a302a;margin-bottom:10px;}
+        .input-group select,.input-group input,.input-group textarea{width:100%;font-family:'Source Sans 3',sans-serif;font-size:16px;padding:13px 15px;background:#fff;border:1px solid #d9d3c7;border-radius:2px;color:#1c1a17;}
+        .input-group input:focus{outline:none;border-color:#8a302a;}
         .input-hint{color:#9a9389;font-size:0.85rem;margin-top:0.5rem;display:block;}
 
-        /* --- Action buttons --- */
         .action-row{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1.5rem;}
-        .action-btn{
-            display:inline-flex;align-items:center;justify-content:center;gap:9px;
-            font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:15px;
-            padding:13px 26px;border-radius:2px;cursor:pointer;border:1px solid transparent;
-            transition:background .15s ease,color .15s ease,border-color .15s ease;
-        }
+        .action-btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:15px;padding:13px 26px;border-radius:2px;cursor:pointer;border:1px solid transparent;transition:background .15s ease,color .15s ease,border-color .15s ease;}
         .action-btn.primary-btn{background:#1c1a17;color:#f4f1ea;border-color:#1c1a17;}
         .action-btn.primary-btn:hover{background:#8a302a;border-color:#8a302a;}
         .action-btn.secondary-btn{background:#faf8f2;color:#46423b;border-color:#d9d3c7;}
         .action-btn.secondary-btn:hover{background:#fff;color:#8a302a;border-color:#8a302a;}
         .action-btn:disabled{opacity:0.55;cursor:not-allowed;}
-        .action-btn.is-saved{background:#e7efe6;color:#3f6b43;border-color:#bcd6bd;}
+        .action-btn .fa-google{color:#8a302a;}
+        .action-btn.primary-btn .fa-google{color:#f4f1ea;}
         .text-link{background:none;border:none;cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.1em;color:#8a302a;text-transform:uppercase;}
 
-        /* --- Callout boxes --- */
         .callout{margin-top:18px;padding:16px 20px;border-radius:2px;font-size:14px;font-weight:500;line-height:1.6;}
         .callout-warn{background:#f6e9e7;border:1px solid #e3c4bf;color:#8a302a;}
         .callout-info{background:#efeae0;border:1px solid #e4ded2;color:#6f6a61;}
         .callout-ok{background:#e7efe6;border:1px solid #bcd6bd;color:#3f6b43;}
         .is-hidden{display:none !important;}
 
-        /* --- Resident grading cards --- */
-        .resident-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1px;background:#e4ded2;border:1px solid #e4ded2;border-radius:2px;}
-        .resident-card{background:#faf8f2;padding:22px 20px;display:flex;flex-direction:column;gap:14px;}
-        .resident-card .r-name{font-family:'Newsreader',serif;font-weight:600;font-size:19px;color:#1c1a17;display:flex;align-items:center;justify-content:space-between;gap:10px;}
-        .resident-card .r-tag{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.12em;color:#9a9389;}
-        .score-field{display:flex;align-items:baseline;gap:10px;}
-        .score-field input{
-            width:110px;font-family:'Newsreader',serif;font-weight:500;font-size:30px;
-            padding:6px 12px;background:#fff;border:1px solid #d9d3c7;border-radius:2px;color:#1c1a17;text-align:center;
-        }
-        .score-field input:focus{outline:none;border-color:#8a302a;}
-        .score-field .max{font-family:'IBM Plex Mono',monospace;font-size:13px;color:#9a9389;}
-        .resident-card textarea{
-            width:100%;font-family:'Source Sans 3',sans-serif;font-size:14px;
-            padding:10px 12px;background:#fff;border:1px solid #d9d3c7;border-radius:2px;color:#1c1a17;resize:vertical;line-height:1.55;min-height:46px;
-        }
-        .resident-card textarea:focus{outline:none;border-color:#8a302a;}
-
-        /* --- Config editor rows --- */
         .config-table{display:flex;flex-direction:column;gap:1px;background:#e4ded2;border:1px solid #e4ded2;border-radius:2px;margin-bottom:6px;}
         .config-row{display:grid;grid-template-columns:minmax(0,1.4fr) 130px;gap:14px;align-items:center;background:#fff;padding:12px 16px;}
         .config-row label{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#6f6a61;}
         .config-row input{width:100%;font-family:'Source Sans 3',sans-serif;font-size:15px;padding:10px 12px;background:#fff;border:1px solid #d9d3c7;border-radius:2px;color:#1c1a17;}
         .config-row input:focus{outline:none;border-color:#8a302a;}
-        .config-row.single{grid-template-columns:minmax(0,1fr);}
 
-        /* --- Results grid --- */
         .results-scroll{overflow-x:auto;border:1px solid #e4ded2;border-radius:2px;}
         table.results{border-collapse:collapse;width:100%;min-width:640px;background:#faf8f2;font-size:14px;}
         table.results th,table.results td{padding:12px 14px;border-bottom:1px solid #e4ded2;border-right:1px solid #e4ded2;text-align:center;}
@@ -149,12 +82,10 @@
         table.results tr.station-avg td{background:#efeae0;font-family:'Source Sans 3',sans-serif;color:#6f6a61;}
         table.results tr.station-avg td.r-head{color:#8a302a;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;}
 
-        /* --- Disclaimer --- */
         .disclaimer{margin-top:30px;padding:20px 24px;background:#f6e9e7;border:1px solid #e3c4bf;border-left:3px solid #8a302a;border-radius:2px;}
         .disclaimer p{margin:0;color:#6f6a61;font-size:13.5px;line-height:1.7;}
         .disclaimer strong{color:#1c1a17;}
 
-        /* --- Footer --- */
         .site-footer{background:#1c1a17;color:#e9e4da;padding:40px 0;margin-top:30px;}
         .footer-inner{max-width:1080px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:center;}
         .footer-brand{font-family:'Newsreader',serif;font-size:17px;color:#cdc6ba;text-decoration:none;}
@@ -163,16 +94,13 @@
         .footer-links a:hover{color:#f4f1ea;}
         .footer-copy{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.1em;color:#7d7869;}
 
-        /* --- Spinner --- */
-        .spinner{display:inline-block;width:15px;height:15px;border:2px solid rgba(244,241,234,0.4);border-top-color:#f4f1ea;border-radius:50%;animation:spin .7s linear infinite;}
+        .spinner{display:inline-block;width:15px;height:15px;border:2px solid rgba(28,26,23,0.25);border-top-color:#8a302a;border-radius:50%;animation:spin .7s linear infinite;}
+        .action-btn.primary-btn .spinner{border-color:rgba(244,241,234,0.4);border-top-color:#f4f1ea;}
         @keyframes spin{to{transform:rotate(360deg);}}
+        .gate-center{min-height:46vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;}
+        .denied-email{font-family:'IBM Plex Mono',monospace;color:#8a302a;}
 
-        @media (max-width:820px){
-            .input-grid{grid-template-columns:1fr;}
-            .tool-card{padding:24px;}
-            .sec{padding:24px 0;}
-            .header-tag{display:none;}
-        }
+        @media (max-width:820px){.input-grid{grid-template-columns:1fr;}.tool-card{padding:24px;}.sec{padding:24px 0;}.header-tag{display:none;}}
     </style>
 </head>
 <body>
@@ -182,59 +110,54 @@
                 <span class="brand-name">Ali Alshahrani</span>
                 <span class="brand-sub">Otolaryngology</span>
             </a>
-            <span class="header-tag"><i class="fas fa-clipboard-check"></i> ENT Exam Hub</span>
+            <span class="header-tag"><i class="fas fa-lock"></i> Owner Admin</span>
         </div>
     </header>
 
-    <!-- ============================ LOGIN VIEW ============================ -->
-    <section class="sec" id="view-login" style="padding:64px 0 30px;">
-        <div class="wrap-tight">
-            <div class="eyebrow">AFHSR Otolaryngology</div>
-            <h1 class="page-title" style="font-size:clamp(30px,4.6vw,44px);">ENT Exam Hub</h1>
-            <p class="lede" style="font-size:16px;margin-bottom:30px;">Enter the passcode you were given to open your grading station.</p>
+    <!-- ===================== GATE: checking session ===================== -->
+    <section class="sec" id="gate-loading">
+        <div class="wrap-tight gate-center">
+            <span class="spinner"></span>
+            <p class="lede" style="margin-top:12px;">Checking your sign-in…</p>
+        </div>
+    </section>
 
+    <!-- ===================== GATE: signed out ===================== -->
+    <section class="sec is-hidden" id="gate-signin" style="padding:64px 0 30px;">
+        <div class="wrap-tight">
+            <div class="eyebrow">shahrani.me</div>
+            <h1 class="page-title">Owner Admin</h1>
+            <p class="lede" style="margin-bottom:30px;">Sign in with the owner Google account to manage the site.</p>
             <div class="tool-card">
-                <h2><i class="fas fa-key"></i> Examiner Access</h2>
-                <div class="input-group">
-                    <label for="login-code">Passcode</label>
-                    <input type="text" id="login-code" inputmode="numeric" pattern="[0-9]*"
-                           autocomplete="off" placeholder="Enter your number" maxlength="12">
-                </div>
-                <div class="action-row">
-                    <button class="action-btn primary-btn" id="login-btn" style="flex:1;">
-                        <i class="fas fa-arrow-right-to-bracket"></i> Enter
+                <h2><i class="fab fa-google"></i> Sign in</h2>
+                <p style="margin-bottom:22px;">Only the site owner's Google account can access this area.</p>
+                <div class="action-row" style="margin-top:0;">
+                    <button class="action-btn primary-btn" id="btn-google" style="flex:1;">
+                        <i class="fab fa-google"></i> Continue with Google
                     </button>
                 </div>
-                <div class="callout callout-warn is-hidden" id="login-error"></div>
-            </div>
-            <p class="center-note" style="text-align:center;color:#9a9389;font-size:13px;">Passcodes are issued by the exam administrator.</p>
-        </div>
-    </section>
-
-    <!-- ============================ EXAMINER VIEW ============================ -->
-    <section class="sec is-hidden" id="view-examiner" style="padding:56px 0 30px;">
-        <div class="wrap">
-            <button class="text-link" id="examiner-logout" style="margin-bottom:22px;">&larr; Log out</button>
-            <div class="eyebrow" id="examiner-exam-title">Exam</div>
-            <h1 class="page-title" id="examiner-station" style="font-size:clamp(30px,4.6vw,46px);">Station</h1>
-            <p class="lede" id="examiner-intro" style="font-size:16px;">Enter a score for each resident, then save. You can revise a score and save again at any time.</p>
-
-            <div class="sec" style="padding:24px 0 0;">
-                <div class="resident-grid" id="examiner-residents"></div>
-                <div class="action-row">
-                    <button class="action-btn primary-btn" id="examiner-save-all"><i class="fas fa-floppy-disk"></i> Save all</button>
-                    <span class="header-tag" style="align-self:center;">Scores save individually too.</span>
-                </div>
-                <div class="callout callout-info is-hidden" id="examiner-msg"></div>
+                <div class="callout callout-warn is-hidden" id="signin-error"></div>
             </div>
         </div>
     </section>
 
-    <!-- ============================ ADMIN VIEW ============================ -->
-    <section class="sec is-hidden" id="view-admin" style="padding:56px 0 30px;">
+    <!-- ===================== GATE: wrong account ===================== -->
+    <section class="sec is-hidden" id="gate-denied" style="padding:64px 0 30px;">
+        <div class="wrap-tight">
+            <div class="eyebrow">Access denied</div>
+            <h1 class="page-title">Not the owner account</h1>
+            <p class="lede">You're signed in as <span class="denied-email" id="denied-email"></span>, which isn't the owner of this site. Sign out and use the owner's Google account.</p>
+            <div class="action-row">
+                <button class="action-btn secondary-btn" data-signout><i class="fas fa-arrow-right-from-bracket"></i> Sign out</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================ ADMIN VIEW (shared markup) ============================ -->
+    <section class="sec is-hidden" id="view-admin" style="padding:48px 0 30px;">
         <div class="wrap">
-            <button class="text-link" id="admin-logout" style="margin-bottom:22px;">&larr; Log out</button>
-            <div class="eyebrow">Administrator</div>
+            <button class="text-link" data-signout style="margin-bottom:22px;">&larr; Sign out</button>
+            <div class="eyebrow">Owner &middot; <span id="owner-email"></span></div>
             <h1 class="page-title" style="font-size:clamp(30px,4.6vw,46px);">Exam Control</h1>
 
             <!-- Config editor -->
@@ -256,7 +179,7 @@
                 <div class="input-group">
                     <label>Examiner Stations &amp; Passcodes</label>
                     <div class="config-table" id="cfg-examiners"></div>
-                    <small class="input-hint">Number-only passcodes. Each must be unique and different from the admin code.</small>
+                    <small class="input-hint">Number-only passcodes examiners use to log in. Each must be unique and different from the admin code.</small>
                 </div>
 
                 <div class="input-group">
@@ -266,9 +189,9 @@
                 </div>
 
                 <div class="input-group">
-                    <label for="cfg-admincode">Admin Passcode</label>
+                    <label for="cfg-admincode">Admin Passcode (fallback)</label>
                     <input type="text" inputmode="numeric" pattern="[0-9]*" id="cfg-admincode" autocomplete="off" placeholder="Admin number" style="max-width:200px;">
-                    <small class="input-hint">Changing this changes how you log in next time. Keep it private.</small>
+                    <small class="input-hint">Break-glass code for the passcode admin on exam-hub.html, in case Google sign-in is unavailable. Keep it private.</small>
                 </div>
 
                 <div class="action-row">
@@ -295,7 +218,7 @@
             </div>
 
             <div class="disclaimer">
-                <p><strong>Security note.</strong> Number-only passcodes are light access control suitable for a closed internal exam among known participants &mdash; not for patient-identifiable data. Share passcodes and this link privately, and rotate the codes after each exam.</p>
+                <p><strong>Owner area.</strong> Access is restricted to the owner's Google account and enforced on the server. Examiners still use their number passcodes on the Exam Hub page. Don't store patient-identifiable data here.</p>
             </div>
         </div>
     </section>
@@ -305,16 +228,17 @@
             <a href="index.html" class="footer-brand">Dr Ali Alshahrani</a>
             <div class="footer-links">
                 <a href="dashboard.html">Dashboard</a>
-                <a href="ent-tools.html">All Tools</a>
+                <a href="exam-hub.html">Exam Hub</a>
                 <a href="index.html#contact">Contact</a>
             </div>
             <span class="footer-copy">shahrani.me &middot; &copy; 2026</span>
         </div>
     </footer>
 
-    <!-- SheetJS for client-side Excel export (loaded like jsPDF in bronchoscopy-tool.html) -->
+    <!-- SheetJS (Excel export) + Supabase JS (Google auth) + shared admin UI + page logic -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/exam-admin-ui.js?v=1"></script>
-    <script src="js/exam-hub.js?v=3"></script>
+    <script src="js/admin.js?v=1"></script>
 </body>
 </html>

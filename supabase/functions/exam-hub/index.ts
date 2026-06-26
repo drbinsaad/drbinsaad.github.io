@@ -36,6 +36,36 @@ const db = createClient(
 
 const norm = (c: unknown): string => (c == null ? "" : String(c).trim());
 
+const OWNER_EMAIL = (Deno.env.get("OWNER_EMAIL") ?? "drbinsaad@gmail.com").toLowerCase();
+
+/* ----------------------------- admin auth ------------------------------- */
+// Returns the owner's email if the request carries a valid OWNER Google JWT,
+// else null. Anon/publishable keys also arrive as Bearer tokens on examiner
+// calls — those aren't user JWTs, so getUser() yields no user and we return null.
+async function ownerFromJwt(req: Request): Promise<string | null> {
+  const h = req.headers.get("Authorization") ?? "";
+  const m = h.match(/^Bearer\s+(.+)$/i);
+  if (!m) return null;
+  const token = m[1].trim();
+  if (!token || token.indexOf(".") === -1) return null; // not a JWT (e.g. sb_publishable_…)
+  try {
+    const { data, error } = await db.auth.getUser(token);
+    if (error || !data?.user) return null;
+    const email = (data.user.email ?? "").toLowerCase();
+    return email === OWNER_EMAIL ? email : null;
+  } catch {
+    return null;
+  }
+}
+
+// Admin authorized by EITHER a valid owner Google JWT OR the admin passcode
+// (break-glass fallback used by exam-hub.html).
+async function isAdmin(req: Request, body: any): Promise<boolean> {
+  if (await ownerFromJwt(req)) return true;
+  const setup = await readSetup();
+  return norm(body.code) !== "" && norm(body.code) === norm(setup.adminCode);
+}
+
 /* ------------------------------- readers -------------------------------- */
 async function readSetup() {
   const { data } = await db.from("exam_setup").select("*").eq("id", 1).single();
@@ -149,9 +179,25 @@ async function submitGrade(body: any) {
   return { ok: true, saved: { residentId, score, notes } };
 }
 
-async function saveConfig(body: any) {
+// Owner-page bootstrap: confirms the caller is the owner and returns admin config.
+async function whoami(req: Request) {
+  if (!(await ownerFromJwt(req))) return { ok: true, owner: false };
   const setup = await readSetup();
-  if (norm(body.code) !== norm(setup.adminCode)) return { ok: false, error: "Admin passcode required." };
+  return {
+    ok: true,
+    owner: true,
+    config: {
+      examTitle: setup.examTitle,
+      scoreMax: setup.scoreMax,
+      adminCode: setup.adminCode,
+      examiners: await readExaminers(),
+      residents: await readResidents(),
+    },
+  };
+}
+
+async function saveConfig(req: Request, body: any) {
+  if (!(await isAdmin(req, body))) return { ok: false, error: "Admin authorization required." };
 
   const examTitle = norm(body.examTitle);
   const scoreMax = Number(body.scoreMax);
@@ -206,9 +252,9 @@ async function saveConfig(body: any) {
   return { ok: true };
 }
 
-async function getResults(body: any) {
+async function getResults(req: Request, body: any) {
+  if (!(await isAdmin(req, body))) return { ok: false, error: "Admin authorization required." };
   const setup = await readSetup();
-  if (norm(body.code) !== norm(setup.adminCode)) return { ok: false, error: "Admin passcode required." };
 
   const residents = (await readResidents()).filter((r) => r.name);
   const examiners = await readExaminers();
@@ -270,10 +316,11 @@ Deno.serve(async (req) => {
 
   try {
     switch (body.action) {
-      case "validateCode": return json(await validateCode(body));
-      case "submitGrade":  return json(await submitGrade(body));
-      case "saveConfig":   return json(await saveConfig(body));
-      case "getResults":   return json(await getResults(body));
+      case "validateCode": return json(await validateCode(body));        // examiner/admin passcode
+      case "submitGrade":  return json(await submitGrade(body));         // examiner passcode
+      case "whoami":       return json(await whoami(req));               // owner Google JWT
+      case "saveConfig":   return json(await saveConfig(req, body));     // owner JWT or passcode
+      case "getResults":   return json(await getResults(req, body));     // owner JWT or passcode
       default:             return json({ ok: false, error: "Unknown action." });
     }
   } catch (err) {

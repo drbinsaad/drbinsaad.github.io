@@ -10,6 +10,10 @@ Project: **drbinsaad's Project** — `https://drsamkdxsfrolzyvxsjb.supabase.co`
 > again, and the few things to remember. You don't normally need to touch any
 > of it.
 
+> **Owner login:** day-to-day you manage the exam from `admin.html` via Google
+> sign-in (see `apps/admin/SETUP-google-login.md`). The number admin passcode on
+> `exam-hub.html` still works as an emergency fallback.
+
 ## What was created
 
 - **Database tables** (`supabase/migrations/0001_exam_hub.sql`):
