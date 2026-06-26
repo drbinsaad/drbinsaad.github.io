@@ -230,7 +230,7 @@ function renderQuestionForm(rid) {
           '</div>' +
         '</div>' +
         (imgs ? '<div class="q-images">' + imgs + "</div>" : "") +
-        (guide ? '<details class="q-guide"><summary>Marking guide</summary><ul>' + guide + "</ul></details>" : "") +
+        (guide ? '<details class="q-guide" open><summary>Marking guide / key answer</summary><ul>' + guide + "</ul></details>" : "") +
       "</div>";
   });
 
