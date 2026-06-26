@@ -200,6 +200,19 @@
         .q-guide li{font-size:14.5px;color:#5b564d;line-height:1.55;padding:5px 0 5px 18px;position:relative;border-bottom:1px solid #f0ebe1;}
         .q-guide li:last-child{border-bottom:none;}
         .q-guide li::before{content:"";position:absolute;left:2px;top:13px;width:5px;height:5px;border-radius:50%;background:#8a302a;}
+        /* --- SCFHS marking table (one scored row per answer point) --- */
+        .q-guide-table{width:100%;border-collapse:collapse;margin-top:14px;}
+        .q-guide-table thead th{text-align:left;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#8a302a;border-bottom:1px solid #e4ded2;padding:0 6px 9px;font-weight:600;}
+        .q-guide-table thead th:last-child{text-align:right;white-space:nowrap;width:1%;}
+        .q-guide-table td{border-bottom:1px solid #f0ebe1;padding:9px 6px;vertical-align:top;}
+        .q-guide-table tr:last-child td{border-bottom:none;}
+        .q-guide-table .g-ans{font-family:'Source Sans 3',sans-serif;font-size:14.5px;color:#3a362f;line-height:1.5;}
+        .q-guide-table .g-mark{white-space:nowrap;text-align:right;width:1%;}
+        .q-guide-table .g-note td{color:#8a857c;font-style:italic;font-size:13px;}
+        .pt-input{width:48px;padding:6px;text-align:center;border:1px solid #d9d3c7;border-radius:2px;font-size:15px;background:#fff;color:#1c1a17;}
+        .pt-input:focus{outline:none;border-color:#8a302a;}
+        .g-of{color:#8a857c;font-size:12.5px;margin-left:5px;}
+        .q-qtotal{font-variant-numeric:tabular-nums;font-weight:700;}
         .q-images{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;}
         .q-thumb{width:96px;height:96px;object-fit:cover;border:1px solid #d9d3c7;border-radius:2px;cursor:zoom-in;background:#fff;}
         .q-thumb-video{position:relative;padding:0;overflow:hidden;cursor:pointer;background:#000;}

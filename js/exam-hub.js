@@ -214,23 +214,44 @@ function renderQuestionForm(rid) {
     }
 
     qn += 1;
-    const val = details[q.questionId];
-    let guide = "";
-    (q.modelAnswers || []).forEach(function (m) { guide += "<li>" + escapeHtml(m) + "</li>"; });
+    const qid = q.questionId;
+    // SCFHS marking sheet: one scored row per answer point (mark parsed from the
+    // trailing "(N mark[s])"); lines that are notes — starting with "(" — are shown
+    // unscored. The examiner marks each point; the question total auto-sums.
+    let rows = "";
+    (q.modelAnswers || []).forEach(function (m, idx) {
+      const isNote = m.trim().charAt(0) === "(";
+      const mk = isNote ? null : m.match(/\((\d+(?:\.\d+)?)\s*marks?\)\s*$/);
+      if (!mk) {
+        rows += '<tr class="g-note"><td colspan="2">' + escapeHtml(m) + "</td></tr>";
+        return;
+      }
+      const pmax = mk[1];
+      const text = m.slice(0, mk.index).trim();
+      rows +=
+        "<tr>" +
+          '<td class="g-ans">' + escapeHtml(text) + "</td>" +
+          '<td class="g-mark">' +
+            '<input type="number" class="pt-input" min="0" max="' + pmax + '" step="0.5" inputmode="decimal" ' +
+              'data-qid="' + escapeHtml(qid) + '" data-pidx="' + idx + '" data-pmax="' + pmax + '" placeholder="0">' +
+            '<span class="g-of">/ ' + pmax + "</span>" +
+          "</td>" +
+        "</tr>";
+    });
 
     html +=
       '<div class="q-card">' +
         '<div class="q-head">' +
-          '<div class="q-prompt"><span class="q-num">Q' + qn + '</span>' + escapeHtml(q.prompt) + '</div>' +
+          '<div class="q-prompt"><span class="q-num">Q' + qn + "</span>" + escapeHtml(q.prompt) + "</div>" +
           '<div class="q-score">' +
-            '<input type="number" min="0" max="' + q.maxMarks + '" step="1" inputmode="numeric" ' +
-              'data-qid="' + escapeHtml(q.questionId) + '" data-max="' + q.maxMarks + '" ' +
-              'value="' + (val != null ? val : "") + '" placeholder="0">' +
-            '<span class="max">/ ' + q.maxMarks + '</span>' +
-          '</div>' +
-        '</div>' +
+            '<span class="q-qtotal" id="qt-' + escapeHtml(qid) + '" data-qid="' + escapeHtml(qid) + '" data-max="' + q.maxMarks + '">0</span>' +
+            '<span class="max">/ ' + q.maxMarks + "</span>" +
+          "</div>" +
+        "</div>" +
         (imgs ? '<div class="q-images">' + imgs + "</div>" : "") +
-        (guide ? '<details class="q-guide" open><summary>Marking guide / key answer</summary><ul>' + guide + "</ul></details>" : "") +
+        '<table class="q-guide-table"><thead><tr>' +
+          "<th>Marking guide / key answer — what the resident should say</th><th>Mark</th>" +
+        "</tr></thead><tbody>" + rows + "</tbody></table>" +
       "</div>";
   });
 
@@ -242,8 +263,9 @@ function renderQuestionForm(rid) {
 
   body.innerHTML = html;
 
-  body.querySelectorAll('.q-score input').forEach(function (i) {
-    i.addEventListener("input", recomputeTotal);
+  restorePoints(rid);
+  body.querySelectorAll('.pt-input').forEach(function (i) {
+    i.addEventListener("input", function () { recomputeTotal(); persistPoints(rid); });
   });
   body.querySelectorAll('.q-thumb').forEach(function (im) {
     im.addEventListener("click", function () {
@@ -254,29 +276,68 @@ function renderQuestionForm(rid) {
   recomputeTotal();
 }
 
+function round1(n) { return Math.round(Number(n) * 10) / 10; }
+
+// Sum each question's per-point inputs into its total, then sum the station total.
 function recomputeTotal() {
-  let total = 0;
-  document.querySelectorAll('#examiner-body .q-score input').forEach(function (i) {
-    const v = Number(i.value);
-    const max = Number(i.getAttribute("data-max"));
-    if (!isNaN(v) && v >= 0 && v <= max) total += v;
+  let station = 0;
+  document.querySelectorAll('#examiner-body .q-qtotal').forEach(function (span) {
+    const qid = span.getAttribute("data-qid");
+    const qmax = Number(span.getAttribute("data-max"));
+    let qt = 0;
+    document.querySelectorAll('#examiner-body .pt-input[data-qid="' + qid + '"]').forEach(function (i) {
+      let v = Number(i.value);
+      const pmax = Number(i.getAttribute("data-pmax"));
+      if (isNaN(v) || v < 0) v = 0;
+      if (v > pmax) { v = pmax; i.value = pmax; }
+      qt += v;
+    });
+    if (qt > qmax) qt = qmax;
+    span.textContent = round1(qt);
+    station += qt;
   });
   const el = $("q-running");
-  if (el) el.textContent = total;
+  if (el) el.textContent = round1(station);
+}
+
+// Per-point entries persist on the examiner's device so navigating between
+// residents (or a reload) restores the marking sheet. The server stores the
+// per-question total (sum), which is what the admin grid and Excel use.
+function ptStoreKey(rid) { return "examPts:" + session.station + ":" + rid; }
+function persistPoints(rid) {
+  try {
+    const data = {};
+    document.querySelectorAll('#examiner-body .pt-input').forEach(function (i) {
+      if (i.value === "") return;
+      const qid = i.getAttribute("data-qid"), pidx = i.getAttribute("data-pidx");
+      (data[qid] = data[qid] || {})[pidx] = i.value;
+    });
+    localStorage.setItem(ptStoreKey(rid), JSON.stringify(data));
+  } catch (e) {}
+}
+function restorePoints(rid) {
+  try {
+    const raw = localStorage.getItem(ptStoreKey(rid));
+    if (!raw) return;
+    const data = JSON.parse(raw);
+    document.querySelectorAll('#examiner-body .pt-input').forEach(function (i) {
+      const qid = i.getAttribute("data-qid"), pidx = i.getAttribute("data-pidx");
+      if (data[qid] && data[qid][pidx] != null) i.value = data[qid][pidx];
+    });
+  } catch (e) {}
 }
 
 async function saveQuestionGrade(rid, btn) {
+  recomputeTotal();
   const details = {};
-  let bad = null;
-  document.querySelectorAll('#examiner-body .q-score input').forEach(function (i) {
-    const qid = i.getAttribute("data-qid");
-    const max = Number(i.getAttribute("data-max"));
-    if (i.value === "") return; // unscored question = leave out (counts as 0)
-    const v = Number(i.value);
-    if (isNaN(v) || v < 0 || v > max) { bad = qid + " (0–" + max + ")"; return; }
-    details[qid] = v;
+  document.querySelectorAll('#examiner-body .q-qtotal').forEach(function (span) {
+    const qid = span.getAttribute("data-qid");
+    let any = false;
+    document.querySelectorAll('#examiner-body .pt-input[data-qid="' + qid + '"]').forEach(function (i) {
+      if (i.value !== "") any = true;
+    });
+    if (any) details[qid] = Number(span.textContent); // unscored question = leave out
   });
-  if (bad) { setMsg("examiner-msg", "Check the score for " + bad + ".", "warn"); return; }
 
   const notes = ($("q-notes") && $("q-notes").value) || "";
   busy(btn, true);
