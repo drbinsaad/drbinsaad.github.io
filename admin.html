@@ -101,6 +101,30 @@
         .denied-email{font-family:'IBM Plex Mono',monospace;color:#1e3a8a;}
 
         @media (max-width:820px){.input-grid{grid-template-columns:1fr;}.tool-card{padding:24px;}.sec{padding:24px 0;}.header-tag{display:none;}}
+        .qe-bar{display:flex;gap:10px;align-items:center;margin:10px 0 4px;flex-wrap:wrap;}
+        .qe-select{font-family:inherit;font-size:15px;padding:9px 12px;border:1px solid #cbd5e1;border-radius:2px;background:#fff;color:#0f172a;}
+        .qe-q{border:1px solid #e2e8f0;border-radius:2px;padding:14px;margin:12px 0;background:#fff;}
+        .qe-q-head{display:flex;gap:8px;align-items:center;margin-bottom:8px;}
+        .qe-q-id{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#1e3a8a;letter-spacing:0.08em;}
+        .qe-q-sub{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#475569;}
+        .qe-prompt{width:100%;font-family:inherit;font-size:14.5px;padding:8px 10px;border:1px solid #cbd5e1;border-radius:2px;color:#0f172a;resize:vertical;min-height:44px;box-sizing:border-box;}
+        .qe-points{margin-top:10px;}
+        .qe-point{display:flex;gap:8px;align-items:flex-start;margin-bottom:6px;}
+        .qe-point textarea{flex:1;font-family:inherit;font-size:14px;padding:7px 9px;border:1px solid #cbd5e1;border-radius:2px;color:#0f172a;resize:vertical;min-height:38px;box-sizing:border-box;}
+        .qe-mk{width:58px;font-family:inherit;font-size:14px;padding:7px;text-align:center;border:1px solid #cbd5e1;border-radius:2px;box-sizing:border-box;}
+        .qe-imgs{margin-top:8px;display:flex;flex-direction:column;gap:5px;}
+        .qe-img{display:flex;gap:8px;align-items:center;}
+        .qe-img input{flex:1;font-size:13px;padding:6px 8px;border:1px solid #cbd5e1;border-radius:2px;color:#475569;box-sizing:border-box;}
+        .qe-thumb{width:38px;height:38px;object-fit:cover;border:1px solid #cbd5e1;border-radius:2px;flex:none;}
+        .qe-thumb-v{display:flex;align-items:center;justify-content:center;background:#0f172a;color:#fff;font-size:14px;}
+        .qe-mini{font-size:12px;padding:5px 9px;border:1px solid #cbd5e1;background:#f8fafc;border-radius:2px;cursor:pointer;color:#1e3a8a;display:inline-flex;align-items:center;gap:5px;}
+        .qe-mini:hover{border-color:#1e3a8a;}
+        .qe-x{cursor:pointer;color:#a32d2d;background:none;border:none;font-size:16px;padding:2px 7px;line-height:1;}
+        .qe-foot{display:flex;gap:12px;align-items:center;margin-top:14px;flex-wrap:wrap;}
+        .qe-total{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:14px;color:#475569;}
+        .qe-total.good strong{color:#1d7a4a;}
+        .qe-total.bad strong{color:#a32d2d;}
+        #qe-save:disabled{opacity:0.45;cursor:not-allowed;}
     </style>
 </head>
 <body>
@@ -217,6 +241,22 @@
                 </div>
             </div>
 
+            <div class="tool-card" id="qe-card">
+                <h2><i class="fas fa-list-check"></i> Cases &amp; Questions</h2>
+                <p>Edit the case stem, questions, answer-key points and their marks, and images. The station must total <strong>100</strong> before you can save.</p>
+                <div class="qe-bar">
+                    <select id="qe-station" class="qe-select"></select>
+                    <button class="action-btn secondary-btn" id="qe-load"><i class="fas fa-rotate"></i> Load station</button>
+                </div>
+                <div id="qe-list"></div>
+                <div class="qe-foot is-hidden" id="qe-foot">
+                    <button class="action-btn secondary-btn" id="qe-addq"><i class="fas fa-plus"></i> Add question</button>
+                    <span class="qe-total" id="qe-total-wrap">Total: <strong id="qe-total">0</strong> / <span id="qe-max">100</span></span>
+                    <button class="action-btn primary-btn" id="qe-save"><i class="fas fa-floppy-disk"></i> Save station</button>
+                </div>
+                <div class="callout callout-info is-hidden" id="qe-msg"></div>
+            </div>
+
             <div class="disclaimer">
                 <p><strong>Owner area.</strong> Access is restricted to the owner's Google account and enforced on the server. Examiners still use their number passcodes on the Exam Hub page. Don't store patient-identifiable data here.</p>
             </div>
@@ -236,7 +276,7 @@
     <!-- SheetJS (Excel export) + Supabase JS (Google auth) + shared admin UI + page logic -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="js/exam-admin-ui.js?v=1"></script>
+    <script src="js/exam-admin-ui.js?v=2"></script>
     <script src="js/admin.js?v=1"></script>
 </body>
 </html>

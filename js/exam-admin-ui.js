@@ -221,10 +221,155 @@ window.ExamAdminUI = function initExamAdmin(opts) {
     XLSX.writeFile(wb, safe + "-results.xlsx");
   }
 
+  /* --------------------------- question editor -------------------------- */
+  // In-memory model: [{ questionId, prompt, points:[{text,marks}], images:[] }].
+  // A question with no scored points is a 0-mark case stem. Marks live in the
+  // answer text as "(N marks)"; we split them out for editing and rejoin on save.
+  var qe = { station: null, scoreMax: 100, questions: [] };
+
+  function qeSplit(modelAnswers) {
+    return (modelAnswers || []).map(function (m) {
+      var mk = String(m).match(/\((\d+(?:\.\d+)?)\s*marks?\)\s*$/);
+      return mk ? { text: String(m).slice(0, mk.index).trim(), marks: parseFloat(mk[1]) }
+                : { text: String(m), marks: 0 };
+    });
+  }
+  function qeJoin(p) {
+    var t = (p.text || "").trim(); var m = Number(p.marks) || 0;
+    if (!t) return "";
+    return m ? t + " (" + (Math.round(m * 10) / 10) + " mark" + (m === 1 ? "" : "s") + ")" : t;
+  }
+  function qeInit() {
+    var sel = $("qe-station");
+    if (sel && !sel.options.length) {
+      STATIONS.forEach(function (st) { var o = document.createElement("option"); o.value = st; o.textContent = st; sel.appendChild(o); });
+    }
+  }
+  async function qeLoad(btn) {
+    var station = $("qe-station").value;
+    busy(btn, true);
+    var r = await api("getQuestions", { station: station });
+    busy(btn, false, '<i class="fas fa-rotate"></i> Load station');
+    if (!r.ok) { setMsg("qe-msg", r.error || "Could not load.", "warn"); return; }
+    qe.station = station; qe.scoreMax = Number(r.scoreMax) || 100;
+    qe.questions = (r.questions || []).map(function (q) {
+      return { questionId: q.questionId, prompt: q.prompt, points: qeSplit(q.modelAnswers), images: (q.images || []).slice() };
+    });
+    $("qe-max").textContent = qe.scoreMax;
+    setMsg("qe-msg", "", "info");
+    qeRender();
+  }
+  function qeRender() {
+    var list = $("qe-list"); if (!list) return;
+    var html = "";
+    qe.questions.forEach(function (q, qi) {
+      var pts = "";
+      q.points.forEach(function (p, pi) {
+        pts += '<div class="qe-point">' +
+          '<textarea data-qi="' + qi + '" data-pi="' + pi + '" data-f="ptext" placeholder="Answer point the resident should say">' + escapeHtml(p.text) + '</textarea>' +
+          '<input class="qe-mk" type="number" min="0" step="0.5" data-qi="' + qi + '" data-pi="' + pi + '" data-f="pmark" value="' + (p.marks || "") + '" placeholder="0">' +
+          '<button class="qe-x" data-act="rmpt" data-qi="' + qi + '" data-pi="' + pi + '" title="Remove point">&times;</button></div>';
+      });
+      var imgs = "";
+      q.images.forEach(function (src, ii) {
+        var isVid = /\.(mp4|webm|mov|m4v)$/i.test(src);
+        imgs += '<div class="qe-img">' +
+          (isVid ? '<span class="qe-thumb qe-thumb-v">&#9654;</span>' : '<img class="qe-thumb" src="' + escapeHtml(src) + '" alt="">') +
+          '<input type="text" data-qi="' + qi + '" data-ii="' + ii + '" data-f="img" value="' + escapeHtml(src) + '">' +
+          '<button class="qe-x" data-act="rmimg" data-qi="' + qi + '" data-ii="' + ii + '" title="Remove image">&times;</button></div>';
+      });
+      var qtot = q.points.reduce(function (s, p) { return s + (Number(p.marks) || 0); }, 0);
+      html += '<div class="qe-q"><div class="qe-q-head">' +
+          '<span class="qe-q-id">' + escapeHtml(q.questionId || ("Q" + qi)) + '</span>' +
+          '<button class="qe-mini" data-act="up" data-qi="' + qi + '" title="Move up">&uarr;</button>' +
+          '<button class="qe-mini" data-act="down" data-qi="' + qi + '" title="Move down">&darr;</button>' +
+          '<span class="qe-q-sub">' + (Math.round(qtot * 10) / 10) + ' marks</span>' +
+          '<button class="qe-x" data-act="rmq" data-qi="' + qi + '" title="Remove question">&times;</button></div>' +
+        '<textarea class="qe-prompt" data-qi="' + qi + '" data-f="prompt" placeholder="Question text (leave answer points empty for a 0-mark case stem)">' + escapeHtml(q.prompt) + '</textarea>' +
+        '<div class="qe-points">' + pts + '<button class="qe-mini" data-act="addpt" data-qi="' + qi + '"><i class="fas fa-plus"></i> Add answer point</button></div>' +
+        '<div class="qe-imgs">' + imgs + '<button class="qe-mini" data-act="addimg" data-qi="' + qi + '"><i class="fas fa-link"></i> Add image URL</button> ' +
+          '<label class="qe-mini"><i class="fas fa-upload"></i> Upload image<input type="file" accept="image/*" data-act="upload" data-qi="' + qi + '" style="display:none"></label></div></div>';
+    });
+    list.innerHTML = html;
+    $("qe-foot").classList.remove("is-hidden");
+    qeBind(); qeRecompute();
+  }
+  function qeBind() {
+    var list = $("qe-list");
+    list.querySelectorAll("[data-f]").forEach(function (el) {
+      el.addEventListener("input", function () {
+        var qi = +el.getAttribute("data-qi"), f = el.getAttribute("data-f"), q = qe.questions[qi];
+        if (f === "prompt") q.prompt = el.value;
+        else if (f === "ptext") q.points[+el.getAttribute("data-pi")].text = el.value;
+        else if (f === "pmark") { q.points[+el.getAttribute("data-pi")].marks = el.value === "" ? 0 : parseFloat(el.value); qeRecompute(); el.closest(".qe-q").querySelector(".qe-q-sub").textContent = (Math.round(q.points.reduce(function (s, p) { return s + (Number(p.marks) || 0); }, 0) * 10) / 10) + " marks"; }
+        else if (f === "img") q.images[+el.getAttribute("data-ii")] = el.value;
+      });
+    });
+    list.querySelectorAll("[data-act]").forEach(function (el) {
+      var act = el.getAttribute("data-act");
+      if (act === "upload") { el.addEventListener("change", function () { qeUpload(+el.getAttribute("data-qi"), el); }); return; }
+      el.addEventListener("click", function (e) {
+        e.preventDefault();
+        var qi = +el.getAttribute("data-qi"), a = qe.questions;
+        if (act === "rmq") a.splice(qi, 1);
+        else if (act === "addpt") a[qi].points.push({ text: "", marks: 1 });
+        else if (act === "rmpt") a[qi].points.splice(+el.getAttribute("data-pi"), 1);
+        else if (act === "addimg") a[qi].images.push("");
+        else if (act === "rmimg") a[qi].images.splice(+el.getAttribute("data-ii"), 1);
+        else if (act === "up" && qi > 0) { var t = a[qi - 1]; a[qi - 1] = a[qi]; a[qi] = t; }
+        else if (act === "down" && qi < a.length - 1) { var u = a[qi + 1]; a[qi + 1] = a[qi]; a[qi] = u; }
+        else return;
+        qeRender();
+      });
+    });
+  }
+  function qeRecompute() {
+    var total = 0;
+    qe.questions.forEach(function (q) { q.points.forEach(function (p) { total += Number(p.marks) || 0; }); });
+    total = Math.round(total * 10) / 10;
+    var el = $("qe-total"); if (el) el.textContent = total;
+    var wrap = $("qe-total-wrap"); var ok = total === Number(qe.scoreMax || 100);
+    if (wrap) { wrap.classList.toggle("good", ok); wrap.classList.toggle("bad", !ok); }
+    var save = $("qe-save"); if (save) save.disabled = !ok;
+  }
+  function qeAddQuestion() {
+    qe.questions.push({ questionId: "Q" + Date.now(), prompt: "", points: [{ text: "", marks: 1 }], images: [] });
+    qeRender();
+  }
+  async function qeUpload(qi, input) {
+    var file = input.files && input.files[0]; if (!file) return;
+    if (file.size > 4 * 1024 * 1024) { setMsg("qe-msg", "Image too large (max 4 MB).", "warn"); input.value = ""; return; }
+    setMsg("qe-msg", "Uploading " + file.name + "…", "info");
+    try {
+      var b64 = await new Promise(function (res, rej) { var fr = new FileReader(); fr.onload = function () { res(String(fr.result).split(",")[1]); }; fr.onerror = rej; fr.readAsDataURL(file); });
+      var r = await api("uploadImage", { filename: file.name, contentType: file.type || "image/jpeg", dataBase64: b64 });
+      input.value = "";
+      if (!r.ok) { setMsg("qe-msg", r.error || "Upload failed.", "warn"); return; }
+      qe.questions[qi].images.push(r.url);
+      setMsg("qe-msg", "Image uploaded.", "ok"); qeRender();
+    } catch (e) { setMsg("qe-msg", "Upload failed.", "warn"); }
+  }
+  async function qeSave(btn) {
+    var total = 0; qe.questions.forEach(function (q) { q.points.forEach(function (p) { total += Number(p.marks) || 0; }); });
+    if (Math.round(total * 10) / 10 !== Number(qe.scoreMax || 100)) { setMsg("qe-msg", "Total must equal " + (qe.scoreMax || 100) + " before saving (now " + (Math.round(total * 10) / 10) + ").", "warn"); return; }
+    var payload = qe.questions.map(function (q) {
+      return { questionId: q.questionId, prompt: q.prompt, modelAnswers: q.points.map(qeJoin).filter(function (s) { return s.trim(); }), images: q.images.filter(function (s) { return s && s.trim(); }) };
+    });
+    busy(btn, true);
+    var r = await api("saveQuestions", { station: qe.station, questions: payload });
+    busy(btn, false, '<i class="fas fa-floppy-disk"></i> Save station');
+    if (!r.ok) { setMsg("qe-msg", r.error || "Could not save.", "warn"); return; }
+    setMsg("qe-msg", "Saved " + r.station + " — " + r.count + " questions, total " + r.total + ".", "ok");
+  }
+
   /* ------------------------------- wiring ------------------------------- */
   var sc = $("admin-save-config"); if (sc) sc.addEventListener("click", function () { saveConfig(this); });
   var rf = $("admin-refresh");     if (rf) rf.addEventListener("click", function () { refreshResults(this); });
   var ex = $("admin-export-xlsx"); if (ex) ex.addEventListener("click", exportXlsx);
+  qeInit();
+  var ql = $("qe-load"); if (ql) ql.addEventListener("click", function () { qeLoad(this); });
+  var qa = $("qe-addq"); if (qa) qa.addEventListener("click", qeAddQuestion);
+  var qs = $("qe-save"); if (qs) qs.addEventListener("click", function () { qeSave(this); });
 
   return { enterAdmin: enterAdmin, refreshResults: refreshResults };
 };

@@ -345,6 +345,90 @@ async function getResults(req: Request, body: any) {
   };
 }
 
+/* --------------------------- question editor ---------------------------- */
+// Sum of the "(N mark[s])" suffixes on the answer points — authoritative max.
+function sumPointMarks(modelAnswers: any[]): number {
+  let sum = 0;
+  for (const m of modelAnswers) {
+    const mm = String(m).match(/\((\d+(?:\.\d+)?)\s*marks?\)\s*$/);
+    if (mm) sum += parseFloat(mm[1]);
+  }
+  return Math.round(sum * 10) / 10;
+}
+
+// Admin: load a station's questions for editing.
+async function getQuestions(req: Request, body: any) {
+  if (!(await isAdmin(req, body))) return { ok: false, error: "Admin authorization required." };
+  const station = norm(body.station);
+  if (STATIONS.indexOf(station) === -1) return { ok: false, error: "Unknown station." };
+  const setup = await readSetup();
+  return { ok: true, station, scoreMax: setup.scoreMax, questions: await readQuestions(station) };
+}
+
+// Admin: replace a station's questions. Rejects unless the scored total == score_max.
+async function saveQuestions(req: Request, body: any) {
+  if (!(await isAdmin(req, body))) return { ok: false, error: "Admin authorization required." };
+  const station = norm(body.station);
+  if (STATIONS.indexOf(station) === -1) return { ok: false, error: "Unknown station." };
+  const setup = await readSetup();
+  const incoming = Array.isArray(body.questions) ? body.questions : [];
+
+  const rows: any[] = [];
+  const seen: Record<string, boolean> = {};
+  let total = 0;
+  for (let i = 0; i < incoming.length; i++) {
+    const q = incoming[i] || {};
+    const qid = norm(q.questionId) || ("Q" + i);
+    if (seen[qid]) return { ok: false, error: "Duplicate question id: " + qid };
+    seen[qid] = true;
+    const prompt = String(q.prompt ?? "").trim();
+    const modelAnswers = Array.isArray(q.modelAnswers) ? q.modelAnswers.map((x: any) => String(x)) : [];
+    const images = Array.isArray(q.images) ? q.images.map((x: any) => String(x)).filter((s: string) => s) : [];
+    if (!prompt && !modelAnswers.length && !images.length) continue; // skip blank rows
+    const maxMarks = sumPointMarks(modelAnswers);
+    rows.push({ station, question_id: qid, ord: i, prompt, max_marks: maxMarks, model_answers: modelAnswers, images });
+    total += maxMarks;
+  }
+
+  total = Math.round(total * 10) / 10;
+  if (total !== Number(setup.scoreMax)) {
+    return { ok: false, error: "Station total is " + total + " — it must equal " + setup.scoreMax + " before saving." };
+  }
+
+  const del = await db.from("exam_questions").delete().eq("station", station);
+  if (del.error) return { ok: false, error: "Could not clear old questions." };
+  if (rows.length) {
+    const ins = await db.from("exam_questions").insert(rows);
+    if (ins.error) return { ok: false, error: "Could not save questions: " + ins.error.message };
+  }
+  return { ok: true, station, total, count: rows.length };
+}
+
+// Admin: upload an image to the public exam-images bucket, return its URL.
+async function uploadImage(req: Request, body: any) {
+  if (!(await isAdmin(req, body))) return { ok: false, error: "Admin authorization required." };
+  const safe = norm(body.filename).replace(/[^a-zA-Z0-9._-]/g, "_") || "image.jpg";
+  const dataB64 = String(body.dataBase64 ?? "");
+  const contentType = norm(body.contentType) || "image/jpeg";
+  if (!dataB64) return { ok: false, error: "No image data." };
+  let bytes: Uint8Array;
+  try {
+    const bin = atob(dataB64);
+    bytes = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  } catch {
+    return { ok: false, error: "Invalid image data." };
+  }
+  const bucket = "exam-images";
+  try { await db.storage.createBucket(bucket, { public: true }); } catch (_) { /* exists */ }
+  try { await db.storage.updateBucket(bucket, { public: true }); } catch (_) { /* ok */ }
+  const path = Date.now() + "-" + safe;
+  const up = await db.storage.from(bucket).upload(path, bytes, { contentType, upsert: true });
+  if (up.error) return { ok: false, error: "Upload failed: " + up.error.message };
+  const url = Deno.env.get("SUPABASE_URL")! + "/storage/v1/object/public/" + bucket + "/" + path;
+  return { ok: true, url };
+}
+
 /* ------------------------------- router --------------------------------- */
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: CORS });
@@ -364,6 +448,9 @@ Deno.serve(async (req) => {
       case "whoami":       return json(await whoami(req));               // owner Google JWT
       case "saveConfig":   return json(await saveConfig(req, body));     // owner JWT or passcode
       case "getResults":   return json(await getResults(req, body));     // owner JWT or passcode
+      case "getQuestions": return json(await getQuestions(req, body));   // owner JWT or passcode
+      case "saveQuestions":return json(await saveQuestions(req, body));  // owner JWT or passcode
+      case "uploadImage":  return json(await uploadImage(req, body));    // owner JWT or passcode
       default:             return json({ ok: false, error: "Unknown action." });
     }
   } catch (err) {
