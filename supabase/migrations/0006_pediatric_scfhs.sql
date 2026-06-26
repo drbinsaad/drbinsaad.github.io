@@ -7,7 +7,7 @@
 -- not attached here (see options discussed with the user). Re-runnable.
 delete from public.exam_questions where station = 'Pediatric';
 insert into public.exam_questions (station, question_id, ord, prompt, max_marks, model_answers, images) values
-  ('Pediatric', 'Q0', 0, 'Case (read to the candidate): A 3-month-old infant presenting with a neck mass.', 0, '[]'::jsonb, '["/images/exam/peds-neck-mass.jpg"]'::jsonb),
+  ('Pediatric', 'Q0', 0, 'Case (read to the candidate): A 3-month-old infant presenting with a neck mass.', 0, '[]'::jsonb, '["/images/exam/peds-neck-mass.jpg", "/images/exam/peds-neck-mass-video.mp4"]'::jsonb),
 
   ('Pediatric', 'P1', 1, '[History] What would you ask in the history?', 15,
     '["Present at birth vs appeared later; rate of growth (3 marks)", "Change in size with crying or straining (2 marks)", "Skin colour change / overlying skin changes (2 marks)", "Airway, feeding or breathing symptoms (3 marks)", "Preceding infection or rapid enlargement (2 marks)", "Transillumination noticed; family history (3 marks)"]'::jsonb, '[]'::jsonb),

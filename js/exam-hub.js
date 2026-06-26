@@ -191,7 +191,15 @@ function renderQuestionForm(rid) {
   exam.questions.forEach(function (q) {
     let imgs = "";
     (q.images || []).forEach(function (src) {
-      imgs += '<img class="q-thumb" src="' + escapeHtml(src) + '" alt="Image" data-full="' + escapeHtml(src) + '">';
+      const esc = escapeHtml(src);
+      if (/\.(mp4|webm|mov|m4v)(\?|#|$)/i.test(src)) {
+        imgs += '<button type="button" class="q-thumb q-thumb-video" data-full="' + esc + '" data-video="1" aria-label="Play video">' +
+                  '<video src="' + esc + '#t=0.1" muted preload="metadata" playsinline></video>' +
+                  '<span class="q-play" aria-hidden="true">&#9654;</span>' +
+                '</button>';
+      } else {
+        imgs += '<img class="q-thumb" src="' + esc + '" alt="Image" data-full="' + esc + '">';
+      }
     });
 
     // Stem / case-presentation card (0 marks): read-only, no score input, not counted.
@@ -238,7 +246,9 @@ function renderQuestionForm(rid) {
     i.addEventListener("input", recomputeTotal);
   });
   body.querySelectorAll('.q-thumb').forEach(function (im) {
-    im.addEventListener("click", function () { openImage(im.getAttribute("data-full")); });
+    im.addEventListener("click", function () {
+      openMedia(im.getAttribute("data-full"), im.getAttribute("data-video") === "1");
+    });
   });
   $("q-save").addEventListener("click", function () { saveQuestionGrade(rid, this); });
   recomputeTotal();
@@ -312,14 +322,27 @@ async function saveSimpleGrade(rid, btn) {
   setMsg("examiner-msg", "Saved " + residentName(rid) + " — " + score + "/" + max + " at " + timeNow() + ".", "ok");
 }
 
-/* ---- Fullscreen image viewer ---- */
-function openImage(src) {
-  $("img-overlay-img").src = src;
+/* ---- Fullscreen media viewer (images and video) ---- */
+function openMedia(src, isVideo) {
+  const img = $("img-overlay-img");
+  const vid = $("img-overlay-video");
+  if (isVideo && vid) {
+    img.classList.add("is-hidden"); img.src = "";
+    vid.src = src; vid.classList.remove("is-hidden");
+    try { vid.currentTime = 0; } catch (e) {}
+    vid.play().catch(function () {});
+  } else {
+    if (vid) { vid.pause(); vid.removeAttribute("src"); vid.load(); vid.classList.add("is-hidden"); }
+    img.src = src; img.classList.remove("is-hidden");
+  }
   $("img-overlay").classList.remove("is-hidden");
 }
+function openImage(src) { openMedia(src, false); } // back-compat
 function closeImage() {
   $("img-overlay").classList.add("is-hidden");
   $("img-overlay-img").src = "";
+  const vid = $("img-overlay-video");
+  if (vid) { vid.pause(); vid.removeAttribute("src"); vid.load(); vid.classList.add("is-hidden"); }
 }
 
 /* ============================== ADMIN VIEW ============================== */
@@ -359,8 +382,11 @@ document.addEventListener("DOMContentLoaded", function () {
   $("examiner-logout").addEventListener("click", logout);
   $("admin-logout").addEventListener("click", logout);
 
-  // Fullscreen image viewer: click overlay (or close button, or Esc) to dismiss.
-  $("img-overlay").addEventListener("click", closeImage);
+  // Fullscreen media viewer: click backdrop/image (or close button, or Esc) to
+  // dismiss; clicks on the video (its controls) must not close it.
+  $("img-overlay").addEventListener("click", function (e) {
+    if (e.target === this || e.target.id === "img-overlay-img") closeImage();
+  });
   $("img-overlay-close").addEventListener("click", closeImage);
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeImage(); });
 
