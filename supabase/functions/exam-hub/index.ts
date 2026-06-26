@@ -99,7 +99,22 @@ async function readGrades() {
     residentId: g.resident_id,
     score: Number(g.score),
     notes: String(g.notes ?? ""),
+    details: g.details && typeof g.details === "object" ? g.details : {},
   }));
+}
+// Ordered question set for a station (empty array => station uses simple scoring).
+async function readQuestions(station: string) {
+  const { data } = await db.from("exam_questions").select("*").eq("station", station);
+  return (data ?? [])
+    .map((q: any) => ({
+      questionId: q.question_id,
+      ord: Number(q.ord ?? 0),
+      prompt: String(q.prompt ?? ""),
+      maxMarks: Number(q.max_marks ?? 0),
+      modelAnswers: Array.isArray(q.model_answers) ? q.model_answers : [],
+      images: Array.isArray(q.images) ? q.images : [],
+    }))
+    .sort((a, b) => a.ord - b.ord);
 }
 async function stationForCode(code: string): Promise<string | null> {
   code = norm(code);
@@ -133,7 +148,9 @@ async function validateCode(body: any) {
   if (station) {
     const myGrades = (await readGrades())
       .filter((g) => g.station === station)
-      .map((g) => ({ residentId: g.residentId, score: g.score, notes: g.notes }));
+      .map((g) => ({ residentId: g.residentId, score: g.score, notes: g.notes, details: g.details }));
+    const questions = await readQuestions(station);
+    const stationMax = questions.reduce((s, q) => s + q.maxMarks, 0);
     return {
       ok: true,
       role: "examiner",
@@ -142,6 +159,8 @@ async function validateCode(body: any) {
         examTitle: setup.examTitle,
         scoreMax: setup.scoreMax,
         residents: await readResidents(),
+        questions,                                   // [] => simple scoring
+        stationMax: questions.length ? stationMax : setup.scoreMax,
         myGrades,
       },
     };
@@ -157,12 +176,35 @@ async function submitGrade(body: any) {
   const residentId = norm(body.residentId);
   if (RESIDENT_IDS.indexOf(residentId) === -1) return { ok: false, error: "Unknown resident." };
 
-  const setup = await readSetup();
-  const score = Number(body.score);
-  if (isNaN(score) || score < 0 || score > setup.scoreMax) {
-    return { ok: false, error: "Score must be between 0 and " + setup.scoreMax + "." };
-  }
   const notes = String(body.notes ?? "");
+  let score: number;
+  let details: Record<string, number> = {};
+
+  if (body.details && typeof body.details === "object") {
+    // Question mode: validate each per-question score against its max, then sum.
+    const questions = await readQuestions(station);
+    if (!questions.length) return { ok: false, error: "This station has no questions configured." };
+    const byId: Record<string, number> = {};
+    questions.forEach((q) => (byId[q.questionId] = q.maxMarks));
+    let total = 0;
+    for (const qid of Object.keys(body.details)) {
+      if (!(qid in byId)) continue; // ignore unknown question ids
+      const v = Number(body.details[qid]);
+      if (isNaN(v) || v < 0 || v > byId[qid]) {
+        return { ok: false, error: "Score for " + qid + " must be between 0 and " + byId[qid] + "." };
+      }
+      details[qid] = v;
+      total += v;
+    }
+    score = total;
+  } else {
+    // Simple mode: single score against the global max.
+    const setup = await readSetup();
+    score = Number(body.score);
+    if (isNaN(score) || score < 0 || score > setup.scoreMax) {
+      return { ok: false, error: "Score must be between 0 and " + setup.scoreMax + "." };
+    }
+  }
 
   const { error } = await db.from("exam_grades").upsert(
     {
@@ -170,13 +212,14 @@ async function submitGrade(body: any) {
       resident_id: residentId,
       score,
       notes,
+      details,
       updated_at: new Date().toISOString(),
       examiner: station,
     },
     { onConflict: "station,resident_id" },
   );
   if (error) return { ok: false, error: "Could not save. Try again." };
-  return { ok: true, saved: { residentId, score, notes } };
+  return { ok: true, saved: { residentId, score, notes, details } };
 }
 
 // Owner-page bootstrap: confirms the caller is the owner and returns admin config.
@@ -261,7 +304,7 @@ async function getResults(req: Request, body: any) {
   const stations = examiners.length ? examiners.map((e) => e.station) : STATIONS.slice();
   const grades = await readGrades();
 
-  const grid: Record<string, Record<string, { score: number; notes: string }>> = {};
+  const grid: Record<string, Record<string, { score: number; notes: string; details?: any }>> = {};
   const perResident: Record<string, { total: number | null; average: number | null; count: number }> = {};
   const stationAgg: Record<string, { sum: number; count: number }> = {};
   residents.forEach((r) => (grid[r.residentId] = {}));
@@ -269,7 +312,7 @@ async function getResults(req: Request, body: any) {
 
   grades.forEach((g) => {
     if (!grid[g.residentId]) grid[g.residentId] = {};
-    grid[g.residentId][g.station] = { score: g.score, notes: g.notes };
+    grid[g.residentId][g.station] = { score: g.score, notes: g.notes, details: g.details };
     if (stationAgg[g.station]) {
       stationAgg[g.station].sum += g.score;
       stationAgg[g.station].count++;

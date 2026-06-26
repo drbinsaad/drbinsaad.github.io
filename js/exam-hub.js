@@ -120,102 +120,192 @@ function logout() {
 }
 
 /* ============================ EXAMINER VIEW ============================== */
+/* State for the examiner session. `questions` is [] for simple stations. */
+let exam = { station: "", residents: [], questions: [], stationMax: 100, grades: {}, current: null };
+
 function enterExaminer(station, config) {
   config = config || {};
+  exam.station = station || "Station";
+  exam.residents = config.residents || [];
+  exam.questions = config.questions || [];
+  exam.stationMax = config.stationMax || config.scoreMax || 100;
+  exam.current = null;
+  exam.grades = {};
+  (config.myGrades || []).forEach(function (g) { exam.grades[g.residentId] = g; });
+  cfgCache.scoreMax = exam.stationMax;
+
   $("examiner-exam-title").textContent = config.examTitle || "ENT Exam";
   $("examiner-station").textContent = station || "Station";
-  const max = config.scoreMax || 100;
-  cfgCache.scoreMax = max;
+  $("examiner-intro").textContent = exam.questions.length
+    ? "Pick a resident, then score each question — the total adds up automatically."
+    : "Pick a resident, then enter their score and save.";
 
-  const residents = config.residents || [];
-  const myGrades = {};
-  (config.myGrades || []).forEach(function (g) { myGrades[g.residentId] = g; });
-
-  const wrap = $("examiner-residents");
-  wrap.innerHTML = "";
-  if (!residents.length) {
-    wrap.innerHTML = '<div class="resident-card"><p style="color:#9a9389;">No residents have been added yet. Ask the administrator to set up the exam.</p></div>';
-  }
-  residents.forEach(function (res) {
-    const g = myGrades[res.residentId] || {};
-    const card = document.createElement("div");
-    card.className = "resident-card";
-    card.innerHTML =
-      '<div class="r-name">' + escapeHtml(res.name || res.residentId) +
-        '<span class="r-tag">' + res.residentId + '</span></div>' +
-      '<div class="score-field">' +
-        '<input type="number" min="0" max="' + max + '" step="1" inputmode="numeric" ' +
-          'data-rid="' + res.residentId + '" value="' + (g.score != null ? g.score : "") + '" placeholder="0">' +
-        '<span class="max">/ ' + max + '</span>' +
-      '</div>' +
-      '<textarea data-notes="' + res.residentId + '" placeholder="Notes (optional)">' + escapeHtml(g.notes || "") + '</textarea>' +
-      '<button class="action-btn primary-btn" data-save="' + res.residentId + '">' +
-        '<i class="fas fa-floppy-disk"></i> Save</button>';
-    wrap.appendChild(card);
-  });
-
-  // wire per-card save buttons
-  wrap.querySelectorAll("[data-save]").forEach(function (b) {
-    b.addEventListener("click", function () { saveOne(b.getAttribute("data-save"), b); });
-  });
-
+  renderResidentBar();
+  $("examiner-body").innerHTML = '<p class="resident-hint">Select a resident above to begin.</p>';
   setMsg("examiner-msg", "", "info");
   show("view-examiner");
 }
 
-function readGrade(rid) {
-  const input = document.querySelector('#examiner-residents input[data-rid="' + rid + '"]');
-  const notes = document.querySelector('#examiner-residents textarea[data-notes="' + rid + '"]');
-  return { score: input ? input.value : "", notes: notes ? notes.value : "", input: input };
+function renderResidentBar() {
+  const bar = $("examiner-resident-bar");
+  bar.innerHTML = "";
+  if (!exam.residents.length) {
+    bar.innerHTML = '<p class="resident-hint">No residents added yet. Ask the administrator to set up the exam.</p>';
+    return;
+  }
+  exam.residents.forEach(function (res) {
+    const g = exam.grades[res.residentId];
+    const btn = document.createElement("button");
+    btn.className = "resident-pill" + (exam.current === res.residentId ? " active" : "");
+    btn.setAttribute("data-rid", res.residentId);
+    btn.innerHTML = escapeHtml(res.name || res.residentId) +
+      (g && g.score != null ? '<span class="badge">' + g.score + "/" + exam.stationMax + "</span>" : "");
+    btn.addEventListener("click", function () { selectResident(res.residentId); });
+    bar.appendChild(btn);
+  });
 }
 
-async function saveOne(rid, btn) {
-  const g = readGrade(rid);
-  if (g.score === "" || g.score === null) { setMsg("examiner-msg", "Enter a score before saving.", "warn"); return; }
-  const score = Number(g.score);
-  const max = cfgCache.scoreMax || 100;
-  if (isNaN(score) || score < 0 || score > max) {
-    setMsg("examiner-msg", "Score must be a number between 0 and " + max + ".", "warn");
-    if (g.input) g.input.focus();
-    return;
-  }
-  busy(btn, true);
-  const r = await api("submitGrade", { code: session.code, residentId: rid, score: score, notes: g.notes });
-  if (!r.ok) {
-    busy(btn, false, '<i class="fas fa-floppy-disk"></i> Save');
-    setMsg("examiner-msg", r.error || "Could not save.", "warn");
-    return;
-  }
-  btn.dataset.idle = '<i class="fas fa-check"></i> Saved ' + timeNow();
-  busy(btn, false);
-  btn.classList.add("is-saved");
+function selectResident(rid) {
+  exam.current = rid;
+  renderResidentBar();
   setMsg("examiner-msg", "", "info");
+  if (exam.questions.length) renderQuestionForm(rid);
+  else renderSimpleForm(rid);
 }
 
-async function saveAll(btn) {
+function residentName(rid) {
+  const r = exam.residents.filter(function (x) { return x.residentId === rid; })[0];
+  return r ? (r.name || rid) : rid;
+}
+
+/* ---- Question mode ---- */
+function renderQuestionForm(rid) {
+  const saved = exam.grades[rid] || {};
+  const details = saved.details || {};
+  const body = $("examiner-body");
+
+  let html = '<div class="q-total"><span class="label">' + escapeHtml(residentName(rid)) +
+    '</span><span class="value"><span id="q-running">0</span> / ' + exam.stationMax + '</span></div>';
+
+  exam.questions.forEach(function (q, idx) {
+    const val = details[q.questionId];
+    let imgs = "";
+    (q.images || []).forEach(function (src) {
+      imgs += '<img class="q-thumb" src="' + escapeHtml(src) + '" alt="Question image" data-full="' + escapeHtml(src) + '">';
+    });
+    let guide = "";
+    (q.modelAnswers || []).forEach(function (m) { guide += "<li>" + escapeHtml(m) + "</li>"; });
+
+    html +=
+      '<div class="q-card">' +
+        '<div class="q-head">' +
+          '<div class="q-prompt"><span class="q-num">Q' + (idx + 1) + '</span>' + escapeHtml(q.prompt) + '</div>' +
+          '<div class="q-score">' +
+            '<input type="number" min="0" max="' + q.maxMarks + '" step="1" inputmode="numeric" ' +
+              'data-qid="' + escapeHtml(q.questionId) + '" data-max="' + q.maxMarks + '" ' +
+              'value="' + (val != null ? val : "") + '" placeholder="0">' +
+            '<span class="max">/ ' + q.maxMarks + '</span>' +
+          '</div>' +
+        '</div>' +
+        (imgs ? '<div class="q-images">' + imgs + "</div>" : "") +
+        (guide ? '<details class="q-guide"><summary>Marking guide</summary><ul>' + guide + "</ul></details>" : "") +
+      "</div>";
+  });
+
+  html +=
+    '<div class="q-notes"><textarea id="q-notes" placeholder="Overall notes for this resident (optional)">' +
+      escapeHtml(saved.notes || "") + "</textarea></div>" +
+    '<div class="action-row"><button class="action-btn primary-btn" id="q-save"><i class="fas fa-floppy-disk"></i> Save ' +
+      escapeHtml(residentName(rid)) + "</button></div>";
+
+  body.innerHTML = html;
+
+  body.querySelectorAll('.q-score input').forEach(function (i) {
+    i.addEventListener("input", recomputeTotal);
+  });
+  body.querySelectorAll('.q-thumb').forEach(function (im) {
+    im.addEventListener("click", function () { openImage(im.getAttribute("data-full")); });
+  });
+  $("q-save").addEventListener("click", function () { saveQuestionGrade(rid, this); });
+  recomputeTotal();
+}
+
+function recomputeTotal() {
+  let total = 0;
+  document.querySelectorAll('#examiner-body .q-score input').forEach(function (i) {
+    const v = Number(i.value);
+    const max = Number(i.getAttribute("data-max"));
+    if (!isNaN(v) && v >= 0 && v <= max) total += v;
+  });
+  const el = $("q-running");
+  if (el) el.textContent = total;
+}
+
+async function saveQuestionGrade(rid, btn) {
+  const details = {};
+  let bad = null;
+  document.querySelectorAll('#examiner-body .q-score input').forEach(function (i) {
+    const qid = i.getAttribute("data-qid");
+    const max = Number(i.getAttribute("data-max"));
+    if (i.value === "") return; // unscored question = leave out (counts as 0)
+    const v = Number(i.value);
+    if (isNaN(v) || v < 0 || v > max) { bad = qid + " (0–" + max + ")"; return; }
+    details[qid] = v;
+  });
+  if (bad) { setMsg("examiner-msg", "Check the score for " + bad + ".", "warn"); return; }
+
+  const notes = ($("q-notes") && $("q-notes").value) || "";
   busy(btn, true);
-  const buttons = Array.prototype.slice.call(document.querySelectorAll("#examiner-residents [data-save]"));
-  let saved = 0, skipped = 0, failed = 0;
-  const max = cfgCache.scoreMax || 100;
-  for (let i = 0; i < buttons.length; i++) {
-    const rid = buttons[i].getAttribute("data-save");
-    const g = readGrade(rid);
-    if (g.score === "" || g.score === null) { skipped++; continue; }
-    const score = Number(g.score);
-    if (isNaN(score) || score < 0 || score > max) { failed++; continue; }
-    const r = await api("submitGrade", { code: session.code, residentId: rid, score: score, notes: g.notes });
-    if (r.ok) {
-      saved++;
-      buttons[i].dataset.idle = '<i class="fas fa-check"></i> Saved ' + timeNow();
-      buttons[i].innerHTML = buttons[i].dataset.idle;
-      buttons[i].classList.add("is-saved");
-    } else { failed++; }
-  }
-  busy(btn, false, '<i class="fas fa-floppy-disk"></i> Save all');
-  let parts = [saved + " saved"];
-  if (skipped) parts.push(skipped + " left blank");
-  if (failed) parts.push(failed + " failed");
-  setMsg("examiner-msg", parts.join(" · "), failed ? "warn" : "ok");
+  const r = await api("submitGrade", { code: session.code, residentId: rid, details: details, notes: notes });
+  busy(btn, false, '<i class="fas fa-floppy-disk"></i> Save ' + residentName(rid));
+  if (!r.ok) { setMsg("examiner-msg", r.error || "Could not save.", "warn"); return; }
+
+  exam.grades[rid] = { residentId: rid, score: r.saved.score, notes: notes, details: r.saved.details };
+  renderResidentBar();
+  setMsg("examiner-msg", "Saved " + residentName(rid) + " — total " + r.saved.score + "/" + exam.stationMax + " at " + timeNow() + ".", "ok");
+}
+
+/* ---- Simple mode (stations with no questions) ---- */
+function renderSimpleForm(rid) {
+  const saved = exam.grades[rid] || {};
+  const max = exam.stationMax;
+  $("examiner-body").innerHTML =
+    '<div class="q-card"><div class="q-head">' +
+      '<div class="q-prompt">' + escapeHtml(residentName(rid)) + '</div>' +
+      '<div class="q-score">' +
+        '<input type="number" min="0" max="' + max + '" step="1" inputmode="numeric" id="simple-score" ' +
+          'value="' + (saved.score != null ? saved.score : "") + '" placeholder="0"><span class="max">/ ' + max + '</span>' +
+      '</div></div>' +
+      '<div class="q-notes"><textarea id="q-notes" placeholder="Notes (optional)">' + escapeHtml(saved.notes || "") + '</textarea></div>' +
+    '</div>' +
+    '<div class="action-row"><button class="action-btn primary-btn" id="q-save"><i class="fas fa-floppy-disk"></i> Save ' + escapeHtml(residentName(rid)) + '</button></div>';
+  $("q-save").addEventListener("click", function () { saveSimpleGrade(rid, this); });
+}
+
+async function saveSimpleGrade(rid, btn) {
+  const input = $("simple-score");
+  if (!input || input.value === "") { setMsg("examiner-msg", "Enter a score before saving.", "warn"); return; }
+  const score = Number(input.value);
+  const max = exam.stationMax;
+  if (isNaN(score) || score < 0 || score > max) { setMsg("examiner-msg", "Score must be between 0 and " + max + ".", "warn"); return; }
+  const notes = ($("q-notes") && $("q-notes").value) || "";
+  busy(btn, true);
+  const r = await api("submitGrade", { code: session.code, residentId: rid, score: score, notes: notes });
+  busy(btn, false, '<i class="fas fa-floppy-disk"></i> Save ' + residentName(rid));
+  if (!r.ok) { setMsg("examiner-msg", r.error || "Could not save.", "warn"); return; }
+  exam.grades[rid] = { residentId: rid, score: score, notes: notes };
+  renderResidentBar();
+  setMsg("examiner-msg", "Saved " + residentName(rid) + " — " + score + "/" + max + " at " + timeNow() + ".", "ok");
+}
+
+/* ---- Fullscreen image viewer ---- */
+function openImage(src) {
+  $("img-overlay-img").src = src;
+  $("img-overlay").classList.remove("is-hidden");
+}
+function closeImage() {
+  $("img-overlay").classList.add("is-hidden");
+  $("img-overlay-img").src = "";
 }
 
 /* ============================== ADMIN VIEW ============================== */
@@ -254,7 +344,11 @@ document.addEventListener("DOMContentLoaded", function () {
   $("login-code").addEventListener("keydown", function (e) { if (e.key === "Enter") doLogin(); });
   $("examiner-logout").addEventListener("click", logout);
   $("admin-logout").addEventListener("click", logout);
-  $("examiner-save-all").addEventListener("click", function () { saveAll(this); });
+
+  // Fullscreen image viewer: click overlay (or close button, or Esc) to dismiss.
+  $("img-overlay").addEventListener("click", closeImage);
+  $("img-overlay-close").addEventListener("click", closeImage);
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeImage(); });
 
   // Restore a session on refresh (re-validate against the server for fresh config)
   const saved = sessionStorage.getItem("examHubSession");
