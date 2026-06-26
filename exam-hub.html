@@ -167,6 +167,50 @@
         .spinner{display:inline-block;width:15px;height:15px;border:2px solid rgba(244,241,234,0.4);border-top-color:#f4f1ea;border-radius:50%;animation:spin .7s linear infinite;}
         @keyframes spin{to{transform:rotate(360deg);}}
 
+        /* --- Resident selector --- */
+        .resident-bar{display:flex;flex-wrap:wrap;gap:10px;margin:24px 0 8px;}
+        .resident-pill{display:inline-flex;align-items:center;gap:10px;cursor:pointer;font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:15px;padding:11px 18px;border-radius:2px;background:#faf8f2;color:#46423b;border:1px solid #d9d3c7;transition:background .15s ease,color .15s ease,border-color .15s ease;}
+        .resident-pill:hover{color:#8a302a;border-color:#8a302a;}
+        .resident-pill.active{background:#1c1a17;color:#f4f1ea;border-color:#1c1a17;}
+        .resident-pill .badge{font-family:'IBM Plex Mono',monospace;font-size:11px;padding:2px 7px;border-radius:2px;background:#e7efe6;color:#3f6b43;}
+        .resident-pill.active .badge{background:#3a3833;color:#e9e4da;}
+        .resident-hint{color:#9a9389;font-size:14px;padding:30px 0;text-align:center;}
+
+        /* --- Question cards --- */
+        .q-total{position:sticky;top:64px;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:14px;background:#1c1a17;color:#f4f1ea;border-radius:2px;padding:14px 20px;margin:18px 0;}
+        .q-total .label{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#cdc6ba;}
+        .q-total .value{font-family:'Newsreader',serif;font-size:26px;}
+        .q-card{background:#faf8f2;border:1px solid #e4ded2;border-radius:2px;padding:22px 22px 18px;margin-bottom:16px;}
+        .q-stem{background:#efeae0;border-left:3px solid #8a302a;}
+        .q-stem-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#8a302a;margin-bottom:10px;}
+        .q-stem-text{font-family:'Newsreader',serif;font-size:18px;line-height:1.5;color:#1c1a17;}
+        .q-head{display:flex;align-items:flex-start;gap:14px;justify-content:space-between;}
+        .q-prompt{font-family:'Newsreader',serif;font-weight:600;font-size:18px;color:#1c1a17;line-height:1.4;}
+        .q-prompt .q-num{font-family:'IBM Plex Mono',monospace;font-size:12px;color:#8a302a;margin-right:8px;letter-spacing:0.1em;}
+        .q-score{flex:none;display:flex;align-items:baseline;gap:7px;}
+        .q-score input{width:74px;font-family:'Newsreader',serif;font-weight:500;font-size:24px;text-align:center;padding:6px 8px;background:#fff;border:1px solid #d9d3c7;border-radius:2px;color:#1c1a17;}
+        .q-score input:focus{outline:none;border-color:#8a302a;}
+        .q-score .max{font-family:'IBM Plex Mono',monospace;font-size:13px;color:#9a9389;white-space:nowrap;}
+        .q-guide{margin-top:14px;border-top:1px solid #ece7dc;padding-top:12px;}
+        .q-guide summary{cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8a302a;list-style:none;}
+        .q-guide summary::-webkit-details-marker{display:none;}
+        .q-guide summary::before{content:"\\25B8 ";color:#b6afa2;}
+        .q-guide[open] summary::before{content:"\\25BE ";}
+        .q-guide ul{list-style:none;margin:12px 0 2px;padding:0;}
+        .q-guide li{font-size:14.5px;color:#5b564d;line-height:1.55;padding:5px 0 5px 18px;position:relative;border-bottom:1px solid #f0ebe1;}
+        .q-guide li:last-child{border-bottom:none;}
+        .q-guide li::before{content:"";position:absolute;left:2px;top:13px;width:5px;height:5px;border-radius:50%;background:#8a302a;}
+        .q-images{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;}
+        .q-thumb{width:96px;height:96px;object-fit:cover;border:1px solid #d9d3c7;border-radius:2px;cursor:zoom-in;background:#fff;}
+        .q-notes{margin-top:14px;}
+        .q-notes textarea{width:100%;font-family:'Source Sans 3',sans-serif;font-size:14px;padding:10px 12px;background:#fff;border:1px solid #d9d3c7;border-radius:2px;color:#1c1a17;resize:vertical;line-height:1.55;min-height:46px;}
+        .q-notes textarea:focus{outline:none;border-color:#8a302a;}
+
+        /* --- Fullscreen image viewer --- */
+        .img-overlay{position:fixed;inset:0;z-index:200;background:rgba(20,18,16,0.92);display:flex;align-items:center;justify-content:center;padding:24px;cursor:zoom-out;}
+        .img-overlay img{max-width:100%;max-height:100%;object-fit:contain;border-radius:2px;}
+        .img-overlay-close{position:fixed;top:18px;right:24px;font-size:34px;line-height:1;color:#f4f1ea;background:none;border:none;cursor:pointer;}
+
         @media (max-width:820px){
             .input-grid{grid-template-columns:1fr;}
             .tool-card{padding:24px;}
@@ -217,18 +261,23 @@
             <button class="text-link" id="examiner-logout" style="margin-bottom:22px;">&larr; Log out</button>
             <div class="eyebrow" id="examiner-exam-title">Exam</div>
             <h1 class="page-title" id="examiner-station" style="font-size:clamp(30px,4.6vw,46px);">Station</h1>
-            <p class="lede" id="examiner-intro" style="font-size:16px;">Enter a score for each resident, then save. You can revise a score and save again at any time.</p>
+            <p class="lede" id="examiner-intro" style="font-size:16px;">Pick a resident, then score each question. The total adds up automatically.</p>
 
-            <div class="sec" style="padding:24px 0 0;">
-                <div class="resident-grid" id="examiner-residents"></div>
-                <div class="action-row">
-                    <button class="action-btn primary-btn" id="examiner-save-all"><i class="fas fa-floppy-disk"></i> Save all</button>
-                    <span class="header-tag" style="align-self:center;">Scores save individually too.</span>
-                </div>
-                <div class="callout callout-info is-hidden" id="examiner-msg"></div>
-            </div>
+            <!-- Resident selector -->
+            <div class="resident-bar" id="examiner-resident-bar"></div>
+
+            <!-- Per-resident form (questions or a single score) -->
+            <div id="examiner-body"></div>
+
+            <div class="callout callout-info is-hidden" id="examiner-msg"></div>
         </div>
     </section>
+
+    <!-- Fullscreen image viewer -->
+    <div class="img-overlay is-hidden" id="img-overlay">
+        <button class="img-overlay-close" id="img-overlay-close" aria-label="Close">&times;</button>
+        <img id="img-overlay-img" src="" alt="">
+    </div>
 
     <!-- ============================ ADMIN VIEW ============================ -->
     <section class="sec is-hidden" id="view-admin" style="padding:56px 0 30px;">
@@ -315,6 +364,6 @@
     <!-- SheetJS for client-side Excel export (loaded like jsPDF in bronchoscopy-tool.html) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="js/exam-admin-ui.js?v=1"></script>
-    <script src="js/exam-hub.js?v=3"></script>
+    <script src="js/exam-hub.js?v=5"></script>
 </body>
 </html>
