@@ -15,8 +15,8 @@ insert into public.exam_questions (station, question_id, ord, prompt, max_marks,
   ('Pediatric', 'P2', 2, '[Examination & Investigations] What would you look for on examination, and which investigations would you order?', 15,
     '["Site, size, consistency, compressibility; transillumination (positive in lymphatic malformation) (4 marks)", "Overlying skin changes; airway assessment (2 marks)", "Ultrasound — first-line (3 marks)", "MRI to define extent and tissue planes (3 marks)", "CT in selected cases (3 marks)"]'::jsonb, '[]'::jsonb),
 
-  ('Pediatric', 'P3', 3, '[Investigations] Read the image — what is your diagnosis?', 15,
-    '["Multicystic / macro- or micro-cystic lesion (5 marks)", "Diagnosis: lymphatic malformation (cystic hygroma) (10 marks)"]'::jsonb, '["/images/exam/peds-imaging.jpg", "/images/exam/peds-image3.jpg"]'::jsonb),
+  ('Pediatric', 'P3', 3, '[Investigations] Read the two images — identify each study, differentiate them, and give your diagnosis.', 15,
+    '["Image 1 — a contrast esophagram (fluoroscopy) showing a thin contrast tract from the apex of the pyriform sinus = pyriform sinus fistula (fourth branchial cleft anomaly) (3 marks)", "Image 2 — a T2-weighted MRI showing a multilobulated, very T2-hyperintense, trans-spatial cystic mass (3 marks)", "Differentiator — a fistula is a tract/sinus on a contrast study; a lymphatic malformation is a cystic trans-spatial mass on MRI (2 marks)", "The lesion in this case is multicystic (macro- or micro-cystic) (2 marks)", "Diagnosis: lymphatic malformation (cystic hygroma) (5 marks)"]'::jsonb, '["/images/exam/peds-figures.jpg", "/images/exam/peds-image3.jpg"]'::jsonb),
 
   ('Pediatric', 'P4', 4, '[Investigations] On CT and MRI, what are the differences between a haemangioma and a lymphatic malformation?', 15,
     '["Haemangioma — solid, intensely enhancing, flow voids, T2 hyperintense lobulated solid mass (7 marks)", "Lymphatic malformation — cystic, non-enhancing (or rim/septal enhancement only), fluid-fluid levels, very T2 hyperintense, trans-spatial (8 marks)"]'::jsonb, '[]'::jsonb),
