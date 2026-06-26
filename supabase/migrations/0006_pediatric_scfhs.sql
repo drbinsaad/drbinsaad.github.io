@@ -16,7 +16,7 @@ insert into public.exam_questions (station, question_id, ord, prompt, max_marks,
     '["Site, size, consistency, compressibility; transillumination (positive in lymphatic malformation) (4 marks)", "Overlying skin changes; airway assessment (2 marks)", "Ultrasound — first-line (3 marks)", "MRI to define extent and tissue planes (3 marks)", "CT in selected cases (3 marks)"]'::jsonb, '[]'::jsonb),
 
   ('Pediatric', 'P3', 3, '[Investigations] Read the image — what is your diagnosis?', 15,
-    '["Multicystic / macro- or micro-cystic lesion (5 marks)", "Diagnosis: lymphatic malformation (cystic hygroma) (10 marks)"]'::jsonb, '["/images/exam/peds-mri.jpg", "/images/exam/peds-image3.jpg"]'::jsonb),
+    '["Multicystic / macro- or micro-cystic lesion (5 marks)", "Diagnosis: lymphatic malformation (cystic hygroma) (10 marks)"]'::jsonb, '["/images/exam/peds-imaging.jpg", "/images/exam/peds-image3.jpg"]'::jsonb),
 
   ('Pediatric', 'P4', 4, '[Investigations] On CT and MRI, what are the differences between a haemangioma and a lymphatic malformation?', 15,
     '["Haemangioma — solid, intensely enhancing, flow voids, T2 hyperintense lobulated solid mass (7 marks)", "Lymphatic malformation — cystic, non-enhancing (or rim/septal enhancement only), fluid-fluid levels, very T2 hyperintense, trans-spatial (8 marks)"]'::jsonb, '[]'::jsonb),
