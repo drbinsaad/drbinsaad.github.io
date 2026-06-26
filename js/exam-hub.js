@@ -6,13 +6,16 @@
  * ==========================================================================*/
 
 /* ---------------------------------------------------------------------------
- * CONFIG — paste your deployed Apps Script Web App URL between the quotes.
- * It looks like: https://script.google.com/macros/s/AKfyc.../exec
- * Optionally paste the Google Sheet URL so the admin "Open Google Sheet"
- * button works. Leave SHEET_URL "" to hide that button.
+ * CONFIG — Supabase backend.
+ * SUPABASE_URL + SUPABASE_ANON are PUBLIC by design (safe to commit): the
+ * anon/publishable key can't read or write the data on its own — Row-Level
+ * Security blocks it, and only the exam-hub Edge Function (which holds the
+ * secret service key) touches the database after checking the passcode.
  * ------------------------------------------------------------------------ */
-const EXAM_API_URL = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
-const SHEET_URL    = ""; // optional: https://docs.google.com/spreadsheets/d/.../edit
+const SUPABASE_URL  = "https://drsamkdxsfrolzyvxsjb.supabase.co";
+const SUPABASE_ANON = "sb_publishable_BxB2XjnPjFQ2yScmMJHbpA_T98Bv4Ag";
+const EXAM_FN_URL   = SUPABASE_URL + "/functions/v1/exam-hub";
+const SHEET_URL     = ""; // not used with Supabase; keeps the "Open Sheet" button hidden
 
 /* Fixed station order — must match the Examiners tab in the Sheet / Code.gs */
 const STATIONS = ["Otology", "Rhinology", "General", "General 2", "Pediatric", "Head & Neck"];
@@ -23,31 +26,33 @@ let session = { code: null, role: null, station: null };
 let cfgCache = { scoreMax: 100 }; // last-known config for the examiner view
 
 /* ---------------------------------------------------------------------------
- * Transport — CORS-safe POST.
- * 'text/plain' content-type keeps this a "simple request" so the browser does
- * NOT send a CORS preflight (OPTIONS), which Apps Script cannot answer.
- * Never switch to application/json or add custom headers here.
+ * Transport — POST JSON to the Supabase Edge Function.
+ * The function answers the CORS preflight and is deployed with verify_jwt=off,
+ * so a normal application/json request with the anon key works. The `apikey`
+ * header is required for the Supabase gateway to route to the function.
  * ------------------------------------------------------------------------ */
 async function api(action, payload) {
-  if (!EXAM_API_URL || EXAM_API_URL.indexOf("PASTE_YOUR") === 0) {
-    return { ok: false, error: "Backend not configured yet. Paste the Apps Script URL into js/exam-hub.js (EXAM_API_URL)." };
+  if (!SUPABASE_URL || SUPABASE_URL.indexOf("PASTE_YOUR") === 0) {
+    return { ok: false, error: "Backend not configured yet. Set SUPABASE_URL / SUPABASE_ANON in js/exam-hub.js." };
   }
   try {
-    const res = await fetch(EXAM_API_URL, {
+    const res = await fetch(EXAM_FN_URL, {
       method: "POST",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify(Object.assign({ action: action }, payload || {})),
-      redirect: "follow"
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": SUPABASE_ANON,
+        "Authorization": "Bearer " + SUPABASE_ANON
+      },
+      body: JSON.stringify(Object.assign({ action: action }, payload || {}))
     });
     const text = await res.text();
     try {
       return JSON.parse(text);
     } catch (parseErr) {
-      // Apps Script returns an HTML error page if the script throws uncaught.
-      return { ok: false, error: "Unexpected server response. Check the Apps Script deployment.", raw: text.slice(0, 300) };
+      return { ok: false, error: "Unexpected server response from the backend.", raw: text.slice(0, 300) };
     }
   } catch (netErr) {
-    return { ok: false, error: "Network error. Check your connection and the Web App URL." };
+    return { ok: false, error: "Network error. If the exam isn't running, the database may be paused — check the Supabase dashboard." };
   }
 }
 
