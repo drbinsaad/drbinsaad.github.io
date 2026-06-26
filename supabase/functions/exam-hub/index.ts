@@ -345,6 +345,23 @@ async function getResults(req: Request, body: any) {
   };
 }
 
+// Admin: clear grades for one resident (all stations) or for everyone.
+// Used to reset trial-run scores before the real exam. Owner-only.
+async function clearGrades(req: Request, body: any) {
+  if (!(await isAdmin(req, body))) return { ok: false, error: "Admin authorization required." };
+  const residentId = norm(body.residentId);
+  let q = db.from("exam_grades").delete();
+  if (residentId && residentId.toLowerCase() !== "all") {
+    if (RESIDENT_IDS.indexOf(residentId) === -1) return { ok: false, error: "Unknown resident." };
+    q = q.eq("resident_id", residentId);
+  } else {
+    q = q.in("resident_id", RESIDENT_IDS); // matches all → clears everything
+  }
+  const { error } = await q;
+  if (error) return { ok: false, error: "Could not clear results." };
+  return { ok: true, cleared: residentId || "all" };
+}
+
 /* --------------------------- question editor ---------------------------- */
 // Sum of the "(N mark[s])" suffixes on the answer points — authoritative max.
 function sumPointMarks(modelAnswers: any[]): number {
@@ -451,6 +468,7 @@ Deno.serve(async (req) => {
       case "getQuestions": return json(await getQuestions(req, body));   // owner JWT or passcode
       case "saveQuestions":return json(await saveQuestions(req, body));  // owner JWT or passcode
       case "uploadImage":  return json(await uploadImage(req, body));    // owner JWT or passcode
+      case "clearGrades":  return json(await clearGrades(req, body));    // owner JWT or passcode
       default:             return json({ ok: false, error: "Unknown action." });
     }
   } catch (err) {

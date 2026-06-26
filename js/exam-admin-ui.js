@@ -75,6 +75,16 @@ window.ExamAdminUI = function initExamAdmin(opts) {
       resWrap.appendChild(row);
     });
 
+    var clrSel = $("admin-clear-resident");
+    if (clrSel) {
+      clrSel.innerHTML = "";
+      RESIDENT_IDS.forEach(function (rid) {
+        var o = document.createElement("option");
+        o.value = rid; o.textContent = resMap[rid] ? resMap[rid] : rid;
+        clrSel.appendChild(o);
+      });
+    }
+
     setMsg("admin-config-msg", "", "info");
     setMsg("admin-results-msg", "", "info");
     refreshResults();
@@ -362,7 +372,32 @@ window.ExamAdminUI = function initExamAdmin(opts) {
     setMsg("qe-msg", "Saved " + r.station + " — " + r.count + " questions, total " + r.total + ".", "ok");
   }
 
+  /* ------------------------- clear results (trial) ---------------------- */
+  async function clearOne(btn) {
+    var sel = $("admin-clear-resident"); if (!sel || !sel.value) return;
+    var rid = sel.value;
+    var name = sel.options[sel.selectedIndex] ? sel.options[sel.selectedIndex].text : rid;
+    if (!window.confirm("Clear ALL results for " + name + "? This cannot be undone.")) return;
+    busy(btn, true);
+    var r = await api("clearGrades", { residentId: rid });
+    busy(btn, false, '<i class="fas fa-eraser"></i> Clear selected');
+    if (!r.ok) { setMsg("admin-results-msg", r.error || "Could not clear results.", "warn"); return; }
+    setMsg("admin-results-msg", "Cleared results for " + name + ".", "ok");
+    refreshResults();
+  }
+  async function clearAll(btn) {
+    if (!window.confirm("Clear ALL results for ALL residents? This wipes every score and cannot be undone.")) return;
+    busy(btn, true);
+    var r = await api("clearGrades", { residentId: "all" });
+    busy(btn, false, '<i class="fas fa-trash"></i> Clear all results');
+    if (!r.ok) { setMsg("admin-results-msg", r.error || "Could not clear results.", "warn"); return; }
+    setMsg("admin-results-msg", "All results cleared.", "ok");
+    refreshResults();
+  }
+
   /* ------------------------------- wiring ------------------------------- */
+  var c1 = $("admin-clear-one"); if (c1) c1.addEventListener("click", function () { clearOne(this); });
+  var c2 = $("admin-clear-all"); if (c2) c2.addEventListener("click", function () { clearAll(this); });
   var sc = $("admin-save-config"); if (sc) sc.addEventListener("click", function () { saveConfig(this); });
   var rf = $("admin-refresh");     if (rf) rf.addEventListener("click", function () { refreshResults(this); });
   var ex = $("admin-export-xlsx"); if (ex) ex.addEventListener("click", exportXlsx);

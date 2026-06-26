@@ -238,6 +238,11 @@
         .qe-total.good strong{color:#1d7a4a;}
         .qe-total.bad strong{color:#a32d2d;}
         #qe-save:disabled{opacity:0.45;cursor:not-allowed;}
+        .clear-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:16px;padding-top:14px;border-top:1px solid #e2e8f0;}
+        .clear-label{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#475569;}
+        #admin-clear-resident{font-family:inherit;font-size:14px;padding:9px 12px;border:1px solid #cbd5e1;border-radius:2px;background:#fff;color:#0f172a;}
+        .action-btn.danger-btn{color:#a32d2d;border-color:#e3b3b3;}
+        .action-btn.danger-btn:hover{background:#fdeaea;border-color:#a32d2d;color:#a32d2d;}
         .q-images{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;}
         .q-thumb{width:96px;height:96px;object-fit:cover;border:1px solid #cbd5e1;border-radius:2px;cursor:zoom-in;background:#fff;}
         .q-thumb-video{position:relative;padding:0;overflow:hidden;cursor:pointer;background:#000;}
@@ -384,6 +389,12 @@
                 <div class="results-scroll is-hidden" id="admin-results-wrap">
                     <table class="results" id="admin-results-table"></table>
                 </div>
+                <div class="clear-row">
+                    <span class="clear-label">Trial reset:</span>
+                    <select id="admin-clear-resident"></select>
+                    <button class="action-btn secondary-btn" id="admin-clear-one"><i class="fas fa-eraser"></i> Clear selected</button>
+                    <button class="action-btn secondary-btn danger-btn" id="admin-clear-all"><i class="fas fa-trash"></i> Clear all results</button>
+                </div>
             </div>
 
             <div class="tool-card" id="qe-card">
@@ -417,7 +428,7 @@
 
     <!-- SheetJS for client-side Excel export (loaded like jsPDF in bronchoscopy-tool.html) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    <script src="js/exam-admin-ui.js?v=2"></script>
+    <script src="js/exam-admin-ui.js?v=3"></script>
     <script src="js/exam-hub.js?v=5"></script>
 </body>
 </html>
