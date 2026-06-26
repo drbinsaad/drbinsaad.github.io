@@ -1,0 +1,10 @@
+# Supabase project config for the ENT Exam Hub backend.
+# Only the exam-hub Edge Function is managed from this repo.
+project_id = "drsamkdxsfrolzyvxsjb"
+
+[functions.exam-hub]
+# Auth is the number-only passcode, validated inside the function against the DB.
+# Disable platform JWT verification so the CORS preflight (which omits the
+# Authorization header) is not rejected by the gateway. The gateway still
+# requires a valid `apikey` header to route the request.
+verify_jwt = false
