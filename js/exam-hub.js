@@ -187,19 +187,33 @@ function renderQuestionForm(rid) {
   let html = '<div class="q-total"><span class="label">' + escapeHtml(residentName(rid)) +
     '</span><span class="value"><span id="q-running">0</span> / ' + exam.stationMax + '</span></div>';
 
-  exam.questions.forEach(function (q, idx) {
-    const val = details[q.questionId];
+  let qn = 0;
+  exam.questions.forEach(function (q) {
     let imgs = "";
     (q.images || []).forEach(function (src) {
-      imgs += '<img class="q-thumb" src="' + escapeHtml(src) + '" alt="Question image" data-full="' + escapeHtml(src) + '">';
+      imgs += '<img class="q-thumb" src="' + escapeHtml(src) + '" alt="Image" data-full="' + escapeHtml(src) + '">';
     });
+
+    // Stem / case-presentation card (0 marks): read-only, no score input, not counted.
+    if (!Number(q.maxMarks)) {
+      html +=
+        '<div class="q-card q-stem">' +
+          '<div class="q-stem-eyebrow">Case</div>' +
+          '<div class="q-stem-text">' + escapeHtml(q.prompt) + '</div>' +
+          (imgs ? '<div class="q-images">' + imgs + "</div>" : "") +
+        "</div>";
+      return;
+    }
+
+    qn += 1;
+    const val = details[q.questionId];
     let guide = "";
     (q.modelAnswers || []).forEach(function (m) { guide += "<li>" + escapeHtml(m) + "</li>"; });
 
     html +=
       '<div class="q-card">' +
         '<div class="q-head">' +
-          '<div class="q-prompt"><span class="q-num">Q' + (idx + 1) + '</span>' + escapeHtml(q.prompt) + '</div>' +
+          '<div class="q-prompt"><span class="q-num">Q' + qn + '</span>' + escapeHtml(q.prompt) + '</div>' +
           '<div class="q-score">' +
             '<input type="number" min="0" max="' + q.maxMarks + '" step="1" inputmode="numeric" ' +
               'data-qid="' + escapeHtml(q.questionId) + '" data-max="' + q.maxMarks + '" ' +
