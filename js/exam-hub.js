@@ -220,8 +220,7 @@ function renderQuestionForm(rid) {
     // unscored. The examiner marks each point; the question total auto-sums.
     let rows = "";
     (q.modelAnswers || []).forEach(function (m, idx) {
-      const isNote = m.trim().charAt(0) === "(";
-      const mk = isNote ? null : m.match(/\((\d+(?:\.\d+)?)\s*marks?\)\s*$/);
+      const mk = m.match(/\((\d+(?:\.\d+)?)\s*marks?\)\s*$/); // scored if it ends in "(N marks)"
       if (!mk) {
         rows += '<tr class="g-note"><td colspan="2">' + escapeHtml(m) + "</td></tr>";
         return;
@@ -304,6 +303,13 @@ function recomputeTotal() {
 // residents (or a reload) restores the marking sheet. The server stores the
 // per-question total (sum), which is what the admin grid and Excel use.
 function ptStoreKey(rid) { return "examPts:" + session.station + ":" + rid; }
+// Signature of the current question structure; if it changes (questions/points
+// edited), stored per-point marks no longer line up by index, so we ignore them.
+function ptSig() {
+  return (exam.questions || []).map(function (q) {
+    return q.questionId + ":" + ((q.modelAnswers || []).length);
+  }).join(",");
+}
 function persistPoints(rid) {
   try {
     const data = {};
@@ -312,14 +318,16 @@ function persistPoints(rid) {
       const qid = i.getAttribute("data-qid"), pidx = i.getAttribute("data-pidx");
       (data[qid] = data[qid] || {})[pidx] = i.value;
     });
-    localStorage.setItem(ptStoreKey(rid), JSON.stringify(data));
+    localStorage.setItem(ptStoreKey(rid), JSON.stringify({ sig: ptSig(), data: data }));
   } catch (e) {}
 }
 function restorePoints(rid) {
   try {
     const raw = localStorage.getItem(ptStoreKey(rid));
     if (!raw) return;
-    const data = JSON.parse(raw);
+    const saved = JSON.parse(raw);
+    if (!saved || saved.sig !== ptSig() || !saved.data) return; // structure changed → drop stale marks
+    const data = saved.data;
     document.querySelectorAll('#examiner-body .pt-input').forEach(function (i) {
       const qid = i.getAttribute("data-qid"), pidx = i.getAttribute("data-pidx");
       if (data[qid] && data[qid][pidx] != null) i.value = data[qid][pidx];

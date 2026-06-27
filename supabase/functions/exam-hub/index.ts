@@ -408,26 +408,36 @@ async function saveQuestions(req: Request, body: any) {
   }
 
   total = Math.round(total * 10) / 10;
-  if (total !== Number(setup.scoreMax)) {
+  if (Math.abs(total - Number(setup.scoreMax)) > 0.05) {
     return { ok: false, error: "Station total is " + total + " — it must equal " + setup.scoreMax + " before saving." };
   }
 
+  // Snapshot the station's current rows so we can roll back if the insert fails.
+  const { data: snapshot } = await db.from("exam_questions").select("*").eq("station", station);
   const del = await db.from("exam_questions").delete().eq("station", station);
   if (del.error) return { ok: false, error: "Could not clear old questions." };
   if (rows.length) {
     const ins = await db.from("exam_questions").insert(rows);
-    if (ins.error) return { ok: false, error: "Could not save questions: " + ins.error.message };
+    if (ins.error) {
+      if (snapshot && snapshot.length) await db.from("exam_questions").insert(snapshot); // restore
+      return { ok: false, error: "Could not save questions: " + ins.error.message };
+    }
   }
   return { ok: true, station, total, count: rows.length };
 }
 
 // Admin: upload an image to the public exam-images bucket, return its URL.
+// Locked to real raster image types (no SVG/HTML → no stored XSS) and 5 MB.
+const ALLOWED_IMAGE_TYPES = ["image/png", "image/jpeg", "image/jpg", "image/webp", "image/gif"];
 async function uploadImage(req: Request, body: any) {
   if (!(await isAdmin(req, body))) return { ok: false, error: "Admin authorization required." };
-  const safe = norm(body.filename).replace(/[^a-zA-Z0-9._-]/g, "_") || "image.jpg";
+  const safe = (norm(body.filename).replace(/[^a-zA-Z0-9._-]/g, "_") || "image.jpg").slice(0, 80);
   const dataB64 = String(body.dataBase64 ?? "");
-  const contentType = norm(body.contentType) || "image/jpeg";
+  const contentType = (norm(body.contentType) || "image/jpeg").toLowerCase();
   if (!dataB64) return { ok: false, error: "No image data." };
+  if (ALLOWED_IMAGE_TYPES.indexOf(contentType) === -1) {
+    return { ok: false, error: "Only PNG, JPEG, WebP or GIF images are allowed." };
+  }
   let bytes: Uint8Array;
   try {
     const bin = atob(dataB64);
@@ -436,11 +446,11 @@ async function uploadImage(req: Request, body: any) {
   } catch {
     return { ok: false, error: "Invalid image data." };
   }
+  if (bytes.length > 5 * 1024 * 1024) return { ok: false, error: "Image too large (max 5 MB)." };
   const bucket = "exam-images";
   try { await db.storage.createBucket(bucket, { public: true }); } catch (_) { /* exists */ }
-  try { await db.storage.updateBucket(bucket, { public: true }); } catch (_) { /* ok */ }
-  const path = Date.now() + "-" + safe;
-  const up = await db.storage.from(bucket).upload(path, bytes, { contentType, upsert: true });
+  const path = crypto.randomUUID() + "-" + safe; // unique → no overwrite of other images
+  const up = await db.storage.from(bucket).upload(path, bytes, { contentType, upsert: false });
   if (up.error) return { ok: false, error: "Upload failed: " + up.error.message };
   const url = Deno.env.get("SUPABASE_URL")! + "/storage/v1/object/public/" + bucket + "/" + path;
   return { ok: true, url };

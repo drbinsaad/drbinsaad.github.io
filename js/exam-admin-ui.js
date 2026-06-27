@@ -338,7 +338,7 @@ window.ExamAdminUI = function initExamAdmin(opts) {
     qe.questions.forEach(function (q) { q.points.forEach(function (p) { total += Number(p.marks) || 0; }); });
     total = Math.round(total * 10) / 10;
     var el = $("qe-total"); if (el) el.textContent = total;
-    var wrap = $("qe-total-wrap"); var ok = total === Number(qe.scoreMax || 100);
+    var wrap = $("qe-total-wrap"); var ok = Math.abs(total - Number(qe.scoreMax || 100)) < 0.05;
     if (wrap) { wrap.classList.toggle("good", ok); wrap.classList.toggle("bad", !ok); }
     var save = $("qe-save"); if (save) save.disabled = !ok;
   }
@@ -361,7 +361,7 @@ window.ExamAdminUI = function initExamAdmin(opts) {
   }
   async function qeSave(btn) {
     var total = 0; qe.questions.forEach(function (q) { q.points.forEach(function (p) { total += Number(p.marks) || 0; }); });
-    if (Math.round(total * 10) / 10 !== Number(qe.scoreMax || 100)) { setMsg("qe-msg", "Total must equal " + (qe.scoreMax || 100) + " before saving (now " + (Math.round(total * 10) / 10) + ").", "warn"); return; }
+    if (Math.abs(Math.round(total * 10) / 10 - Number(qe.scoreMax || 100)) > 0.05) { setMsg("qe-msg", "Total must equal " + (qe.scoreMax || 100) + " before saving (now " + (Math.round(total * 10) / 10) + ").", "warn"); return; }
     var payload = qe.questions.map(function (q) {
       return { questionId: q.questionId, prompt: q.prompt, modelAnswers: q.points.map(qeJoin).filter(function (s) { return s.trim(); }), images: q.images.filter(function (s) { return s && s.trim(); }) };
     });
