@@ -419,8 +419,17 @@ async function saveQuestions(req: Request, body: any) {
   if (rows.length) {
     const ins = await db.from("exam_questions").insert(rows);
     if (ins.error) {
-      if (snapshot && snapshot.length) await db.from("exam_questions").insert(snapshot); // restore
-      return { ok: false, error: "Could not save questions: " + ins.error.message };
+      let restored = true;
+      if (snapshot && snapshot.length) {
+        const back = await db.from("exam_questions").insert(snapshot); // roll back
+        restored = !back.error;
+      }
+      return {
+        ok: false,
+        error: restored
+          ? "Could not save questions: " + ins.error.message + " (no changes were made)."
+          : "CRITICAL: save failed and the previous questions could NOT be restored — reload and re-enter this station before the exam. (" + ins.error.message + ")",
+      };
     }
   }
   return { ok: true, station, total, count: rows.length };
@@ -429,9 +438,19 @@ async function saveQuestions(req: Request, body: any) {
 // Admin: upload an image to the public exam-images bucket, return its URL.
 // Locked to real raster image types (no SVG/HTML → no stored XSS) and 5 MB.
 const ALLOWED_IMAGE_TYPES = ["image/png", "image/jpeg", "image/jpg", "image/webp", "image/gif"];
+// Verify the actual bytes match the declared image type (magic numbers), so a
+// non-image (HTML/JS) can't be stored under an image content-type.
+function imageExtFor(ct: string, b: Uint8Array): string | null {
+  if (b.length < 12) return null;
+  if (b[0] === 0x89 && b[1] === 0x50 && b[2] === 0x4E && b[3] === 0x47) return "png";
+  if (b[0] === 0xFF && b[1] === 0xD8 && b[2] === 0xFF) return "jpg";
+  if (b[0] === 0x47 && b[1] === 0x49 && b[2] === 0x46) return "gif";
+  if (b[0] === 0x52 && b[1] === 0x49 && b[2] === 0x46 && b[3] === 0x46 &&
+      b[8] === 0x57 && b[9] === 0x45 && b[10] === 0x42 && b[11] === 0x50) return "webp";
+  return null;
+}
 async function uploadImage(req: Request, body: any) {
   if (!(await isAdmin(req, body))) return { ok: false, error: "Admin authorization required." };
-  const safe = (norm(body.filename).replace(/[^a-zA-Z0-9._-]/g, "_") || "image.jpg").slice(0, 80);
   const dataB64 = String(body.dataBase64 ?? "");
   const contentType = (norm(body.contentType) || "image/jpeg").toLowerCase();
   if (!dataB64) return { ok: false, error: "No image data." };
@@ -447,9 +466,13 @@ async function uploadImage(req: Request, body: any) {
     return { ok: false, error: "Invalid image data." };
   }
   if (bytes.length > 5 * 1024 * 1024) return { ok: false, error: "Image too large (max 5 MB)." };
+  const ext = imageExtFor(contentType, bytes);
+  if (!ext) return { ok: false, error: "File does not look like a valid PNG/JPEG/WebP/GIF image." };
+  // Build a clean filename with a verified image extension (never an attacker-chosen one).
+  const base = (norm(body.filename).replace(/\.[a-zA-Z0-9]+$/, "").replace(/[^a-zA-Z0-9_-]/g, "_") || "image").slice(0, 60);
   const bucket = "exam-images";
   try { await db.storage.createBucket(bucket, { public: true }); } catch (_) { /* exists */ }
-  const path = crypto.randomUUID() + "-" + safe; // unique → no overwrite of other images
+  const path = crypto.randomUUID() + "-" + base + "." + ext;
   const up = await db.storage.from(bucket).upload(path, bytes, { contentType, upsert: false });
   if (up.error) return { ok: false, error: "Upload failed: " + up.error.message };
   const url = Deno.env.get("SUPABASE_URL")! + "/storage/v1/object/public/" + bucket + "/" + path;

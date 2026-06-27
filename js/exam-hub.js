@@ -219,12 +219,14 @@ function renderQuestionForm(rid) {
     // trailing "(N mark[s])"); lines that are notes — starting with "(" — are shown
     // unscored. The examiner marks each point; the question total auto-sums.
     let rows = "";
+    let scoredPoints = 0;
     (q.modelAnswers || []).forEach(function (m, idx) {
       const mk = m.match(/\((\d+(?:\.\d+)?)\s*marks?\)\s*$/); // scored if it ends in "(N marks)"
       if (!mk) {
         rows += '<tr class="g-note"><td colspan="2">' + escapeHtml(m) + "</td></tr>";
         return;
       }
+      scoredPoints += 1;
       const pmax = mk[1];
       const text = m.slice(0, mk.index).trim();
       rows +=
@@ -237,6 +239,19 @@ function renderQuestionForm(rid) {
           "</td>" +
         "</tr>";
     });
+    // Fallback: a scored question with no per-point marks gets one whole-question
+    // input (0..maxMarks) so it can always be graded.
+    if (scoredPoints === 0) {
+      rows +=
+        "<tr>" +
+          '<td class="g-ans">Score for this question</td>' +
+          '<td class="g-mark">' +
+            '<input type="number" class="pt-input" min="0" max="' + q.maxMarks + '" step="0.5" inputmode="decimal" ' +
+              'data-qid="' + escapeHtml(qid) + '" data-pidx="0" data-pmax="' + q.maxMarks + '" placeholder="0">' +
+            '<span class="g-of">/ ' + q.maxMarks + "</span>" +
+          "</td>" +
+        "</tr>";
+    }
 
     html +=
       '<div class="q-card">' +
@@ -303,6 +318,9 @@ function recomputeTotal() {
 // residents (or a reload) restores the marking sheet. The server stores the
 // per-question total (sum), which is what the admin grid and Excel use.
 function ptStoreKey(rid) { return "examPts:" + session.station + ":" + rid; }
+// Only persist/restore for a real examiner station; never with a missing station
+// (would collapse every station to one key and let marks bleed across stations).
+function ptStorable() { return !!session.station; }
 // Signature of the current question structure; if it changes (questions/points
 // edited), stored per-point marks no longer line up by index, so we ignore them.
 function ptSig() {
@@ -311,6 +329,7 @@ function ptSig() {
   }).join(",");
 }
 function persistPoints(rid) {
+  if (!ptStorable()) return;
   try {
     const data = {};
     document.querySelectorAll('#examiner-body .pt-input').forEach(function (i) {
@@ -322,6 +341,7 @@ function persistPoints(rid) {
   } catch (e) {}
 }
 function restorePoints(rid) {
+  if (!ptStorable()) return;
   try {
     const raw = localStorage.getItem(ptStoreKey(rid));
     if (!raw) return;

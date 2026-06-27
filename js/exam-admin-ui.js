@@ -247,7 +247,7 @@ window.ExamAdminUI = function initExamAdmin(opts) {
   function qeJoin(p) {
     var t = (p.text || "").trim(); var m = Number(p.marks) || 0;
     if (!t) return "";
-    return m ? t + " (" + (Math.round(m * 10) / 10) + " mark" + (m === 1 ? "" : "s") + ")" : t;
+    return m ? t + " (" + (Math.round(m * 100) / 100) + " mark" + (m === 1 ? "" : "s") + ")" : t;
   }
   function qeInit() {
     var sel = $("qe-station");
