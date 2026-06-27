@@ -17,7 +17,7 @@ window.ExamAdminUI = function initExamAdmin(opts) {
   var api = opts.api;
   var onConfigSaved = opts.onConfigSaved || function () {}; // (newAdminCode) => void
 
-  var STATIONS = ["Otology", "Rhinology", "General", "General 2", "Pediatric", "Head & Neck"];
+  var STATIONS = ["Otology", "Rhinology", "Rhinology 2", "General", "General 2", "Pediatric", "Head & Neck"];
   var RESIDENT_IDS = ["R1", "R2", "R3", "R4", "R5", "R6"];
   var lastResults = null;
 
