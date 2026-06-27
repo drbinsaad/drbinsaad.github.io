@@ -419,7 +419,12 @@ async function saveQuestions(req: Request, body: any) {
   if (rows.length) {
     const ins = await db.from("exam_questions").insert(rows);
     if (ins.error) {
-      if (snapshot && snapshot.length) await db.from("exam_questions").insert(snapshot); // restore
+      if (snapshot && snapshot.length) {
+        const restore = await db.from("exam_questions").insert(snapshot); // roll back
+        if (restore.error) {
+          return { ok: false, error: "Could not save questions, and the previous questions could not be restored — this station is now empty. Please re-enter and save. (" + ins.error.message + ")" };
+        }
+      }
       return { ok: false, error: "Could not save questions: " + ins.error.message };
     }
   }
@@ -428,12 +433,13 @@ async function saveQuestions(req: Request, body: any) {
 
 // Admin: upload an image to the public exam-images bucket, return its URL.
 // Locked to real raster image types (no SVG/HTML → no stored XSS) and 5 MB.
-const ALLOWED_IMAGE_TYPES = ["image/png", "image/jpeg", "image/jpg", "image/webp", "image/gif"];
+const ALLOWED_IMAGE_TYPES = ["image/png", "image/jpeg", "image/webp", "image/gif"];
 async function uploadImage(req: Request, body: any) {
   if (!(await isAdmin(req, body))) return { ok: false, error: "Admin authorization required." };
   const safe = (norm(body.filename).replace(/[^a-zA-Z0-9._-]/g, "_") || "image.jpg").slice(0, 80);
   const dataB64 = String(body.dataBase64 ?? "");
-  const contentType = (norm(body.contentType) || "image/jpeg").toLowerCase();
+  let contentType = (norm(body.contentType) || "image/jpeg").toLowerCase();
+  if (contentType === "image/jpg") contentType = "image/jpeg"; // normalize non-standard MIME
   if (!dataB64) return { ok: false, error: "No image data." };
   if (ALLOWED_IMAGE_TYPES.indexOf(contentType) === -1) {
     return { ok: false, error: "Only PNG, JPEG, WebP or GIF images are allowed." };
@@ -449,6 +455,7 @@ async function uploadImage(req: Request, body: any) {
   if (bytes.length > 5 * 1024 * 1024) return { ok: false, error: "Image too large (max 5 MB)." };
   const bucket = "exam-images";
   try { await db.storage.createBucket(bucket, { public: true }); } catch (_) { /* exists */ }
+  try { await db.storage.updateBucket(bucket, { public: true }); } catch (_) { /* ensure a pre-existing bucket is public, else URLs 404 */ }
   const path = crypto.randomUUID() + "-" + safe; // unique → no overwrite of other images
   const up = await db.storage.from(bucket).upload(path, bytes, { contentType, upsert: false });
   if (up.error) return { ok: false, error: "Upload failed: " + up.error.message };

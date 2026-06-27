@@ -305,9 +305,15 @@ function recomputeTotal() {
 function ptStoreKey(rid) { return "examPts:" + session.station + ":" + rid; }
 // Signature of the current question structure; if it changes (questions/points
 // edited), stored per-point marks no longer line up by index, so we ignore them.
+// Hashes each answer line's per-point max (and whether it's a scored row), not
+// just the count, so a same-length reorder/retitle also invalidates stale marks.
 function ptSig() {
   return (exam.questions || []).map(function (q) {
-    return q.questionId + ":" + ((q.modelAnswers || []).length);
+    var pts = (q.modelAnswers || []).map(function (m) {
+      var mk = String(m).match(/\((\d+(?:\.\d+)?)\s*marks?\)\s*$/);
+      return mk ? mk[1] : "n"; // scored row → its max; note → "n"
+    }).join("|");
+    return q.questionId + ":" + pts;
   }).join(",");
 }
 function persistPoints(rid) {

@@ -348,7 +348,10 @@ window.ExamAdminUI = function initExamAdmin(opts) {
   }
   async function qeUpload(qi, input) {
     var file = input.files && input.files[0]; if (!file) return;
-    if (file.size > 4 * 1024 * 1024) { setMsg("qe-msg", "Image too large (max 4 MB).", "warn"); input.value = ""; return; }
+    // Mirror the server allow-list + size cap so bad files fail before upload.
+    var allowed = ["image/png", "image/jpeg", "image/jpg", "image/webp", "image/gif"];
+    if (file.type && allowed.indexOf(file.type.toLowerCase()) === -1) { setMsg("qe-msg", "Only PNG, JPEG, WebP or GIF images are allowed.", "warn"); input.value = ""; return; }
+    if (file.size > 5 * 1024 * 1024) { setMsg("qe-msg", "Image too large (max 5 MB).", "warn"); input.value = ""; return; }
     setMsg("qe-msg", "Uploading " + file.name + "…", "info");
     try {
       var b64 = await new Promise(function (res, rej) { var fr = new FileReader(); fr.onload = function () { res(String(fr.result).split(",")[1]); }; fr.onerror = rej; fr.readAsDataURL(file); });
