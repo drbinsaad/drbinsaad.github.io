@@ -159,7 +159,9 @@ window.ExamAdminUI = function initExamAdmin(opts) {
       stations.forEach(function (st) {
         var cell = row[st];
         if (cell && cell.score != null && cell.score !== "") {
-          html += "<td><span class='cell-score'>" + escapeHtml(String(cell.score)) + "</span></td>";
+          var nt = cell.notes ? escapeHtml(cell.notes) : "";
+          html += "<td" + (nt ? " title='" + nt + "'" : "") + "><span class='cell-score'>" + escapeHtml(String(cell.score)) + "</span>" +
+            (nt ? " <span class='note-dot' title='" + nt + "'>&#9679;</span>" : "") + "</td>";
         } else {
           html += "<td class='empty'>—</td>";
         }
@@ -227,6 +229,21 @@ window.ExamAdminUI = function initExamAdmin(opts) {
     var ws = XLSX.utils.aoa_to_sheet(aoa);
     var wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Results");
+
+    // Second sheet: examiner notes written during the exam (one row per scored cell that has a note).
+    var notesAoa = [["Resident", "Station", "Score", "Examiner notes"]];
+    residents.forEach(function (res) {
+      var nrow = grid[res.residentId] || {};
+      stations.forEach(function (st) {
+        var c = nrow[st];
+        if (c && c.notes && String(c.notes).trim()) {
+          notesAoa.push([res.name || res.residentId, st, c.score != null ? c.score : "", String(c.notes)]);
+        }
+      });
+    });
+    if (notesAoa.length > 1) {
+      XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(notesAoa), "Notes");
+    }
     var safe = (r.examTitle || "ENT-Exam").replace(/[^a-z0-9]+/gi, "-").replace(/^-+|-+$/g, "");
     XLSX.writeFile(wb, safe + "-results.xlsx");
   }
