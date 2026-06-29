@@ -136,6 +136,21 @@
         .gate-center{min-height:46vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;}
         .denied-email{font-family:'IBM Plex Mono',monospace;color:#8a302a;}
 
+        .syncbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px;padding:11px 14px;background:#fffdf8;border:1px solid #e4ded2;border-radius:12px;}
+        .sync-status{display:flex;align-items:center;gap:9px;font-size:14px;color:#46423b;}
+        .syncbar-actions{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap;}
+        .syncbar .btn{padding:9px 14px;font-size:13.5px;}
+        .dot{width:9px;height:9px;border-radius:50%;flex:none;background:#c08a2e;}
+        .dot-synced{background:#3f8b4a;}
+        .dot-syncing{background:#c08a2e;animation:pulse 1s infinite;}
+        .dot-error{background:#a32d2d;}
+        @keyframes pulse{50%{opacity:0.3;}}
+        .quick-add{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:18px;}
+        .qa-label{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#6f6a61;}
+        .qa-chip{font-family:inherit;font-size:14px;font-weight:600;padding:10px 16px;border-radius:999px;border:1px solid #d9d3c7;background:#fff;color:#46423b;cursor:pointer;}
+        .qa-chip:active{transform:scale(0.97);}
+        .qa-chip:hover{border-color:#8a302a;color:#8a302a;}
+
         @media (max-width:900px){.grid-form{grid-template-columns:1fr 1fr;}.ig.col2,.ig.col4{grid-column:span 2;}.stat-grid{grid-template-columns:1fr 1fr;}.bar-row{grid-template-columns:110px 1fr 40px;}}
         @media (max-width:560px){.grid-form{grid-template-columns:1fr;}.ig.col2,.ig.col4{grid-column:span 1;}.stat-grid{grid-template-columns:1fr 1fr;}.header-tag{display:none;}}
     </style>
@@ -151,64 +166,23 @@
         </div>
     </header>
 
-    <!-- GATE: checking session -->
-    <section class="sec" id="gate-loading">
-        <div class="wrap-tight gate-center">
-            <span class="spinner"></span>
-            <p class="lede" style="margin-top:12px;">Checking your sign-in…</p>
-        </div>
-    </section>
-
-    <!-- GATE: signed out -->
-    <section class="sec is-hidden" id="gate-signin" style="padding:64px 0 30px;">
-        <div class="wrap-tight">
-            <div class="eyebrow">Consultant Workspace</div>
-            <h1 class="page-title">Case Logbook</h1>
-            <p class="lede" style="margin-bottom:30px;">A private, owner-only log of your OR, clinic, ward and ER cases — with research-cohort and follow-up tracking. Sign in with your Google account to continue.</p>
-            <div class="card">
-                <h2><i class="fab fa-google"></i> Sign in</h2>
-                <p class="card-sub">Owner account only</p>
-                <div class="action-row" style="margin-top:0;">
-                    <button class="btn primary" id="btn-google" style="flex:1;"><i class="fab fa-google"></i> Continue with Google</button>
-                </div>
-                <div class="callout callout-warn is-hidden" id="signin-error"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- GATE: wrong account -->
-    <section class="sec is-hidden" id="gate-denied" style="padding:64px 0 30px;">
-        <div class="wrap-tight">
-            <div class="eyebrow">Access denied</div>
-            <h1 class="page-title">Not the owner account</h1>
-            <p class="lede">You're signed in as <span class="denied-email" id="denied-email"></span>, which isn't the owner of this logbook. Sign out and use the owner's Google account.</p>
-            <div class="action-row">
-                <button class="btn ghost" data-signout><i class="fas fa-arrow-right-from-bracket"></i> Sign out</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- GATE: backend not ready -->
-    <section class="sec is-hidden" id="gate-setup" style="padding:64px 0 30px;">
-        <div class="wrap-tight">
-            <div class="eyebrow">Setup required</div>
-            <h1 class="page-title">Logbook table not found</h1>
-            <p class="lede">You're signed in correctly, but the <code>logbook</code> table hasn't been created in Supabase yet. Run the migration <code>supabase/migrations/0009_logbook.sql</code> in the Supabase SQL editor, then reload this page.</p>
-            <div class="callout callout-info" id="setup-detail"></div>
-            <div class="action-row">
-                <button class="btn ghost" onclick="location.reload()"><i class="fas fa-rotate"></i> Reload</button>
-                <button class="btn ghost" data-signout><i class="fas fa-arrow-right-from-bracket"></i> Sign out</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- APP -->
-    <section class="sec is-hidden" id="view-app" style="padding:40px 0 24px;">
+    <!-- APP — always available. Data lives on this device; cloud sync is optional. -->
+    <section class="sec" id="view-app" style="padding:28px 0 24px;">
         <div class="wrap">
-            <button class="text-link" data-signout style="margin-bottom:18px;">&larr; Sign out</button>
-            <div class="eyebrow">Owner &middot; <span id="owner-email"></span></div>
+            <div class="syncbar">
+                <span class="sync-status" id="sync-status"><span class="dot" id="sync-dot"></span> <span id="sync-text">Saved on this device</span></span>
+                <span class="syncbar-actions">
+                    <button class="btn ghost" id="btn-export-json" title="Download a backup file"><i class="fas fa-download"></i> Backup</button>
+                    <button class="btn ghost" id="btn-import-json" title="Restore from a backup file"><i class="fas fa-upload"></i> Import</button>
+                    <button class="btn primary" id="btn-sync"><i class="fab fa-google"></i> Sign in to sync</button>
+                    <button class="btn ghost is-hidden" id="btn-signout" data-signout><i class="fas fa-arrow-right-from-bracket"></i> Sign out</button>
+                </span>
+                <input type="file" id="import-file" accept="application/json,.json" class="is-hidden">
+            </div>
+            <div class="callout is-hidden" id="sync-msg" style="margin:0 0 18px;"></div>
+
             <h1 class="page-title" style="margin-bottom:10px;">Case Logbook</h1>
-            <p class="lede" style="margin-bottom:24px;">De-identified case log &middot; research cohort &middot; follow-up board. <span id="count-summary" style="color:#8a302a;font-weight:600;"></span></p>
+            <p class="lede" style="margin-bottom:24px;">Private, de-identified case log &middot; research cohort &middot; follow-up board. <span id="count-summary" style="color:#8a302a;font-weight:600;"></span></p>
 
             <div class="tabs" id="tabs">
                 <button class="tab active" data-tab="log">Log</button>
@@ -222,6 +196,13 @@
                 <div class="card">
                     <h2><i class="fas fa-plus"></i> <span id="form-title">Add a case</span></h2>
                     <p class="card-sub">De-identified entry — use MRN or initials, never a full name</p>
+                    <div class="quick-add">
+                        <span class="qa-label">Quick add:</span>
+                        <button type="button" class="qa-chip" data-qa="OR">OR case</button>
+                        <button type="button" class="qa-chip" data-qa="Clinic">Clinic case</button>
+                        <button type="button" class="qa-chip" data-qa="Ward">Ward</button>
+                        <button type="button" class="qa-chip" data-qa="ER">ER</button>
+                    </div>
                     <form id="case-form">
                         <input type="hidden" id="f-id">
                         <div class="grid-form">
@@ -348,7 +329,7 @@
             </div>
 
             <div class="disclaimer">
-                <p><strong>Private &amp; de-identified.</strong> This logbook is restricted to the owner's Google account and protected server-side by Supabase Row Level Security — no one else can read these rows. Even so, store <strong>de-identified data only</strong> (MRN or initials, never full names). You are responsible for compliance with your institution's data-governance and patient-privacy policies.</p>
+                <p><strong>Private &amp; de-identified.</strong> Your log is saved <strong>on this device</strong> (in this browser) and works offline. If you tap <em>Sign in to sync</em>, it also backs up to your private cloud, protected server-side by Supabase Row Level Security so only your Google account can read it. Either way, store <strong>de-identified data only</strong> (MRN or initials, never full names), keep a <em>Backup</em> file, and follow your institution's data-governance and patient-privacy policies. Clearing your browser data removes the on-device copy.</p>
             </div>
         </div>
     </section>
@@ -366,6 +347,6 @@
 
     <!-- Edit happens inline in the form above; delete uses a lightweight confirm -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="js/logbook.js?v=1"></script>
+    <script src="js/logbook.js?v=3"></script>
 </body>
 </html>

@@ -1,79 +1,220 @@
 /* ============================================================================
- * Consultant Logbook (logbook.html)
- * Owner-only, de-identified case log with research-cohort + follow-up tracking.
+ * Consultant Logbook (logbook.html) — local-first, optional cloud sync.
  *
- * Security model: Google sign-in via Supabase Auth. The owner-email check here
- * is only for UX — the real boundary is Postgres Row Level Security (see
- * supabase/migrations/0009_logbook.sql), which lets ONLY the owner's JWT read
- * or write rows. The publishable key alone can read nothing.
+ * DATA MODEL
+ *  - Every case row has a stable client-generated `id` (uuid) and an
+ *    `updated_at` ISO timestamp. The same id is shared between the on-device
+ *    store and the cloud, which is what makes two-way sync possible.
+ *
+ * STORAGE
+ *  - Default: IndexedDB on this device. Works fully offline, no login, $0.
+ *  - Optional: "Sign in to sync" mirrors rows to Supabase (Google-OAuth,
+ *    owner-only RLS — see supabase/migrations/0009_logbook.sql). Reconciliation
+ *    is last-write-wins on `updated_at` keyed by `id`; deletes propagate via a
+ *    pending-deletes list. (Single-user tool: simultaneous offline edits to the
+ *    SAME case on two devices is an accepted rare edge case.)
  * ==========================================================================*/
 
 const SUPABASE_URL = "https://drsamkdxsfrolzyvxsjb.supabase.co";
 const PUBLISHABLE  = "sb_publishable_BxB2XjnPjFQ2yScmMJHbpA_T98Bv4Ag";
 const OWNER_EMAIL  = "drbinsaad@gmail.com";
-const REDIRECT_TO  = location.origin + location.pathname; // works on shahrani.me and github.io
+const REDIRECT_TO  = location.origin + location.pathname;
+
+const FIELDS = ["case_date", "setting", "mrn", "age", "age_unit", "sex", "side",
+  "diagnosis", "procedure", "surgeon_role", "asa", "findings", "outcome",
+  "complication", "research_study", "enrolled", "consent", "followup_date",
+  "followup_done", "status", "notes"];
 
 const $ = (id) => document.getElementById(id);
 
-let sb = null;
-let cases = [];          // all rows for the owner
+let cases = [];        // in-memory rows for rendering (from the local store)
 let editingId = null;
+let sb = null;         // Supabase client (created on first sign-in attempt)
+let signedIn = false;
+let syncTimer = null;
 
-/* ----------------------------- gate / session ---------------------------- */
-function showState(id) {
-  ["gate-loading", "gate-signin", "gate-denied", "gate-setup", "view-app"].forEach((s) => {
-    const el = $(s);
-    if (el) el.classList.toggle("is-hidden", s !== id);
+/* =========================== IndexedDB (local) ============================ */
+const DB_NAME = "ent-logbook";
+const DB_VERSION = 1;
+let _db = null;
+
+function openDB() {
+  return new Promise((resolve, reject) => {
+    if (_db) return resolve(_db);
+    const req = indexedDB.open(DB_NAME, DB_VERSION);
+    req.onupgradeneeded = () => {
+      const db = req.result;
+      if (!db.objectStoreNames.contains("cases")) db.createObjectStore("cases", { keyPath: "id" });
+      if (!db.objectStoreNames.contains("meta")) db.createObjectStore("meta", { keyPath: "k" });
+    };
+    req.onsuccess = () => { _db = req.result; resolve(_db); };
+    req.onerror = () => reject(req.error);
   });
-  window.scrollTo(0, 0);
+}
+function tx(store, mode) {
+  return openDB().then((db) => db.transaction(store, mode).objectStore(store));
+}
+function reqP(r) {
+  return new Promise((res, rej) => { r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); });
 }
 
+const Local = {
+  async listAll() {
+    const store = await tx("cases", "readonly");
+    const rows = await reqP(store.getAll());
+    rows.sort((a, b) =>
+      (b.case_date || "").localeCompare(a.case_date || "") ||
+      (b.updated_at || "").localeCompare(a.updated_at || ""));
+    return rows;
+  },
+  async get(id) { return reqP((await tx("cases", "readonly")).get(id)); },
+  async putRaw(row) { return reqP((await tx("cases", "readwrite")).put(row)); },
+  async remove(id) { return reqP((await tx("cases", "readwrite")).delete(id)); },
+  async metaGet(k, def) {
+    const v = await reqP((await tx("meta", "readonly")).get(k));
+    return v ? v.v : def;
+  },
+  async metaSet(k, v) { return reqP((await tx("meta", "readwrite")).put({ k: k, v: v })); },
+  async addPendingDelete(id) {
+    const list = await this.metaGet("pendingDeletes", []);
+    if (list.indexOf(id) === -1) { list.push(id); await this.metaSet("pendingDeletes", list); }
+  }
+};
+
+function nowISO() { return new Date().toISOString(); }
+function cleanRow(src) {
+  const r = { id: src.id, updated_at: src.updated_at };
+  FIELDS.forEach((f) => { r[f] = src[f] == null ? null : src[f]; });
+  return r;
+}
+
+/* ============================= Cloud (Supabase) ========================== */
+function ensureClient() {
+  if (sb) return sb;
+  if (!window.supabase || !window.supabase.createClient) return null;
+  sb = window.supabase.createClient(SUPABASE_URL, PUBLISHABLE);
+  return sb;
+}
+
+function isMissingTable(error) {
+  const code = error && error.code ? error.code : "";
+  const msg = (error && error.message ? error.message : "").toLowerCase();
+  return code === "42P01" || code === "PGRST205" ||
+    msg.includes("does not exist") || msg.includes("could not find the table");
+}
+
+const Cloud = {
+  async pull() {
+    const { data, error } = await sb.from("logbook").select("*");
+    if (error) throw error;
+    return (data || []).map(cleanRow);
+  },
+  async upsert(rows) {
+    if (!rows.length) return;
+    const { error } = await sb.from("logbook").upsert(rows.map(cleanRow), { onConflict: "id" });
+    if (error) throw error;
+  },
+  async del(ids) {
+    if (!ids.length) return;
+    const { error } = await sb.from("logbook").delete().in("id", ids);
+    if (error) throw error;
+  }
+};
+
+/* ================================ Sync =================================== */
+function scheduleSync() {
+  if (!signedIn) return;
+  clearTimeout(syncTimer);
+  syncTimer = setTimeout(() => { fullSync().catch(() => {}); }, 800);
+}
+
+async function fullSync() {
+  if (!signedIn || !sb) return;
+  setSyncState("syncing");
+  try {
+    // 1) Flush pending deletes to the cloud.
+    const pending = await Local.metaGet("pendingDeletes", []);
+    if (pending.length) { await Cloud.del(pending); await Local.metaSet("pendingDeletes", []); }
+
+    // 2) Pull cloud + read local, reconcile by id (last-write-wins).
+    const cloudRows = await Cloud.pull();
+    const localRows = await Local.listAll();
+    const cloudMap = {}; cloudRows.forEach((r) => { cloudMap[r.id] = r; });
+    const localMap = {}; localRows.forEach((r) => { localMap[r.id] = r; });
+    const ids = {}; Object.keys(cloudMap).forEach((i) => ids[i] = 1); Object.keys(localMap).forEach((i) => ids[i] = 1);
+
+    const toPush = [];
+    for (const id in ids) {
+      const c = cloudMap[id], l = localMap[id];
+      if (l && !c) { toPush.push(l); }
+      else if (c && !l) { await Local.putRaw(c); }
+      else {
+        const lt = Date.parse(l.updated_at || 0), ct = Date.parse(c.updated_at || 0);
+        if (lt > ct) toPush.push(l);
+        else if (ct > lt) await Local.putRaw(c);
+      }
+    }
+    if (toPush.length) await Cloud.upsert(toPush);
+
+    cases = await Local.listAll();
+    renderAll();
+    await Local.metaSet("lastSync", nowISO());
+    setSyncState("synced");
+  } catch (e) {
+    if (isMissingTable(e)) {
+      setSyncState("error", "Cloud not set up yet — run migration 0009_logbook.sql in Supabase. Your data is safe on this device.");
+    } else {
+      setSyncState("error", "Sync error: " + (e && e.message ? e.message : "unknown") + ". Data is safe on this device.");
+    }
+  }
+}
+
+/* ============================ Sync-bar UI ================================= */
+function setSyncState(state, msg) {
+  const dot = $("sync-dot"), text = $("sync-text"), m = $("sync-msg");
+  dot.className = "dot";
+  m.classList.add("is-hidden");
+  if (state === "local") { text.textContent = "Saved on this device"; }
+  else if (state === "syncing") { dot.classList.add("dot-syncing"); text.textContent = "Syncing…"; }
+  else if (state === "synced") { dot.classList.add("dot-synced"); text.textContent = "Synced · " + OWNER_EMAIL; }
+  else if (state === "error") {
+    dot.classList.add("dot-error"); text.textContent = "Sync paused — saved on device";
+    if (msg) { m.className = "callout callout-warn"; m.textContent = msg; m.classList.remove("is-hidden"); }
+  }
+  $("btn-sync").classList.toggle("is-hidden", signedIn);
+  $("btn-signout").classList.toggle("is-hidden", !signedIn);
+}
+
+function flashMsg(text, kind) {
+  const m = $("sync-msg");
+  m.className = "callout callout-" + (kind || "info");
+  m.textContent = text;
+  m.classList.remove("is-hidden");
+  setTimeout(() => m.classList.add("is-hidden"), 3500);
+}
+
+/* ============================ Auth handlers ============================== */
 async function onSession(session) {
-  if (!session) { showState("gate-signin"); return; }
+  if (!session) { signedIn = false; setSyncState("local"); return; }
   const email = (session.user && session.user.email ? session.user.email : "").toLowerCase();
   if (email !== OWNER_EMAIL) {
-    $("denied-email").textContent = email || "(unknown)";
-    showState("gate-denied");
+    signedIn = false;
+    flashMsg("That account (" + (email || "unknown") + ") isn't the owner. Signed out — your on-device log is untouched.", "warn");
+    try { await sb.auth.signOut(); } catch (e) {}
+    setSyncState("local");
     return;
   }
-  $("owner-email").textContent = email;
-  await loadCases();
+  signedIn = true;
+  setSyncState("synced");
+  await fullSync();
 }
 
-async function loadCases() {
-  const { data, error } = await sb
-    .from("logbook")
-    .select("*")
-    .order("case_date", { ascending: false })
-    .order("created_at", { ascending: false });
-
-  if (error) {
-    // 42P01 = table missing; PGRST205 = schema cache miss for unknown table.
-    const code = error.code || "";
-    const msg = (error.message || "").toLowerCase();
-    if (code === "42P01" || code === "PGRST205" || msg.includes("does not exist") || msg.includes("could not find the table")) {
-      $("setup-detail").textContent = "Details: " + (error.message || code);
-      showState("gate-setup");
-      return;
-    }
-    showState("gate-signin");
-    $("signin-error").textContent = "Could not load the logbook: " + (error.message || "unknown error");
-    $("signin-error").classList.remove("is-hidden");
-    return;
-  }
-
-  cases = data || [];
-  showState("view-app");
-  renderAll();
-}
-
-/* ------------------------------ helpers ---------------------------------- */
+/* ============================== helpers (render) ========================= */
 function esc(s) {
   return String(s == null ? "" : s).replace(/[&<>"']/g, (c) =>
     ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 }
 function todayISO() {
-  // Local date (not UTC) so "today" matches the clinician's calendar.
   const d = new Date();
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 }
@@ -107,7 +248,6 @@ function renderAll() {
   renderFollowup();
   renderResearch();
   renderStats();
-
   const due = cases.filter((c) => c.followup_date && !c.followup_done).length;
   const enrolled = cases.filter((c) => c.enrolled).length;
   $("pill-followup").textContent = due;
@@ -123,8 +263,7 @@ function filteredCases() {
     if (setting && c.setting !== setting) return false;
     if (status && c.status !== status) return false;
     if (q) {
-      const hay = [c.mrn, c.diagnosis, c.procedure, c.research_study, c.findings, c.notes]
-        .join(" ").toLowerCase();
+      const hay = [c.mrn, c.diagnosis, c.procedure, c.research_study, c.findings, c.notes].join(" ").toLowerCase();
       if (!hay.includes(q)) return false;
     }
     return true;
@@ -144,8 +283,7 @@ function renderLog() {
       else if (d <= 14) fu = `<span class="tag due">${fmtDate(c.followup_date)}</span>`;
       else fu = fmtDate(c.followup_date);
     }
-    const study = c.research_study
-      ? `<span class="tag study">${esc(c.research_study)}</span>` : "—";
+    const study = c.research_study ? `<span class="tag study">${esc(c.research_study)}</span>` : "—";
     return `<tr>
       <td>${fmtDate(c.case_date)}</td>
       <td>${settingTag(c.setting)}</td>
@@ -165,8 +303,7 @@ function renderLog() {
 }
 
 function renderFollowup() {
-  const rows = cases
-    .filter((c) => c.followup_date && !c.followup_done)
+  const rows = cases.filter((c) => c.followup_date && !c.followup_done)
     .sort((a, b) => a.followup_date.localeCompare(b.followup_date));
   $("followup-empty").classList.toggle("is-hidden", rows.length > 0);
   $("followup-body").innerHTML = rows.map((c) => {
@@ -195,10 +332,7 @@ function renderResearch() {
   const enrolled = cases.filter((c) => c.enrolled);
   $("research-empty").classList.toggle("is-hidden", enrolled.length > 0);
   const groups = {};
-  enrolled.forEach((c) => {
-    const k = c.research_study || "(unnamed study)";
-    (groups[k] = groups[k] || []).push(c);
-  });
+  enrolled.forEach((c) => { const k = c.research_study || "(unnamed study)"; (groups[k] = groups[k] || []).push(c); });
   const html = Object.keys(groups).sort().map((study) => {
     const list = groups[study];
     const consented = list.filter((c) => c.consent).length;
@@ -230,20 +364,17 @@ function renderStats() {
 
   const bySetting = {};
   cases.forEach((c) => { bySetting[c.setting] = (bySetting[c.setting] || 0) + 1; });
-  $("bars-setting").innerHTML = barRows(bySetting, cases.length);
+  $("bars-setting").innerHTML = barRows(bySetting);
 
   const byProc = {};
-  cases.forEach((c) => {
-    const p = (c.procedure || "").trim();
-    if (p) byProc[p] = (byProc[p] || 0) + 1;
-  });
+  cases.forEach((c) => { const p = (c.procedure || "").trim(); if (p) byProc[p] = (byProc[p] || 0) + 1; });
   const procEntries = Object.entries(byProc).sort((a, b) => b[1] - a[1]).slice(0, 10);
   $("proc-empty").classList.toggle("is-hidden", procEntries.length > 0);
   const maxProc = procEntries.length ? procEntries[0][1] : 1;
   $("bars-procedure").innerHTML = procEntries.map(([k, v]) => barRow(k, v, maxProc)).join("");
 }
 
-function barRows(obj, total) {
+function barRows(obj) {
   const entries = Object.entries(obj).sort((a, b) => b[1] - a[1]);
   const max = entries.length ? entries[0][1] : 1;
   return entries.map(([k, v]) => barRow(k, v, max)).join("");
@@ -280,7 +411,7 @@ function readForm() {
     consent: $("f-consent").checked,
     followup_date: $("f-followup_date").value || null,
     followup_done: $("f-followup_done").checked,
-    status: $("f-status").value,
+    status: $("f-status").value
   };
 }
 
@@ -332,126 +463,159 @@ function startEdit(id) {
   $("case-form").scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
+function newId() {
+  if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+    const r = (Math.random() * 16) | 0, v = c === "x" ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+}
+
 async function submitForm(e) {
   e.preventDefault();
   const payload = readForm();
-  const btn = $("save-btn");
-  btn.disabled = true;
-  const original = btn.innerHTML;
-  btn.innerHTML = '<span class="spinner"></span> Saving…';
-  const msg = $("form-msg");
-  msg.classList.add("is-hidden");
+  payload.id = editingId || newId();
+  payload.updated_at = nowISO();
 
-  let error;
-  if (editingId) {
-    ({ error } = await sb.from("logbook").update(payload).eq("id", editingId));
-  } else {
-    ({ error } = await sb.from("logbook").insert(payload));
-  }
+  const btn = $("save-btn"); btn.disabled = true;
+  const original = btn.innerHTML; btn.innerHTML = '<span class="spinner"></span> Saving…';
+  const msg = $("form-msg"); msg.classList.add("is-hidden");
 
-  btn.disabled = false;
-  btn.innerHTML = original;
-
-  if (error) {
-    msg.className = "callout callout-warn";
-    msg.textContent = "Save failed: " + (error.message || "unknown error");
+  try {
+    await Local.putRaw(payload);
+    msg.className = "callout callout-ok";
+    msg.textContent = editingId ? "Case updated." : "Case saved.";
     msg.classList.remove("is-hidden");
-    return;
+    setTimeout(() => msg.classList.add("is-hidden"), 2500);
+    resetForm();
+    cases = await Local.listAll();
+    renderAll();
+    scheduleSync();
+  } catch (err) {
+    msg.className = "callout callout-warn";
+    msg.textContent = "Save failed: " + (err && err.message ? err.message : "unknown error");
+    msg.classList.remove("is-hidden");
+  } finally {
+    btn.disabled = false; btn.innerHTML = original;
   }
-
-  msg.className = "callout callout-ok";
-  msg.textContent = editingId ? "Case updated." : "Case saved.";
-  msg.classList.remove("is-hidden");
-  setTimeout(() => msg.classList.add("is-hidden"), 2500);
-  resetForm();
-  await loadCases();
 }
 
 async function deleteCase(id) {
   const c = cases.find((x) => x.id === id);
   const label = c ? (c.procedure || c.diagnosis || c.mrn || "this case") : "this case";
   if (!confirm(`Delete the entry for "${label}"? This cannot be undone.`)) return;
-  const { error } = await sb.from("logbook").delete().eq("id", id);
-  if (error) { alert("Delete failed: " + (error.message || "unknown error")); return; }
-  await loadCases();
+  await Local.remove(id);
+  await Local.addPendingDelete(id);
+  cases = await Local.listAll();
+  renderAll();
+  scheduleSync();
 }
 
 async function markFollowupDone(id) {
-  const { error } = await sb.from("logbook").update({ followup_done: true }).eq("id", id);
-  if (error) { alert("Update failed: " + (error.message || "unknown error")); return; }
-  await loadCases();
+  const c = await Local.get(id);
+  if (!c) return;
+  c.followup_done = true;
+  c.updated_at = nowISO();
+  await Local.putRaw(c);
+  cases = await Local.listAll();
+  renderAll();
+  scheduleSync();
 }
 
 /* ------------------------------- export ---------------------------------- */
 function exportCSV() {
   const rows = filteredCases();
-  const cols = ["case_date", "setting", "mrn", "age", "age_unit", "sex", "side",
-    "diagnosis", "procedure", "surgeon_role", "asa", "outcome", "complication",
-    "findings", "research_study", "enrolled", "consent", "followup_date",
-    "followup_done", "status", "notes"];
+  const cols = FIELDS.slice();
   const csvCell = (v) => {
     const s = v == null ? "" : String(v);
     return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
   };
   const lines = [cols.join(",")];
   rows.forEach((c) => lines.push(cols.map((k) => csvCell(c[k])).join(",")));
-  const blob = new Blob([lines.join("\n")], { type: "text/csv;charset=utf-8;" });
+  download(new Blob([lines.join("\n")], { type: "text/csv;charset=utf-8;" }), `logbook-${todayISO()}.csv`);
+}
+
+function exportJSON() {
+  const data = { type: "ent-logbook", version: 1, exported: nowISO(), cases: cases.map(cleanRow) };
+  download(new Blob([JSON.stringify(data, null, 2)], { type: "application/json" }), `logbook-backup-${todayISO()}.json`);
+}
+
+function download(blob, name) {
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
-  a.href = url;
-  a.download = `logbook-${todayISO()}.csv`;
-  a.click();
+  a.href = url; a.download = name; a.click();
   URL.revokeObjectURL(url);
+}
+
+async function importJSON(file) {
+  try {
+    const text = await file.text();
+    const data = JSON.parse(text);
+    const rows = Array.isArray(data) ? data : (data.cases || []);
+    if (!rows.length) { flashMsg("No cases found in that file.", "warn"); return; }
+    let added = 0;
+    for (const raw of rows) {
+      if (!raw || typeof raw !== "object") continue;
+      const row = cleanRow(raw);
+      if (!row.id) row.id = newId();
+      if (!row.updated_at) row.updated_at = nowISO();
+      // Merge: imported row wins only if newer than an existing one.
+      const existing = await Local.get(row.id);
+      if (!existing || Date.parse(row.updated_at) >= Date.parse(existing.updated_at || 0)) {
+        await Local.putRaw(row); added++;
+      }
+    }
+    cases = await Local.listAll();
+    renderAll();
+    flashMsg(`Imported ${added} case${added === 1 ? "" : "s"}.`, "ok");
+    scheduleSync();
+  } catch (e) {
+    flashMsg("Import failed: " + (e && e.message ? e.message : "invalid file"), "warn");
+  }
 }
 
 /* ------------------------------- tabs ------------------------------------ */
 function switchTab(name) {
-  document.querySelectorAll(".tab").forEach((t) =>
-    t.classList.toggle("active", t.dataset.tab === name));
+  document.querySelectorAll(".tab").forEach((t) => t.classList.toggle("active", t.dataset.tab === name));
   ["log", "followup", "research", "stats"].forEach((n) =>
     $("tab-" + n).classList.toggle("is-hidden", n !== name));
 }
 
 /* ------------------------------- wiring ---------------------------------- */
-function wire() {
-  if (!window.supabase || !window.supabase.createClient) {
-    showState("gate-signin");
-    $("signin-error").textContent = "Could not load the sign-in library. Check your connection and reload.";
-    $("signin-error").classList.remove("is-hidden");
-    return;
+async function wire() {
+  // Load local data first so the app is usable immediately, offline, no login.
+  try {
+    cases = await Local.listAll();
+  } catch (e) {
+    cases = [];
+    flashMsg("This browser blocked local storage (private mode?). Data won't persist.", "warn");
   }
-  sb = window.supabase.createClient(SUPABASE_URL, PUBLISHABLE);
   $("f-case_date").value = todayISO();
-
-  $("btn-google").addEventListener("click", async () => {
-    $("signin-error").classList.add("is-hidden");
-    const { error } = await sb.auth.signInWithOAuth({
-      provider: "google",
-      options: { redirectTo: REDIRECT_TO },
-    });
-    if (error) {
-      $("signin-error").textContent = error.message || "Sign-in failed. Is the Google provider enabled in Supabase?";
-      $("signin-error").classList.remove("is-hidden");
-    }
-  });
-
-  document.querySelectorAll("[data-signout]").forEach((b) =>
-    b.addEventListener("click", async () => {
-      await sb.auth.signOut();
-      cases = [];
-      showState("gate-signin");
-    }));
+  setSyncState("local");
+  renderAll();
 
   $("case-form").addEventListener("submit", submitForm);
   $("cancel-edit").addEventListener("click", resetForm);
   $("export-csv").addEventListener("click", exportCSV);
-  ["q-search", "q-setting", "q-status"].forEach((id) =>
-    $(id).addEventListener("input", renderLog));
+  $("btn-export-json").addEventListener("click", exportJSON);
+  $("btn-import-json").addEventListener("click", () => $("import-file").click());
+  $("import-file").addEventListener("change", (e) => {
+    if (e.target.files && e.target.files[0]) importJSON(e.target.files[0]);
+    e.target.value = "";
+  });
+  ["q-search", "q-setting", "q-status"].forEach((id) => $(id).addEventListener("input", renderLog));
+  document.querySelectorAll(".tab").forEach((t) => t.addEventListener("click", () => switchTab(t.dataset.tab)));
 
-  document.querySelectorAll(".tab").forEach((t) =>
-    t.addEventListener("click", () => switchTab(t.dataset.tab)));
+  // Quick-add chips: start a fresh case pre-set to a setting, focus on MRN.
+  document.querySelectorAll(".qa-chip").forEach((ch) => ch.addEventListener("click", () => {
+    resetForm();
+    $("f-setting").value = ch.getAttribute("data-qa");
+    $("f-case_date").value = todayISO();
+    switchTab("log");
+    $("case-form").scrollIntoView({ behavior: "smooth", block: "start" });
+    $("f-mrn").focus();
+  }));
 
-  // Delegated row actions across all tables.
   document.addEventListener("click", (e) => {
     const ed = e.target.closest("[data-edit]");
     const del = e.target.closest("[data-del]");
@@ -461,8 +625,27 @@ function wire() {
     else if (done) markFollowupDone(done.getAttribute("data-done"));
   });
 
-  sb.auth.onAuthStateChange((_evt, session) => onSession(session));
-  sb.auth.getSession().then((res) => onSession(res.data ? res.data.session : null));
+  // Sign in to sync
+  $("btn-sync").addEventListener("click", async () => {
+    const client = ensureClient();
+    if (!client) { flashMsg("Couldn't load the sign-in library. Check your connection.", "warn"); return; }
+    const { error } = await client.auth.signInWithOAuth({ provider: "google", options: { redirectTo: REDIRECT_TO } });
+    if (error) flashMsg(error.message || "Sign-in failed.", "warn");
+  });
+  document.querySelectorAll("[data-signout]").forEach((b) =>
+    b.addEventListener("click", async () => {
+      if (sb) { try { await sb.auth.signOut(); } catch (e) {} }
+      signedIn = false;
+      setSyncState("local");
+      flashMsg("Signed out. Your log stays on this device.", "info");
+    }));
+
+  // Pick up an existing Supabase session (e.g. after the OAuth redirect).
+  const client = ensureClient();
+  if (client) {
+    client.auth.onAuthStateChange((_evt, session) => onSession(session));
+    client.auth.getSession().then((res) => { if (res.data && res.data.session) onSession(res.data.session); });
+  }
 }
 
 document.addEventListener("DOMContentLoaded", wire);
