@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Clinic Companion — Dr Ali Alshahrani</title>
+    <meta name="description" content="Fast mobile ENT toolkit for clinic and OR: drug dosing, scores, quick decision tools and a private case logbook. Installable, works offline.">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="theme-color" content="#8a302a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="ENT Clinic">
+    <link rel="apple-touch-icon" href="/apps/ent-tools/assets/icon.png">
+    <script src="/js/pwa.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+        html{scroll-behavior:smooth;}
+        body{background:#f4f1ea;color:#1c1a17;font-family:'Source Sans 3',system-ui,sans-serif;line-height:1.6;min-height:100vh;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;}
+        a{color:inherit;text-decoration:none;}
+        ::selection{background:#8a302a;color:#f4f1ea;}
+
+        .topbar{position:sticky;top:0;z-index:50;background:rgba(244,241,234,0.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid #e4ded2;padding:calc(env(safe-area-inset-top) + 12px) 16px 12px;}
+        .topbar-inner{max-width:760px;margin:0 auto;display:flex;align-items:center;gap:12px;}
+        .brand{display:flex;flex-direction:column;line-height:1.05;flex:none;}
+        .brand b{font-family:'Newsreader',serif;font-size:18px;font-weight:600;}
+        .brand span{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#8a302a;margin-top:3px;}
+        .install-btn{margin-left:auto;display:inline-flex;align-items:center;gap:7px;font-weight:600;font-size:13px;padding:9px 14px;border-radius:999px;background:#1c1a17;color:#f4f1ea;border:none;cursor:pointer;}
+        .install-btn i{font-size:12px;}
+
+        .wrap{max-width:760px;margin:0 auto;padding:16px 16px 40px;}
+        .searchbar{position:relative;margin:6px 0 22px;}
+        .searchbar i{position:absolute;left:15px;top:50%;transform:translateY(-50%);color:#9a9389;font-size:15px;}
+        .searchbar input{width:100%;font-family:inherit;font-size:16px;padding:15px 16px 15px 42px;background:#fffdf8;border:1px solid #e4ded2;border-radius:14px;color:#1c1a17;}
+        .searchbar input:focus{outline:none;border-color:#8a302a;}
+
+        .ios-hint{display:flex;gap:10px;align-items:flex-start;background:#fffdf8;border:1px solid #e4ded2;border-radius:12px;padding:13px 15px;margin-bottom:20px;font-size:13.5px;color:#6f6a61;}
+        .ios-hint i{color:#8a302a;margin-top:2px;}
+
+        .group{margin-bottom:26px;}
+        .group-h{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#8a302a;margin:0 4px 12px;display:flex;align-items:center;gap:8px;}
+        .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+        @media (min-width:560px){.grid{grid-template-columns:1fr 1fr 1fr;}}
+
+        .tile{display:flex;flex-direction:column;gap:8px;min-height:96px;padding:16px 15px;background:#fffdf8;border:1px solid #e4ded2;border-radius:16px;transition:transform .08s ease,border-color .15s ease,background .15s ease;}
+        .tile:active{transform:scale(0.97);background:#faf6ee;}
+        .tile .ico{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:#f4efe6;color:#8a302a;font-size:17px;flex:none;}
+        .tile.accent{border-top:3px solid #8a302a;}
+        .tile.dark{background:#1c1a17;border-color:#1c1a17;}
+        .tile.dark .ico{background:#2c2925;color:#e7b7b1;}
+        .tile.dark .t-name{color:#f4f1ea;}
+        .tile.dark .t-sub{color:#a59f93;}
+        .t-name{font-family:'Newsreader',serif;font-weight:600;font-size:16px;line-height:1.15;color:#1c1a17;}
+        .t-sub{font-size:12px;color:#6f6a61;line-height:1.35;}
+        .tile.full{grid-column:1 / -1;flex-direction:row;align-items:center;min-height:0;}
+        .tile.full .ico{width:40px;height:40px;}
+        .tile.full .t-name{font-size:16px;}
+        .tile.full .chev{margin-left:auto;color:#9a9389;}
+
+        .no-results{display:none;text-align:center;color:#9a9389;padding:30px 0;font-size:15px;}
+
+        .footnote{margin-top:22px;padding:14px 16px;background:#f4efe6;border:1px solid #e4ded2;border-radius:12px;font-size:12.5px;color:#6f6a61;line-height:1.6;}
+        .footnote a{color:#8a302a;font-weight:600;}
+    </style>
+</head>
+<body>
+    <div class="topbar">
+        <div class="topbar-inner">
+            <div class="brand"><b>Clinic Companion</b><span>Otolaryngology</span></div>
+            <button class="install-btn is-hidden" id="pwa-install"><i class="fas fa-circle-down"></i> Install</button>
+        </div>
+    </div>
+
+    <div class="wrap">
+        <div class="searchbar">
+            <i class="fas fa-magnifying-glass"></i>
+            <input type="search" id="q" placeholder="Search tools, scores, drugs…" autocomplete="off" aria-label="Search tools">
+        </div>
+
+        <div class="ios-hint is-hidden" id="pwa-ios-hint">
+            <i class="fas fa-circle-info"></i>
+            <div>Add to your home screen: tap the <strong>Share</strong> button, then <strong>“Add to Home Screen”</strong> — it opens full-screen and works offline.</div>
+        </div>
+
+        <div id="board">
+            <!-- Quick point-of-care -->
+            <div class="group" data-group>
+                <div class="group-h"><i class="fas fa-bolt"></i> Quick tools</div>
+                <div class="grid">
+                    <a class="tile accent" href="drug-tools.html" data-kw="drug dose dosing paediatric pediatric local anaesthetic anesthetic lignocaine lidocaine antibiotic reference">
+                        <div class="ico"><i class="fas fa-pills"></i></div>
+                        <div class="t-name">Drug Tools</div>
+                        <div class="t-sub">Dosing · LA max · reference</div>
+                    </a>
+                    <a class="tile accent" href="sore-throat.html" data-kw="sore throat tonsillitis pharyngitis centor feverpain strep antibiotic">
+                        <div class="ico"><i class="fas fa-head-side-cough"></i></div>
+                        <div class="t-name">Sore Throat</div>
+                        <div class="t-sub">Centor · FeverPAIN</div>
+                    </a>
+                    <a class="tile accent" href="bppv-vertigo.html" data-kw="vertigo dizziness bppv dix hallpike epley hints nystagmus vestibular">
+                        <div class="ico"><i class="fas fa-arrows-spin"></i></div>
+                        <div class="t-name">BPPV / Vertigo</div>
+                        <div class="t-sub">Dix-Hallpike · Epley · HINTS</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Airway & peri-op -->
+            <div class="group" data-group>
+                <div class="group-h"><i class="fas fa-lungs"></i> Airway &amp; peri-op</div>
+                <div class="grid">
+                    <a class="tile" href="bronchoscopy-tool.html" data-kw="airway sizing bronchoscope ett lma tube paediatric pediatric">
+                        <div class="ico"><i class="fas fa-ruler"></i></div>
+                        <div class="t-name">Airway Sizing</div>
+                        <div class="t-sub">Scope · ETT · LMA</div>
+                    </a>
+                    <a class="tile" href="et-depth-calculator.html" data-kw="et depth ett intubation tube depth lip">
+                        <div class="ico"><i class="fas fa-down-left-and-up-right-to-center"></i></div>
+                        <div class="t-name">ET Depth</div>
+                        <div class="t-sub">Insertion depth</div>
+                    </a>
+                    <a class="tile" href="nebulized-epinephrine-calculator.html" data-kw="nebulised nebulized epinephrine adrenaline croup stridor">
+                        <div class="ico"><i class="fas fa-spray-can-sparkles"></i></div>
+                        <div class="t-name">Neb Adrenaline</div>
+                        <div class="t-sub">Croup · stridor</div>
+                    </a>
+                    <a class="tile" href="airway-obstruction-calculator.html" data-kw="airway obstruction cotton myer subglottic stenosis grade">
+                        <div class="ico"><i class="fas fa-grip-lines"></i></div>
+                        <div class="t-name">Obstruction</div>
+                        <div class="t-sub">Cotton-Myer grade</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Scores & questionnaires -->
+            <div class="group" data-group>
+                <div class="group-h"><i class="fas fa-list-check"></i> Scores &amp; questionnaires</div>
+                <div class="grid">
+                    <a class="tile" href="snot22.html" data-kw="snot 22 sinonasal rhinosinusitis chronic crs outcome">
+                        <div class="ico"><i class="fas fa-head-side-mask"></i></div>
+                        <div class="t-name">SNOT-22</div>
+                        <div class="t-sub">Sinonasal outcome</div>
+                    </a>
+                    <a class="tile" href="nose.html" data-kw="nose nasal obstruction septoplasty">
+                        <div class="ico"><i class="fas fa-wind"></i></div>
+                        <div class="t-name">NOSE</div>
+                        <div class="t-sub">Nasal obstruction</div>
+                    </a>
+                    <a class="tile" href="dhi.html" data-kw="dizziness handicap inventory dhi vertigo">
+                        <div class="ico"><i class="fas fa-person-falling"></i></div>
+                        <div class="t-name">DHI</div>
+                        <div class="t-sub">Dizziness handicap</div>
+                    </a>
+                    <a class="tile" href="thi.html" data-kw="tinnitus handicap inventory thi">
+                        <div class="ico"><i class="fas fa-volume-high"></i></div>
+                        <div class="t-name">THI</div>
+                        <div class="t-sub">Tinnitus handicap</div>
+                    </a>
+                    <a class="tile" href="ess.html" data-kw="epworth sleepiness scale ess sleep osa apnoea">
+                        <div class="ico"><i class="fas fa-bed"></i></div>
+                        <div class="t-name">Epworth</div>
+                        <div class="t-sub">Sleepiness (ESS)</div>
+                    </a>
+                    <a class="tile" href="rsi.html" data-kw="reflux symptom index rsi lpr laryngopharyngeal">
+                        <div class="ico"><i class="fas fa-fire"></i></div>
+                        <div class="t-name">RSI</div>
+                        <div class="t-sub">Reflux symptoms</div>
+                    </a>
+                    <a class="tile" href="lund-mackay.html" data-kw="lund mackay sinus ct staging score">
+                        <div class="ico"><i class="fas fa-x-ray"></i></div>
+                        <div class="t-name">Lund-Mackay</div>
+                        <div class="t-sub">Sinus CT score</div>
+                    </a>
+                    <a class="tile" href="/calculators/#/pta-calculator" data-kw="pta pure tone average audiogram hearing loss">
+                        <div class="ico"><i class="fas fa-ear-listen"></i></div>
+                        <div class="t-name">PTA</div>
+                        <div class="t-sub">Pure-tone average</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Workspace -->
+            <div class="group" data-group>
+                <div class="group-h"><i class="fas fa-folder-open"></i> Workspace</div>
+                <div class="grid">
+                    <a class="tile dark full" href="logbook.html" data-kw="logbook case log surgical operative clinic research follow up audit">
+                        <div class="ico"><i class="fas fa-book-medical"></i></div>
+                        <div><div class="t-name">Case Logbook</div><div class="t-sub">OR · clinic · research · follow-up</div></div>
+                        <i class="fas fa-chevron-right chev"></i>
+                    </a>
+                    <a class="tile full" href="ent-tools.html" data-kw="all tools calculators full list everything">
+                        <div class="ico"><i class="fas fa-grip"></i></div>
+                        <div><div class="t-name">All tools &amp; calculators</div><div class="t-sub">Full catalogue by subspecialty</div></div>
+                        <i class="fas fa-chevron-right chev"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="no-results" id="no-results">No tools match “<span id="nr-q"></span>”.</div>
+
+        <div class="footnote">
+            Educational decision-support for clinicians — always verify against your local formulary and guidelines.
+            <a href="index.html">Dr Ali Alshahrani →</a>
+        </div>
+    </div>
+
+    <script>
+    (function () {
+        var q = document.getElementById("q");
+        var tiles = Array.prototype.slice.call(document.querySelectorAll(".tile"));
+        var groups = Array.prototype.slice.call(document.querySelectorAll("[data-group]"));
+        var noRes = document.getElementById("no-results");
+
+        function filter() {
+            var term = q.value.trim().toLowerCase();
+            var anyVisible = false;
+            tiles.forEach(function (t) {
+                var hay = (t.getAttribute("data-kw") + " " + t.textContent).toLowerCase();
+                var show = !term || hay.indexOf(term) !== -1;
+                t.style.display = show ? "" : "none";
+                if (show) anyVisible = true;
+            });
+            // Hide a group header if all its tiles are hidden.
+            groups.forEach(function (g) {
+                var visible = g.querySelectorAll(".tile:not([style*='display: none'])").length;
+                g.style.display = visible ? "" : "none";
+            });
+            noRes.style.display = anyVisible ? "none" : "block";
+            document.getElementById("nr-q").textContent = term;
+        }
+        q.addEventListener("input", filter);
+    })();
+    </script>
+</body>
+</html>

@@ -12,6 +12,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#8a302a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="ENT Clinic">
+<link rel="apple-touch-icon" href="/apps/ent-tools/assets/icon.png">
+<script src="/js/pwa.js" defer></script>
 <style>
   *{margin:0;padding:0;box-sizing:border-box;}
   html{scroll-behavior:smooth;}
@@ -64,6 +70,23 @@
       <h1 style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(36px,5vw,58px);line-height:1.04;letter-spacing:-0.01em;color:#1c1a17;margin-bottom:22px;max-width:18ch;">ENT Web Tools</h1>
       <p style="font-size:17.5px;color:#46423b;line-height:1.75;max-width:58ch;">A free collection of browser-based clinical calculators and validated screening instruments, organized by subspecialty for otolaryngology education and workflow support.</p>
       <div style="margin-top:22px;padding:16px 20px;background:#efeae0;border:1px solid #e4ded2;border-radius:2px;font-size:14.5px;color:#6f6a61;max-width:58ch;">Looking for the mobile app? The ENT Hub app, App Store privacy policy and support pages live under <a href="my-apps.html" style="color:#8a302a;font-weight:600;text-decoration:none;border-bottom:1px solid #c9a59f;">My Apps &rarr;</a></div>
+      <a href="clinic.html" style="margin-top:14px;display:inline-flex;align-items:center;gap:11px;background:#1c1a17;color:#f4f1ea;font-weight:600;font-size:15px;padding:14px 22px;border-radius:2px;text-decoration:none;" style-hover="background:#8a302a;"><i class="fas fa-mobile-screen-button"></i> Open Clinic Companion &mdash; fast mobile launcher (installable, works offline)</a>
+    </div>
+  </section>
+
+  <section data-sec data-screen-label="Consultant Workspace" style="padding:0 0 56px;">
+    <div style="max-width:1080px;margin:0 auto;padding:0 28px;">
+      <div style="display:flex;align-items:baseline;gap:16px;border-bottom:1px solid #ddd6c8;padding-bottom:14px;margin-bottom:34px;">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#8a302a;">00</span>
+        <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(24px,3vw,32px);color:#1c1a17;">Consultant Workspace</h2>
+        <span style="margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#9a9389;">4 tools</span>
+      </div>
+      <div data-grid-2 style="display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:#e4ded2;border:1px solid #e4ded2;">
+        <a href="drug-tools.html" style="text-decoration:none;background:#faf8f2;padding:28px 26px;display:flex;flex-direction:column;border-top:3px solid #8a302a;" style-hover="background:#fff;"><h3 style="font-family:'Newsreader',serif;font-weight:600;font-size:19px;color:#1c1a17;margin-bottom:10px;">Drug Tools</h3><p style="font-size:14.5px;color:#6f6a61;line-height:1.65;flex:1;">Weight-based paediatric dosing, local-anaesthetic maximum-dose calculator and an ENT drug quick-reference for clinic and OR.</p><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8a302a;margin-top:16px;">Open tools &rarr;</span></a>
+        <a href="sore-throat.html" style="text-decoration:none;background:#faf8f2;padding:28px 26px;display:flex;flex-direction:column;border-top:3px solid #8a302a;" style-hover="background:#fff;"><h3 style="font-family:'Newsreader',serif;font-weight:600;font-size:19px;color:#1c1a17;margin-bottom:10px;">Sore Throat Score</h3><p style="font-size:14.5px;color:#6f6a61;line-height:1.65;flex:1;">Modified Centor (McIsaac) and FeverPAIN scores side by side, with live antibiotic-decision guidance.</p><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8a302a;margin-top:16px;">Open tool &rarr;</span></a>
+        <a href="bppv-vertigo.html" style="text-decoration:none;background:#faf8f2;padding:28px 26px;display:flex;flex-direction:column;border-top:3px solid #8a302a;" style-hover="background:#fff;"><h3 style="font-family:'Newsreader',serif;font-weight:600;font-size:19px;color:#1c1a17;margin-bottom:10px;">BPPV &amp; Vertigo</h3><p style="font-size:14.5px;color:#6f6a61;line-height:1.65;flex:1;">Dix-Hallpike interpretation, a side-aware Epley walk-through with a 30-second hold timer, and a HINTS card for acute vertigo.</p><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8a302a;margin-top:16px;">Open guide &rarr;</span></a>
+        <a href="logbook.html" style="text-decoration:none;background:#faf8f2;padding:28px 26px;display:flex;flex-direction:column;border-top:3px solid #8a302a;" style-hover="background:#fff;"><h3 style="font-family:'Newsreader',serif;font-weight:600;font-size:19px;color:#1c1a17;margin-bottom:10px;">Case Logbook <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#9a9389;vertical-align:middle;">&middot; private</span></h3><p style="font-size:14.5px;color:#6f6a61;line-height:1.65;flex:1;">Owner-only, de-identified log of OR, clinic, ward and ER cases &mdash; with research-cohort enrolment and a follow-up board. Google sign-in required.</p><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8a302a;margin-top:16px;">Sign in &rarr;</span></a>
+      </div>
     </div>
   </section>
 

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>BPPV & Vertigo — Dix-Hallpike, Epley, HINTS | Dr Ali Alshahrani</title>
+    <meta name="description" content="Bedside guide to BPPV and acute vertigo: Dix-Hallpike interpretation, a side-aware Epley manoeuvre walk-through, and the HINTS exam. Educational point-of-care tool.">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="theme-color" content="#8a302a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="ENT Clinic">
+    <link rel="apple-touch-icon" href="/apps/ent-tools/assets/icon.png">
+    <script src="/js/pwa.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{background:#f4f1ea;color:#1c1a17;font-family:'Source Sans 3',system-ui,sans-serif;line-height:1.6;min-height:100vh;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;}
+        a{color:inherit;text-decoration:none;}
+        ::selection{background:#8a302a;color:#f4f1ea;}
+
+        .topbar{position:sticky;top:0;z-index:50;background:rgba(244,241,234,0.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid #e4ded2;padding:calc(env(safe-area-inset-top) + 12px) 16px 12px;}
+        .topbar-inner{max-width:820px;margin:0 auto;display:flex;align-items:center;gap:12px;}
+        .back{display:inline-flex;align-items:center;gap:8px;color:#8a302a;font-weight:600;font-size:14px;}
+        .topbar h1{font-family:'Newsreader',serif;font-size:17px;font-weight:600;margin-left:auto;}
+
+        .wrap{max-width:820px;margin:0 auto;padding:18px 16px 44px;}
+        .intro{font-size:15px;color:#46423b;margin-bottom:18px;line-height:1.65;}
+
+        .card{background:#fffdf8;border:1px solid #e4ded2;border-radius:16px;padding:20px;margin-bottom:16px;}
+        .card h2{font-family:'Newsreader',serif;font-weight:600;font-size:20px;margin-bottom:4px;display:flex;align-items:center;gap:10px;}
+        .card h2 i{color:#8a302a;font-size:17px;}
+        .card .sub{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#6f6a61;margin-bottom:16px;}
+        .card p{font-size:14.5px;color:#46423b;line-height:1.65;}
+        .ul{list-style:none;margin:10px 0 0;}
+        .ul li{position:relative;padding:5px 0 5px 22px;font-size:14.5px;color:#46423b;}
+        .ul li::before{content:"";position:absolute;left:2px;top:13px;width:6px;height:6px;border-radius:50%;background:#8a302a;}
+
+        .side-toggle{display:flex;gap:8px;margin:6px 0 18px;}
+        .side-toggle button{flex:1;padding:13px;border-radius:12px;border:1px solid #cdc6ba;background:#fff;font-family:inherit;font-weight:600;font-size:15px;color:#46423b;cursor:pointer;}
+        .side-toggle button.on{background:#8a302a;border-color:#8a302a;color:#fff;}
+        .side-label{font-weight:700;color:#8a302a;}
+
+        .step{display:flex;gap:13px;align-items:flex-start;padding:14px 15px;margin-bottom:9px;background:#fff;border:1px solid #e4ded2;border-radius:12px;cursor:pointer;}
+        .step.on{background:#f4efe6;border-color:#8a302a;}
+        .step .n{width:26px;height:26px;border-radius:50%;flex:none;background:#1c1a17;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;}
+        .step.on .n{background:#8a302a;}
+        .step .txt{font-size:14.5px;color:#1c1a17;line-height:1.5;}
+
+        .timer{display:flex;align-items:center;gap:14px;margin:14px 0 4px;padding:14px 16px;background:#1c1a17;border-radius:12px;color:#f4f1ea;}
+        .timer .t{font-family:'Newsreader',serif;font-size:30px;min-width:64px;}
+        .timer button{font-family:inherit;font-weight:600;font-size:14px;padding:10px 18px;border-radius:9px;border:none;cursor:pointer;background:#8a302a;color:#fff;}
+        .timer button.ghost{background:transparent;border:1px solid #4a4742;color:#e7e2d8;}
+        .timer .hint{font-size:12px;color:#a59f93;margin-left:auto;text-align:right;}
+
+        table.h{width:100%;border-collapse:collapse;margin-top:6px;font-size:14px;}
+        table.h th,table.h td{border:1px solid #e4ded2;padding:10px 12px;text-align:left;vertical-align:top;}
+        table.h th{background:#f4efe6;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:#6f6a61;font-weight:500;}
+        table.h .periph{color:#3f6b43;font-weight:600;}
+        table.h .central{color:#a32d2d;font-weight:600;}
+
+        .flag{margin-top:6px;padding:13px 15px;background:#fbeaea;border:1px solid #e3b3b3;border-radius:10px;font-size:13.5px;color:#a32d2d;line-height:1.6;}
+        .flag strong{color:#7a2521;}
+
+        .disclaimer{margin-top:8px;padding:16px 18px;background:#fbeaea;border:1px solid #e3b3b3;border-left:3px solid #8a302a;border-radius:12px;}
+        .disclaimer p{margin:0;color:#7a3530;font-size:13px;line-height:1.7;}
+        .disclaimer strong{color:#5e2521;}
+    </style>
+</head>
+<body>
+    <div class="topbar"><div class="topbar-inner">
+        <a class="back" href="clinic.html"><i class="fas fa-chevron-left"></i> Clinic</a>
+        <h1>BPPV &amp; Vertigo</h1>
+    </div></div>
+
+    <div class="wrap">
+        <p class="intro">Bedside guide for positional vertigo and acute dizziness. First decide: is this <strong>positional</strong> (brief, triggered by head movement → likely BPPV) or a <strong>continuous</strong> acute vestibular syndrome (then use HINTS to separate peripheral from central)?</p>
+
+        <!-- Affected side -->
+        <div class="card">
+            <h2><i class="fas fa-arrows-left-right"></i> Affected side</h2>
+            <div class="sub">Sets the Dix-Hallpike / Epley wording below</div>
+            <div class="side-toggle" id="side">
+                <button type="button" data-side="right" class="on">Right ear</button>
+                <button type="button" data-side="left">Left ear</button>
+            </div>
+            <p>The affected side is the one that reproduces vertigo &amp; nystagmus on Dix-Hallpike (head turned toward that ear).</p>
+        </div>
+
+        <!-- Dix-Hallpike -->
+        <div class="card">
+            <h2><i class="fas fa-bed-pulse"></i> Dix-Hallpike test</h2>
+            <div class="sub">Diagnose posterior-canal BPPV</div>
+            <ul class="ul">
+                <li>Patient sitting; turn head 45° toward the <span class="side-label" data-sidetext>right</span> side.</li>
+                <li>Lie them back quickly to supine with the head extended ~20° below the horizontal (hanging off the couch), keeping the 45° turn.</li>
+                <li>Watch the eyes for 30 s and ask about vertigo.</li>
+            </ul>
+            <p style="margin-top:14px;font-weight:600;color:#1c1a17;">Positive (posterior-canal BPPV):</p>
+            <ul class="ul">
+                <li><strong>Latency</strong> 5–20 s before nystagmus starts.</li>
+                <li><strong>Up-beating &amp; torsional</strong> nystagmus — top poles of the eyes beat toward the lower (<span class="side-label" data-sidetext>right</span>, affected) ear.</li>
+                <li><strong>Crescendo–decrescendo</strong>, resolves within ~60 s.</li>
+                <li><strong>Fatigues</strong> on repetition; reverses on sitting up.</li>
+            </ul>
+        </div>
+
+        <!-- Epley -->
+        <div class="card">
+            <h2><i class="fas fa-person-walking-arrow-right"></i> Epley manoeuvre</h2>
+            <div class="sub">Treat <span class="side-label" data-sidetext>right</span> posterior-canal BPPV · hold each ~30 s</div>
+
+            <div class="step" data-step><span class="n">1</span><span class="txt">Sit upright on the couch; turn the head 45° toward the <span class="side-label" data-sidetext>right</span> (affected) side.</span></div>
+            <div class="step" data-step><span class="n">2</span><span class="txt">Lie back quickly to supine, head extended ~20° below horizontal, still turned 45° to the <span class="side-label" data-sidetext>right</span>. Hold until nystagmus/vertigo settles (~30 s).</span></div>
+            <div class="step" data-step><span class="n">3</span><span class="txt">Turn the head 90° to the <span class="side-label" data-otherside>left</span> side (now 45° toward the unaffected ear), staying supine. Hold ~30 s.</span></div>
+            <div class="step" data-step><span class="n">4</span><span class="txt">Roll onto the <span class="side-label" data-otherside>left</span> shoulder and turn the head a further 90° so the nose points down toward the floor. Hold ~30 s.</span></div>
+            <div class="step" data-step><span class="n">5</span><span class="txt">Sit up slowly to the side, keeping the chin tucked slightly down. Re-test after a short rest; repeat if needed.</span></div>
+
+            <div class="timer">
+                <span class="t" id="t">0:30</span>
+                <button type="button" id="t-start">Start 30s</button>
+                <button type="button" class="ghost" id="t-reset">Reset</button>
+                <span class="hint">Hold each position until<br>nystagmus stops</span>
+            </div>
+        </div>
+
+        <!-- HINTS -->
+        <div class="card">
+            <h2><i class="fas fa-eye"></i> HINTS exam</h2>
+            <div class="sub">Acute continuous vertigo · peripheral vs central</div>
+            <p>Use only in <strong>acute vestibular syndrome</strong> (continuous vertigo, nausea, nystagmus, gait unsteadiness) <em>with nystagmus present</em>. A “central” pattern is more sensitive than early MRI for stroke.</p>
+            <table class="h">
+                <tr><th>Component</th><th>Peripheral (reassuring)</th><th>Central (worrying)</th></tr>
+                <tr><td><strong>HI</strong> — Head Impulse</td><td class="periph">Abnormal — corrective saccade (positive)</td><td class="central">Normal — no saccade</td></tr>
+                <tr><td><strong>N</strong> — Nystagmus</td><td class="periph">Unidirectional, horizontal</td><td class="central">Direction-changing or vertical/torsional</td></tr>
+                <tr><td><strong>TS</strong> — Test of Skew</td><td class="periph">Absent</td><td class="central">Present (vertical skew)</td></tr>
+            </table>
+            <div class="flag"><strong>INFARCT</strong> = <strong>I</strong>mpulse <strong>N</strong>ormal, <strong>FA</strong>st-phase <strong>A</strong>lternating, <strong>R</strong>efixation on <strong>C</strong>over <strong>T</strong>est → any one central feature suggests a stroke; arrange urgent imaging/neurology. Add new deafness (HINTS-plus) as a red flag.</div>
+        </div>
+
+        <div class="disclaimer">
+            <p><strong>Educational use only.</strong> A bedside aide-mémoire, not a substitute for training or examination findings. HINTS is validated only in continuous acute vestibular syndrome with nystagmus and when performed by an experienced examiner; it must not be used for positional or spontaneously-resolved dizziness. Escalate any central feature, new neurology, or red flag. Verify against local pathways.</p>
+        </div>
+    </div>
+
+    <script>
+    (function () {
+        var $ = function (id) { return document.getElementById(id); };
+        var side = "right";
+
+        function applySide() {
+            var other = side === "right" ? "left" : "right";
+            document.querySelectorAll("[data-sidetext]").forEach(function (e) { e.textContent = side; });
+            document.querySelectorAll("[data-otherside]").forEach(function (e) { e.textContent = other; });
+            document.querySelectorAll("#side button").forEach(function (b) {
+                b.classList.toggle("on", b.getAttribute("data-side") === side);
+            });
+        }
+        document.querySelectorAll("#side button").forEach(function (b) {
+            b.addEventListener("click", function () { side = b.getAttribute("data-side"); applySide(); });
+        });
+        applySide();
+
+        // Step check-off
+        document.querySelectorAll("[data-step]").forEach(function (s) {
+            s.addEventListener("click", function () { s.classList.toggle("on"); });
+        });
+
+        // 30-second hold timer
+        var remaining = 30, timerId = null;
+        function render() {
+            var m = Math.floor(remaining / 60), s = remaining % 60;
+            $("t").textContent = m + ":" + (s < 10 ? "0" : "") + s;
+        }
+        function stop() { if (timerId) { clearInterval(timerId); timerId = null; } }
+        $("t-start").addEventListener("click", function () {
+            stop();
+            if (remaining <= 0) remaining = 30;
+            timerId = setInterval(function () {
+                remaining--;
+                render();
+                if (remaining <= 0) { stop(); try { navigator.vibrate && navigator.vibrate(200); } catch (e) {} }
+            }, 1000);
+        });
+        $("t-reset").addEventListener("click", function () { stop(); remaining = 30; render(); });
+        render();
+    })();
+    </script>
+</body>
+</html>
