@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Sore Throat Score — Centor & FeverPAIN | Dr Ali Alshahrani</title>
+    <meta name="description" content="Modified Centor (McIsaac) and FeverPAIN scores for sore throat, with antibiotic-decision guidance. Educational point-of-care tool.">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="theme-color" content="#8a302a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="ENT Clinic">
+    <link rel="apple-touch-icon" href="/apps/ent-tools/assets/icon.png">
+    <script src="/js/pwa.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{background:#f4f1ea;color:#1c1a17;font-family:'Source Sans 3',system-ui,sans-serif;line-height:1.6;min-height:100vh;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;}
+        a{color:inherit;text-decoration:none;}
+        ::selection{background:#8a302a;color:#f4f1ea;}
+
+        .topbar{position:sticky;top:0;z-index:50;background:rgba(244,241,234,0.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid #e4ded2;padding:calc(env(safe-area-inset-top) + 12px) 16px 12px;}
+        .topbar-inner{max-width:820px;margin:0 auto;display:flex;align-items:center;gap:12px;}
+        .back{display:inline-flex;align-items:center;gap:8px;color:#8a302a;font-weight:600;font-size:14px;}
+        .topbar h1{font-family:'Newsreader',serif;font-size:17px;font-weight:600;margin-left:auto;}
+
+        .wrap{max-width:820px;margin:0 auto;padding:18px 16px 44px;}
+        .intro{font-size:15px;color:#46423b;margin-bottom:18px;line-height:1.65;}
+        .cols{display:grid;grid-template-columns:1fr;gap:18px;}
+        @media (min-width:720px){.cols{grid-template-columns:1fr 1fr;}}
+
+        .card{background:#fffdf8;border:1px solid #e4ded2;border-radius:16px;padding:20px;border-top:3px solid #8a302a;}
+        .card h2{font-family:'Newsreader',serif;font-weight:600;font-size:20px;margin-bottom:3px;}
+        .card .sub{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#6f6a61;margin-bottom:16px;}
+
+        .crit{display:flex;align-items:center;gap:13px;width:100%;text-align:left;padding:14px 15px;margin-bottom:9px;background:#fff;border:1px solid #e4ded2;border-radius:12px;cursor:pointer;font-family:inherit;font-size:15px;color:#1c1a17;transition:background .12s,border-color .12s;}
+        .crit:active{transform:scale(0.99);}
+        .crit .box{width:24px;height:24px;border-radius:7px;border:2px solid #cdc6ba;flex:none;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;transition:background .12s,border-color .12s;}
+        .crit.on{background:#f4efe6;border-color:#8a302a;}
+        .crit.on .box{background:#8a302a;border-color:#8a302a;}
+        .crit .pts{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#9a9389;}
+
+        .agewrap{display:flex;align-items:center;gap:12px;padding:13px 15px;margin-bottom:9px;background:#fff;border:1px solid #e4ded2;border-radius:12px;}
+        .agewrap label{font-size:15px;}
+        .agewrap input{margin-left:auto;width:90px;font-family:inherit;font-size:16px;padding:9px 11px;border:1px solid #cdc6ba;border-radius:8px;text-align:center;}
+        .agewrap input:focus{outline:none;border-color:#8a302a;}
+        .age-band{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6f6a61;text-align:right;margin:-4px 4px 12px;}
+
+        .score-out{margin-top:16px;padding:16px;border-radius:12px;background:#f4efe6;border:1px solid #e4ded2;}
+        .score-num{font-family:'Newsreader',serif;font-size:40px;line-height:1;color:#8a302a;}
+        .score-num small{font-size:18px;color:#9a9389;}
+        .score-prob{font-size:14px;color:#46423b;margin-top:6px;}
+        .rec{margin-top:12px;padding:12px 14px;border-radius:10px;font-weight:600;font-size:14.5px;line-height:1.5;}
+        .rec.green{background:#e7efe6;border:1px solid #bcd6bd;color:#3f6b43;}
+        .rec.amber{background:#fdf5e3;border:1px solid #e8d59a;color:#8a6d1f;}
+        .rec.red{background:#fbeaea;border:1px solid #e3b3b3;color:#a32d2d;}
+
+        .disclaimer{margin-top:22px;padding:16px 18px;background:#fbeaea;border:1px solid #e3b3b3;border-left:3px solid #8a302a;border-radius:12px;}
+        .disclaimer p{margin:0;color:#7a3530;font-size:13px;line-height:1.7;}
+        .disclaimer strong{color:#5e2521;}
+        .note{font-size:12.5px;color:#6f6a61;margin-top:12px;line-height:1.6;}
+    </style>
+</head>
+<body>
+    <div class="topbar"><div class="topbar-inner">
+        <a class="back" href="clinic.html"><i class="fas fa-chevron-left"></i> Clinic</a>
+        <h1>Sore Throat</h1>
+    </div></div>
+
+    <div class="wrap">
+        <p class="intro">Two validated scores for acute sore throat. Tick what's present; antibiotic guidance updates live. Use clinical judgement — exclude red flags (stridor, drooling, trismus, severe unilateral pain/quinsy, immunocompromise).</p>
+
+        <div class="cols">
+            <!-- ===== Modified Centor (McIsaac) ===== -->
+            <div class="card">
+                <h2>Modified Centor</h2>
+                <div class="sub">McIsaac · strep likelihood</div>
+
+                <button type="button" class="crit" data-c="centor" data-v="1"><span class="box"><i class="fas fa-check"></i></span> Tonsillar exudate <span class="pts">+1</span></button>
+                <button type="button" class="crit" data-c="centor" data-v="1"><span class="box"><i class="fas fa-check"></i></span> Tender anterior cervical nodes <span class="pts">+1</span></button>
+                <button type="button" class="crit" data-c="centor" data-v="1"><span class="box"><i class="fas fa-check"></i></span> Fever &gt;38°C (or history) <span class="pts">+1</span></button>
+                <button type="button" class="crit" data-c="centor" data-v="1"><span class="box"><i class="fas fa-check"></i></span> Absence of cough <span class="pts">+1</span></button>
+
+                <div class="agewrap"><label for="age">Age (years)</label><input type="number" id="age" min="0" max="120" inputmode="numeric" placeholder="–"></div>
+                <div class="age-band" id="age-band">Age modifier: —</div>
+
+                <div class="score-out">
+                    <div class="score-num"><span id="centor-score">0</span><small>/ 5</small></div>
+                    <div class="score-prob" id="centor-prob">Strep probability: ~1–2.5%</div>
+                    <div class="rec green" id="centor-rec">No antibiotic; symptomatic care.</div>
+                </div>
+            </div>
+
+            <!-- ===== FeverPAIN ===== -->
+            <div class="card">
+                <h2>FeverPAIN</h2>
+                <div class="sub">NICE · antibiotic decision</div>
+
+                <button type="button" class="crit" data-c="fp" data-v="1"><span class="box"><i class="fas fa-check"></i></span> <b>F</b>ever in last 24h <span class="pts">+1</span></button>
+                <button type="button" class="crit" data-c="fp" data-v="1"><span class="box"><i class="fas fa-check"></i></span> <b>P</b>urulence (pus on tonsils) <span class="pts">+1</span></button>
+                <button type="button" class="crit" data-c="fp" data-v="1"><span class="box"><i class="fas fa-check"></i></span> <b>A</b>ttend rapidly (≤3 days) <span class="pts">+1</span></button>
+                <button type="button" class="crit" data-c="fp" data-v="1"><span class="box"><i class="fas fa-check"></i></span> <b>I</b>nflamed tonsils (severe) <span class="pts">+1</span></button>
+                <button type="button" class="crit" data-c="fp" data-v="1"><span class="box"><i class="fas fa-check"></i></span> <b>N</b>o cough or coryza <span class="pts">+1</span></button>
+
+                <div class="score-out" style="margin-top:60px;">
+                    <div class="score-num"><span id="fp-score">0</span><small>/ 5</small></div>
+                    <div class="score-prob" id="fp-prob">Strep probability: ~13–18%</div>
+                    <div class="rec green" id="fp-rec">No antibiotic; symptomatic care.</div>
+                </div>
+            </div>
+        </div>
+
+        <p class="note"><strong>Antibiotic choice</strong> (if indicated): phenoxymethylpenicillin (Pen V) 500 mg QDS 10 days; penicillin allergy → clarithromycin. Avoid amoxicillin if glandular fever is possible (rash). Consider a backup/delayed prescription for intermediate scores.</p>
+
+        <div class="disclaimer">
+            <p><strong>Educational use only.</strong> These scores estimate streptococcal likelihood and support — but do not replace — clinical judgement or local antimicrobial-stewardship guidance. They are not validated for &lt;3 years, immunocompromise, or suspected deep-space infection (quinsy, epiglottitis). Verify management against your local guidelines.</p>
+        </div>
+    </div>
+
+    <script>
+    (function () {
+        var $ = function (id) { return document.getElementById(id); };
+
+        // Toggle buttons
+        document.querySelectorAll(".crit").forEach(function (btn) {
+            btn.addEventListener("click", function () {
+                btn.classList.toggle("on");
+                recompute();
+            });
+        });
+        $("age").addEventListener("input", recompute);
+
+        function sum(group) {
+            var n = 0;
+            document.querySelectorAll('.crit[data-c="' + group + '"].on').forEach(function () { n++; });
+            return n;
+        }
+
+        function ageModifier(age) {
+            if (age === "" || age == null || isNaN(age)) return { mod: 0, txt: "enter age (3–14 = +1, ≥45 = −1)" };
+            age = Number(age);
+            if (age >= 3 && age <= 14) return { mod: 1, txt: "+1 (age 3–14)" };
+            if (age >= 45) return { mod: -1, txt: "−1 (age ≥45)" };
+            return { mod: 0, txt: "0 (age 15–44)" };
+        }
+
+        // Modified Centor (McIsaac) probability bands
+        function centorBand(s) {
+            if (s <= 0) return { p: "~1–2.5%", cls: "green", rec: "No antibiotic; symptomatic care." };
+            if (s === 1) return { p: "~5–10%", cls: "green", rec: "No antibiotic; symptomatic care." };
+            if (s === 2) return { p: "~11–17%", cls: "amber", rec: "Consider rapid strep test / throat culture; no empirical antibiotic." };
+            if (s === 3) return { p: "~28–35%", cls: "amber", rec: "Consider test, or backup/delayed antibiotic." };
+            return { p: "~51–53%", cls: "red", rec: "Consider test or empirical antibiotic (highest strep likelihood)." };
+        }
+
+        // FeverPAIN probability bands (NICE)
+        function fpBand(s) {
+            if (s <= 1) return { p: "~13–18%", cls: "green", rec: "No antibiotic; symptomatic care." };
+            if (s <= 3) return { p: "~34–40%", cls: "amber", rec: "Consider a backup / delayed antibiotic (use after ~3 days if no better)." };
+            return { p: "~62–65%", cls: "red", rec: "Consider an immediate antibiotic (or backup if symptoms not severe)." };
+        }
+
+        function setRec(el, cls, text) {
+            el.className = "rec " + cls;
+            el.textContent = text;
+        }
+
+        function recompute() {
+            // Centor
+            var am = ageModifier($("age").value);
+            $("age-band").textContent = "Age modifier: " + am.txt;
+            var cRaw = sum("centor") + am.mod;
+            if (cRaw < 0) cRaw = 0;
+            $("centor-score").textContent = cRaw;
+            var cb = centorBand(cRaw);
+            $("centor-prob").textContent = "Strep probability: " + cb.p;
+            setRec($("centor-rec"), cb.cls, cb.rec);
+
+            // FeverPAIN
+            var f = sum("fp");
+            $("fp-score").textContent = f;
+            var fb = fpBand(f);
+            $("fp-prob").textContent = "Strep probability: " + fb.p;
+            setRec($("fp-rec"), fb.cls, fb.rec);
+        }
+
+        recompute();
+    })();
+    </script>
+</body>
+</html>

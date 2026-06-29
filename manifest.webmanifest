@@ -1,0 +1,38 @@
+{
+  "name": "Alshahrani ENT — Clinic Companion",
+  "short_name": "ENT Clinic",
+  "description": "Mobile ENT point-of-care toolkit: calculators, drug dosing, scores and a private case logbook. Works offline.",
+  "start_url": "/clinic.html",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f4f1ea",
+  "theme_color": "#8a302a",
+  "categories": ["medical", "health", "productivity"],
+  "icons": [
+    {
+      "src": "/apps/ent-tools/assets/icon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/apps/ent-tools/assets/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/apps/ent-tools/assets/icon.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    { "name": "Clinic launcher", "url": "/clinic.html" },
+    { "name": "Drug tools", "url": "/drug-tools.html" },
+    { "name": "Case logbook", "url": "/logbook.html" },
+    { "name": "Sore throat score", "url": "/sore-throat.html" }
+  ]
+}
