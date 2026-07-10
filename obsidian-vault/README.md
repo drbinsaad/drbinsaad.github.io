@@ -1,34 +1,62 @@
-# Obsidian Vault Architecture — Dr. Bin Saad
+# ENT Knowledge Vault — Dr. Bin Saad
 
-A complete blueprint for building, mapping, and using a personal knowledge vault in [Obsidian](https://obsidian.md), designed for an ENT physician who manages clinical knowledge, research, exam preparation, teaching material, and digital projects (like this website).
+An [Obsidian](https://obsidian.md) vault to **capture and retain** what you learn from
+courses, videos, lectures, journal papers, and conferences — built directly from your own
+742-row study curriculum (`tools/study_v3.xlsx`): **8 sections, 123 topics, ~610 subtopics**.
+
+The design was pressure-tested with an LLM Council (5 advisors) — see the design notes at the
+bottom.
 
 ## What is in this project
 
 | Path | What it is |
 |---|---|
-| `docs/01-architecture.md` | The vault structure: folders, what goes where, and why |
-| `docs/02-mapping-strategy.md` | How notes connect: links, Maps of Content (MOCs), tags, naming rules |
-| `docs/03-daily-workflows.md` | How to actually use the vault day to day (capture → process → connect → review) |
-| `docs/04-plugins-setup.md` | Recommended plugins and settings to make it all work |
-| `vault/` | A ready-to-use vault skeleton — copy this folder into Obsidian and start writing |
+| `vault/` | The ready-to-use Obsidian vault — open this folder as a vault |
+| `tools/generate_vault.py` | Script that builds the vault from the curriculum Excel (idempotent) |
+| `tools/study_v3.xlsx` | The source curriculum (provenance / read-only backup) |
+| `docs/01-architecture.md` | Folder structure, the two note types, why it's shaped this way |
+| `docs/02-mapping-strategy.md` | The `status` progress property, links, MOCs, tags, naming |
+| `docs/03-daily-workflows.md` | The 3-minute capture loop and weekly review |
+| `docs/04-plugins-setup.md` | Core plugins (incl. **Bases**), sync, and phase-2 ideas |
 
 ## Quick start (5 minutes)
 
 1. Install Obsidian from <https://obsidian.md>.
-2. Copy the `vault/` folder from this project to somewhere on your computer (for example `Documents/ENT Vault`). You can rename it.
-3. In Obsidian choose **Open folder as vault** and select that folder.
-4. Open `Home.md` — it is the front door of the vault and links to everything else.
-5. In **Settings → Core plugins**, enable **Templates**, **Daily notes**, and **Backlinks**. Point Templates to the `08 Templates` folder and Daily notes to `01 Daily`.
-6. Read `docs/03-daily-workflows.md` and start with tomorrow morning's daily note.
+2. Copy the `vault/` folder somewhere on your computer (e.g. `Documents/ENT Vault`).
+3. In Obsidian: **Open folder as vault** → select it.
+4. **Settings → Core plugins** → enable **Bases**, **Templates** (folder: `_Templates`),
+   **Backlinks**, **Quick switcher**.
+5. Open **`Home.md`**, then **`Dashboard.md`** — you'll see all 123 topics as `untouched`,
+   grouped by section.
+6. Read `docs/03-daily-workflows.md` and capture your first source.
 
 ## The idea in one paragraph
 
-Folders keep files tidy, but **links are what make the vault think**. Every note you write gets linked to at least one other note, and each area of your knowledge (rhinology, otology, thesis, exam prep…) has one **Map of Content** note that collects its most important links. The daily note is where everything starts; the MOCs are where everything ends up. Over time the vault becomes a second brain for clinical medicine: you look things up by following links, not by remembering where a file was saved.
+Your curriculum is already the perfect map, so the vault mirrors it: one **concept note** per
+topic, pre-created as a stub. When you learn something, you open the topic note, dump the
+takeaways, paste the source link, and bump one property — `status: untouched → learning →
+solid → mastered`. That property *is* your progress tracker; the **Bases** dashboard rolls it
+up by section automatically. One system, one source of truth — no more parallel spreadsheet.
 
-## Design principles used here
+## Design principles (from the council)
 
-- **Shallow folders, deep links.** Ten top-level folders, almost no sub-sub-folders. Structure lives in MOC notes, not in the file tree.
-- **One note = one idea.** A note called "Nasal polyp scoring" is more reusable than a giant "Rhinology" file.
-- **Numbered folders** (`00`–`09`) so the file tree always sorts in workflow order.
-- **Templates for everything repeatable** — literature notes, case learnings, lectures — so notes are consistent and fast to create.
-- **No patient-identifiable data, ever.** Case notes record the *learning point*, never the patient.
+- **One source of truth for progress.** The `status` property replaces the Excel checklist; the
+  Excel is kept only as backup. No double upkeep.
+- **Capture in under 3 minutes.** Dump into the topic note; full source notes only for papers
+  worth a citation. Friction is what kills these systems.
+- **Stubs are not guilt.** Empty = `untouched` = expected. The dashboard shows progress, not failure.
+- **Structure once, reuse everywhere.** Atomic headings (definition, mechanism, pearls,
+  staging…) mean a note can later become an Anki card, a slide, or a website article.
+- **Retention needs recall.** Spaced-repetition/Anki export is planned for phase 2 — the note
+  structure is already ready for it.
+- **No patient-identifiable data, ever.**
+
+## Regenerating from the curriculum
+
+```
+cd tools && python3 generate_vault.py --out ../vault
+```
+
+Idempotent: only creates missing notes or refreshes still-`untouched` stubs — it never
+overwrites a note you've started editing. Drop in a new `study_v3.xlsx` and re-run to add new
+topics safely.

@@ -1,20 +1,31 @@
-# 🏠 Home
+# 🏠 ENT Knowledge Vault — Home
 
-The front door of the vault. Everything is reachable from here in ~3 clicks.
+The front door. Every section and the progress board are one click away.
 
-## Knowledge maps
-- [[Clinical MOC]] — all ENT knowledge
-  - [[Rhinology MOC]] · [[Otology MOC]] · [[Laryngology MOC]]
-  - [[Head & Neck MOC]] · [[Pediatric ENT MOC]] · [[Facial Plastics MOC]]
-- [[Literature MOC]] — papers, guidelines, books
-- [[Exam Prep MOC]] — board & fellowship material
-- [[Teaching MOC]] — lectures and presentations
-- [[Research MOC]] — my studies and manuscripts
+## 📊 Progress
+See **[[Dashboard]]** for the live progress board (topics by status, what needs work, what has sources).
 
-## Active projects
-- [[Projects MOC]]
+## 🗂️ Sections (Maps of Content)
+1. [[Pediatric MOC]]
+2. [[Otology MOC]]
+3. [[Laryngology MOC]]
+4. [[Head and Neck MOC]]
+5. [[General MOC]]
+6. [[Basic Sciences MOC]]
+7. [[Rhinology MOC]]
+8. [[Trauma MOC]]
 
-## Quick actions
-- Today's note → use the calendar or `Ctrl/Cmd+P` → "Open today's daily note"
-- New idea, no time → drop it in `00 Inbox`
-- Weekly review checklist → see [[Projects MOC]] and empty `00 Inbox`
+## ⚡ How I use this (the 3-minute loop)
+1. Watch a video / attend a lecture / read a paper.
+2. Open the relevant **topic note** (quick switcher: `Ctrl/Cmd+O`).
+3. Dump the key takeaways under the right heading, in my own words.
+4. Paste the source link under **Sources** (or make a full note in `09 Sources` for a paper).
+5. Bump the note's `status` property: `untouched → learning → solid → mastered`.
+
+That's it. The Dashboard updates itself.
+
+## 📥 Quick capture
+No time to file it properly? Drop a line in `00 Inbox` and process it later.
+
+## ➕ New notes
+Use the templates in `_Templates`: **Concept note**, **Source note**, **Lecture**, **Daily note**.

@@ -1,70 +1,64 @@
 # 01 — Vault Architecture
 
-The vault has ten numbered top-level folders. The numbers keep them sorted in the order you actually use them: capture first, knowledge in the middle, system files at the end.
+This vault is **seeded from your study curriculum** (`tools/study_v3.xlsx`): 8 sections,
+123 numbered topics, and ~610 subtopics. Each numbered topic becomes one permanent
+**concept note**; each section becomes one folder with a **Map of Content**.
 
 ```
-ENT Vault/
-├── Home.md                  ← front door: links to every MOC
-├── 00 Inbox/                ← everything new lands here first
-├── 01 Daily/                ← one note per day (auto-created)
-├── 02 Clinical/             ← permanent ENT knowledge
-│   ├── Rhinology/
-│   ├── Otology/
-│   ├── Laryngology/
-│   ├── Head & Neck/
-│   ├── Pediatric ENT/
-│   └── Facial Plastics/
-├── 03 Literature/           ← one note per paper, book, or guideline
-├── 04 Research/             ← your own studies, thesis, manuscripts
-├── 05 Exam Prep/            ← board/fellowship exam material
-├── 06 Teaching/             ← lectures, presentations, student material
-├── 07 Projects/             ← active work with an end date (website, tools, audits)
-├── 08 Templates/            ← note templates (never edited as normal notes)
-└── 09 Archive/              ← finished projects, outdated notes
+vault/
+├── Home.md                  ← front door: links to every section MOC + Dashboard
+├── Dashboard.md             ← embeds the Bases progress board
+├── ENT Progress.base        ← the Bases file that powers the dashboard
+├── 00 Inbox/                ← quick capture, emptied weekly
+├── 01 Pediatric/
+│   ├── Pediatric MOC.md
+│   ├── Clinical Evaluation of Airway Obstruction.md
+│   ├── Subglottic Stenosis.md
+│   └── … (one note per numbered topic)
+├── 02 Otology/
+├── 03 Laryngology/
+├── 04 Head and Neck/
+├── 05 General/
+├── 06 Basic Sciences/
+├── 07 Rhinology/
+├── 08 Trauma/
+├── 09 Sources/              ← full source notes (papers/guidelines worth a citation)
+└── _Templates/              ← Concept note · Source note · Lecture · Daily note
 ```
 
-## What goes in each folder
+## The two note types
 
-### `00 Inbox` — the capture zone
-Anything you don't have time to file properly: a thought between patients, a paper someone mentioned, a screenshot from a conference. Rule: **the inbox must reach zero once a week** (see workflows doc). Nothing lives here permanently.
+### Concept note (the spine — one per curriculum topic)
+This is where knowledge lives. Auto-generated as a stub, then filled in by you over time.
+It has:
 
-### `01 Daily` — the timeline
-One note per day, created automatically from the daily template. It holds: what you saw, what you learned, what you need to do. Interesting content gets *extracted* into permanent notes later — the daily note is a logbook, not a knowledge store.
+- **Frontmatter properties** the Dashboard reads: `section`, `topic_no`, `status`, `sources`, `tags`.
+- A **subtopic checklist** copied from the curriculum (tick them off as you cover them).
+- Atomic headings — *Definition, Mechanism, Clinical features, Investigations,
+  Staging/Classification, Management, Pearls & pitfalls, Sources*. These headings are
+  deliberate: a well-filled note can later become an Anki deck, a teaching slide, or a
+  website article without restructuring.
 
-### `02 Clinical` — the permanent knowledge core
-This is the heart of the vault. One note per **concept**: a disease, a procedure, a classification, a drug, an anatomical structure. Examples:
-
-- `Epistaxis management.md`
-- `Lund-Mackay score.md`
-- `Endoscopic sinus surgery — steps.md`
-- `Cholesteatoma.md`
-
-Each subspecialty subfolder has one **MOC note** (e.g. `Rhinology MOC.md`) that lists and organizes the notes inside it. Notes may link across subfolders freely — folders are just storage, links are the real structure.
-
-### `03 Literature` — one note per source
-Every paper, guideline, or book chapter you actually read gets one literature note (from the template): citation, key findings in your own words, and links to the clinical concepts it supports. This is what makes your reading *cumulative* instead of forgotten.
-
-### `04 Research` — your own science
-One subfolder per study or manuscript. Protocol drafts, analysis ideas, reviewer responses. Links heavily into `03 Literature`.
-
-### `05 Exam Prep` — exam-facing material
-Question-bank learnings, high-yield summaries, spaced-repetition cards (if you use the Spaced Repetition plugin). These notes *link to* the clinical notes rather than duplicating them — the exam note says "tested point: X" and links to the full concept note.
-
-### `06 Teaching` — output for others
-Lecture outlines, slide sources, teaching cases. When you build a lecture, you mostly **assemble links** to existing clinical notes — this is where the vault pays you back.
-
-### `07 Projects` — active, finite work
-One subfolder or one note per project: the website, a new calculator, a department audit, a conference submission. A project note has a goal, a deadline, next actions, and links to the knowledge it uses. When done → move to `09 Archive`.
-
-### `08 Templates` — the machinery
-The note templates (daily, literature, case learning, lecture, project, MOC, concept). Configured in Settings → Templates.
-
-### `09 Archive` — cold storage
-Finished projects and superseded notes. Never delete — archived notes keep their backlinks working.
+### Source note (optional — one per important paper/guideline)
+Lives in `09 Sources`. You only make one when a source deserves its own citation and will
+be referenced repeatedly. For everyday videos/lectures you **don't** make a source note —
+you just paste the link into the topic note's *Sources* section. This keeps capture fast.
 
 ## Why this shape
 
-- **Numbered + shallow**: you never wonder where something goes for more than two seconds. If unsure → `00 Inbox`.
-- **Time-based vs. knowledge-based separation**: `01 Daily` records *when* things happened; `02 Clinical` records *what is true*. Keeping these apart is the single most important architectural decision.
-- **Sources vs. concepts separation**: `03 Literature` (what the paper says) is separate from `02 Clinical` (what you know). One concept note can cite many literature notes; one paper can feed many concepts.
-- **Projects are disposable, knowledge is permanent**: projects come and go through `07 → 09`, but everything they taught you stays in `02` and `03`.
+- **Mirrors your curriculum exactly**, so you never wonder where a note goes — the folder
+  and topic already exist.
+- **One source of truth for progress.** The `status` property on each note is *the* tracker;
+  the Dashboard reads it. The Excel is kept only as a read-only backup/provenance. No double
+  upkeep.
+- **Stubs are not guilt.** An empty note means `status: untouched` — expected, not failure.
+  The Dashboard shows how far you've come.
+- **Topic-notes are the spine, not a cage.** If you later want notes organised by clinical
+  *presentation* ("unilateral adult serous effusion") instead of curriculum topic, add them
+  freely and link them in. Structure grows from use.
+
+## Regenerating from the Excel
+`tools/generate_vault.py` created these notes. It is **idempotent**: re-running it only
+creates missing notes or refreshes still-untouched stubs — it never overwrites a note you've
+started editing (detected via the `status` property and a generator marker). So if the
+curriculum changes, drop in the new `study_v3.xlsx` and re-run; your written notes are safe.

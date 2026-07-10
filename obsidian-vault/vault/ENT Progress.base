@@ -1,0 +1,57 @@
+filters:
+  and:
+    - file.hasTag("ent")
+    - 'topic_no != null'
+formulas:
+  section_topic: 'section + " #" + topic_no'
+properties:
+  note.status:
+    displayName: Status
+  note.section:
+    displayName: Section
+  note.topic_no:
+    displayName: "#"
+  file.mtime:
+    displayName: Last edited
+views:
+  - type: table
+    name: By Section
+    order:
+      - section
+      - topic_no
+      - status
+      - file.mtime
+    group_by: section
+    sort:
+      - property: section
+        direction: ASC
+      - property: topic_no
+        direction: ASC
+  - type: table
+    name: Needs work
+    filters:
+      and:
+        - 'status != "mastered"'
+    order:
+      - section
+      - topic_no
+      - status
+    sort:
+      - property: section
+        direction: ASC
+      - property: topic_no
+        direction: ASC
+  - type: table
+    name: Has sources
+    filters:
+      and:
+        - 'sources != null'
+        - 'sources.length > 0'
+    order:
+      - section
+      - topic_no
+      - status
+      - sources
+    sort:
+      - property: file.mtime
+        direction: DESC

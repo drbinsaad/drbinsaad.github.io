@@ -1,91 +1,61 @@
 # 02 — Mapping Strategy: how notes connect
 
-Folders answer "where is the file?". Links answer "how does knowledge fit together?". This document defines the linking system — the *map* of the vault.
+Folders tell you *where a file is*. Links and properties tell you *how knowledge fits
+together* and *how far along you are*. Three things carry the map: the **status property**,
+**links**, and the **MOCs**.
 
-## The three layers of the map
+## The status property (your progress map)
+
+Every concept note has a `status` in its frontmatter:
 
 ```
-Layer 1: Home.md            (1 note   — the front door)
-Layer 2: MOCs               (~10 notes — one per knowledge area)
-Layer 3: Everything else    (all concept, literature, case notes)
+untouched → learning → solid → mastered
 ```
 
-### Layer 1 — `Home.md`
-One note, pinned. It links to every MOC and your current active projects. You should be able to reach any note in the vault in ~3 clicks starting from Home.
+- `untouched` — curriculum stub, not studied yet
+- `learning` — started; notes in progress
+- `solid` — understood; could answer an exam question
+- `mastered` — could teach it or operate confidently
 
-### Layer 2 — Maps of Content (MOCs)
-A MOC is a normal note whose job is to **collect and organize links** about one area. Example `Rhinology MOC.md`:
+This single property is your **whole progress tracker**. You bump it as you study; the
+**Dashboard** (`ENT Progress.base`) rolls it up by section automatically. This is why the
+Excel checklist is retired — the status property replaces it, in one place.
 
-```markdown
-# Rhinology MOC
+## Links (the knowledge map)
 
-## Core diseases
-- [[Chronic rhinosinusitis]] · [[Nasal polyposis]] · [[Allergic rhinitis]]
+1. **Every concept note links to its section MOC** (done automatically) and to related notes.
+2. **Link on first mention.** Writing in *Otitis Media* and you mention cholesteatoma? Write
+   `[[Cholesteatoma]]` — it's already a note. Cross-section links are encouraged
+   (`[[Facial Nerve Paralysis and Rehabilitation]]` from a temporal-bone trauma note).
+3. **Sources link into topics.** A `09 Sources` paper note lists every topic it feeds under
+   *Feeds into*; each of those topics cites it back under *Sources*.
+4. **Backlinks are free.** Keep the backlinks panel open — it shows every note pointing here.
 
-## Scores & classifications
-- [[Lund-Mackay score]] · [[SNOT-22]] · [[Lund-Kennedy score]]
+## MOCs (the section index)
 
-## Procedures
-- [[Endoscopic sinus surgery — steps]] · [[Septoplasty]]
-
-## Open questions
-- What is my threshold for revision FESS? → [[Revision FESS decision]]
-```
-
-Rules for MOCs:
-- Create a MOC only when an area has **~10+ notes** and feels hard to navigate. Don't pre-build empty MOCs.
-- A MOC is curated by hand — ordering and grouping links *is* the thinking.
-- MOCs can link to other MOCs (`Rhinology MOC` → `Allergy MOC`).
-
-### Layer 3 — everything else
-Every ordinary note follows one rule: **no orphan notes**. Each note links to at least one related note or its MOC. When you write a new note, spend 30 seconds asking "what does this connect to?" — that moment of linking is where learning happens.
-
-## Linking rules (keep it simple)
-
-1. **Link on first mention.** Writing about epistaxis and you mention sphenopalatine artery? Write `[[Sphenopalatine artery]]` even if that note doesn't exist yet. Unresolved links are a to-do list for future notes.
-2. **Link specifically.** Prefer `[[Cholesteatoma#Surgical management]]` over just the page when pointing at one section.
-3. **Backlinks are half the map.** Always keep the backlinks panel open — it shows every note that points *at* the current note, for free.
-4. **Don't link everything.** Link what you'd want to find again. Ten meaningful links beat fifty noise links.
+Each section has an auto-generated `<Section> MOC.md` listing its numbered topics in order.
+Treat it as the table of contents / syllabus chapter. You can hand-add groupings
+("High-yield", "Exam favourites", "Operative") above the auto list.
 
 ## Tags — small and controlled
 
-Tags answer questions links can't: *status* and *type*. Keep a closed list:
+Topics are already tagged `#ent` and `#<section>`. Keep any extra tags to a tiny, closed list
+for *status/type*, never for topics (topics are handled by folders + links):
 
 | Tag | Meaning |
 |---|---|
-| `#seedling` | rough note, needs work |
-| `#evergreen` | polished, trustworthy note |
-| `#case` | case learning note |
-| `#paper` | literature note |
-| `#exam` | exam-relevant point |
-| `#idea` | research/project idea |
-
-Do **not** use tags for topics (`#rhinology` is wrong — that's what links and MOCs are for). If you find yourself inventing a new tag more than once a month, the list has failed.
+| `#source` | a source note in `09 Sources` |
+| `#teaching` | a lecture/teaching note |
+| `#high-yield` | flag for exam revision |
 
 ## Naming rules
 
-- **Note titles are sentences or noun phrases in plain language**: `Epistaxis management`, not `epistaxis_mgmt_v2`.
-- **Titles are unique across the vault** (Obsidian links by title).
-- **Literature notes**: `AuthorYEAR — Short title`, e.g. `Fokkens2020 — EPOS guidelines`.
-- **Daily notes**: `YYYY-MM-DD` (automatic).
-- **Case learnings**: `Case — one-line lesson`, e.g. `Case — post-tonsillectomy bleed on day 7`. Never a patient name, number, or date of birth.
+- **Topic notes** keep the curriculum wording (e.g. `Endoscopic Sinus Surgery and Its Complications`).
+- **Source notes**: `AuthorYEAR — Short title` (`Fokkens2020 — EPOS guidelines`).
+- **Titles are unique** across the vault (Obsidian links by title).
+- Never put patient identifiers in any note.
 
-## Using the graph view
-
-The graph is a diagnostic tool, not a toy:
-- **Orphan dots** (no connections) → notes to link or delete.
-- **Dense clusters with no MOC** → an area that has grown enough to deserve a MOC.
-- Filter the graph by folder `02 Clinical` to see only the knowledge core.
-
-## How the map grows (the lifecycle)
-
-```
-daily note → extract idea → concept note in 00 Inbox
-          → weekly review: move to 02 Clinical, add links, tag #seedling
-          → gets cited by lectures/exam notes over time
-          → you polish it → #evergreen
-          → area gets crowded → create/extend a MOC
-          → MOC gets linked from Home.md
-```
-
-Bottom-up, always: notes first, structure later. The map is discovered, not designed in advance.
+## How the map grows
+Bottom-up. Stubs exist for structure, but real content and links appear only as you consume
+sources. The graph fills in where you actually study — which is exactly what the Dashboard
+shows you.
