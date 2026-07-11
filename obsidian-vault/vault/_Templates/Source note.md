@@ -1,16 +1,15 @@
 ---
 type: source
-source_type: paper   # paper | video | course | lecture | conference | guideline
+source_type: paper
 citation:
 url:
 date_consumed:
-tags:
-  - source
+status: to-read
 ---
 
 # {{title}}
 
-**Type:** paper / video / course / lecture / conference
+**Type:** paper / video / course / lecture / conference / guideline
 **Citation / speaker:**
 **Link:**
 

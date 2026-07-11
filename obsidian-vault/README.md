@@ -1,34 +1,42 @@
 # ENT Knowledge Vault — Dr. Bin Saad
 
-An [Obsidian](https://obsidian.md) vault to **capture and retain** what you learn from
-courses, videos, lectures, journal papers, and conferences — built directly from your own
-742-row study curriculum (`tools/study_v3.xlsx`): **8 sections, 123 topics, ~610 subtopics**.
+A **pre-configured** [Obsidian](https://obsidian.md) vault to run your whole ENT practice —
+clinical knowledge, exams, teaching, and projects — built from your own 742-row study
+curriculum (`tools/study_v3.xlsx`): **8 sections, 123 topics, ~610 subtopics**. Minimalist and
+Bases-first; ships with the right plugins/settings already on.
 
-The design was pressure-tested with an LLM Council (5 advisors) — see the design notes at the
-bottom.
+The design was pressure-tested with an LLM Council and researched against the best public
+Obsidian/KM practice (see `docs/05`).
 
 ## What is in this project
 
 | Path | What it is |
 |---|---|
-| `vault/` | The ready-to-use Obsidian vault — open this folder as a vault |
-| `tools/generate_vault.py` | Script that builds the vault from the curriculum Excel (idempotent) |
+| `vault/` | The ready-to-use, pre-configured Obsidian vault (incl. `.obsidian/` settings) |
+| `tools/generate_vault.py` | Idempotent script that builds the concept notes from the Excel |
 | `tools/study_v3.xlsx` | The source curriculum (provenance / read-only backup) |
-| `docs/01-architecture.md` | Folder + note shape, and why there are no index notes |
+| `docs/01-architecture.md` | Folders, the `type` property, note shape |
 | `docs/02-mapping-strategy.md` | The `status` property and the Bases views |
 | `docs/03-daily-workflows.md` | The 3-minute capture loop and weekly review |
-| `docs/04-plugins-setup.md` | Core plugins (incl. **Bases**), sync, and phase-2 ideas |
+| `docs/04-plugins-setup.md` | The shipped `.obsidian/` config and plugin install list |
+| `docs/05-knowledge-management.md` | Why it's built this way (KM frameworks, sources) |
 
-## Quick start (5 minutes)
+## Quick start (2 minutes)
 
 1. Install Obsidian from <https://obsidian.md>.
-2. Copy the `vault/` folder somewhere on your computer (e.g. `Documents/ENT Vault`).
-3. In Obsidian: **Open folder as vault** → select it.
-4. **Settings → Core plugins** → enable **Bases**, **Templates** (folder: `_Templates`),
-   **Quick switcher**.
-5. Open **`Home.md`** — the only landing page — and you'll see all 123 topics as `untouched`,
-   grouped by section.
+2. Copy the `vault/` folder somewhere (e.g. `Documents/ENT Vault`).
+3. In Obsidian: **Open folder as vault** → select it. Core plugins, settings, theme and
+   bookmarks are already configured.
+4. Open **`Home.md`** (bookmarked) — 123 topics grouped by section, plus the Library board.
+5. Install the community plugins listed in the in-vault **`Plugins & setup.md`** (Spaced
+   Repetition, Templater, QuickAdd, Excalidraw, Dataview).
 6. Read `docs/03-daily-workflows.md` and capture your first source.
+
+## Manage more than the curriculum
+A `type` property (`concept · source · case · teaching · project`) lets one vault hold your
+literature (`09 Sources`), de-identified cases (`10 Cases`), lectures (`11 Teaching`), and
+projects (`12 Projects`) — all surfaced by the **Library** board on Home. See
+`vault/Flashcards & revision.md` to turn notes into spaced-repetition cards.
 
 ## The idea in one paragraph
 

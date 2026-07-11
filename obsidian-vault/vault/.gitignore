@@ -1,0 +1,7 @@
+# Obsidian per-machine / regenerated state — don't version these
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache
+.obsidian/graph_cache
+.trash/
+.DS_Store

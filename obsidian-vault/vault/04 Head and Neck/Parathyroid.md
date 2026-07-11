@@ -1,7 +1,9 @@
 ---
+type: concept
 section: Head and Neck
 topic_no: 6
 status: untouched
+high_yield: false
 sources: []
 ---
 <!-- generated-stub: safe to regenerate while status is untouched -->

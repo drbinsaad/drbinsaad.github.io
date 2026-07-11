@@ -1,0 +1,8 @@
+{
+  "items": [
+    { "type": "file", "title": "🏠 Home", "path": "Home.md" },
+    { "type": "file", "title": "🔁 Flashcards & revision", "path": "Flashcards & revision.md" },
+    { "type": "file", "title": "⚙️ Plugins & setup", "path": "Plugins & setup.md" },
+    { "type": "search", "title": "Needs work (not mastered)", "query": "[\"status\":learning] OR [\"status\":untouched]" }
+  ]
+}

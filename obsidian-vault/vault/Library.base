@@ -1,0 +1,48 @@
+filters:
+  or:
+    - file.inFolder("09 Sources")
+    - file.inFolder("10 Cases")
+    - file.inFolder("11 Teaching")
+    - file.inFolder("12 Projects")
+properties:
+  note.type:
+    displayName: Type
+  note.status:
+    displayName: Status
+  file.mtime:
+    displayName: Edited
+views:
+  - type: table
+    name: All
+    groupBy:
+      property: note.type
+      direction: ASC
+    order:
+      - note.type
+      - file.name
+      - note.status
+      - file.mtime
+  - type: table
+    name: Sources
+    filters:
+      and:
+        - file.inFolder("09 Sources")
+    order:
+      - file.name
+      - file.mtime
+  - type: table
+    name: Cases
+    filters:
+      and:
+        - file.inFolder("10 Cases")
+    order:
+      - file.name
+      - file.mtime
+  - type: table
+    name: Projects
+    filters:
+      and:
+        - file.inFolder("12 Projects")
+    order:
+      - file.name
+      - note.status

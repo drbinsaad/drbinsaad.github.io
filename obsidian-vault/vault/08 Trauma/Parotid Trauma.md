@@ -1,7 +1,9 @@
 ---
+type: concept
 section: Trauma
 topic_no: 5
 status: untouched
+high_yield: false
 sources: []
 ---
 <!-- generated-stub: safe to regenerate while status is untouched -->

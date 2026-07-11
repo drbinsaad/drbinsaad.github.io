@@ -1,7 +1,9 @@
 ---
+type: concept
 section: Pediatric
 topic_no: 4
 status: untouched
+high_yield: false
 sources: []
 ---
 <!-- generated-stub: safe to regenerate while status is untouched -->

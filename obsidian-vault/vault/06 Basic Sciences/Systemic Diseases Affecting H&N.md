@@ -1,7 +1,9 @@
 ---
+type: concept
 section: Basic Sciences
 topic_no: 17
 status: untouched
+high_yield: false
 sources: []
 ---
 <!-- generated-stub: safe to regenerate while status is untouched -->

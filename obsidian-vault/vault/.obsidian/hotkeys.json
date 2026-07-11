@@ -1,0 +1,4 @@
+{
+  "templates:insert-template": [{ "modifiers": ["Mod", "Shift"], "key": "I" }],
+  "editor:toggle-checklist-status": [{ "modifiers": ["Mod"], "key": "Enter" }]
+}

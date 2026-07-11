@@ -112,9 +112,11 @@ def concept_note(section_name: str, topic_no: str, title: str, subtopics) -> str
         else "_No subtopics listed in the curriculum._"
     )
     return f"""---
+type: concept
 section: {section_name}
 topic_no: {topic_no}
 status: untouched
+high_yield: false
 sources: []
 ---
 {GEN_MARKER}

@@ -6,25 +6,38 @@ not in index notes.**
 
 ```
 vault/
-├── Home.md              ← the only landing page; embeds the progress board
-├── ENT Progress.base    ← Bases file that powers the board
+├── .obsidian/           ← ships pre-configured (core plugins, settings, theme, bookmarks)
+├── Home.md              ← the landing page; embeds both boards
+├── Flashcards & revision.md · Plugins & setup.md   ← in-vault guides
+├── ENT Progress.base    ← curriculum progress board
+├── Library.base         ← sources / cases / teaching / projects board
 ├── 00 Inbox/            ← quick capture, emptied weekly
-├── 01 Pediatric/        ← one folder per section
-│   ├── Subglottic Stenosis.md
-│   └── … (one concept note per topic)
-├── 02 Otology/ … 08 Trauma/
-├── 09 Sources/          ← full source notes (papers/guidelines worth a citation)
-└── _Templates/          ← Concept note · Source note
+├── 01 Pediatric/ … 08 Trauma/   ← concept notes (type: concept), one per topic
+├── 09 Sources/          ← literature notes (type: source)
+├── 10 Cases/            ← de-identified teaching cases (type: case)
+├── 11 Teaching/         ← lectures & resident teaching (type: teaching)
+├── 12 Projects/         ← audits, research, website, talks (type: project)
+├── 99 Attachments/      ← pasted images/PDFs land here
+└── _Templates/          ← Concept · Source · Case · Teaching · Project
 ```
 
-## The concept note (the only note type you'll make often)
+## The `type` property — one axis for everything
+Every note carries a `type` (`concept | source | case | teaching | project`). This is what lets
+one Bases board show your whole practice, not just the curriculum. Folders are coarse buckets;
+the `type` and `section` **properties** are what Bases actually queries — so you get
+cross-cutting views (e.g. all high-yield otology, or every case linked to a concept) for free.
+This is the properties-first model used by the best modern vaults (kepano, Forte's ACCESS).
+
+## The concept note (the one you'll make most)
 One per curriculum topic. Deliberately minimal:
 
 ```
 ---
+type: concept
 section: Otology
 topic_no: 9
 status: untouched      ← your progress tracker; Bases reads this
+high_yield: false      ← set true for exam-critical topics (own Bases view)
 sources: []
 ---
 # Otitis Media

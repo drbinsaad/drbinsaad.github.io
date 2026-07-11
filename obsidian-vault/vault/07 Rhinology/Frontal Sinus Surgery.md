@@ -1,7 +1,9 @@
 ---
+type: concept
 section: Rhinology
 topic_no: 9
 status: untouched
+high_yield: false
 sources: []
 ---
 <!-- generated-stub: safe to regenerate while status is untouched -->

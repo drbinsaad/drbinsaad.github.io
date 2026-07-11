@@ -1,56 +1,58 @@
 filters:
   and:
-    - 'topic_no != null'
+    - 'note.type == "concept"'
 formulas:
-  section_topic: 'section + " #" + topic_no'
+  flag: 'if(note.status == "mastered", "✅", if(note.status == "solid", "🟩", if(note.status == "learning", "🔶", "⬜")))'
 properties:
-  note.status:
-    displayName: Status
+  formula.flag:
+    displayName: " "
   note.section:
     displayName: Section
   note.topic_no:
     displayName: "#"
+  note.status:
+    displayName: Status
+  note.high_yield:
+    displayName: High-yield
   file.mtime:
-    displayName: Last edited
+    displayName: Edited
 views:
   - type: table
     name: By Section
+    groupBy:
+      property: note.section
+      direction: ASC
     order:
-      - section
-      - topic_no
-      - status
+      - formula.flag
+      - note.topic_no
+      - file.name
+      - note.status
       - file.mtime
-    group_by: section
-    sort:
-      - property: section
-        direction: ASC
-      - property: topic_no
-        direction: ASC
   - type: table
     name: Needs work
     filters:
       and:
-        - 'status != "mastered"'
+        - 'note.status != "mastered"'
     order:
-      - section
-      - topic_no
-      - status
-    sort:
-      - property: section
-        direction: ASC
-      - property: topic_no
-        direction: ASC
+      - formula.flag
+      - note.section
+      - note.topic_no
+      - note.status
   - type: table
+    name: High-yield
+    filters:
+      and:
+        - 'note.high_yield == true'
+    order:
+      - formula.flag
+      - note.section
+      - file.name
+      - note.status
+  - type: cards
     name: Has sources
     filters:
       and:
-        - 'sources != null'
-        - 'sources.length > 0'
+        - 'note.sources'
     order:
-      - section
-      - topic_no
-      - status
-      - sources
-    sort:
-      - property: file.mtime
-        direction: DESC
+      - note.section
+      - note.status

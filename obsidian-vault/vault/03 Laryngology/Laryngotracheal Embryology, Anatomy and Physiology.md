@@ -1,7 +1,9 @@
 ---
+type: concept
 section: Laryngology
 topic_no: 1
 status: untouched
+high_yield: false
 sources: []
 ---
 <!-- generated-stub: safe to regenerate while status is untouched -->
