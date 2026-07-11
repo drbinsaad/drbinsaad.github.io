@@ -3,37 +3,17 @@ section:
 topic_no:
 status: untouched
 sources: []
-tags:
-  - ent
 ---
 
 # {{title}}
 
-> Status: `untouched` → `learning` → `solid` → `mastered`. Bump the `status` property as you study.
+> `status`: untouched → learning → solid → mastered — bump it as you study.
 
-## Subtopics to cover
+## Subtopics
 - [ ]
 
-## Definition
-
-
-## Mechanism / Pathophysiology
-
-
-## Clinical features
-
-
-## Investigations
-
-
-## Staging / Classification
-
-
-## Management
-
-
-## Pearls & pitfalls
+## Notes
 
 
 ## Sources
-<!-- Paste the video/lecture/paper link here, or link a full note from "09 Sources". -->
+<!-- Paste the video/lecture/paper link here, or link a note from "09 Sources". -->

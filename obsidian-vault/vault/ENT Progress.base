@@ -1,6 +1,5 @@
 filters:
   and:
-    - file.hasTag("ent")
     - 'topic_no != null'
 formulas:
   section_topic: 'section + " #" + topic_no'

@@ -1,64 +1,52 @@
-# 01 — Vault Architecture
+# 01 — Architecture
 
-This vault is **seeded from your study curriculum** (`tools/study_v3.xlsx`): 8 sections,
-123 numbered topics, and ~610 subtopics. Each numbered topic becomes one permanent
-**concept note**; each section becomes one folder with a **Map of Content**.
+Minimalist and Bases-first. The vault is seeded from your curriculum (`tools/study_v3.xlsx`):
+8 sections, 123 topics, ~610 subtopics. **Structure lives in note properties and Bases views —
+not in index notes.**
 
 ```
 vault/
-├── Home.md                  ← front door: links to every section MOC + Dashboard
-├── Dashboard.md             ← embeds the Bases progress board
-├── ENT Progress.base        ← the Bases file that powers the dashboard
-├── 00 Inbox/                ← quick capture, emptied weekly
-├── 01 Pediatric/
-│   ├── Pediatric MOC.md
-│   ├── Clinical Evaluation of Airway Obstruction.md
+├── Home.md              ← the only landing page; embeds the progress board
+├── ENT Progress.base    ← Bases file that powers the board
+├── 00 Inbox/            ← quick capture, emptied weekly
+├── 01 Pediatric/        ← one folder per section
 │   ├── Subglottic Stenosis.md
-│   └── … (one note per numbered topic)
-├── 02 Otology/
-├── 03 Laryngology/
-├── 04 Head and Neck/
-├── 05 General/
-├── 06 Basic Sciences/
-├── 07 Rhinology/
-├── 08 Trauma/
-├── 09 Sources/              ← full source notes (papers/guidelines worth a citation)
-└── _Templates/              ← Concept note · Source note · Lecture · Daily note
+│   └── … (one concept note per topic)
+├── 02 Otology/ … 08 Trauma/
+├── 09 Sources/          ← full source notes (papers/guidelines worth a citation)
+└── _Templates/          ← Concept note · Source note
 ```
 
-## The two note types
+## The concept note (the only note type you'll make often)
+One per curriculum topic. Deliberately minimal:
 
-### Concept note (the spine — one per curriculum topic)
-This is where knowledge lives. Auto-generated as a stub, then filled in by you over time.
-It has:
+```
+---
+section: Otology
+topic_no: 9
+status: untouched      ← your progress tracker; Bases reads this
+sources: []
+---
+# Otitis Media
+## Subtopics   (checklist copied from the curriculum)
+## Notes       (one free body — write whatever you learn, your way)
+## Sources     (paste links)
+```
 
-- **Frontmatter properties** the Dashboard reads: `section`, `topic_no`, `status`, `sources`, `tags`.
-- A **subtopic checklist** copied from the curriculum (tick them off as you cover them).
-- Atomic headings — *Definition, Mechanism, Clinical features, Investigations,
-  Staging/Classification, Management, Pearls & pitfalls, Sources*. These headings are
-  deliberate: a well-filled note can later become an Anki deck, a teaching slide, or a
-  website article without restructuring.
+No 8-heading scaffold, no tags. The `section` property does the categorising; the free **Notes**
+body means opening a note feels like a blank page, not a form to fill.
 
-### Source note (optional — one per important paper/guideline)
-Lives in `09 Sources`. You only make one when a source deserves its own citation and will
-be referenced repeatedly. For everyday videos/lectures you **don't** make a source note —
-you just paste the link into the topic note's *Sources* section. This keeps capture fast.
+## Why there are no MOC/index notes
+Obsidian **Bases** already lists and groups every topic by its `section` property, live and
+never stale. A hand-maintained index note would just be a second copy that rots. The
+`ENT Progress.base` board *is* your table of contents.
 
-## Why this shape
+## Why folders stay
+Folders and properties coexist — Bases queries the `section` **property**, not the folder — so
+you keep familiar browsing *and* get every cross-cutting view for free. Keeping them costs
+nothing.
 
-- **Mirrors your curriculum exactly**, so you never wonder where a note goes — the folder
-  and topic already exist.
-- **One source of truth for progress.** The `status` property on each note is *the* tracker;
-  the Dashboard reads it. The Excel is kept only as a read-only backup/provenance. No double
-  upkeep.
-- **Stubs are not guilt.** An empty note means `status: untouched` — expected, not failure.
-  The Dashboard shows how far you've come.
-- **Topic-notes are the spine, not a cage.** If you later want notes organised by clinical
-  *presentation* ("unilateral adult serous effusion") instead of curriculum topic, add them
-  freely and link them in. Structure grows from use.
-
-## Regenerating from the Excel
-`tools/generate_vault.py` created these notes. It is **idempotent**: re-running it only
-creates missing notes or refreshes still-untouched stubs — it never overwrites a note you've
-started editing (detected via the `status` property and a generator marker). So if the
-curriculum changes, drop in the new `study_v3.xlsx` and re-run; your written notes are safe.
+## Regenerating
+`tools/generate_vault.py` built these notes and is **idempotent**: re-running only creates
+missing notes or refreshes still-`untouched` stubs — it never overwrites a note you've edited.
+Drop in a new `study_v3.xlsx` and re-run to add topics safely.

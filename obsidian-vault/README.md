@@ -14,8 +14,8 @@ bottom.
 | `vault/` | The ready-to-use Obsidian vault — open this folder as a vault |
 | `tools/generate_vault.py` | Script that builds the vault from the curriculum Excel (idempotent) |
 | `tools/study_v3.xlsx` | The source curriculum (provenance / read-only backup) |
-| `docs/01-architecture.md` | Folder structure, the two note types, why it's shaped this way |
-| `docs/02-mapping-strategy.md` | The `status` progress property, links, MOCs, tags, naming |
+| `docs/01-architecture.md` | Folder + note shape, and why there are no index notes |
+| `docs/02-mapping-strategy.md` | The `status` property and the Bases views |
 | `docs/03-daily-workflows.md` | The 3-minute capture loop and weekly review |
 | `docs/04-plugins-setup.md` | Core plugins (incl. **Bases**), sync, and phase-2 ideas |
 
@@ -25,30 +25,31 @@ bottom.
 2. Copy the `vault/` folder somewhere on your computer (e.g. `Documents/ENT Vault`).
 3. In Obsidian: **Open folder as vault** → select it.
 4. **Settings → Core plugins** → enable **Bases**, **Templates** (folder: `_Templates`),
-   **Backlinks**, **Quick switcher**.
-5. Open **`Home.md`**, then **`Dashboard.md`** — you'll see all 123 topics as `untouched`,
+   **Quick switcher**.
+5. Open **`Home.md`** — the only landing page — and you'll see all 123 topics as `untouched`,
    grouped by section.
 6. Read `docs/03-daily-workflows.md` and capture your first source.
 
 ## The idea in one paragraph
 
 Your curriculum is already the perfect map, so the vault mirrors it: one **concept note** per
-topic, pre-created as a stub. When you learn something, you open the topic note, dump the
-takeaways, paste the source link, and bump one property — `status: untouched → learning →
-solid → mastered`. That property *is* your progress tracker; the **Bases** dashboard rolls it
-up by section automatically. One system, one source of truth — no more parallel spreadsheet.
+topic, pre-created as a minimal stub. When you learn something, open the note, write what you
+learned under **Notes**, paste the source link, and bump one property — `status: untouched →
+learning → solid → mastered`. That property *is* your progress tracker; the **Bases** board on
+`Home.md` rolls it up by section automatically. One system, one source of truth.
 
-## Design principles (from the council)
+## Design principles (minimalist, from the council)
 
-- **One source of truth for progress.** The `status` property replaces the Excel checklist; the
-  Excel is kept only as backup. No double upkeep.
+- **Bases is the structure.** No hand-built index/MOC notes and no second dashboard — a Bases
+  view lists and groups every topic live, and never goes stale.
+- **Notes open like a blank page.** One free **Notes** body, no 8-heading form to fill, no tags —
+  the `section` property does the categorising.
+- **One source of truth for progress.** The `status` property replaces the Excel checklist.
 - **Capture in under 3 minutes.** Dump into the topic note; full source notes only for papers
   worth a citation. Friction is what kills these systems.
-- **Stubs are not guilt.** Empty = `untouched` = expected. The dashboard shows progress, not failure.
-- **Structure once, reuse everywhere.** Atomic headings (definition, mechanism, pearls,
-  staging…) mean a note can later become an Anki card, a slide, or a website article.
-- **Retention needs recall.** Spaced-repetition/Anki export is planned for phase 2 — the note
-  structure is already ready for it.
+- **Stubs are not guilt.** Empty = `untouched` = expected. The board shows progress, not failure.
+- **Add power by adding a property.** Tag a few notes `high_yield: true` and get a new Bases view
+  for free — no restructuring.
 - **No patient-identifiable data, ever.**
 
 ## Regenerating from the curriculum

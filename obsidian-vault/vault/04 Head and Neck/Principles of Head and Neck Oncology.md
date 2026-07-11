@@ -3,18 +3,14 @@ section: Head and Neck
 topic_no: 1
 status: untouched
 sources: []
-tags:
-  - ent
-  - head-and-neck
 ---
 <!-- generated-stub: safe to regenerate while status is untouched -->
 
 # Principles of Head and Neck Oncology
 
-> Status: `untouched` → `learning` → `solid` → `mastered`. Bump the `status`
-> property above as you study. Part of [[Head and Neck MOC]].
+> `status`: untouched → learning → solid → mastered — bump it as you study.
 
-## Subtopics to cover
+## Subtopics
 - [ ] AJCC 8th — Oral cavity
 - [ ] AJCC 8th — HPV-Mediated (p16+) Oropharyngeal
 - [ ] AJCC 8th — Oropharynx (p16-) and Hypopharynx
@@ -32,27 +28,8 @@ tags:
 - [ ] AJCC 8th — Olfactory Neuroblastoma
 - [ ] AJCC 8th — Lateral Temporal Bone
 
-## Definition
-
-
-## Mechanism / Pathophysiology
-
-
-## Clinical features
-
-
-## Investigations
-
-
-## Staging / Classification
-
-
-## Management
-
-
-## Pearls & pitfalls
+## Notes
 
 
 ## Sources
-<!-- Paste the video/lecture/paper/conference link here as you learn, or add a
-     full [[source note]] in "09 Sources" for papers worth a citation. -->
+<!-- Paste the video/lecture/paper link here, or link a note from "09 Sources". -->

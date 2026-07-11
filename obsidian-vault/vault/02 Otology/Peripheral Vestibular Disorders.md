@@ -3,18 +3,14 @@ section: Otology
 topic_no: 21
 status: untouched
 sources: []
-tags:
-  - ent
-  - otology
 ---
 <!-- generated-stub: safe to regenerate while status is untouched -->
 
 # Peripheral Vestibular Disorders
 
-> Status: `untouched` → `learning` → `solid` → `mastered`. Bump the `status`
-> property above as you study. Part of [[Otology MOC]].
+> `status`: untouched → learning → solid → mastered — bump it as you study.
 
-## Subtopics to cover
+## Subtopics
 - [ ] Benign Paroxysmal Positional Vertigo (BPPV)
 - [ ] Meniere's Disease
 - [ ] Vestibular Neuritis
@@ -30,27 +26,8 @@ tags:
 - [ ] Vogt-Koyanagi-Harada Syndrome
 - [ ] Otosyphilis
 
-## Definition
-
-
-## Mechanism / Pathophysiology
-
-
-## Clinical features
-
-
-## Investigations
-
-
-## Staging / Classification
-
-
-## Management
-
-
-## Pearls & pitfalls
+## Notes
 
 
 ## Sources
-<!-- Paste the video/lecture/paper/conference link here as you learn, or add a
-     full [[source note]] in "09 Sources" for papers worth a citation. -->
+<!-- Paste the video/lecture/paper link here, or link a note from "09 Sources". -->

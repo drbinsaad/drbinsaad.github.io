@@ -3,18 +3,14 @@ section: Rhinology
 topic_no: 8
 status: untouched
 sources: []
-tags:
-  - ent
-  - rhinology
 ---
 <!-- generated-stub: safe to regenerate while status is untouched -->
 
 # Endoscopic Sinus Surgery and Its Complications
 
-> Status: `untouched` → `learning` → `solid` → `mastered`. Bump the `status`
-> property above as you study. Part of [[Rhinology MOC]].
+> `status`: untouched → learning → solid → mastered — bump it as you study.
 
-## Subtopics to cover
+## Subtopics
 - [ ] Steps of FESS for CRS
 - [ ] Examination of nasal cavities (3 Passes)
 - [ ] Decongestants and local anesthesia
@@ -55,27 +51,8 @@ tags:
 - [ ] Other — Secondary Atrophic Rhinitis
 - [ ] Other — Injury to lamina papyracea
 
-## Definition
-
-
-## Mechanism / Pathophysiology
-
-
-## Clinical features
-
-
-## Investigations
-
-
-## Staging / Classification
-
-
-## Management
-
-
-## Pearls & pitfalls
+## Notes
 
 
 ## Sources
-<!-- Paste the video/lecture/paper/conference link here as you learn, or add a
-     full [[source note]] in "09 Sources" for papers worth a citation. -->
+<!-- Paste the video/lecture/paper link here, or link a note from "09 Sources". -->

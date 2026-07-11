@@ -3,18 +3,14 @@ section: Basic Sciences
 topic_no: 17
 status: untouched
 sources: []
-tags:
-  - ent
-  - basic-sciences
 ---
 <!-- generated-stub: safe to regenerate while status is untouched -->
 
 # Systemic Diseases Affecting H&N
 
-> Status: `untouched` → `learning` → `solid` → `mastered`. Bump the `status`
-> property above as you study. Part of [[Basic Sciences MOC]].
+> `status`: untouched → learning → solid → mastered — bump it as you study.
 
-## Subtopics to cover
+## Subtopics
 - [ ] Bony Lesions of the Skull
 - [ ] Fibrous Dysplasia
 - [ ] Paget Disease (Osteitis Deformans)
@@ -54,27 +50,8 @@ tags:
 - [ ] Teflon Granuloma
 - [ ] Reparative Granuloma
 
-## Definition
-
-
-## Mechanism / Pathophysiology
-
-
-## Clinical features
-
-
-## Investigations
-
-
-## Staging / Classification
-
-
-## Management
-
-
-## Pearls & pitfalls
+## Notes
 
 
 ## Sources
-<!-- Paste the video/lecture/paper/conference link here as you learn, or add a
-     full [[source note]] in "09 Sources" for papers worth a citation. -->
+<!-- Paste the video/lecture/paper link here, or link a note from "09 Sources". -->

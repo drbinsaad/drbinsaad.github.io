@@ -9,8 +9,10 @@ Reads a curriculum spreadsheet (study_v3.xlsx) whose rows are:
 
 and emits, under <vault>/ :
   * one folder per section          "01 Pediatric/" ... "08 Trauma/"
-  * one concept note per topic       with YAML frontmatter + subtopic checklist
-  * one Map-of-Content per section    "<Section> MOC.md" linking its topics
+  * one concept note per topic       frontmatter properties + subtopic checklist + free body
+
+Structure is carried by note *properties* and Obsidian Bases views — not by index
+notes — so there are no per-section MOC files. Notes are deliberately minimal.
 
 Design notes (from the LLM-council-reviewed plan):
   * Notes are the deliverable; this script is provenance. The user never has to run it.
@@ -100,83 +102,36 @@ def slug(name: str) -> str:
     return s
 
 
-def yaml_list(items):
-    if not items:
-        return "[]"
-    return "\n" + "\n".join(f"  - {i}" for i in items)
-
-
 def concept_note(section_name: str, topic_no: str, title: str, subtopics) -> str:
-    """A downstream-ready concept note: atomic headings so it can later feed
-    Anki cards, teaching slides, or a website article without restructuring."""
-    subs_yaml = yaml_list([s.replace('"', "'") for s in subtopics])
+    """Minimalist concept note: frontmatter properties (which Bases reads) plus a
+    subtopic checklist and one free body. No heading scaffold, no tags — the
+    `section` property carries the topic, and Bases carries the structure."""
     checklist = (
         "\n".join(f"- [ ] {s}" for s in subtopics)
         if subtopics
         else "_No subtopics listed in the curriculum._"
     )
-    tag_section = section_name.lower().replace(" & ", "-").replace(" ", "-")
     return f"""---
 section: {section_name}
 topic_no: {topic_no}
 status: untouched
 sources: []
-tags:
-  - ent
-  - {tag_section}
 ---
 {GEN_MARKER}
 
 # {title}
 
-> Status: `untouched` → `learning` → `solid` → `mastered`. Bump the `status`
-> property above as you study. Part of [[{section_name} MOC]].
+> `status`: untouched → learning → solid → mastered — bump it as you study.
 
-## Subtopics to cover
+## Subtopics
 {checklist}
 
-## Definition
-
-
-## Mechanism / Pathophysiology
-
-
-## Clinical features
-
-
-## Investigations
-
-
-## Staging / Classification
-
-
-## Management
-
-
-## Pearls & pitfalls
+## Notes
 
 
 ## Sources
-<!-- Paste the video/lecture/paper/conference link here as you learn, or add a
-     full [[source note]] in "09 Sources" for papers worth a citation. -->
+<!-- Paste the video/lecture/paper link here, or link a note from "09 Sources". -->
 """
-
-
-def section_moc(section: dict) -> str:
-    lines = [
-        f"# {section['name']} MOC",
-        "",
-        f"Map of Content for **{section['name']}** — {len(section['topics'])} topics. "
-        "Part of [[Home]].",
-        "",
-        "See the live progress board in [[Dashboard]] (filtered to this section).",
-        "",
-        "## Topics",
-    ]
-    for t in section["topics"]:
-        lines.append(f"{t['no']}. [[{slug(t['name'])}]]")
-    lines.append("")
-    return "\n".join(lines)
 
 
 def is_regenerable(path: str) -> bool:
@@ -206,11 +161,8 @@ def generate(xlsx_path: str, out_dir: str):
     stats = {"created": 0, "updated": 0, "skipped": 0}
     for section in sections:
         folder = os.path.join(out_dir, f"{section['no']:02d} {slug(section['name'])}")
-        # section MOC is always regenerated (it is pure index, never hand-edited)
+        # No MOC files: the Bases "By Section" view is the live index.
         os.makedirs(folder, exist_ok=True)
-        with open(os.path.join(folder, f"{slug(section['name'])} MOC.md"), "w",
-                  encoding="utf-8") as f:
-            f.write(section_moc(section))
         for topic in section["topics"]:
             note_path = os.path.join(folder, f"{slug(topic['name'])}.md")
             write_if_regenerable(

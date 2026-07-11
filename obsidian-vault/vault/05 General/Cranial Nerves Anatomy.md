@@ -3,18 +3,14 @@ section: General
 topic_no: 6
 status: untouched
 sources: []
-tags:
-  - ent
-  - general
 ---
 <!-- generated-stub: safe to regenerate while status is untouched -->
 
 # Cranial Nerves Anatomy
 
-> Status: `untouched` → `learning` → `solid` → `mastered`. Bump the `status`
-> property above as you study. Part of [[General MOC]].
+> `status`: untouched → learning → solid → mastered — bump it as you study.
 
-## Subtopics to cover
+## Subtopics
 - [ ] CN I — Olfactory
 - [ ] CN II — Optic
 - [ ] CN III — Oculomotor
@@ -25,27 +21,8 @@ tags:
 - [ ] Trigeminal Nerve Anatomy
 - [ ] Facial Nerve Anatomy
 
-## Definition
-
-
-## Mechanism / Pathophysiology
-
-
-## Clinical features
-
-
-## Investigations
-
-
-## Staging / Classification
-
-
-## Management
-
-
-## Pearls & pitfalls
+## Notes
 
 
 ## Sources
-<!-- Paste the video/lecture/paper/conference link here as you learn, or add a
-     full [[source note]] in "09 Sources" for papers worth a citation. -->
+<!-- Paste the video/lecture/paper link here, or link a note from "09 Sources". -->

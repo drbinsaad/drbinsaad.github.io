@@ -3,18 +3,14 @@ section: Laryngology
 topic_no: 2
 status: untouched
 sources: []
-tags:
-  - ent
-  - laryngology
 ---
 <!-- generated-stub: safe to regenerate while status is untouched -->
 
 # Voice Production and Dysphonia
 
-> Status: `untouched` → `learning` → `solid` → `mastered`. Bump the `status`
-> property above as you study. Part of [[Laryngology MOC]].
+> `status`: untouched → learning → solid → mastered — bump it as you study.
 
-## Subtopics to cover
+## Subtopics
 - [ ] Voice Production
 - [ ] Phonation
 - [ ] Resonance
@@ -54,27 +50,8 @@ tags:
 - [ ] Puberphonia (Mutational Falsetto)
 - [ ] Paradoxical Vocal Fold Motion Disorder
 
-## Definition
-
-
-## Mechanism / Pathophysiology
-
-
-## Clinical features
-
-
-## Investigations
-
-
-## Staging / Classification
-
-
-## Management
-
-
-## Pearls & pitfalls
+## Notes
 
 
 ## Sources
-<!-- Paste the video/lecture/paper/conference link here as you learn, or add a
-     full [[source note]] in "09 Sources" for papers worth a citation. -->
+<!-- Paste the video/lecture/paper link here, or link a note from "09 Sources". -->

@@ -3,18 +3,14 @@ section: Otology
 topic_no: 18
 status: untouched
 sources: []
-tags:
-  - ent
-  - otology
 ---
 <!-- generated-stub: safe to regenerate while status is untouched -->
 
 # Cochlear Implantation
 
-> Status: `untouched` → `learning` → `solid` → `mastered`. Bump the `status`
-> property above as you study. Part of [[Otology MOC]].
+> `status`: untouched → learning → solid → mastered — bump it as you study.
 
-## Subtopics to cover
+## Subtopics
 - [ ] Cochlear Implantation in Chronic Ear
 - [ ] Cochlear Implantation in Inner Ear Malformations
 - [ ] Labyrinthine aplasia (Michel deformity)
@@ -34,27 +30,8 @@ tags:
 - [ ] Labyrinthine Ossificans
 - [ ] Auditory Neuropathy
 
-## Definition
-
-
-## Mechanism / Pathophysiology
-
-
-## Clinical features
-
-
-## Investigations
-
-
-## Staging / Classification
-
-
-## Management
-
-
-## Pearls & pitfalls
+## Notes
 
 
 ## Sources
-<!-- Paste the video/lecture/paper/conference link here as you learn, or add a
-     full [[source note]] in "09 Sources" for papers worth a citation. -->
+<!-- Paste the video/lecture/paper link here, or link a note from "09 Sources". -->

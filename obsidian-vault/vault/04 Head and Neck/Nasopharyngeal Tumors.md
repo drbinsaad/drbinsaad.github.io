@@ -3,18 +3,14 @@ section: Head and Neck
 topic_no: 11
 status: untouched
 sources: []
-tags:
-  - ent
-  - head-and-neck
 ---
 <!-- generated-stub: safe to regenerate while status is untouched -->
 
 # Nasopharyngeal Tumors
 
-> Status: `untouched` → `learning` → `solid` → `mastered`. Bump the `status`
-> property above as you study. Part of [[Head and Neck MOC]].
+> `status`: untouched → learning → solid → mastered — bump it as you study.
 
-## Subtopics to cover
+## Subtopics
 - [ ] Benign — Thornwaldt Cyst
 - [ ] Benign — Rathke's Pouch Cyst
 - [ ] Malignant — Nasopharyngeal Cancer
@@ -25,27 +21,8 @@ tags:
 - [ ] Malignant — Adenoid cystic carcinoma
 - [ ] Malignant — Melanoma
 
-## Definition
-
-
-## Mechanism / Pathophysiology
-
-
-## Clinical features
-
-
-## Investigations
-
-
-## Staging / Classification
-
-
-## Management
-
-
-## Pearls & pitfalls
+## Notes
 
 
 ## Sources
-<!-- Paste the video/lecture/paper/conference link here as you learn, or add a
-     full [[source note]] in "09 Sources" for papers worth a citation. -->
+<!-- Paste the video/lecture/paper link here, or link a note from "09 Sources". -->

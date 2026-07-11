@@ -3,18 +3,14 @@ section: Pediatric
 topic_no: 3
 status: untouched
 sources: []
-tags:
-  - ent
-  - pediatric
 ---
 <!-- generated-stub: safe to regenerate while status is untouched -->
 
 # Congenital Laryngeal Anomalies
 
-> Status: `untouched` → `learning` → `solid` → `mastered`. Bump the `status`
-> property above as you study. Part of [[Pediatric MOC]].
+> `status`: untouched → learning → solid → mastered — bump it as you study.
 
-## Subtopics to cover
+## Subtopics
 - [ ] Laryngomalacia
 - [ ] Pediatric VC paralysis
 - [ ] Congenital SG stenosis
@@ -23,27 +19,8 @@ tags:
 - [ ] Esophageal Atresia (EA) with Tracheo-Esophageal Fistula
 - [ ] CHAOS
 
-## Definition
-
-
-## Mechanism / Pathophysiology
-
-
-## Clinical features
-
-
-## Investigations
-
-
-## Staging / Classification
-
-
-## Management
-
-
-## Pearls & pitfalls
+## Notes
 
 
 ## Sources
-<!-- Paste the video/lecture/paper/conference link here as you learn, or add a
-     full [[source note]] in "09 Sources" for papers worth a citation. -->
+<!-- Paste the video/lecture/paper link here, or link a note from "09 Sources". -->
