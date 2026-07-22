@@ -26,12 +26,18 @@
     nav a{text-decoration:none;color:#46423b;padding-block:27px;border-bottom:2px solid transparent}
     nav a[aria-current="page"]{color:var(--accent);border-color:var(--accent)}
     .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
-    .hero .shell{min-height:520px;display:flex;align-items:center;padding-block:76px}
-    .hero-copy{position:relative;z-index:1;max-width:720px;margin-inline-start:auto}
+    .hero .shell{min-height:530px;display:flex;align-items:center;justify-content:space-between;gap:54px;padding-block:70px}
+    .hero-copy{position:relative;z-index:1;max-width:700px}
+    .portrait-wrap{position:relative;z-index:2;flex:0 0 238px}
+    .portrait-frame{position:relative;width:100%;aspect-ratio:1;overflow:hidden;border:1px solid var(--line);background:#e8e6e3;box-shadow:18px 18px 0 rgba(138,48,42,.08)}
+    .portrait-frame::after{content:"";position:absolute;inset:12px -12px -12px 12px;border:1px solid rgba(138,48,42,.3);pointer-events:none}
+    .portrait-frame img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 34%}
     h1{font:500 clamp(48px,7vw,82px)/1.08 "Noto Sans Arabic",sans-serif;margin:0 0 5px;letter-spacing:-.035em}
     h1 .en{display:block;font:500 clamp(42px,5.5vw,70px)/1.02 "Newsreader",serif;letter-spacing:-.02em;margin-top:2px}
     .lead{font-size:20px;color:#46423b;margin:28px 0 0;max-width:640px}
     .lead .en{display:block;color:var(--muted);font-size:18px;margin-top:3px}
+    .bio{max-width:680px;margin:24px 0 0;padding-inline-start:18px;border-inline-start:2px solid #c9a59f;color:#514c44;font-size:16px;line-height:1.9}
+    .bio .en{display:block;color:#746e64;font-size:15px;line-height:1.65;margin-top:4px}
     .actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px}
     .btn{display:inline-flex;align-items:center;justify-content:center;min-height:54px;padding:12px 26px;border:1px solid var(--ink);text-decoration:none;font-weight:600;transition:.2s ease}
     .btn-primary{background:var(--accent);border-color:var(--accent);color:#fff}
@@ -84,7 +90,7 @@
     .footer-row strong{font:500 20px "Newsreader",serif}
     .footer-row a{color:var(--accent);text-underline-offset:5px}
     @media(max-width:820px){
-      .shell{padding-inline:20px}.nav{height:72px}.brand strong{font-size:20px}nav a:not([aria-current="page"]){display:none}nav a{padding-block:22px}.hero .shell{min-height:500px;padding-block:62px}.contour{width:460px;height:460px;opacity:.24;inset:auto -210px -80px auto}.lead{font-size:18px}.actions{align-items:stretch;flex-direction:column}.btn{width:100%}.trust-row{padding-block:30px;gap:26px;flex-direction:column}.trust-divider{width:74px;height:1px}.trust-stat strong{font-size:31px}.booking{padding:70px 0}.section-title{text-align:right;margin-bottom:32px}.platforms{grid-template-columns:1fr}.platform{min-height:0;border-inline-end:0;border-bottom:1px solid var(--line);padding:34px 26px}.platform:last-child{border-bottom:0}.platform .btn{margin-top:28px}.insurance{margin-top:56px;padding-top:42px}.insurance-head{align-items:flex-start;flex-direction:column}.insurance-groups{grid-template-columns:1fr}.insurance-group{border-inline-end:0;border-bottom:1px solid var(--line)}.insurance-group:last-child{border-bottom:0}.footer-row{align-items:flex-start;flex-direction:column}}
+      .shell{padding-inline:20px}.nav{height:72px}.brand strong{font-size:20px}nav a:not([aria-current="page"]){display:none}nav a{padding-block:22px}.hero .shell{min-height:0;padding-block:42px 58px;flex-direction:column;align-items:stretch;gap:30px}.portrait-wrap{order:-1;align-self:flex-start;width:176px;flex-basis:auto}.contour{width:460px;height:460px;opacity:.16;inset:auto -210px -80px auto}.lead{font-size:18px}.bio{font-size:15px;margin-top:20px}.actions{align-items:stretch;flex-direction:column}.btn{width:100%}.trust-row{padding-block:30px;gap:26px;flex-direction:column}.trust-divider{width:74px;height:1px}.trust-stat strong{font-size:31px}.booking{padding:70px 0}.section-title{text-align:right;margin-bottom:32px}.platforms{grid-template-columns:1fr}.platform{min-height:0;border-inline-end:0;border-bottom:1px solid var(--line);padding:34px 26px}.platform:last-child{border-bottom:0}.platform .btn{margin-top:28px}.insurance{margin-top:56px;padding-top:42px}.insurance-head{align-items:flex-start;flex-direction:column}.insurance-groups{grid-template-columns:1fr}.insurance-group{border-inline-end:0;border-bottom:1px solid var(--line)}.insurance-group:last-child{border-bottom:0}.footer-row{align-items:flex-start;flex-direction:column}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}}
   </style>
 </head>
@@ -107,9 +113,15 @@
         <div class="hero-copy">
           <h1>عيادتي ومواعيدي<span class="en">Clinic &amp; Appointments</span></h1>
           <p class="lead">احجز موعدك للاستشارة أو الزيارة عبر المنصة المناسبة لك.<span class="en">Choose your preferred service to book an appointment.</span></p>
+          <p class="bio">د. علي الشهراني، استشاري الأنف والأذن والحنجرة وطب أنف وأذن وحنجرة الأطفال، يهتم بتشخيص وعلاج أمراض الأذن والأنف والجيوب الأنفية والحنجرة ومجرى الهواء لدى الأطفال والبالغين.<span class="en">Dr Ali Alshahrani is an otolaryngology and pediatric ENT consultant focused on ear, nose, sinus, throat, and airway conditions in children and adults.</span></p>
           <div class="actions">
             <a class="btn btn-primary" href="#booking">اختر منصة الحجز</a>
             <a class="btn btn-secondary en" href="index.html">Back to homepage</a>
+          </div>
+        </div>
+        <div class="portrait-wrap">
+          <div class="portrait-frame">
+            <img src="image/clinic-portrait.png" alt="د. علي الشهراني، استشاري الأنف والأذن والحنجرة">
           </div>
         </div>
       </div>
