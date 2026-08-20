@@ -13,7 +13,7 @@
  * Bump CACHE_VERSION to force clients onto new cached assets.
  * ==========================================================================*/
 
-const CACHE_VERSION = "v1";
+const CACHE_VERSION = "v2";
 const PRECACHE = "ent-precache-" + CACHE_VERSION;
 const RUNTIME  = "ent-runtime-" + CACHE_VERSION;
 
@@ -27,6 +27,9 @@ const SHELL = [
   "/logbook.html",
   "/sore-throat.html",
   "/bppv-vertigo.html",
+  "/patient-instructions/",
+  "/patient-instructions/sheets.js",
+  "/patient-instructions/bppv.html",
   "/js/pwa.js",
   "/js/logbook.js",
   "/manifest.webmanifest",

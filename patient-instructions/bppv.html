@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Bilingual patient guide to benign paroxysmal positional vertigo (BPPV) — symptoms, warning signs, and the Epley, Brandt-Daroff, Semont and half-somersault exercises, in English and Arabic.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BPPV — Patient Guide · دليل المريض">
+<meta property="og:description" content="What BPPV is, when to seek urgent care, and how to do the exercises at home. English and Arabic.">
+<title>BPPV Patient Guide — دليل المريض: دوار الوضعة الانتيابي الحميد</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal-900:#08343A;
+  --teal-700:#0E5A62;
+  --teal-500:#12787F;
+  --teal-50:#E9F2F1;
+  --gold:#B8873A;
+  --gold-soft:#F5E9CF;
+  --paper:#FCFBF8;
+  --card:#FFFFFF;
+  --ink:#14211F;
+  --muted:#5C6B69;
+  --rule:#DCE4E2;
+  --alert:#9E2018;
+  --alert-bg:#FDF1EF;
+  --alert-rule:#E9C4BF;
+  --maxw:1180px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:"IBM Plex Sans","IBM Plex Sans Arabic",-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+  font-size:16px; line-height:1.55;
+}
+[dir="rtl"], .ar{font-family:"IBM Plex Sans Arabic","IBM Plex Sans",Tahoma,Arial,sans-serif;}
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 22px 70px}
+
+/* ---------- top bar ---------- */
+.bar{
+  position:sticky; top:0; z-index:40;
+  background:rgba(252,251,248,.94); backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--rule);
+}
+.bar-in{max-width:var(--maxw); margin:0 auto; padding:10px 22px; display:flex; flex-wrap:wrap; gap:14px; align-items:center; justify-content:space-between}
+.ctl{display:flex; align-items:center; gap:8px; flex-wrap:wrap}
+.ctl-label{font-size:11px; letter-spacing:.11em; text-transform:uppercase; color:var(--muted); font-weight:600}
+.seg{display:inline-flex; border:1.5px solid var(--teal-700); border-radius:999px; overflow:hidden; background:#fff}
+.seg button{
+  appearance:none; border:0; background:transparent; cursor:pointer;
+  font:inherit; font-size:13.5px; font-weight:600; color:var(--teal-700);
+  padding:6px 15px; line-height:1.4;
+}
+.seg button + button{border-left:1.5px solid var(--teal-700)}
+.seg button[aria-pressed="true"]{background:var(--teal-700); color:#fff}
+.seg button:focus-visible{outline:3px solid var(--gold); outline-offset:-3px}
+.home{font-size:13.5px; font-weight:600; text-decoration:none; color:var(--teal-900)}
+.home:hover{color:var(--teal-500)}
+.home .ar{margin-inline-start:4px}
+.ghost{
+  appearance:none; cursor:pointer; font:inherit; font-size:13.5px; font-weight:600;
+  background:#fff; color:var(--teal-900); border:1.5px solid var(--rule);
+  border-radius:999px; padding:6px 15px;
+}
+.ghost:hover{border-color:var(--teal-500)}
+.ghost:focus-visible{outline:3px solid var(--gold); outline-offset:2px}
+
+/* ---------- masthead ---------- */
+.mast{padding:34px 0 22px; border-bottom:3px solid var(--teal-900)}
+.mast-grid{display:grid; grid-template-columns:1fr 1fr; gap:0}
+.mast .en{padding-right:30px; border-right:1px solid var(--rule)}
+.mast .ar{padding-left:30px; direction:rtl; text-align:right}
+.eyebrow{font-size:11.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--gold); font-weight:700; margin:0 0 8px}
+[dir="rtl"] .eyebrow{letter-spacing:0}
+h1{font-size:clamp(24px,3.1vw,34px); line-height:1.16; margin:0 0 6px; font-weight:700; color:var(--teal-900); letter-spacing:-.015em}
+[dir="rtl"] h1{letter-spacing:0}
+.sub{margin:0; color:var(--muted); font-size:15px}
+
+/* ---------- affected-ear selector (signature) ---------- */
+.earbox{
+  margin:20px 0 0; border:2px solid var(--teal-700); border-radius:14px;
+  background:linear-gradient(180deg,#fff, var(--teal-50));
+  padding:16px 20px;
+  display:grid; grid-template-columns:1fr auto 1fr; gap:18px; align-items:center;
+}
+.earbox .en{padding-right:16px}
+.earbox .ar{padding-left:16px; direction:rtl; text-align:right}
+.earbox p{margin:0; font-size:14.5px; font-weight:500; color:var(--teal-900)}
+.earbox small{display:block; color:var(--muted); font-weight:400; font-size:12.8px; margin-top:3px}
+.earpick{display:flex; flex-direction:column; align-items:center; gap:6px}
+.earpick .seg button{padding:9px 20px; font-size:15px}
+
+/* ---------- section cards ---------- */
+.card{
+  background:var(--card); border:1px solid var(--rule); border-radius:16px;
+  margin:22px 0 0; overflow:hidden;
+}
+.card > h2{
+  margin:0; padding:14px 22px; background:var(--teal-900); color:#fff;
+  font-size:16px; font-weight:600; letter-spacing:.01em;
+  display:grid; grid-template-columns:1fr 1fr; gap:0; align-items:baseline;
+}
+.card > h2 .en{padding-right:26px; border-right:1px solid rgba(255,255,255,.28)}
+.card > h2 .ar{padding-left:26px; direction:rtl; text-align:right; font-size:17px}
+.body{padding:20px 22px 24px}
+.duo{display:grid; grid-template-columns:1fr 1fr; gap:0}
+.duo > .en{padding-right:28px; border-right:1px solid var(--rule)}
+.duo > .ar{padding-left:28px; direction:rtl; text-align:right}
+.duo p{margin:0 0 11px}
+.duo p:last-child{margin-bottom:0}
+ul{margin:0; padding-inline-start:20px}
+li{margin:0 0 7px}
+li:last-child{margin-bottom:0}
+li::marker{color:var(--teal-500)}
+b,strong{font-weight:600}
+.lead{font-size:17px}
+
+/* ---------- reassurance ---------- */
+.calm{background:var(--teal-50); border-color:#BEDAD8}
+.calm > h2{background:var(--teal-700)}
+
+/* ---------- red flags ---------- */
+.alert{border:2px solid var(--alert); background:var(--alert-bg)}
+.alert > h2{background:var(--alert)}
+.alert .duo > .en{border-right-color:var(--alert-rule)}
+.alert li::marker{color:var(--alert)}
+.alert-lead{font-weight:600; color:var(--alert); font-size:17px; margin-bottom:12px !important}
+
+/* ---------- steps ---------- */
+.step{
+  display:grid; grid-template-columns:236px 1fr 1fr; gap:0;
+  padding:18px 0; border-top:1px solid var(--rule); align-items:start;
+}
+.step:first-of-type{border-top:0; padding-top:4px}
+.figure{position:relative; padding-inline-end:22px}
+.figure svg{width:100%; height:auto; display:block}
+.num{
+  position:absolute; inset-inline-start:0; top:-2px; z-index:2;
+  width:29px; height:29px; border-radius:50%;
+  background:var(--gold); color:#fff; font-weight:700; font-size:15px;
+  display:grid; place-items:center;
+}
+.step .en{padding:0 26px 0 0; border-right:1px solid var(--rule)}
+.step .ar{padding:0 0 0 26px; direction:rtl; text-align:right}
+.step p{margin:0}
+.hold{
+  display:inline-block; margin-top:8px; padding:2px 10px; border-radius:999px;
+  background:var(--gold-soft); color:#6B4D14; font-size:12.5px; font-weight:600;
+}
+.dose{
+  margin-top:6px; border:1.5px dashed var(--teal-500); border-radius:12px;
+  background:var(--teal-50); padding:14px 18px;
+}
+.dose .duo > .en{border-right-color:#BEDAD8}
+.dose p{margin:0; font-weight:600; color:var(--teal-900)}
+.note{
+  margin-top:14px; border-inline-start:4px solid var(--gold); background:#FFFDF7;
+  padding:12px 16px; border-radius:0 10px 10px 0;
+}
+[dir="rtl"] .note{border-radius:10px 0 0 10px}
+.note .duo > .en{border-right-color:#EADFC4}
+.note p{font-size:14.5px; margin:0}
+.evi{font-size:13.5px; color:var(--muted); margin-top:10px}
+
+/* legend */
+.legend{
+  display:grid; grid-template-columns:120px 1fr 1fr; gap:0; align-items:center;
+  border:1px solid var(--rule); border-radius:12px; padding:12px 16px; margin-bottom:18px;
+  background:#fff;
+}
+.legend svg{width:110px; height:auto}
+.legend .en{padding:0 22px 0 12px; border-right:1px solid var(--rule); font-size:13.8px; color:var(--muted)}
+.legend .ar{padding:0 12px 0 22px; direction:rtl; text-align:right; font-size:13.8px; color:var(--muted)}
+
+/* footer / clinic block */
+.clinic{
+  margin-top:26px; border:1px solid var(--rule); border-radius:16px; background:#fff;
+  padding:20px 22px;
+}
+.lines{display:grid; grid-template-columns:1fr 1fr; gap:26px; margin-top:12px}
+.line{border-bottom:1.5px dotted var(--muted); height:30px; position:relative}
+.line span{position:absolute; top:-2px; inset-inline-start:0; font-size:12px; color:var(--muted)}
+.foot{
+  margin-top:24px; font-size:12.5px; color:var(--muted); text-align:center; line-height:1.7;
+}
+.foot b{color:var(--teal-900)}
+
+/* language view modes */
+/* In "Both" view the back-link carries both labels inline — separate them. */
+body[data-view="both"] .home > .en::after{content:"\00B7"; margin:0 6px; opacity:.55; font-weight:400}
+body[data-view="en"] .ar, body[data-view="en"] .card > h2 .ar{display:none}
+body[data-view="ar"] .en, body[data-view="ar"] .card > h2 .en{display:none}
+body[data-view="en"] .duo, body[data-view="ar"] .duo,
+body[data-view="en"] .card > h2, body[data-view="ar"] .card > h2,
+body[data-view="en"] .mast-grid, body[data-view="ar"] .mast-grid{grid-template-columns:1fr}
+body[data-view="en"] .step, body[data-view="ar"] .step{grid-template-columns:236px 1fr}
+body[data-view="en"] .earbox, body[data-view="ar"] .earbox{grid-template-columns:1fr auto}
+body[data-view="en"] .legend, body[data-view="ar"] .legend{grid-template-columns:120px 1fr}
+body[data-view="en"] .en, body[data-view="ar"] .ar{border-right:0 !important; padding-right:0 !important; padding-left:0 !important}
+body[data-view="ar"]{}
+body[data-view="ar"] .ar{padding-inline-start:0}
+
+/* mirror every diagram when the left ear is affected */
+.figure svg .mir{transform-box:view-box; transform-origin:0 0}
+body[data-side="L"] .figure svg .mir{transform:translate(250px,0) scale(-1,1)}
+
+
+/* ---------- video / QR strip ---------- */
+.vidwrap{margin-top:20px; border-top:1px solid var(--rule); padding-top:16px}
+.vidhead{
+  display:grid; grid-template-columns:1fr 1fr; gap:0; margin-bottom:12px;
+  font-size:11.5px; letter-spacing:.13em; text-transform:uppercase;
+  font-weight:700; color:var(--gold);
+}
+.vidhead .en{padding-right:26px}
+.vidhead .ar{padding-left:26px; direction:rtl; text-align:right; letter-spacing:0; text-transform:none; font-size:13px}
+.vids{display:grid; grid-template-columns:repeat(auto-fit,minmax(268px,1fr)); gap:12px}
+.vid{
+  display:grid; grid-template-columns:78px 1fr; gap:13px; align-items:center;
+  border:1px solid var(--rule); border-radius:12px; padding:11px 13px;
+  background:#fff; text-decoration:none; color:inherit;
+}
+.vid:hover{border-color:var(--teal-500); background:var(--teal-50)}
+.vid:focus-visible{outline:3px solid var(--gold); outline-offset:2px}
+.vid .qr{display:block; background:#fff; padding:4px; border-radius:6px}
+.vid .qr svg{width:70px; height:70px; display:block}
+.vid .vtxt{display:block; min-width:0}
+.vid .vtxt > span{display:block}
+.vid .vtxt b{display:block; font-size:14px; font-weight:600; color:var(--teal-900); line-height:1.35}
+.vid .src{display:block; font-size:11.5px; color:var(--muted); margin-top:2px; line-height:1.4}
+.vid .ar{margin-top:7px; padding-top:7px; border-top:1px solid var(--rule)}
+body[data-side="L"] .vid[data-only="R"], body[data-side="R"] .vid[data-only="L"]{display:none}
+@media (max-width:860px){
+  .vidhead{grid-template-columns:1fr}
+  .vidhead .en{padding-right:0}
+  .vidhead .ar{padding-left:0; padding-top:4px}
+}
+
+/* ---------- responsive ---------- */
+@media (max-width:860px){
+  .duo, .mast-grid, .card > h2, .earbox, .lines{grid-template-columns:1fr !important}
+  .duo > .en, .mast .en, .card > h2 .en{border-right:0 !important; padding-right:0 !important; padding-bottom:14px; border-bottom:1px solid var(--rule)}
+  .card > h2 .en{border-bottom-color:rgba(255,255,255,.28)}
+  .duo > .ar, .mast .ar, .card > h2 .ar{padding-left:0 !important; padding-top:12px}
+  .step{grid-template-columns:1fr !important}
+  .figure{max-width:300px; margin-bottom:12px; padding-inline-end:0}
+  .step .en{padding:0 0 12px 0 !important; border-right:0; border-bottom:1px solid var(--rule)}
+  .step .ar{padding:12px 0 0 0 !important}
+  .legend{grid-template-columns:1fr !important}
+  .legend .en{border-right:0; padding:10px 0 0}
+  .legend .ar{padding:10px 0 0}
+  .earbox .en{padding-right:0}
+  .earbox .ar{padding-left:0}
+}
+
+/* ---------- print ---------- */
+@media print{
+  .bar{display:none}
+  .home{display:none}
+  body{background:#fff; font-size:11.2pt}
+  .wrap{max-width:none; padding:0}
+  .card, .clinic, .legend, .earbox{break-inside:avoid; box-shadow:none}
+  .step{break-inside:avoid}
+  .card{margin-top:14px}
+  h2{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  .pagebreak{break-before:page}
+  .vid{break-inside:avoid}
+  .vidwrap{break-inside:avoid}
+  .vid:hover{background:#fff}
+  @page{size:A4; margin:13mm}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none !important; transition:none !important}}
+</style>
+</head>
+<body data-view="both" data-side="R">
+
+<div class="bar">
+  <div class="bar-in">
+    <a class="home" href="./">← <span class="en">Patient instructions</span><span class="ar" dir="rtl" lang="ar">النشرات الإرشادية</span></a>
+    <div class="ctl">
+      <span class="ctl-label">Language / اللغة</span>
+      <div class="seg" role="group" aria-label="Language view">
+        <button type="button" data-view-btn="both" aria-pressed="true">Both</button>
+        <button type="button" data-view-btn="en" aria-pressed="false">English</button>
+        <button type="button" data-view-btn="ar" aria-pressed="false">العربية</button>
+      </div>
+    </div>
+    <div class="ctl">
+      <button type="button" class="ghost" id="printBtn">Print / طباعة</button>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <header class="mast">
+    <div class="mast-grid">
+      <div class="en">
+        <p class="eyebrow">Patient information — inner ear &amp; balance</p>
+        <h1>Benign Paroxysmal Positional Vertigo (BPPV)</h1>
+        <p class="sub">What it is, when to worry, and how to do the exercises at home.</p>
+      </div>
+      <div class="ar" dir="rtl" lang="ar">
+        <p class="eyebrow">معلومات للمريض — الأذن الداخلية والاتزان</p>
+        <h1>دوار الوَضْعة الانتيابي الحميد</h1>
+        <p class="sub">ما هو، ومتى يجب القلق، وكيف تؤدي التمارين في المنزل.</p>
+      </div>
+    </div>
+
+    <!-- SIGNATURE: the affected-ear selector mirrors every diagram and instruction -->
+    <div class="earbox">
+      <div class="en">
+        <p>Your doctor has told you which ear is affected. Select it here.
+          <small>Every instruction and every diagram below changes direction to match.</small></p>
+      </div>
+      <div class="earpick">
+        <div class="seg" role="group" aria-label="Affected ear">
+          <button type="button" data-side-btn="R" aria-pressed="true">Right · اليمنى</button>
+          <button type="button" data-side-btn="L" aria-pressed="false">Left · اليسرى</button>
+        </div>
+      </div>
+      <div class="ar" dir="rtl" lang="ar">
+        <p>أخبرك طبيبك بالأذن المصابة. اخترها هنا.
+          <small>تتغير جميع التعليمات والرسوم أدناه لتطابق الجهة التي تختارها.</small></p>
+      </div>
+    </div>
+  </header>
+
+  <!-- WHAT IS IT -->
+  <section class="card">
+    <h2><span class="en">What is BPPV?</span><span class="ar" dir="rtl" lang="ar">ما هو دوار الوضعة الانتيابي الحميد؟</span></h2>
+    <div class="body">
+      <div class="duo">
+        <div class="en">
+          <p class="lead">Your inner ear contains tiny calcium crystals that help you sense movement and gravity.</p>
+          <p>Sometimes these crystals come loose and fall into one of the <b>semicircular canals</b> — the small looped tubes that sense head rotation. When you move your head, the loose crystals shift and send your brain a <b>false message that you are spinning</b>.</p>
+          <p>The <b>posterior canal</b> is affected in about 8 out of 10 cases, because it sits lowest and the crystals fall into it most easily.</p>
+          <p>BPPV is the most common cause of true spinning vertigo. It affects women about twice as often as men, and becomes more common with age.</p>
+        </div>
+        <div class="ar" dir="rtl" lang="ar">
+          <p class="lead">تحتوي أذنك الداخلية على بلورات دقيقة من كربونات الكالسيوم تساعدك على الإحساس بالحركة والاتزان.</p>
+          <p>أحيانًا تنزاح هذه البلورات وتسقط داخل إحدى <b>القنوات الهلالية (نصف الدائرية)</b>، وهي أنابيب دقيقة تستشعر دوران الرأس. وعند تحريك الرأس تتحرك البلورات فترسل إلى الدماغ <b>إشارة خاطئة بأنك تدور</b>.</p>
+          <p>تتأثر <b>القناة الخلفية</b> في نحو ٨ من كل ١٠ حالات، لأنها الأدنى موضعًا فتسقط البلورات فيها بسهولة.</p>
+          <p>وهو أكثر أسباب الدوار الدوراني شيوعًا، ويصيب النساء ضعف إصابته للرجال تقريبًا، ويزداد مع التقدم في العمر.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAUSES + SYMPTOMS -->
+  <section class="card">
+    <h2><span class="en">What causes it, and how it feels</span><span class="ar" dir="rtl" lang="ar">الأسباب والأعراض</span></h2>
+    <div class="body">
+      <div class="duo">
+        <div class="en">
+          <p><b>Common causes</b></p>
+          <ul>
+            <li>Most often there is <b>no clear cause</b>, especially with increasing age</li>
+            <li>A blow or injury to the head</li>
+            <li>Lying flat for a long time — after surgery or illness</li>
+            <li>An inner-ear infection or vestibular neuritis</li>
+            <li>Migraine, Ménière's disease, diabetes, low vitamin D or osteoporosis</li>
+          </ul>
+          <p style="margin-top:14px"><b>What it feels like</b></p>
+          <ul>
+            <li>Short, intense <b>spinning that starts when you change head position</b></li>
+            <li>Usual triggers: rolling over in bed, lying down, getting up, looking up at a high shelf, bending forward</li>
+            <li>Each spell usually lasts <b>20–30 seconds</b> and almost never more than one minute</li>
+            <li>Nausea, sometimes vomiting</li>
+            <li>A feeling of unsteadiness between spells</li>
+            <li>BPPV does <b>not</b> cause hearing loss or ringing in the ear</li>
+          </ul>
+        </div>
+        <div class="ar" dir="rtl" lang="ar">
+          <p><b>الأسباب الشائعة</b></p>
+          <ul>
+            <li>في أغلب الحالات <b>لا يوجد سبب واضح</b>، خاصة مع التقدم في العمر</li>
+            <li>ارتطام أو إصابة في الرأس</li>
+            <li>الاستلقاء لفترات طويلة بعد عملية جراحية أو مرض</li>
+            <li>التهاب الأذن الداخلية أو التهاب العصب الدهليزي</li>
+            <li>الشقيقة، داء منيير، السكري، نقص فيتامين د أو هشاشة العظام</li>
+          </ul>
+          <p style="margin-top:14px"><b>كيف يشعر بها المريض</b></p>
+          <ul>
+            <li>نوبات <b>دوار قصيرة وشديدة تبدأ عند تغيير وضع الرأس</b></li>
+            <li>المحفزات المعتادة: التقلب في السرير، الاستلقاء، النهوض من النوم، النظر إلى أعلى، الانحناء إلى الأمام</li>
+            <li>تستمر النوبة عادة <b>من ٢٠ إلى ٣٠ ثانية</b>، ونادرًا ما تتجاوز الدقيقة</li>
+            <li>غثيان، وأحيانًا قيء</li>
+            <li>شعور بعدم الاتزان بين النوبات</li>
+            <li><b>لا</b> يسبب هذا المرض ضعفًا في السمع أو طنينًا في الأذن</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REASSURANCE -->
+  <section class="card calm">
+    <h2><span class="en">This is not a stroke</span><span class="ar" dir="rtl" lang="ar">هذه الحالة ليست جلطة دماغية</span></h2>
+    <div class="body">
+      <div class="duo">
+        <div class="en">
+          <p>The word <b>“benign”</b> means exactly that: this condition is not cancer, not a brain tumour, and not a stroke. It is common, and it is treatable.</p>
+          <p><b>More than 9 out of 10 people</b> get better after the repositioning exercises, often after only one to three sessions.</p>
+          <p>The main risk is <b>falling</b> during an attack — so move carefully, and hold on to something when you get out of bed.</p>
+        </div>
+        <div class="ar" dir="rtl" lang="ar">
+          <p>كلمة <b>«حميد»</b> تعني تمامًا ذلك: هذه الحالة ليست سرطانًا ولا ورمًا في الدماغ ولا جلطة دماغية. وهي شائعة وقابلة للعلاج.</p>
+          <p><b>أكثر من ٩ من كل ١٠ مرضى</b> يتحسنون بعد تمارين إعادة توضيع البلورات، وغالبًا بعد جلسة إلى ثلاث جلسات فقط.</p>
+          <p>الخطر الأساسي هو <b>السقوط</b> أثناء النوبة، لذا تحرك بحذر، وامسك بشيء ثابت عند النهوض من السرير.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RED FLAGS -->
+  <section class="card alert">
+    <h2><span class="en">⚠ Go to the emergency department immediately if…</span><span class="ar" dir="rtl" lang="ar">⚠ اذهب إلى الطوارئ فورًا إذا…</span></h2>
+    <div class="body">
+      <div class="duo">
+        <div class="en">
+          <p class="alert-lead">Dizziness together with any one of these needs urgent care — it may not be coming from the ear:</p>
+          <ul>
+            <li>A <b>severe, sudden or unusual headache</b></li>
+            <li><b>Double vision</b> or loss of vision</li>
+            <li><b>Slurred speech</b>, or difficulty speaking or swallowing</li>
+            <li><b>Weakness or numbness</b> of the face, arm or leg</li>
+            <li><b>New hearing loss</b> or ringing in one ear</li>
+            <li>Vertigo that is <b>constant</b>, not triggered by movement, or that lasts for hours</li>
+            <li><b>Unable to walk or stand</b>, even when your head is still</li>
+            <li>Fainting, chest pain, or confusion</li>
+          </ul>
+          <p style="margin-top:12px"><b>Do not wait to see if it settles.</b> These can be signs of a stroke or another serious problem.</p>
+        </div>
+        <div class="ar" dir="rtl" lang="ar">
+          <p class="alert-lead">الدوار المصحوب بأي من هذه العلامات يحتاج رعاية عاجلة، فقد لا يكون سببه الأذن:</p>
+          <ul>
+            <li><b>صداع شديد أو مفاجئ أو مختلف عن المعتاد</b></li>
+            <li><b>ازدواج الرؤية</b> أو فقدان البصر</li>
+            <li><b>تلعثم في الكلام</b> أو صعوبة في النطق أو البلع</li>
+            <li><b>ضعف أو خدر</b> في الوجه أو الذراع أو الساق</li>
+            <li><b>نقص سمع جديد</b> أو طنين في أذن واحدة</li>
+            <li>دوار <b>مستمر</b> لا يرتبط بحركة الرأس، أو يستمر ساعات</li>
+            <li><b>عدم القدرة على المشي أو الوقوف</b> حتى مع ثبات الرأس</li>
+            <li>إغماء أو ألم في الصدر أو تشوّش في الوعي</li>
+          </ul>
+          <p style="margin-top:12px"><b>لا تنتظر لترى إن كانت ستزول.</b> فقد تكون هذه علامات جلطة دماغية أو مشكلة خطيرة أخرى.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SAFETY BEFORE -->
+  <section class="card">
+    <h2><span class="en">Before you start the exercises</span><span class="ar" dir="rtl" lang="ar">قبل أن تبدأ التمارين</span></h2>
+    <div class="body">
+      <div class="duo">
+        <div class="en">
+          <ul>
+            <li><b>Know which ear is affected.</b> Every exercise depends on it. If you are not sure, ask your doctor before starting.</li>
+            <li>Do the exercises <b>on a bed</b>, with a pillow placed so that it will sit <b>under your shoulders</b> when you lie back.</li>
+            <li>Have <b>someone nearby</b> the first few times.</li>
+            <li><b>Expect dizziness and possibly nausea</b> during the exercise. This is normal and means you are in the right position.</li>
+            <li>Move <b>deliberately and smoothly</b>, not in sudden jerks.</li>
+            <li><b>Stop and sit up</b> if you feel severely sick.</li>
+            <li><b>Do not drive</b> until the dizziness has completely gone.</li>
+            <li>Ask your doctor first if you have <b>neck or back problems, recent neck surgery, blood-vessel disease, or a detached retina</b>.</li>
+          </ul>
+        </div>
+        <div class="ar" dir="rtl" lang="ar">
+          <ul>
+            <li><b>اعرف الأذن المصابة.</b> كل تمرين يعتمد عليها. وإن لم تكن متأكدًا، اسأل طبيبك قبل البدء.</li>
+            <li>نفّذ التمارين <b>على سرير</b>، مع وضع الوسادة بحيث تكون <b>تحت كتفيك</b> عند الاستلقاء.</li>
+            <li>اجعل <b>شخصًا قريبًا منك</b> في المرات الأولى.</li>
+            <li><b>توقّع دوارًا وربما غثيانًا</b> أثناء التمرين. هذا طبيعي ويدل على أنك في الوضع الصحيح.</li>
+            <li>تحرّك <b>ببطء وثبات</b>، وليس بحركات مفاجئة.</li>
+            <li><b>توقف واجلس</b> إذا اشتد الغثيان.</li>
+            <li><b>لا تقُد السيارة</b> حتى يزول الدوار تمامًا.</li>
+            <li>استشر طبيبك أولًا إذا كان لديك <b>مشاكل في الرقبة أو الظهر، أو عملية حديثة في الرقبة، أو أمراض في الأوعية الدموية، أو انفصال في الشبكية</b>.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EPLEY -->
+  <section class="card pagebreak">
+    <h2><span class="en">1 · The Epley manoeuvre — the main treatment</span><span class="ar" dir="rtl" lang="ar">١ · مناورة إيبلي — العلاج الأساسي</span></h2>
+    <div class="body">
+
+      <div class="legend">
+        <div data-fig="legend"></div>
+        <div class="en">The round diagram shows <b>your head seen from above</b>. The pointed wedge is your nose, so you can check the angle you are turning to. The figure on the left shows the position of your body.</div>
+        <div class="ar" dir="rtl" lang="ar">الرسم الدائري يمثل <b>رأسك من الأعلى</b>. والطرف المدبب هو الأنف، لتتأكد من زاوية الدوران. أما الشكل على الجانب فيوضح وضع الجسم.</div>
+      </div>
+
+      <div class="step">
+        <div class="figure"><span class="num">1</span><div data-fig="sit|fwd|45"></div></div>
+        <div class="en"><p>Sit on the bed with your legs out in front of you. Turn your head <b>45° towards the <span class="tok same">right</span></b> — about halfway to your shoulder. Place the pillow behind you so it will end up under your shoulders.</p></div>
+        <div class="ar" dir="rtl" lang="ar"><p>اجلس على السرير وساقاك ممدودتان أمامك. أدر رأسك <b>٤٥ درجة نحو <span class="tok same">اليمين</span></b>، أي نحو منتصف المسافة إلى الكتف. ضع الوسادة خلفك بحيث تستقر تحت كتفيك.</p></div>
+      </div>
+
+      <div class="step">
+        <div class="figure"><span class="num">2</span><div data-fig="supineHang|up|45"></div></div>
+        <div class="en"><p>Lie back quickly, <b>keeping your head turned</b>. Your shoulders should be on the pillow and your head tilted back, resting on the bed. <span class="hold">Wait 30 seconds</span></p></div>
+        <div class="ar" dir="rtl" lang="ar"><p>استلقِ على ظهرك بسرعة <b>مع بقاء الرأس مُدارًا</b>. يجب أن يكون كتفاك على الوسادة والرأس مائلًا إلى الخلف مستندًا على السرير. <span class="hold">انتظر ٣٠ ثانية</span></p></div>
+      </div>
+
+      <div class="step">
+        <div class="figure"><span class="num">3</span><div data-fig="supineHang|up|-45"></div></div>
+        <div class="en"><p>Without lifting your head, turn it <b>90° towards the <span class="tok opp">left</span></b>. You are now looking 45° to the <span class="tok opp">left</span>. <span class="hold">Wait 30 seconds</span></p></div>
+        <div class="ar" dir="rtl" lang="ar"><p>دون أن ترفع رأسك، أدره <b>٩٠ درجة نحو <span class="tok opp">اليسار</span></b>. تصبح الآن ناظرًا ٤٥ درجة نحو <span class="tok opp">اليسار</span>. <span class="hold">انتظر ٣٠ ثانية</span></p></div>
+      </div>
+
+      <div class="step">
+        <div class="figure"><span class="num">4</span><div data-fig="side|down|-135"></div></div>
+        <div class="en"><p>Roll your <b>head and body together</b> another 90° towards the <span class="tok opp">left</span>, so that you are almost face-down into the bed. <span class="hold">Wait 30 seconds</span></p></div>
+        <div class="ar" dir="rtl" lang="ar"><p>أدر <b>رأسك وجسمك معًا</b> ٩٠ درجة أخرى نحو <span class="tok opp">اليسار</span>، حتى يصبح وجهك متجهًا نحو السرير تقريبًا. <span class="hold">انتظر ٣٠ ثانية</span></p></div>
+      </div>
+
+      <div class="step">
+        <div class="figure"><span class="num">5</span><div data-fig="sit|fwd|0"></div></div>
+        <div class="en"><p>Sit up slowly over the <b><span class="tok opp">left</span></b> side of the bed. Stay sitting for a minute before you stand.</p></div>
+        <div class="ar" dir="rtl" lang="ar"><p>اجلس ببطء من الجهة <b><span class="tok oppF">اليسرى</span></b> من السرير. وابقَ جالسًا دقيقة قبل الوقوف.</p></div>
+      </div>
+
+      <div class="dose">
+        <div class="duo">
+          <div class="en"><p>How often: <b>3 times a day</b>, until you have had <b>24 hours with no dizziness at all</b>.</p></div>
+          <div class="ar" dir="rtl" lang="ar"><p>عدد المرات: <b>٣ مرات يوميًا</b>، حتى تمضي <b>٢٤ ساعة كاملة دون أي دوار</b>.</p></div>
+        </div>
+      </div>
+
+      <p class="evi"><span class="en">Epley is the most effective repositioning manoeuvre: about 8–9 out of 10 people clear with a single correctly performed manoeuvre, and it ranked first among all manoeuvres in a 2025 analysis of 20 trials.</span><span class="ar" dir="rtl" lang="ar" style="display:block">مناورة إيبلي هي الأكثر فعالية: نحو ٨ إلى ٩ من كل ١٠ مرضى يتحسنون بمناورة واحدة تُؤدى بشكل صحيح، وقد جاءت في المرتبة الأولى بين جميع المناورات في تحليل شمل ٢٠ دراسة عام ٢٠٢٥.</span></p>
+      <div class="vidwrap"><div class="vidhead"><span class="en">Watch a demonstration — scan with your phone camera</span><span class="ar" dir="rtl" lang="ar">شاهد عرضًا توضيحيًا — امسح الرمز بكاميرا هاتفك</span></div><div class="vids"><a class="vid" data-only="R" href="https://www.youtube.com/watch?v=BY4UeRmTYmA" target="_blank" rel="noopener"><span class="qr"><svg viewBox="0 0 37 37" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges" role="img" aria-label="QR code"><rect width="37" height="37" fill="#fff"/><path d="M2 2h7v1h-7zM11 2h1v1h-1zM13 2h2v1h-2zM16 2h1v1h-1zM20 2h4v1h-4zM25 2h1v1h-1zM28 2h7v1h-7zM2 3h1v1h-1zM8 3h1v1h-1zM13 3h2v1h-2zM17 3h1v1h-1zM20 3h1v1h-1zM22 3h2v1h-2zM28 3h1v1h-1zM34 3h1v1h-1zM2 4h1v1h-1zM4 4h3v1h-3zM8 4h1v1h-1zM10 4h1v1h-1zM12 4h2v1h-2zM16 4h2v1h-2zM21 4h1v1h-1zM23 4h2v1h-2zM26 4h1v1h-1zM28 4h1v1h-1zM30 4h3v1h-3zM34 4h1v1h-1zM2 5h1v1h-1zM4 5h3v1h-3zM8 5h1v1h-1zM10 5h3v1h-3zM14 5h1v1h-1zM20 5h1v1h-1zM23 5h1v1h-1zM25 5h2v1h-2zM28 5h1v1h-1zM30 5h3v1h-3zM34 5h1v1h-1zM2 6h1v1h-1zM4 6h3v1h-3zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h2v1h-2zM15 6h5v1h-5zM22 6h1v1h-1zM24 6h1v1h-1zM28 6h1v1h-1zM30 6h3v1h-3zM34 6h1v1h-1zM2 7h1v1h-1zM8 7h1v1h-1zM10 7h1v1h-1zM12 7h5v1h-5zM19 7h1v1h-1zM21 7h1v1h-1zM24 7h3v1h-3zM28 7h1v1h-1zM34 7h1v1h-1zM2 8h7v1h-7zM10 8h1v1h-1zM12 8h1v1h-1zM14 8h1v1h-1zM16 8h1v1h-1zM18 8h1v1h-1zM20 8h1v1h-1zM22 8h1v1h-1zM24 8h1v1h-1zM26 8h1v1h-1zM28 8h7v1h-7zM10 9h1v1h-1zM12 9h2v1h-2zM16 9h1v1h-1zM18 9h1v1h-1zM21 9h5v1h-5zM2 10h1v1h-1zM4 10h5v1h-5zM11 10h2v1h-2zM14 10h3v1h-3zM19 10h1v1h-1zM21 10h1v1h-1zM24 10h2v1h-2zM28 10h5v1h-5zM2 11h1v1h-1zM4 11h4v1h-4zM10 11h1v1h-1zM12 11h2v1h-2zM15 11h2v1h-2zM18 11h5v1h-5zM24 11h2v1h-2zM28 11h2v1h-2zM31 11h3v1h-3zM4 12h1v1h-1zM6 12h5v1h-5zM12 12h8v1h-8zM24 12h1v1h-1zM26 12h3v1h-3zM30 12h1v1h-1zM32 12h2v1h-2zM4 13h1v1h-1zM6 13h1v1h-1zM9 13h1v1h-1zM11 13h1v1h-1zM13 13h1v1h-1zM15 13h1v1h-1zM19 13h4v1h-4zM25 13h1v1h-1zM27 13h1v1h-1zM30 13h3v1h-3zM34 13h1v1h-1zM2 14h1v1h-1zM5 14h2v1h-2zM8 14h3v1h-3zM14 14h1v1h-1zM16 14h3v1h-3zM21 14h7v1h-7zM29 14h3v1h-3zM2 15h2v1h-2zM6 15h1v1h-1zM9 15h1v1h-1zM11 15h5v1h-5zM17 15h1v1h-1zM19 15h2v1h-2zM23 15h1v1h-1zM26 15h2v1h-2zM33 15h2v1h-2zM2 16h1v1h-1zM8 16h1v1h-1zM16 16h3v1h-3zM22 16h3v1h-3zM27 16h7v1h-7zM3 17h1v1h-1zM5 17h1v1h-1zM7 17h1v1h-1zM13 17h1v1h-1zM15 17h3v1h-3zM23 17h2v1h-2zM26 17h4v1h-4zM32 17h1v1h-1zM2 18h1v1h-1zM4 18h1v1h-1zM6 18h3v1h-3zM14 18h4v1h-4zM19 18h2v1h-2zM24 18h1v1h-1zM26 18h2v1h-2zM29 18h3v1h-3zM34 18h1v1h-1zM4 19h2v1h-2zM7 19h1v1h-1zM11 19h2v1h-2zM16 19h1v1h-1zM18 19h1v1h-1zM20 19h2v1h-2zM23 19h7v1h-7zM31 19h2v1h-2zM2 20h5v1h-5zM8 20h2v1h-2zM13 20h1v1h-1zM15 20h3v1h-3zM20 20h1v1h-1zM22 20h2v1h-2zM27 20h1v1h-1zM29 20h2v1h-2zM32 20h2v1h-2zM3 21h2v1h-2zM6 21h2v1h-2zM9 21h1v1h-1zM12 21h2v1h-2zM17 21h2v1h-2zM22 21h4v1h-4zM29 21h5v1h-5zM2 22h1v1h-1zM6 22h1v1h-1zM8 22h1v1h-1zM10 22h4v1h-4zM17 22h1v1h-1zM20 22h1v1h-1zM23 22h1v1h-1zM26 22h2v1h-2zM31 22h1v1h-1zM33 22h2v1h-2zM2 23h2v1h-2zM11 23h5v1h-5zM17 23h3v1h-3zM22 23h3v1h-3zM27 23h1v1h-1zM31 23h2v1h-2zM34 23h1v1h-1zM2 24h1v1h-1zM4 24h1v1h-1zM8 24h1v1h-1zM10 24h1v1h-1zM12 24h1v1h-1zM14 24h1v1h-1zM16 24h1v1h-1zM19 24h1v1h-1zM21 24h1v1h-1zM23 24h2v1h-2zM27 24h1v1h-1zM32 24h2v1h-2zM2 25h1v1h-1zM4 25h2v1h-2zM9 25h2v1h-2zM15 25h1v1h-1zM18 25h1v1h-1zM21 25h3v1h-3zM27 25h2v1h-2zM31 25h4v1h-4zM2 26h1v1h-1zM5 26h2v1h-2zM8 26h1v1h-1zM10 26h3v1h-3zM18 26h2v1h-2zM21 26h1v1h-1zM24 26h9v1h-9zM34 26h1v1h-1zM10 27h4v1h-4zM18 27h2v1h-2zM21 27h2v1h-2zM24 27h3v1h-3zM30 27h1v1h-1zM32 27h3v1h-3zM2 28h7v1h-7zM13 28h7v1h-7zM24 28h3v1h-3zM28 28h1v1h-1zM30 28h1v1h-1zM32 28h1v1h-1zM2 29h1v1h-1zM8 29h1v1h-1zM10 29h2v1h-2zM14 29h1v1h-1zM17 29h1v1h-1zM19 29h3v1h-3zM25 29h2v1h-2zM30 29h3v1h-3zM34 29h1v1h-1zM2 30h1v1h-1zM4 30h3v1h-3zM8 30h1v1h-1zM10 30h4v1h-4zM15 30h4v1h-4zM22 30h3v1h-3zM26 30h6v1h-6zM33 30h1v1h-1zM2 31h1v1h-1zM4 31h3v1h-3zM8 31h1v1h-1zM10 31h1v1h-1zM13 31h1v1h-1zM17 31h1v1h-1zM20 31h1v1h-1zM23 31h1v1h-1zM25 31h1v1h-1zM27 31h1v1h-1zM30 31h3v1h-3zM34 31h1v1h-1zM2 32h1v1h-1zM4 32h3v1h-3zM8 32h1v1h-1zM10 32h3v1h-3zM16 32h4v1h-4zM22 32h8v1h-8zM31 32h2v1h-2zM2 33h1v1h-1zM8 33h1v1h-1zM12 33h1v1h-1zM15 33h1v1h-1zM17 33h1v1h-1zM23 33h2v1h-2zM28 33h1v1h-1zM30 33h3v1h-3zM2 34h7v1h-7zM10 34h4v1h-4zM15 34h3v1h-3zM19 34h1v1h-1zM24 34h4v1h-4zM29 34h1v1h-1zM33 34h1v1h-1z" fill="#08343A"/></svg></span><span class="vtxt"><span class="en"><b>Epley for the right ear</b><span class="src">University of Michigan · Vestibular Testing Center</span></span><span class="ar" dir="rtl" lang="ar"><b>مناورة إيبلي للأذن اليمنى</b><span class="src">جامعة ميشيغان · مركز فحوصات الاتزان</span></span></span></a><a class="vid" data-only="L" href="https://www.youtube.com/watch?v=lh72suV2p20" target="_blank" rel="noopener"><span class="qr"><svg viewBox="0 0 37 37" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges" role="img" aria-label="QR code"><rect width="37" height="37" fill="#fff"/><path d="M2 2h7v1h-7zM11 2h1v1h-1zM13 2h2v1h-2zM16 2h1v1h-1zM20 2h4v1h-4zM25 2h1v1h-1zM28 2h7v1h-7zM2 3h1v1h-1zM8 3h1v1h-1zM13 3h2v1h-2zM17 3h1v1h-1zM20 3h1v1h-1zM22 3h2v1h-2zM28 3h1v1h-1zM34 3h1v1h-1zM2 4h1v1h-1zM4 4h3v1h-3zM8 4h1v1h-1zM10 4h1v1h-1zM12 4h2v1h-2zM16 4h2v1h-2zM21 4h1v1h-1zM23 4h2v1h-2zM26 4h1v1h-1zM28 4h1v1h-1zM30 4h3v1h-3zM34 4h1v1h-1zM2 5h1v1h-1zM4 5h3v1h-3zM8 5h1v1h-1zM10 5h1v1h-1zM20 5h1v1h-1zM23 5h1v1h-1zM25 5h2v1h-2zM28 5h1v1h-1zM30 5h3v1h-3zM34 5h1v1h-1zM2 6h1v1h-1zM4 6h3v1h-3zM8 6h1v1h-1zM10 6h1v1h-1zM13 6h7v1h-7zM22 6h1v1h-1zM24 6h1v1h-1zM28 6h1v1h-1zM30 6h3v1h-3zM34 6h1v1h-1zM2 7h1v1h-1zM8 7h1v1h-1zM10 7h1v1h-1zM12 7h1v1h-1zM14 7h3v1h-3zM19 7h1v1h-1zM21 7h1v1h-1zM24 7h3v1h-3zM28 7h1v1h-1zM34 7h1v1h-1zM2 8h7v1h-7zM10 8h1v1h-1zM12 8h1v1h-1zM14 8h1v1h-1zM16 8h1v1h-1zM18 8h1v1h-1zM20 8h1v1h-1zM22 8h1v1h-1zM24 8h1v1h-1zM26 8h1v1h-1zM28 8h7v1h-7zM10 9h1v1h-1zM12 9h1v1h-1zM16 9h1v1h-1zM18 9h1v1h-1zM21 9h5v1h-5zM2 10h1v1h-1zM4 10h5v1h-5zM11 10h6v1h-6zM19 10h1v1h-1zM21 10h1v1h-1zM24 10h2v1h-2zM28 10h5v1h-5zM2 11h1v1h-1zM4 11h4v1h-4zM10 11h1v1h-1zM12 11h2v1h-2zM15 11h2v1h-2zM18 11h5v1h-5zM24 11h2v1h-2zM28 11h2v1h-2zM31 11h2v1h-2zM34 11h1v1h-1zM2 12h3v1h-3zM7 12h4v1h-4zM13 12h7v1h-7zM24 12h1v1h-1zM26 12h2v1h-2zM30 12h1v1h-1zM32 12h2v1h-2zM4 13h1v1h-1zM9 13h1v1h-1zM12 13h2v1h-2zM15 13h1v1h-1zM19 13h4v1h-4zM25 13h1v1h-1zM28 13h1v1h-1zM30 13h3v1h-3zM3 14h1v1h-1zM6 14h1v1h-1zM8 14h2v1h-2zM11 14h1v1h-1zM14 14h1v1h-1zM16 14h3v1h-3zM21 14h6v1h-6zM31 14h1v1h-1zM33 14h2v1h-2zM2 15h2v1h-2zM5 15h3v1h-3zM11 15h2v1h-2zM15 15h1v1h-1zM17 15h1v1h-1zM19 15h2v1h-2zM23 15h1v1h-1zM26 15h3v1h-3zM33 15h2v1h-2zM2 16h1v1h-1zM4 16h1v1h-1zM8 16h1v1h-1zM13 16h1v1h-1zM16 16h3v1h-3zM22 16h3v1h-3zM26 16h3v1h-3zM32 16h2v1h-2zM3 17h1v1h-1zM7 17h1v1h-1zM9 17h2v1h-2zM14 17h4v1h-4zM23 17h2v1h-2zM26 17h3v1h-3zM32 17h1v1h-1zM2 18h1v1h-1zM6 18h4v1h-4zM13 18h5v1h-5zM19 18h2v1h-2zM24 18h1v1h-1zM26 18h2v1h-2zM29 18h3v1h-3zM34 18h1v1h-1zM2 19h1v1h-1zM4 19h2v1h-2zM7 19h1v1h-1zM12 19h1v1h-1zM16 19h1v1h-1zM18 19h1v1h-1zM20 19h2v1h-2zM23 19h7v1h-7zM31 19h2v1h-2zM34 19h1v1h-1zM2 20h1v1h-1zM4 20h2v1h-2zM8 20h2v1h-2zM12 20h2v1h-2zM15 20h3v1h-3zM20 20h1v1h-1zM22 20h2v1h-2zM29 20h2v1h-2zM32 20h2v1h-2zM2 21h3v1h-3zM9 21h1v1h-1zM11 21h1v1h-1zM13 21h1v1h-1zM16 21h3v1h-3zM22 21h4v1h-4zM28 21h6v1h-6zM2 22h1v1h-1zM8 22h1v1h-1zM11 22h5v1h-5zM17 22h1v1h-1zM20 22h1v1h-1zM23 22h1v1h-1zM27 22h1v1h-1zM30 22h2v1h-2zM33 22h2v1h-2zM2 23h2v1h-2zM5 23h1v1h-1zM10 23h3v1h-3zM15 23h5v1h-5zM22 23h7v1h-7zM31 23h2v1h-2zM34 23h1v1h-1zM2 24h1v1h-1zM4 24h1v1h-1zM8 24h1v1h-1zM10 24h1v1h-1zM12 24h3v1h-3zM16 24h1v1h-1zM19 24h1v1h-1zM21 24h1v1h-1zM23 24h2v1h-2zM26 24h2v1h-2zM30 24h2v1h-2zM33 24h1v1h-1zM2 25h1v1h-1zM13 25h1v1h-1zM15 25h1v1h-1zM18 25h1v1h-1zM21 25h3v1h-3zM25 25h5v1h-5zM32 25h3v1h-3zM2 26h1v1h-1zM5 26h2v1h-2zM8 26h1v1h-1zM10 26h4v1h-4zM18 26h2v1h-2zM21 26h1v1h-1zM24 26h1v1h-1zM26 26h6v1h-6zM34 26h1v1h-1zM10 27h1v1h-1zM12 27h2v1h-2zM15 27h1v1h-1zM18 27h2v1h-2zM21 27h2v1h-2zM24 27h3v1h-3zM30 27h1v1h-1zM32 27h3v1h-3zM2 28h7v1h-7zM12 28h8v1h-8zM24 28h3v1h-3zM28 28h1v1h-1zM30 28h1v1h-1zM32 28h1v1h-1zM2 29h1v1h-1zM8 29h1v1h-1zM10 29h2v1h-2zM14 29h2v1h-2zM17 29h1v1h-1zM19 29h3v1h-3zM25 29h2v1h-2zM30 29h3v1h-3zM34 29h1v1h-1zM2 30h1v1h-1zM4 30h3v1h-3zM8 30h1v1h-1zM10 30h2v1h-2zM13 30h2v1h-2zM17 30h2v1h-2zM22 30h3v1h-3zM26 30h6v1h-6zM33 30h1v1h-1zM2 31h1v1h-1zM4 31h3v1h-3zM8 31h1v1h-1zM10 31h1v1h-1zM17 31h1v1h-1zM20 31h1v1h-1zM23 31h1v1h-1zM25 31h1v1h-1zM27 31h1v1h-1zM30 31h1v1h-1zM32 31h1v1h-1zM34 31h1v1h-1zM2 32h1v1h-1zM4 32h3v1h-3zM8 32h1v1h-1zM10 32h3v1h-3zM16 32h4v1h-4zM22 32h8v1h-8zM2 33h1v1h-1zM8 33h1v1h-1zM12 33h2v1h-2zM15 33h1v1h-1zM17 33h1v1h-1zM23 33h3v1h-3zM30 33h3v1h-3zM2 34h7v1h-7zM10 34h3v1h-3zM15 34h3v1h-3zM19 34h1v1h-1zM24 34h1v1h-1zM26 34h1v1h-1zM29 34h1v1h-1zM31 34h1v1h-1zM33 34h1v1h-1z" fill="#08343A"/></svg></span><span class="vtxt"><span class="en"><b>Epley for the left ear</b><span class="src">University of Michigan · Vestibular Testing Center</span></span><span class="ar" dir="rtl" lang="ar"><b>مناورة إيبلي للأذن اليسرى</b><span class="src">جامعة ميشيغان · مركز فحوصات الاتزان</span></span></span></a><a class="vid" href="https://www.youtube.com/watch?v=iYXASN36j8g" target="_blank" rel="noopener"><span class="qr"><svg viewBox="0 0 37 37" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges" role="img" aria-label="QR code"><rect width="37" height="37" fill="#fff"/><path d="M2 2h7v1h-7zM11 2h1v1h-1zM13 2h2v1h-2zM16 2h1v1h-1zM20 2h4v1h-4zM25 2h1v1h-1zM28 2h7v1h-7zM2 3h1v1h-1zM8 3h1v1h-1zM11 3h4v1h-4zM17 3h1v1h-1zM20 3h1v1h-1zM22 3h2v1h-2zM28 3h1v1h-1zM34 3h1v1h-1zM2 4h1v1h-1zM4 4h3v1h-3zM8 4h1v1h-1zM10 4h2v1h-2zM13 4h1v1h-1zM16 4h2v1h-2zM21 4h1v1h-1zM23 4h2v1h-2zM26 4h1v1h-1zM28 4h1v1h-1zM30 4h3v1h-3zM34 4h1v1h-1zM2 5h1v1h-1zM4 5h3v1h-3zM8 5h1v1h-1zM10 5h2v1h-2zM20 5h1v1h-1zM23 5h1v1h-1zM25 5h2v1h-2zM28 5h1v1h-1zM30 5h3v1h-3zM34 5h1v1h-1zM2 6h1v1h-1zM4 6h3v1h-3zM8 6h1v1h-1zM10 6h1v1h-1zM13 6h7v1h-7zM22 6h1v1h-1zM24 6h1v1h-1zM28 6h1v1h-1zM30 6h3v1h-3zM34 6h1v1h-1zM2 7h1v1h-1zM8 7h1v1h-1zM10 7h1v1h-1zM12 7h2v1h-2zM15 7h2v1h-2zM19 7h1v1h-1zM21 7h1v1h-1zM24 7h3v1h-3zM28 7h1v1h-1zM34 7h1v1h-1zM2 8h7v1h-7zM10 8h1v1h-1zM12 8h1v1h-1zM14 8h1v1h-1zM16 8h1v1h-1zM18 8h1v1h-1zM20 8h1v1h-1zM22 8h1v1h-1zM24 8h1v1h-1zM26 8h1v1h-1zM28 8h7v1h-7zM10 9h1v1h-1zM12 9h1v1h-1zM14 9h1v1h-1zM16 9h1v1h-1zM18 9h1v1h-1zM21 9h5v1h-5zM2 10h1v1h-1zM4 10h5v1h-5zM11 10h6v1h-6zM19 10h1v1h-1zM21 10h1v1h-1zM24 10h2v1h-2zM28 10h5v1h-5zM2 11h1v1h-1zM4 11h4v1h-4zM10 11h1v1h-1zM12 11h2v1h-2zM15 11h2v1h-2zM18 11h5v1h-5zM24 11h2v1h-2zM28 11h2v1h-2zM31 11h3v1h-3zM2 12h1v1h-1zM4 12h1v1h-1zM7 12h4v1h-4zM13 12h7v1h-7zM24 12h1v1h-1zM26 12h1v1h-1zM30 12h1v1h-1zM32 12h2v1h-2zM2 13h1v1h-1zM4 13h1v1h-1zM6 13h1v1h-1zM9 13h1v1h-1zM12 13h2v1h-2zM15 13h1v1h-1zM19 13h4v1h-4zM25 13h1v1h-1zM27 13h2v1h-2zM30 13h4v1h-4zM2 14h2v1h-2zM5 14h5v1h-5zM12 14h1v1h-1zM16 14h3v1h-3zM21 14h6v1h-6zM30 14h2v1h-2zM34 14h1v1h-1zM2 15h2v1h-2zM6 15h1v1h-1zM11 15h3v1h-3zM15 15h1v1h-1zM17 15h1v1h-1zM19 15h2v1h-2zM23 15h1v1h-1zM26 15h4v1h-4zM33 15h2v1h-2zM2 16h1v1h-1zM5 16h1v1h-1zM8 16h2v1h-2zM14 16h1v1h-1zM16 16h3v1h-3zM22 16h3v1h-3zM27 16h7v1h-7zM3 17h1v1h-1zM7 17h1v1h-1zM13 17h1v1h-1zM15 17h3v1h-3zM23 17h3v1h-3zM27 17h2v1h-2zM30 17h3v1h-3zM2 18h1v1h-1zM4 18h1v1h-1zM6 18h3v1h-3zM14 18h4v1h-4zM19 18h2v1h-2zM24 18h1v1h-1zM26 18h2v1h-2zM29 18h4v1h-4zM34 18h1v1h-1zM2 19h1v1h-1zM4 19h4v1h-4zM12 19h1v1h-1zM16 19h1v1h-1zM18 19h1v1h-1zM20 19h2v1h-2zM23 19h7v1h-7zM31 19h2v1h-2zM34 19h1v1h-1zM3 20h3v1h-3zM8 20h2v1h-2zM11 20h3v1h-3zM17 20h1v1h-1zM20 20h1v1h-1zM22 20h2v1h-2zM27 20h1v1h-1zM29 20h2v1h-2zM32 20h2v1h-2zM2 21h1v1h-1zM4 21h1v1h-1zM7 21h1v1h-1zM9 21h1v1h-1zM12 21h2v1h-2zM15 21h1v1h-1zM17 21h2v1h-2zM22 21h4v1h-4zM28 21h6v1h-6zM6 22h1v1h-1zM8 22h1v1h-1zM10 22h1v1h-1zM13 22h2v1h-2zM16 22h2v1h-2zM20 22h1v1h-1zM23 22h1v1h-1zM26 22h2v1h-2zM29 22h1v1h-1zM31 22h1v1h-1zM33 22h2v1h-2zM2 23h4v1h-4zM7 23h1v1h-1zM9 23h1v1h-1zM11 23h1v1h-1zM13 23h1v1h-1zM15 23h1v1h-1zM17 23h3v1h-3zM22 23h4v1h-4zM28 23h1v1h-1zM34 23h1v1h-1zM2 24h1v1h-1zM5 24h1v1h-1zM8 24h3v1h-3zM12 24h3v1h-3zM16 24h1v1h-1zM19 24h1v1h-1zM21 24h1v1h-1zM23 24h2v1h-2zM26 24h2v1h-2zM30 24h1v1h-1zM32 24h2v1h-2zM2 25h1v1h-1zM4 25h1v1h-1zM9 25h1v1h-1zM15 25h1v1h-1zM18 25h1v1h-1zM21 25h3v1h-3zM26 25h4v1h-4zM31 25h4v1h-4zM2 26h1v1h-1zM5 26h2v1h-2zM8 26h1v1h-1zM10 26h4v1h-4zM18 26h2v1h-2zM21 26h1v1h-1zM24 26h7v1h-7zM32 26h1v1h-1zM34 26h1v1h-1zM10 27h1v1h-1zM12 27h2v1h-2zM18 27h2v1h-2zM21 27h2v1h-2zM24 27h3v1h-3zM30 27h1v1h-1zM32 27h3v1h-3zM2 28h7v1h-7zM12 28h8v1h-8zM24 28h3v1h-3zM28 28h1v1h-1zM30 28h1v1h-1zM32 28h1v1h-1zM2 29h1v1h-1zM8 29h1v1h-1zM10 29h3v1h-3zM14 29h4v1h-4zM19 29h3v1h-3zM25 29h2v1h-2zM30 29h3v1h-3zM34 29h1v1h-1zM2 30h1v1h-1zM4 30h3v1h-3zM8 30h1v1h-1zM10 30h1v1h-1zM13 30h1v1h-1zM15 30h1v1h-1zM17 30h2v1h-2zM22 30h3v1h-3zM26 30h6v1h-6zM33 30h1v1h-1zM2 31h1v1h-1zM4 31h3v1h-3zM8 31h1v1h-1zM10 31h1v1h-1zM12 31h2v1h-2zM17 31h1v1h-1zM20 31h1v1h-1zM23 31h1v1h-1zM25 31h1v1h-1zM27 31h1v1h-1zM30 31h1v1h-1zM32 31h1v1h-1zM34 31h1v1h-1zM2 32h1v1h-1zM4 32h3v1h-3zM8 32h1v1h-1zM10 32h4v1h-4zM16 32h4v1h-4zM22 32h8v1h-8zM31 32h2v1h-2zM2 33h1v1h-1zM8 33h1v1h-1zM12 33h1v1h-1zM15 33h1v1h-1zM17 33h1v1h-1zM23 33h3v1h-3zM28 33h1v1h-1zM30 33h3v1h-3zM2 34h7v1h-7zM10 34h4v1h-4zM15 34h3v1h-3zM19 34h1v1h-1zM24 34h1v1h-1zM26 34h1v1h-1zM28 34h2v1h-2zM31 34h3v1h-3z" fill="#08343A"/></svg></span><span class="vtxt"><span class="en"><b>Short home version</b><span class="src">Danielle Tolman, PT · vestibular physiotherapist</span></span><span class="ar" dir="rtl" lang="ar"><b>النسخة المنزلية المختصرة</b><span class="src">د. دانييل تولمان · أخصائية علاج طبيعي للاتزان</span></span></span></a><a class="vid" href="https://www.youtube.com/watch?v=5FcZl9TpW_A" target="_blank" rel="noopener"><span class="qr"><svg viewBox="0 0 37 37" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges" role="img" aria-label="QR code"><rect width="37" height="37" fill="#fff"/><path d="M2 2h7v1h-7zM13 2h2v1h-2zM16 2h1v1h-1zM20 2h4v1h-4zM25 2h1v1h-1zM28 2h7v1h-7zM2 3h1v1h-1zM8 3h1v1h-1zM12 3h3v1h-3zM17 3h1v1h-1zM20 3h1v1h-1zM22 3h2v1h-2zM28 3h1v1h-1zM34 3h1v1h-1zM2 4h1v1h-1zM4 4h3v1h-3zM8 4h1v1h-1zM10 4h4v1h-4zM16 4h2v1h-2zM21 4h1v1h-1zM23 4h2v1h-2zM26 4h1v1h-1zM28 4h1v1h-1zM30 4h3v1h-3zM34 4h1v1h-1zM2 5h1v1h-1zM4 5h3v1h-3zM8 5h1v1h-1zM10 5h1v1h-1zM12 5h1v1h-1zM14 5h1v1h-1zM20 5h1v1h-1zM23 5h1v1h-1zM25 5h2v1h-2zM28 5h1v1h-1zM30 5h3v1h-3zM34 5h1v1h-1zM2 6h1v1h-1zM4 6h3v1h-3zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h2v1h-2zM15 6h5v1h-5zM22 6h1v1h-1zM24 6h1v1h-1zM28 6h1v1h-1zM30 6h3v1h-3zM34 6h1v1h-1zM2 7h1v1h-1zM8 7h1v1h-1zM10 7h1v1h-1zM12 7h5v1h-5zM19 7h1v1h-1zM21 7h1v1h-1zM24 7h3v1h-3zM28 7h1v1h-1zM34 7h1v1h-1zM2 8h7v1h-7zM10 8h1v1h-1zM12 8h1v1h-1zM14 8h1v1h-1zM16 8h1v1h-1zM18 8h1v1h-1zM20 8h1v1h-1zM22 8h1v1h-1zM24 8h1v1h-1zM26 8h1v1h-1zM28 8h7v1h-7zM10 9h1v1h-1zM12 9h1v1h-1zM16 9h1v1h-1zM18 9h1v1h-1zM21 9h5v1h-5zM2 10h1v1h-1zM4 10h5v1h-5zM11 10h6v1h-6zM19 10h1v1h-1zM21 10h1v1h-1zM24 10h2v1h-2zM28 10h5v1h-5zM4 11h4v1h-4zM10 11h1v1h-1zM12 11h2v1h-2zM15 11h2v1h-2zM18 11h5v1h-5zM24 11h2v1h-2zM28 11h2v1h-2zM31 11h2v1h-2zM4 12h1v1h-1zM6 12h14v1h-14zM24 12h1v1h-1zM26 12h2v1h-2zM30 12h1v1h-1zM32 12h2v1h-2zM2 13h3v1h-3zM9 13h1v1h-1zM11 13h1v1h-1zM13 13h1v1h-1zM15 13h1v1h-1zM19 13h4v1h-4zM25 13h1v1h-1zM30 13h4v1h-4zM3 14h1v1h-1zM6 14h1v1h-1zM8 14h2v1h-2zM11 14h2v1h-2zM16 14h3v1h-3zM21 14h7v1h-7zM31 14h1v1h-1zM33 14h1v1h-1zM2 15h1v1h-1zM4 15h3v1h-3zM9 15h3v1h-3zM14 15h2v1h-2zM17 15h1v1h-1zM19 15h2v1h-2zM23 15h1v1h-1zM26 15h3v1h-3zM31 15h4v1h-4zM2 16h1v1h-1zM5 16h1v1h-1zM8 16h3v1h-3zM14 16h1v1h-1zM16 16h3v1h-3zM22 16h3v1h-3zM27 16h2v1h-2zM33 16h1v1h-1zM3 17h1v1h-1zM5 17h1v1h-1zM7 17h1v1h-1zM13 17h1v1h-1zM15 17h3v1h-3zM23 17h2v1h-2zM26 17h7v1h-7zM2 18h1v1h-1zM6 18h4v1h-4zM13 18h5v1h-5zM19 18h2v1h-2zM24 18h1v1h-1zM26 18h2v1h-2zM29 18h2v1h-2zM34 18h1v1h-1zM2 19h1v1h-1zM4 19h4v1h-4zM11 19h2v1h-2zM15 19h2v1h-2zM18 19h1v1h-1zM20 19h2v1h-2zM23 19h7v1h-7zM31 19h4v1h-4zM2 20h4v1h-4zM7 20h3v1h-3zM11 20h3v1h-3zM16 20h2v1h-2zM20 20h1v1h-1zM22 20h2v1h-2zM29 20h2v1h-2zM32 20h1v1h-1zM3 21h2v1h-2zM7 21h1v1h-1zM9 21h1v1h-1zM11 21h3v1h-3zM15 21h4v1h-4zM22 21h4v1h-4zM29 21h5v1h-5zM3 22h1v1h-1zM6 22h3v1h-3zM12 22h2v1h-2zM17 22h1v1h-1zM20 22h1v1h-1zM23 22h1v1h-1zM26 22h2v1h-2zM30 22h2v1h-2zM33 22h2v1h-2zM2 23h3v1h-3zM11 23h3v1h-3zM15 23h5v1h-5zM22 23h3v1h-3zM27 23h1v1h-1zM29 23h1v1h-1zM32 23h1v1h-1zM34 23h1v1h-1zM2 24h1v1h-1zM4 24h2v1h-2zM8 24h3v1h-3zM12 24h2v1h-2zM16 24h1v1h-1zM19 24h1v1h-1zM21 24h1v1h-1zM23 24h2v1h-2zM27 24h1v1h-1zM29 24h1v1h-1zM31 24h1v1h-1zM33 24h1v1h-1zM2 25h1v1h-1zM4 25h2v1h-2zM10 25h1v1h-1zM13 25h1v1h-1zM15 25h1v1h-1zM18 25h1v1h-1zM21 25h3v1h-3zM25 25h1v1h-1zM27 25h2v1h-2zM30 25h5v1h-5zM2 26h1v1h-1zM4 26h3v1h-3zM8 26h5v1h-5zM18 26h2v1h-2zM21 26h1v1h-1zM24 26h9v1h-9zM34 26h1v1h-1zM10 27h4v1h-4zM18 27h2v1h-2zM21 27h2v1h-2zM24 27h3v1h-3zM30 27h1v1h-1zM32 27h3v1h-3zM2 28h7v1h-7zM11 28h4v1h-4zM17 28h3v1h-3zM24 28h3v1h-3zM28 28h1v1h-1zM30 28h1v1h-1zM32 28h1v1h-1zM2 29h1v1h-1zM8 29h1v1h-1zM10 29h3v1h-3zM14 29h1v1h-1zM17 29h1v1h-1zM19 29h3v1h-3zM25 29h2v1h-2zM30 29h3v1h-3zM34 29h1v1h-1zM2 30h1v1h-1zM4 30h3v1h-3zM8 30h1v1h-1zM10 30h1v1h-1zM12 30h7v1h-7zM22 30h3v1h-3zM26 30h6v1h-6zM33 30h1v1h-1zM2 31h1v1h-1zM4 31h3v1h-3zM8 31h1v1h-1zM10 31h1v1h-1zM12 31h2v1h-2zM17 31h1v1h-1zM20 31h1v1h-1zM23 31h1v1h-1zM25 31h1v1h-1zM27 31h1v1h-1zM30 31h1v1h-1zM34 31h1v1h-1zM2 32h1v1h-1zM4 32h3v1h-3zM8 32h1v1h-1zM10 32h5v1h-5zM16 32h4v1h-4zM22 32h8v1h-8zM2 33h1v1h-1zM8 33h1v1h-1zM12 33h1v1h-1zM14 33h2v1h-2zM17 33h1v1h-1zM23 33h5v1h-5zM30 33h3v1h-3zM2 34h7v1h-7zM10 34h3v1h-3zM15 34h3v1h-3zM19 34h1v1h-1zM24 34h6v1h-6zM33 34h1v1h-1z" fill="#08343A"/></svg></span><span class="vtxt"><span class="en"><b>Arabic-language demonstration</b><span class="src">In Arabic · repositioning manoeuvre</span></span><span class="ar" dir="rtl" lang="ar"><b>شرح بالعربية</b><span class="src">بالعربية · مناورة إعادة توضيع البلورات</span></span></span></a></div></div>
+    </div>
+  </section>
+
+  <!-- BRANDT-DAROFF -->
+  <section class="card pagebreak">
+    <h2><span class="en">2 · Brandt-Daroff exercises — if the Epley cannot be done</span><span class="ar" dir="rtl" lang="ar">٢ · تمارين براندت-داروف — إذا تعذّرت مناورة إيبلي</span></h2>
+    <div class="body">
+
+      <div class="note">
+        <div class="duo">
+          <div class="en"><p>Use these if you cannot do the Epley, or if you are not certain which ear is affected — these exercises treat both sides. They work more slowly than the Epley.</p></div>
+          <div class="ar" dir="rtl" lang="ar"><p>استخدم هذه التمارين إذا تعذّر عليك أداء مناورة إيبلي، أو إذا لم تكن متأكدًا من الأذن المصابة، لأنها تعالج الجهتين. لكنها أبطأ في المفعول من مناورة إيبلي.</p></div>
+        </div>
+      </div>
+
+      <div class="step" style="margin-top:6px">
+        <div class="figure"><span class="num">1</span><div data-fig="sit|fwd|0"></div></div>
+        <div class="en"><p>Sit upright on the edge of the bed, feet on the floor.</p></div>
+        <div class="ar" dir="rtl" lang="ar"><p>اجلس معتدلًا على حافة السرير وقدماك على الأرض.</p></div>
+      </div>
+
+      <div class="step">
+        <div class="figure"><span class="num">2</span><div data-fig="side|front|-45"></div></div>
+        <div class="en"><p>Turn your head <b>45° to the left</b>, then lie down quickly onto your <b>right</b> side. Your head stays turned, so the back of your head touches the bed. <span class="hold">Wait 30 seconds, or until the dizziness stops</span></p></div>
+        <div class="ar" dir="rtl" lang="ar"><p>أدر رأسك <b>٤٥ درجة نحو اليسار</b>، ثم استلقِ بسرعة على جانبك <b>الأيمن</b>. يبقى الرأس مُدارًا بحيث يلامس مؤخّر الرأس السرير. <span class="hold">انتظر ٣٠ ثانية أو حتى يزول الدوار</span></p></div>
+      </div>
+
+      <div class="step">
+        <div class="figure"><span class="num">3</span><div data-fig="sit|fwd|0"></div></div>
+        <div class="en"><p>Sit up again and bring your head back to the middle. <span class="hold">Wait 30 seconds</span></p></div>
+        <div class="ar" dir="rtl" lang="ar"><p>اجلس مرة أخرى وأعد رأسك إلى الوسط. <span class="hold">انتظر ٣٠ ثانية</span></p></div>
+      </div>
+
+      <div class="step">
+        <div class="figure"><span class="num">4</span><div data-fig="side|front|45"></div></div>
+        <div class="en"><p>Now turn your head <b>45° to the right</b> and lie down onto your <b>left</b> side. <span class="hold">Wait 30 seconds</span> Then sit up and bring your head back to the middle.</p></div>
+        <div class="ar" dir="rtl" lang="ar"><p>الآن أدر رأسك <b>٤٥ درجة نحو اليمين</b> واستلقِ على جانبك <b>الأيسر</b>. <span class="hold">انتظر ٣٠ ثانية</span> ثم اجلس وأعد رأسك إلى الوسط.</p></div>
+      </div>
+
+      <div class="dose">
+        <div class="duo">
+          <div class="en"><p>That whole sequence is <b>one repetition</b>. Do <b>5 repetitions in a set</b>, and <b>3 sets a day</b> — morning, midday and evening — <b>for 2 weeks</b>. Most people feel better after about 10 days.</p></div>
+          <div class="ar" dir="rtl" lang="ar"><p>هذه الدورة الكاملة تساوي <b>تكرارًا واحدًا</b>. قم بـ <b>٥ تكرارات في الجلسة</b>، و<b>٣ جلسات يوميًا</b> — صباحًا وظهرًا ومساءً — <b>لمدة أسبوعين</b>. ويتحسن معظم المرضى بعد نحو ١٠ أيام.</p></div>
+        </div>
+      </div>
+
+      <p class="evi"><span class="en">These exercises are meant to provoke the dizziness — that is how they work. They are less powerful than the Epley: in one trial 47 out of 100 people were clear after a week, compared with 70 out of 100 with the Epley.</span><span class="ar" dir="rtl" lang="ar" style="display:block">من المتوقع أن تثير هذه التمارين الدوار، فهذه هي طريقة عملها. وهي أقل فعالية من مناورة إيبلي: ففي إحدى الدراسات تحسّن ٤٧ من كل ١٠٠ مريض بعد أسبوع، مقابل ٧٠ من كل ١٠٠ مع مناورة إيبلي.</span></p>
+      <div class="vidwrap"><div class="vidhead"><span class="en">Watch a demonstration — scan with your phone camera</span><span class="ar" dir="rtl" lang="ar">شاهد عرضًا توضيحيًا — امسح الرمز بكاميرا هاتفك</span></div><div class="vids"><a class="vid" href="https://www.youtube.com/watch?v=voZXtTUdQ00" target="_blank" rel="noopener"><span class="qr"><svg viewBox="0 0 37 37" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges" role="img" aria-label="QR code"><rect width="37" height="37" fill="#fff"/><path d="M2 2h7v1h-7zM11 2h1v1h-1zM13 2h2v1h-2zM16 2h1v1h-1zM20 2h4v1h-4zM25 2h1v1h-1zM28 2h7v1h-7zM2 3h1v1h-1zM8 3h1v1h-1zM13 3h2v1h-2zM17 3h1v1h-1zM20 3h1v1h-1zM22 3h2v1h-2zM28 3h1v1h-1zM34 3h1v1h-1zM2 4h1v1h-1zM4 4h3v1h-3zM8 4h1v1h-1zM10 4h4v1h-4zM16 4h2v1h-2zM21 4h1v1h-1zM23 4h2v1h-2zM26 4h1v1h-1zM28 4h1v1h-1zM30 4h3v1h-3zM34 4h1v1h-1zM2 5h1v1h-1zM4 5h3v1h-3zM8 5h1v1h-1zM10 5h1v1h-1zM12 5h1v1h-1zM20 5h1v1h-1zM23 5h1v1h-1zM25 5h2v1h-2zM28 5h1v1h-1zM30 5h3v1h-3zM34 5h1v1h-1zM2 6h1v1h-1zM4 6h3v1h-3zM8 6h1v1h-1zM10 6h1v1h-1zM13 6h1v1h-1zM15 6h5v1h-5zM22 6h1v1h-1zM24 6h1v1h-1zM28 6h1v1h-1zM30 6h3v1h-3zM34 6h1v1h-1zM2 7h1v1h-1zM8 7h1v1h-1zM10 7h1v1h-1zM12 7h2v1h-2zM15 7h2v1h-2zM19 7h1v1h-1zM21 7h1v1h-1zM24 7h3v1h-3zM28 7h1v1h-1zM34 7h1v1h-1zM2 8h7v1h-7zM10 8h1v1h-1zM12 8h1v1h-1zM14 8h1v1h-1zM16 8h1v1h-1zM18 8h1v1h-1zM20 8h1v1h-1zM22 8h1v1h-1zM24 8h1v1h-1zM26 8h1v1h-1zM28 8h7v1h-7zM10 9h1v1h-1zM12 9h1v1h-1zM16 9h1v1h-1zM18 9h1v1h-1zM21 9h5v1h-5zM2 10h1v1h-1zM4 10h5v1h-5zM11 10h6v1h-6zM19 10h1v1h-1zM21 10h1v1h-1zM24 10h2v1h-2zM28 10h5v1h-5zM4 11h4v1h-4zM10 11h4v1h-4zM15 11h2v1h-2zM18 11h5v1h-5zM24 11h2v1h-2zM28 11h2v1h-2zM31 11h2v1h-2zM34 11h1v1h-1zM4 12h1v1h-1zM8 12h3v1h-3zM13 12h7v1h-7zM24 12h1v1h-1zM26 12h2v1h-2zM30 12h1v1h-1zM32 12h2v1h-2zM3 13h2v1h-2zM7 13h1v1h-1zM9 13h1v1h-1zM11 13h3v1h-3zM15 13h1v1h-1zM19 13h4v1h-4zM25 13h1v1h-1zM27 13h1v1h-1zM30 13h3v1h-3zM34 13h1v1h-1zM2 14h1v1h-1zM8 14h3v1h-3zM16 14h3v1h-3zM21 14h7v1h-7zM31 14h1v1h-1zM33 14h1v1h-1zM2 15h6v1h-6zM9 15h1v1h-1zM11 15h3v1h-3zM15 15h1v1h-1zM17 15h1v1h-1zM19 15h2v1h-2zM23 15h1v1h-1zM26 15h1v1h-1zM28 15h1v1h-1zM31 15h1v1h-1zM33 15h2v1h-2zM2 16h1v1h-1zM5 16h1v1h-1zM8 16h2v1h-2zM13 16h2v1h-2zM16 16h3v1h-3zM22 16h3v1h-3zM26 16h4v1h-4zM31 16h1v1h-1zM33 16h1v1h-1zM3 17h2v1h-2zM7 17h1v1h-1zM10 17h1v1h-1zM13 17h5v1h-5zM23 17h2v1h-2zM26 17h3v1h-3zM31 17h2v1h-2zM2 18h1v1h-1zM6 18h4v1h-4zM13 18h5v1h-5zM19 18h2v1h-2zM24 18h1v1h-1zM26 18h2v1h-2zM29 18h4v1h-4zM34 18h1v1h-1zM4 19h2v1h-2zM7 19h1v1h-1zM12 19h1v1h-1zM16 19h1v1h-1zM18 19h1v1h-1zM20 19h2v1h-2zM23 19h7v1h-7zM31 19h4v1h-4zM2 20h4v1h-4zM7 20h3v1h-3zM11 20h1v1h-1zM13 20h1v1h-1zM16 20h2v1h-2zM20 20h1v1h-1zM22 20h2v1h-2zM27 20h1v1h-1zM29 20h2v1h-2zM32 20h2v1h-2zM2 21h3v1h-3zM9 21h1v1h-1zM13 21h1v1h-1zM16 21h3v1h-3zM22 21h4v1h-4zM29 21h5v1h-5zM5 22h1v1h-1zM7 22h2v1h-2zM13 22h3v1h-3zM17 22h1v1h-1zM20 22h1v1h-1zM23 22h1v1h-1zM27 22h1v1h-1zM31 22h1v1h-1zM33 22h2v1h-2zM2 23h3v1h-3zM10 23h2v1h-2zM15 23h1v1h-1zM17 23h3v1h-3zM22 23h6v1h-6zM34 23h1v1h-1zM2 24h1v1h-1zM5 24h1v1h-1zM8 24h3v1h-3zM12 24h2v1h-2zM16 24h1v1h-1zM19 24h1v1h-1zM21 24h1v1h-1zM23 24h2v1h-2zM26 24h2v1h-2zM29 24h1v1h-1zM33 24h1v1h-1zM2 25h1v1h-1zM4 25h2v1h-2zM9 25h2v1h-2zM14 25h2v1h-2zM18 25h1v1h-1zM21 25h3v1h-3zM26 25h3v1h-3zM31 25h4v1h-4zM2 26h1v1h-1zM4 26h3v1h-3zM8 26h6v1h-6zM18 26h2v1h-2zM21 26h1v1h-1zM24 26h1v1h-1zM26 26h7v1h-7zM34 26h1v1h-1zM10 27h1v1h-1zM12 27h2v1h-2zM18 27h2v1h-2zM21 27h2v1h-2zM24 27h3v1h-3zM30 27h1v1h-1zM32 27h3v1h-3zM2 28h7v1h-7zM11 28h4v1h-4zM16 28h4v1h-4zM24 28h3v1h-3zM28 28h1v1h-1zM30 28h1v1h-1zM32 28h1v1h-1zM2 29h1v1h-1zM8 29h1v1h-1zM10 29h1v1h-1zM12 29h1v1h-1zM14 29h1v1h-1zM17 29h1v1h-1zM19 29h3v1h-3zM25 29h2v1h-2zM30 29h3v1h-3zM34 29h1v1h-1zM2 30h1v1h-1zM4 30h3v1h-3zM8 30h1v1h-1zM10 30h2v1h-2zM13 30h6v1h-6zM22 30h3v1h-3zM26 30h6v1h-6zM33 30h1v1h-1zM2 31h1v1h-1zM4 31h3v1h-3zM8 31h1v1h-1zM10 31h1v1h-1zM12 31h1v1h-1zM17 31h1v1h-1zM20 31h1v1h-1zM23 31h1v1h-1zM25 31h1v1h-1zM27 31h1v1h-1zM30 31h1v1h-1zM34 31h1v1h-1zM2 32h1v1h-1zM4 32h3v1h-3zM8 32h1v1h-1zM10 32h3v1h-3zM16 32h4v1h-4zM22 32h8v1h-8zM32 32h1v1h-1zM2 33h1v1h-1zM8 33h1v1h-1zM12 33h2v1h-2zM15 33h1v1h-1zM17 33h1v1h-1zM23 33h3v1h-3zM30 33h3v1h-3zM2 34h7v1h-7zM10 34h4v1h-4zM15 34h3v1h-3zM19 34h1v1h-1zM24 34h1v1h-1zM26 34h2v1h-2zM29 34h1v1h-1zM31 34h1v1h-1zM33 34h1v1h-1z" fill="#08343A"/></svg></span><span class="vtxt"><span class="en"><b>Brandt-Daroff exercises</b><span class="src">University of Michigan · Vestibular Testing Center</span></span><span class="ar" dir="rtl" lang="ar"><b>تمارين براندت-داروف</b><span class="src">جامعة ميشيغان · مركز فحوصات الاتزان</span></span></span></a></div></div>
+    </div>
+  </section>
+
+  <!-- SEMONT -->
+  <section class="card pagebreak">
+    <h2><span class="en">3 · The Semont manoeuvre — a faster alternative</span><span class="ar" dir="rtl" lang="ar">٣ · مناورة سيمونت — بديل أسرع</span></h2>
+    <div class="body">
+
+      <div class="note">
+        <div class="duo">
+          <div class="en"><p>This manoeuvre uses <b>fast movements</b>. Do not use it if you have neck or back problems. It is best learned with your doctor or physiotherapist watching the first time.</p></div>
+          <div class="ar" dir="rtl" lang="ar"><p>تعتمد هذه المناورة على <b>حركات سريعة</b>. لا تستخدمها إذا كانت لديك مشاكل في الرقبة أو الظهر. ومن الأفضل تعلّمها بإشراف الطبيب أو أخصائي العلاج الطبيعي في المرة الأولى.</p></div>
+        </div>
+      </div>
+
+      <div class="step" style="margin-top:6px">
+        <div class="figure"><span class="num">1</span><div data-fig="sit|fwd|-45"></div></div>
+        <div class="en"><p>Sit on the edge of the bed. Turn your head <b>45° away from the affected ear</b> — that is, towards the <span class="tok opp">left</span>.</p></div>
+        <div class="ar" dir="rtl" lang="ar"><p>اجلس على حافة السرير. أدر رأسك <b>٤٥ درجة بعيدًا عن الأذن المصابة</b>، أي نحو <span class="tok opp">اليسار</span>.</p></div>
+      </div>
+
+      <div class="step">
+        <div class="figure"><span class="num">2</span><div data-fig="side|up|-45"></div></div>
+        <div class="en"><p>Quickly lie down onto the side of the <b>affected ear</b> — the <span class="tok sameF">right</span> side. Keep your head turned, so your nose points up towards the ceiling. <span class="hold">Wait 1–2 minutes</span></p></div>
+        <div class="ar" dir="rtl" lang="ar"><p>استلقِ بسرعة على جهة <b>الأذن المصابة</b>، أي الجهة <span class="tok sameF">اليمنى</span>. أبقِ رأسك مُدارًا بحيث يتجه أنفك إلى أعلى نحو السقف. <span class="hold">انتظر دقيقة إلى دقيقتين</span></p></div>
+      </div>
+
+      <div class="step">
+        <div class="figure"><span class="num">3</span><div data-fig="side|down|-45"></div></div>
+        <div class="en"><p>Move quickly through the sitting position to lie on the <b>opposite</b> side, <b>without changing the angle of your head</b>. Your nose now points down into the bed. <span class="hold">Wait 1–2 minutes</span></p></div>
+        <div class="ar" dir="rtl" lang="ar"><p>انتقل بسرعة عبر وضع الجلوس إلى الاستلقاء على <b>الجهة الأخرى</b>، <b>دون تغيير زاوية الرأس</b>. يتجه أنفك الآن نحو السرير. <span class="hold">انتظر دقيقة إلى دقيقتين</span></p></div>
+      </div>
+
+      <div class="step">
+        <div class="figure"><span class="num">4</span><div data-fig="sit|fwd|0"></div></div>
+        <div class="en"><p>Return slowly to sitting, with your head straight.</p></div>
+        <div class="ar" dir="rtl" lang="ar"><p>عد ببطء إلى وضع الجلوس مع اعتدال الرأس.</p></div>
+      </div>
+
+      <div class="dose">
+        <div class="duo">
+          <div class="en"><p>More than 8 out of 10 people are clear after only <b>two</b> Semont manoeuvres.</p></div>
+          <div class="ar" dir="rtl" lang="ar"><p>أكثر من ٨ من كل ١٠ مرضى يتحسنون بعد <b>مناورتين</b> فقط من مناورة سيمونت.</p></div>
+        </div>
+      </div>
+      <div class="vidwrap"><div class="vidhead"><span class="en">Watch a demonstration — scan with your phone camera</span><span class="ar" dir="rtl" lang="ar">شاهد عرضًا توضيحيًا — امسح الرمز بكاميرا هاتفك</span></div><div class="vids"><a class="vid" data-only="R" href="https://www.youtube.com/watch?v=A72UjulJSzE" target="_blank" rel="noopener"><span class="qr"><svg viewBox="0 0 37 37" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges" role="img" aria-label="QR code"><rect width="37" height="37" fill="#fff"/><path d="M2 2h7v1h-7zM10 2h3v1h-3zM14 2h2v1h-2zM18 2h3v1h-3zM23 2h2v1h-2zM28 2h7v1h-7zM2 3h1v1h-1zM8 3h1v1h-1zM13 3h1v1h-1zM22 3h1v1h-1zM26 3h1v1h-1zM28 3h1v1h-1zM34 3h1v1h-1zM2 4h1v1h-1zM4 4h3v1h-3zM8 4h1v1h-1zM10 4h1v1h-1zM15 4h1v1h-1zM17 4h3v1h-3zM22 4h2v1h-2zM25 4h2v1h-2zM28 4h1v1h-1zM30 4h3v1h-3zM34 4h1v1h-1zM2 5h1v1h-1zM4 5h3v1h-3zM8 5h1v1h-1zM11 5h1v1h-1zM14 5h1v1h-1zM17 5h1v1h-1zM25 5h1v1h-1zM28 5h1v1h-1zM30 5h3v1h-3zM34 5h1v1h-1zM2 6h1v1h-1zM4 6h3v1h-3zM8 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM17 6h1v1h-1zM21 6h1v1h-1zM25 6h1v1h-1zM28 6h1v1h-1zM30 6h3v1h-3zM34 6h1v1h-1zM2 7h1v1h-1zM8 7h1v1h-1zM10 7h3v1h-3zM14 7h4v1h-4zM19 7h3v1h-3zM23 7h3v1h-3zM28 7h1v1h-1zM34 7h1v1h-1zM2 8h7v1h-7zM10 8h1v1h-1zM12 8h1v1h-1zM14 8h1v1h-1zM16 8h1v1h-1zM18 8h1v1h-1zM20 8h1v1h-1zM22 8h1v1h-1zM24 8h1v1h-1zM26 8h1v1h-1zM28 8h7v1h-7zM11 9h4v1h-4zM16 9h3v1h-3zM20 9h3v1h-3zM24 9h3v1h-3zM2 10h1v1h-1zM4 10h1v1h-1zM8 10h2v1h-2zM11 10h1v1h-1zM14 10h1v1h-1zM18 10h1v1h-1zM22 10h1v1h-1zM29 10h1v1h-1zM32 10h1v1h-1zM34 10h1v1h-1zM4 11h1v1h-1zM6 11h2v1h-2zM10 11h1v1h-1zM12 11h8v1h-8zM21 11h6v1h-6zM28 11h1v1h-1zM31 11h1v1h-1zM33 11h2v1h-2zM3 12h1v1h-1zM6 12h1v1h-1zM8 12h1v1h-1zM11 12h1v1h-1zM14 12h1v1h-1zM17 12h1v1h-1zM21 12h2v1h-2zM25 12h2v1h-2zM31 12h4v1h-4zM2 13h1v1h-1zM4 13h3v1h-3zM9 13h1v1h-1zM12 13h4v1h-4zM17 13h1v1h-1zM19 13h1v1h-1zM21 13h3v1h-3zM25 13h2v1h-2zM29 13h3v1h-3zM33 13h1v1h-1zM3 14h2v1h-2zM8 14h1v1h-1zM10 14h1v1h-1zM13 14h1v1h-1zM15 14h1v1h-1zM17 14h1v1h-1zM19 14h1v1h-1zM23 14h1v1h-1zM26 14h1v1h-1zM28 14h2v1h-2zM33 14h2v1h-2zM3 15h4v1h-4zM10 15h1v1h-1zM12 15h4v1h-4zM19 15h1v1h-1zM29 15h1v1h-1zM31 15h1v1h-1zM33 15h2v1h-2zM2 16h2v1h-2zM6 16h4v1h-4zM12 16h2v1h-2zM15 16h1v1h-1zM17 16h1v1h-1zM19 16h1v1h-1zM21 16h1v1h-1zM23 16h1v1h-1zM25 16h1v1h-1zM30 16h1v1h-1zM34 16h1v1h-1zM2 17h2v1h-2zM5 17h1v1h-1zM7 17h1v1h-1zM9 17h1v1h-1zM11 17h1v1h-1zM15 17h2v1h-2zM20 17h1v1h-1zM24 17h1v1h-1zM26 17h4v1h-4zM2 18h2v1h-2zM8 18h3v1h-3zM12 18h1v1h-1zM14 18h1v1h-1zM17 18h2v1h-2zM20 18h3v1h-3zM25 18h2v1h-2zM28 18h2v1h-2zM33 18h1v1h-1zM4 19h1v1h-1zM7 19h1v1h-1zM11 19h2v1h-2zM14 19h5v1h-5zM21 19h1v1h-1zM24 19h2v1h-2zM27 19h2v1h-2zM31 19h1v1h-1zM5 20h2v1h-2zM8 20h1v1h-1zM10 20h1v1h-1zM15 20h7v1h-7zM23 20h3v1h-3zM27 20h1v1h-1zM29 20h1v1h-1zM31 20h2v1h-2zM34 20h1v1h-1zM3 21h5v1h-5zM9 21h1v1h-1zM13 21h2v1h-2zM16 21h1v1h-1zM18 21h1v1h-1zM20 21h1v1h-1zM22 21h1v1h-1zM24 21h3v1h-3zM28 21h1v1h-1zM30 21h2v1h-2zM33 21h1v1h-1zM2 22h4v1h-4zM7 22h5v1h-5zM15 22h1v1h-1zM17 22h10v1h-10zM28 22h1v1h-1zM4 23h1v1h-1zM9 23h1v1h-1zM12 23h1v1h-1zM15 23h1v1h-1zM18 23h3v1h-3zM22 23h1v1h-1zM24 23h1v1h-1zM26 23h2v1h-2zM29 23h1v1h-1zM34 23h1v1h-1zM2 24h3v1h-3zM6 24h4v1h-4zM13 24h1v1h-1zM15 24h1v1h-1zM18 24h1v1h-1zM22 24h2v1h-2zM25 24h2v1h-2zM28 24h2v1h-2zM31 24h1v1h-1zM34 24h1v1h-1zM4 25h1v1h-1zM10 25h2v1h-2zM13 25h1v1h-1zM15 25h1v1h-1zM17 25h2v1h-2zM20 25h3v1h-3zM25 25h1v1h-1zM27 25h2v1h-2zM30 25h2v1h-2zM33 25h2v1h-2zM2 26h4v1h-4zM7 26h2v1h-2zM11 26h1v1h-1zM15 26h2v1h-2zM22 26h1v1h-1zM26 26h5v1h-5zM32 26h2v1h-2zM10 27h5v1h-5zM17 27h10v1h-10zM30 27h1v1h-1zM33 27h2v1h-2zM2 28h7v1h-7zM10 28h1v1h-1zM14 28h1v1h-1zM16 28h2v1h-2zM21 28h2v1h-2zM26 28h1v1h-1zM28 28h1v1h-1zM30 28h5v1h-5zM2 29h1v1h-1zM8 29h1v1h-1zM11 29h2v1h-2zM15 29h2v1h-2zM19 29h1v1h-1zM21 29h1v1h-1zM23 29h1v1h-1zM25 29h2v1h-2zM30 29h2v1h-2zM34 29h1v1h-1zM2 30h1v1h-1zM4 30h3v1h-3zM8 30h1v1h-1zM17 30h1v1h-1zM19 30h1v1h-1zM21 30h1v1h-1zM23 30h1v1h-1zM25 30h6v1h-6zM34 30h1v1h-1zM2 31h1v1h-1zM4 31h3v1h-3zM8 31h1v1h-1zM11 31h3v1h-3zM16 31h1v1h-1zM25 31h3v1h-3zM29 31h3v1h-3zM34 31h1v1h-1zM2 32h1v1h-1zM4 32h3v1h-3zM8 32h1v1h-1zM10 32h2v1h-2zM14 32h2v1h-2zM17 32h1v1h-1zM21 32h1v1h-1zM23 32h1v1h-1zM26 32h1v1h-1zM29 32h2v1h-2zM32 32h3v1h-3zM2 33h1v1h-1zM8 33h1v1h-1zM11 33h2v1h-2zM15 33h1v1h-1zM20 33h1v1h-1zM24 33h3v1h-3zM29 33h3v1h-3zM2 34h7v1h-7zM10 34h2v1h-2zM13 34h1v1h-1zM17 34h2v1h-2zM21 34h2v1h-2zM26 34h1v1h-1zM29 34h3v1h-3zM34 34h1v1h-1z" fill="#08343A"/></svg></span><span class="vtxt"><span class="en"><b>Semont for the right ear</b><span class="src">University of Michigan · Vestibular Testing Center</span></span><span class="ar" dir="rtl" lang="ar"><b>مناورة سيمونت للأذن اليمنى</b><span class="src">جامعة ميشيغان · مركز فحوصات الاتزان</span></span></span></a><a class="vid" data-only="L" href="https://www.youtube.com/watch?v=z2KUrQoZ-sU" target="_blank" rel="noopener"><span class="qr"><svg viewBox="0 0 37 37" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges" role="img" aria-label="QR code"><rect width="37" height="37" fill="#fff"/><path d="M2 2h7v1h-7zM10 2h1v1h-1zM13 2h2v1h-2zM16 2h1v1h-1zM20 2h4v1h-4zM25 2h1v1h-1zM28 2h7v1h-7zM2 3h1v1h-1zM8 3h1v1h-1zM10 3h3v1h-3zM16 3h1v1h-1zM19 3h1v1h-1zM25 3h2v1h-2zM28 3h1v1h-1zM34 3h1v1h-1zM2 4h1v1h-1zM4 4h3v1h-3zM8 4h1v1h-1zM11 4h6v1h-6zM18 4h1v1h-1zM20 4h1v1h-1zM28 4h1v1h-1zM30 4h3v1h-3zM34 4h1v1h-1zM2 5h1v1h-1zM4 5h3v1h-3zM8 5h1v1h-1zM10 5h2v1h-2zM14 5h1v1h-1zM20 5h1v1h-1zM23 5h1v1h-1zM25 5h2v1h-2zM28 5h1v1h-1zM30 5h3v1h-3zM34 5h1v1h-1zM2 6h1v1h-1zM4 6h3v1h-3zM8 6h1v1h-1zM11 6h1v1h-1zM13 6h3v1h-3zM18 6h1v1h-1zM20 6h1v1h-1zM23 6h4v1h-4zM28 6h1v1h-1zM30 6h3v1h-3zM34 6h1v1h-1zM2 7h1v1h-1zM8 7h1v1h-1zM11 7h1v1h-1zM14 7h1v1h-1zM16 7h5v1h-5zM23 7h1v1h-1zM25 7h1v1h-1zM28 7h1v1h-1zM34 7h1v1h-1zM2 8h7v1h-7zM10 8h1v1h-1zM12 8h1v1h-1zM14 8h1v1h-1zM16 8h1v1h-1zM18 8h1v1h-1zM20 8h1v1h-1zM22 8h1v1h-1zM24 8h1v1h-1zM26 8h1v1h-1zM28 8h7v1h-7zM10 9h5v1h-5zM17 9h5v1h-5zM24 9h1v1h-1zM26 9h1v1h-1zM2 10h1v1h-1zM4 10h2v1h-2zM7 10h3v1h-3zM16 10h5v1h-5zM23 10h1v1h-1zM25 10h2v1h-2zM28 10h1v1h-1zM31 10h1v1h-1zM33 10h2v1h-2zM4 11h2v1h-2zM7 11h1v1h-1zM10 11h4v1h-4zM15 11h2v1h-2zM18 11h5v1h-5zM24 11h2v1h-2zM28 11h2v1h-2zM31 11h4v1h-4zM2 12h1v1h-1zM5 12h2v1h-2zM8 12h2v1h-2zM15 12h1v1h-1zM18 12h1v1h-1zM20 12h1v1h-1zM22 12h4v1h-4zM27 12h1v1h-1zM29 12h3v1h-3zM34 12h1v1h-1zM2 13h4v1h-4zM7 13h1v1h-1zM12 13h3v1h-3zM17 13h3v1h-3zM22 13h5v1h-5zM28 13h2v1h-2zM31 13h1v1h-1zM33 13h2v1h-2zM2 14h2v1h-2zM5 14h1v1h-1zM7 14h6v1h-6zM14 14h1v1h-1zM16 14h3v1h-3zM21 14h7v1h-7zM29 14h3v1h-3zM34 14h1v1h-1zM4 15h3v1h-3zM9 15h1v1h-1zM12 15h5v1h-5zM22 15h1v1h-1zM25 15h1v1h-1zM27 15h3v1h-3zM31 15h1v1h-1zM33 15h1v1h-1zM3 16h4v1h-4zM8 16h1v1h-1zM11 16h2v1h-2zM15 16h2v1h-2zM20 16h3v1h-3zM26 16h1v1h-1zM28 16h3v1h-3zM32 16h1v1h-1zM3 17h1v1h-1zM5 17h1v1h-1zM7 17h1v1h-1zM15 17h3v1h-3zM23 17h2v1h-2zM27 17h3v1h-3zM31 17h2v1h-2zM5 18h2v1h-2zM8 18h4v1h-4zM13 18h1v1h-1zM15 18h1v1h-1zM22 18h4v1h-4zM27 18h2v1h-2zM30 18h2v1h-2zM3 19h2v1h-2zM6 19h2v1h-2zM9 19h1v1h-1zM11 19h1v1h-1zM14 19h1v1h-1zM16 19h2v1h-2zM25 19h1v1h-1zM28 19h1v1h-1zM30 19h2v1h-2zM34 19h1v1h-1zM2 20h1v1h-1zM4 20h2v1h-2zM7 20h3v1h-3zM11 20h3v1h-3zM16 20h2v1h-2zM20 20h1v1h-1zM22 20h2v1h-2zM28 20h3v1h-3zM32 20h2v1h-2zM2 21h1v1h-1zM5 21h1v1h-1zM7 21h1v1h-1zM9 21h2v1h-2zM12 21h1v1h-1zM14 21h1v1h-1zM16 21h1v1h-1zM18 21h3v1h-3zM24 21h1v1h-1zM26 21h1v1h-1zM30 21h1v1h-1zM33 21h2v1h-2zM3 22h1v1h-1zM5 22h9v1h-9zM15 22h2v1h-2zM18 22h1v1h-1zM21 22h1v1h-1zM24 22h1v1h-1zM26 22h2v1h-2zM29 22h4v1h-4zM34 22h1v1h-1zM2 23h4v1h-4zM9 23h3v1h-3zM13 23h7v1h-7zM22 23h3v1h-3zM28 23h1v1h-1zM34 23h1v1h-1zM4 24h2v1h-2zM7 24h2v1h-2zM10 24h5v1h-5zM17 24h1v1h-1zM20 24h3v1h-3zM24 24h5v1h-5zM30 24h1v1h-1zM32 24h3v1h-3zM3 25h1v1h-1zM6 25h1v1h-1zM11 25h3v1h-3zM17 25h1v1h-1zM20 25h1v1h-1zM22 25h1v1h-1zM24 25h2v1h-2zM28 25h1v1h-1zM30 25h2v1h-2zM34 25h1v1h-1zM2 26h1v1h-1zM4 26h3v1h-3zM8 26h1v1h-1zM10 26h4v1h-4zM18 26h2v1h-2zM21 26h1v1h-1zM24 26h1v1h-1zM26 26h7v1h-7zM34 26h1v1h-1zM10 27h1v1h-1zM12 27h1v1h-1zM14 27h5v1h-5zM20 27h2v1h-2zM23 27h2v1h-2zM26 27h1v1h-1zM30 27h2v1h-2zM33 27h1v1h-1zM2 28h7v1h-7zM10 28h1v1h-1zM12 28h2v1h-2zM19 28h3v1h-3zM23 28h1v1h-1zM25 28h2v1h-2zM28 28h1v1h-1zM30 28h1v1h-1zM33 28h1v1h-1zM2 29h1v1h-1zM8 29h1v1h-1zM10 29h2v1h-2zM14 29h4v1h-4zM19 29h3v1h-3zM25 29h2v1h-2zM30 29h3v1h-3zM34 29h1v1h-1zM2 30h1v1h-1zM4 30h3v1h-3zM8 30h1v1h-1zM11 30h2v1h-2zM14 30h1v1h-1zM16 30h1v1h-1zM18 30h3v1h-3zM24 30h7v1h-7zM32 30h3v1h-3zM2 31h1v1h-1zM4 31h3v1h-3zM8 31h1v1h-1zM10 31h2v1h-2zM13 31h1v1h-1zM15 31h2v1h-2zM18 31h1v1h-1zM21 31h1v1h-1zM24 31h3v1h-3zM29 31h1v1h-1zM31 31h1v1h-1zM33 31h2v1h-2zM2 32h1v1h-1zM4 32h3v1h-3zM8 32h1v1h-1zM10 32h5v1h-5zM16 32h4v1h-4zM22 32h8v1h-8zM31 32h2v1h-2zM2 33h1v1h-1zM8 33h1v1h-1zM11 33h6v1h-6zM19 33h2v1h-2zM22 33h1v1h-1zM24 33h1v1h-1zM26 33h2v1h-2zM29 33h2v1h-2zM34 33h1v1h-1zM2 34h7v1h-7zM10 34h1v1h-1zM13 34h2v1h-2zM16 34h1v1h-1zM18 34h4v1h-4zM23 34h1v1h-1zM25 34h1v1h-1zM30 34h3v1h-3z" fill="#08343A"/></svg></span><span class="vtxt"><span class="en"><b>Semont for the left ear</b><span class="src">University of Michigan · Vestibular Testing Center</span></span><span class="ar" dir="rtl" lang="ar"><b>مناورة سيمونت للأذن اليسرى</b><span class="src">جامعة ميشيغان · مركز فحوصات الاتزان</span></span></span></a></div></div>
+    </div>
+  </section>
+
+  <!-- HALF SOMERSAULT -->
+  <section class="card pagebreak">
+    <h2><span class="en">4 · The half-somersault — if you cannot lie back</span><span class="ar" dir="rtl" lang="ar">٤ · مناورة نصف الشقلبة — إذا تعذّر عليك الاستلقاء</span></h2>
+    <div class="body">
+
+      <div class="note">
+        <div class="duo">
+          <div class="en"><p>This one is done <b>kneeling on the floor</b> and does not require you to bend your neck backwards, so it suits people who find lying back difficult. It usually needs more repeats than the Epley.</p></div>
+          <div class="ar" dir="rtl" lang="ar"><p>تُؤدى هذه المناورة <b>بالركوع على الأرض</b> ولا تتطلب ثني الرقبة إلى الخلف، لذا تناسب من يجد صعوبة في الاستلقاء. لكنها تحتاج عادة إلى تكرار أكثر من مناورة إيبلي.</p></div>
+        </div>
+      </div>
+
+      <div class="step" style="margin-top:6px">
+        <div class="figure"><span class="num">1</span><div data-fig="kneel|up|0"></div></div>
+        <div class="en"><p>Kneel on the floor and <b>look up at the ceiling</b> for a few seconds.</p></div>
+        <div class="ar" dir="rtl" lang="ar"><p>اركع على الأرض و<b>انظر إلى السقف</b> بضع ثوانٍ.</p></div>
+      </div>
+
+      <div class="step">
+        <div class="figure"><span class="num">2</span><div data-fig="crown|downfwd|0"></div></div>
+        <div class="en"><p>Tuck your chin towards your chest and place the <b>top of your head on the floor</b>, as if starting a somersault. <span class="hold">Wait about 30 seconds, until the dizziness stops</span></p></div>
+        <div class="ar" dir="rtl" lang="ar"><p>قرّب ذقنك من صدرك وضع <b>أعلى رأسك على الأرض</b>، كأنك تبدأ شقلبة. <span class="hold">انتظر نحو ٣٠ ثانية حتى يزول الدوار</span></p></div>
+      </div>
+
+      <div class="step">
+        <div class="figure"><span class="num">3</span><div data-fig="crown|downfwd|45"></div></div>
+        <div class="en"><p>Turn your head <b>45° towards the affected ear</b> — the <span class="tok sameF">right</span> side — so you are looking towards your <span class="tok same">right</span> elbow. <span class="hold">Wait 30 seconds</span></p></div>
+        <div class="ar" dir="rtl" lang="ar"><p>أدر رأسك <b>٤٥ درجة نحو الأذن المصابة</b>، أي الجهة <span class="tok sameF">اليمنى</span>، بحيث تنظر نحو مرفقك من الجهة <span class="tok sameF">اليمنى</span>. <span class="hold">انتظر ٣٠ ثانية</span></p></div>
+      </div>
+
+      <div class="step">
+        <div class="figure"><span class="num">4</span><div data-fig="fours|fwd|45"></div></div>
+        <div class="en"><p><b>Raise your head quickly</b> until it is level with your back, on your hands and knees. Keep the head turned. <span class="hold">Wait 30 seconds</span></p></div>
+        <div class="ar" dir="rtl" lang="ar"><p><b>ارفع رأسك بسرعة</b> حتى يصبح بمستوى ظهرك، وأنت على يديك وركبتيك. أبقِ الرأس مُدارًا. <span class="hold">انتظر ٣٠ ثانية</span></p></div>
+      </div>
+
+      <div class="step">
+        <div class="figure"><span class="num">5</span><div data-fig="kneel|fwd|45"></div></div>
+        <div class="en"><p><b>Raise your head quickly</b> to fully upright, still turned. Then stand up slowly.</p></div>
+        <div class="ar" dir="rtl" lang="ar"><p><b>ارفع رأسك بسرعة</b> إلى وضع الاعتدال التام مع بقاء الرأس مُدارًا. ثم قف ببطء.</p></div>
+      </div>
+      <div class="vidwrap"><div class="vidhead"><span class="en">Watch a demonstration — scan with your phone camera</span><span class="ar" dir="rtl" lang="ar">شاهد عرضًا توضيحيًا — امسح الرمز بكاميرا هاتفك</span></div><div class="vids"><a class="vid" href="https://www.youtube.com/watch?v=XUXYMSCku4c" target="_blank" rel="noopener"><span class="qr"><svg viewBox="0 0 37 37" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges" role="img" aria-label="QR code"><rect width="37" height="37" fill="#fff"/><path d="M2 2h7v1h-7zM11 2h1v1h-1zM13 2h2v1h-2zM16 2h1v1h-1zM20 2h4v1h-4zM25 2h1v1h-1zM28 2h7v1h-7zM2 3h1v1h-1zM8 3h1v1h-1zM12 3h3v1h-3zM17 3h1v1h-1zM20 3h1v1h-1zM22 3h2v1h-2zM28 3h1v1h-1zM34 3h1v1h-1zM2 4h1v1h-1zM4 4h3v1h-3zM8 4h1v1h-1zM10 4h1v1h-1zM13 4h1v1h-1zM16 4h2v1h-2zM21 4h1v1h-1zM23 4h2v1h-2zM26 4h1v1h-1zM28 4h1v1h-1zM30 4h3v1h-3zM34 4h1v1h-1zM2 5h1v1h-1zM4 5h3v1h-3zM8 5h1v1h-1zM10 5h2v1h-2zM14 5h1v1h-1zM20 5h1v1h-1zM23 5h1v1h-1zM25 5h2v1h-2zM28 5h1v1h-1zM30 5h3v1h-3zM34 5h1v1h-1zM2 6h1v1h-1zM4 6h3v1h-3zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h8v1h-8zM22 6h1v1h-1zM24 6h1v1h-1zM28 6h1v1h-1zM30 6h3v1h-3zM34 6h1v1h-1zM2 7h1v1h-1zM8 7h1v1h-1zM10 7h1v1h-1zM12 7h1v1h-1zM15 7h2v1h-2zM19 7h1v1h-1zM21 7h1v1h-1zM24 7h3v1h-3zM28 7h1v1h-1zM34 7h1v1h-1zM2 8h7v1h-7zM10 8h1v1h-1zM12 8h1v1h-1zM14 8h1v1h-1zM16 8h1v1h-1zM18 8h1v1h-1zM20 8h1v1h-1zM22 8h1v1h-1zM24 8h1v1h-1zM26 8h1v1h-1zM28 8h7v1h-7zM10 9h1v1h-1zM12 9h2v1h-2zM16 9h1v1h-1zM18 9h1v1h-1zM21 9h5v1h-5zM2 10h1v1h-1zM4 10h5v1h-5zM11 10h2v1h-2zM14 10h3v1h-3zM19 10h1v1h-1zM21 10h1v1h-1zM24 10h2v1h-2zM28 10h5v1h-5zM4 11h4v1h-4zM10 11h4v1h-4zM15 11h2v1h-2zM18 11h5v1h-5zM24 11h2v1h-2zM28 11h2v1h-2zM31 11h3v1h-3zM2 12h1v1h-1zM4 12h1v1h-1zM8 12h12v1h-12zM24 12h1v1h-1zM26 12h1v1h-1zM30 12h1v1h-1zM32 12h2v1h-2zM4 13h1v1h-1zM6 13h2v1h-2zM9 13h1v1h-1zM12 13h2v1h-2zM15 13h1v1h-1zM19 13h4v1h-4zM25 13h1v1h-1zM27 13h2v1h-2zM30 13h3v1h-3zM3 14h1v1h-1zM5 14h1v1h-1zM8 14h3v1h-3zM12 14h1v1h-1zM16 14h3v1h-3zM21 14h7v1h-7zM29 14h1v1h-1zM31 14h1v1h-1zM34 14h1v1h-1zM2 15h2v1h-2zM5 15h2v1h-2zM11 15h1v1h-1zM13 15h3v1h-3zM17 15h1v1h-1zM19 15h2v1h-2zM23 15h1v1h-1zM26 15h1v1h-1zM28 15h1v1h-1zM31 15h4v1h-4zM2 16h1v1h-1zM5 16h1v1h-1zM8 16h2v1h-2zM16 16h3v1h-3zM22 16h3v1h-3zM27 16h2v1h-2zM30 16h4v1h-4zM3 17h1v1h-1zM5 17h1v1h-1zM7 17h1v1h-1zM9 17h1v1h-1zM13 17h1v1h-1zM15 17h3v1h-3zM23 17h7v1h-7zM31 17h2v1h-2zM2 18h1v1h-1zM4 18h1v1h-1zM6 18h3v1h-3zM14 18h4v1h-4zM19 18h2v1h-2zM24 18h1v1h-1zM26 18h2v1h-2zM29 18h4v1h-4zM34 18h1v1h-1zM2 19h1v1h-1zM4 19h2v1h-2zM7 19h1v1h-1zM12 19h1v1h-1zM16 19h1v1h-1zM18 19h1v1h-1zM20 19h2v1h-2zM23 19h7v1h-7zM31 19h3v1h-3zM2 20h1v1h-1zM4 20h2v1h-2zM8 20h2v1h-2zM12 20h2v1h-2zM15 20h3v1h-3zM20 20h1v1h-1zM22 20h2v1h-2zM28 20h3v1h-3zM32 20h2v1h-2zM2 21h1v1h-1zM4 21h1v1h-1zM7 21h1v1h-1zM9 21h1v1h-1zM12 21h2v1h-2zM16 21h3v1h-3zM22 21h4v1h-4zM27 21h7v1h-7zM3 22h1v1h-1zM5 22h1v1h-1zM8 22h1v1h-1zM10 22h4v1h-4zM15 22h1v1h-1zM17 22h1v1h-1zM20 22h1v1h-1zM23 22h1v1h-1zM26 22h2v1h-2zM31 22h1v1h-1zM33 22h2v1h-2zM2 23h1v1h-1zM9 23h1v1h-1zM11 23h1v1h-1zM14 23h2v1h-2zM17 23h3v1h-3zM22 23h4v1h-4zM27 23h2v1h-2zM34 23h1v1h-1zM2 24h1v1h-1zM4 24h2v1h-2zM8 24h1v1h-1zM10 24h1v1h-1zM12 24h3v1h-3zM16 24h1v1h-1zM19 24h1v1h-1zM21 24h1v1h-1zM23 24h2v1h-2zM26 24h2v1h-2zM32 24h2v1h-2zM2 25h1v1h-1zM9 25h1v1h-1zM13 25h1v1h-1zM15 25h1v1h-1zM18 25h1v1h-1zM21 25h3v1h-3zM27 25h2v1h-2zM30 25h5v1h-5zM2 26h1v1h-1zM5 26h2v1h-2zM8 26h6v1h-6zM18 26h2v1h-2zM21 26h1v1h-1zM24 26h1v1h-1zM26 26h7v1h-7zM34 26h1v1h-1zM10 27h1v1h-1zM12 27h2v1h-2zM15 27h1v1h-1zM18 27h2v1h-2zM21 27h2v1h-2zM24 27h3v1h-3zM30 27h1v1h-1zM32 27h3v1h-3zM2 28h7v1h-7zM12 28h4v1h-4zM17 28h3v1h-3zM24 28h3v1h-3zM28 28h1v1h-1zM30 28h1v1h-1zM32 28h1v1h-1zM2 29h1v1h-1zM8 29h1v1h-1zM10 29h1v1h-1zM12 29h1v1h-1zM14 29h1v1h-1zM17 29h1v1h-1zM19 29h3v1h-3zM25 29h2v1h-2zM30 29h3v1h-3zM34 29h1v1h-1zM2 30h1v1h-1zM4 30h3v1h-3zM8 30h1v1h-1zM10 30h1v1h-1zM13 30h1v1h-1zM17 30h2v1h-2zM22 30h3v1h-3zM26 30h6v1h-6zM33 30h1v1h-1zM2 31h1v1h-1zM4 31h3v1h-3zM8 31h1v1h-1zM10 31h1v1h-1zM12 31h2v1h-2zM16 31h2v1h-2zM20 31h1v1h-1zM23 31h1v1h-1zM25 31h1v1h-1zM27 31h1v1h-1zM30 31h1v1h-1zM34 31h1v1h-1zM2 32h1v1h-1zM4 32h3v1h-3zM8 32h1v1h-1zM10 32h4v1h-4zM16 32h4v1h-4zM22 32h8v1h-8zM31 32h2v1h-2zM2 33h1v1h-1zM8 33h1v1h-1zM12 33h2v1h-2zM15 33h1v1h-1zM17 33h1v1h-1zM23 33h3v1h-3zM27 33h1v1h-1zM30 33h3v1h-3zM2 34h7v1h-7zM10 34h3v1h-3zM15 34h3v1h-3zM19 34h1v1h-1zM24 34h1v1h-1zM26 34h2v1h-2zM29 34h1v1h-1zM32 34h2v1h-2z" fill="#08343A"/></svg></span><span class="vtxt"><span class="en"><b>Half-somersault manoeuvre</b><span class="src">Carol Foster, MD · University of Colorado</span></span><span class="ar" dir="rtl" lang="ar"><b>مناورة نصف الشقلبة</b><span class="src">د. كارول فوستر · جامعة كولورادو</span></span></span></a></div></div>
+    </div>
+  </section>
+
+  <!-- AFTER -->
+  <section class="card">
+    <h2><span class="en">After the exercises</span><span class="ar" dir="rtl" lang="ar">بعد التمارين</span></h2>
+    <div class="body">
+      <div class="duo">
+        <div class="en">
+          <ul>
+            <li><b>You do not need to sleep sitting up.</b> You do not need to avoid lying on one side, and you do not need a neck collar. Research has shown these restrictions add no real benefit.</li>
+            <li>Most people feel better <b>straight away</b>. A mild off-balance feeling can last a few days and sometimes up to two weeks.</li>
+            <li><b>Anti-dizziness medicines are not used routinely.</b> They mask the symptom without moving the crystals, and they can make you drowsy and more likely to fall.</li>
+            <li>Move about normally. Walking helps your balance system recover.</li>
+            <li><b>Come back to the clinic</b> if the symptoms are still there after a month, or if the pattern changes.</li>
+          </ul>
+        </div>
+        <div class="ar" dir="rtl" lang="ar">
+          <ul>
+            <li><b>لا حاجة إلى النوم جالسًا.</b> ولا إلى تجنّب الاستلقاء على جهة معينة، ولا إلى استخدام طوق للرقبة. فقد أظهرت الأبحاث أن هذه القيود لا تضيف فائدة حقيقية.</li>
+            <li>يتحسن معظم المرضى <b>فورًا</b>. وقد يستمر شعور خفيف بعدم الاتزان لبضعة أيام، وأحيانًا حتى أسبوعين.</li>
+            <li><b>أدوية الدوخة لا تُستخدم بشكل روتيني.</b> فهي تخفي العَرَض دون تحريك البلورات، وقد تسبب النعاس وتزيد خطر السقوط.</li>
+            <li>تحرّك بشكل طبيعي، فالمشي يساعد جهاز الاتزان على التعافي.</li>
+            <li><b>راجع العيادة</b> إذا استمرت الأعراض أكثر من شهر، أو إذا تغيّر نمطها.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECURRENCE + HC note -->
+  <section class="card">
+    <h2><span class="en">Can it come back?</span><span class="ar" dir="rtl" lang="ar">هل يمكن أن تعود الحالة؟</span></h2>
+    <div class="body">
+      <div class="duo">
+        <div class="en">
+          <p>Yes, in some people. About <b>15 to 30 out of every 100 patients</b> have it again within the first year, and roughly half within five years. Most recurrences happen in the first six months.</p>
+          <p>If it comes back <b>with the same pattern you know</b> — brief spinning triggered by head position, nothing else — you can simply repeat the same exercise.</p>
+          <p><b>If it feels different</b>, or any of the warning signs above appear, see your doctor rather than treating yourself.</p>
+          <p style="margin-top:14px"><b>One more thing:</b> in about 1 in 5 patients the crystals sit in a different canal, and those cases need a different manoeuvre performed by a clinician. Do not try to work these out at home — that is what your follow-up visit is for.</p>
+        </div>
+        <div class="ar" dir="rtl" lang="ar">
+          <p>نعم، عند بعض المرضى. إذ تعود الحالة لدى نحو <b>١٥ إلى ٣٠ من كل ١٠٠ مريض</b> خلال السنة الأولى، ولدى نحو النصف خلال خمس سنوات. ومعظم الانتكاسات تحدث في الأشهر الستة الأولى.</p>
+          <p>إذا عادت <b>بالنمط نفسه الذي تعرفه</b> — دوار قصير يبدأ مع تغيّر وضع الرأس دون أعراض أخرى — فيمكنك ببساطة إعادة التمرين نفسه.</p>
+          <p><b>أما إذا كان الإحساس مختلفًا</b>، أو ظهرت أي من علامات الإنذار السابقة، فراجع طبيبك بدلًا من علاج نفسك.</p>
+          <p style="margin-top:14px"><b>ملاحظة أخيرة:</b> عند نحو مريض من كل خمسة تستقر البلورات في قناة مختلفة، وتحتاج هذه الحالات إلى مناورة أخرى يجريها الطبيب. لا تحاول تحديد ذلك في المنزل، فهذا هو الغرض من موعد المراجعة.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLINIC BLOCK -->
+  <section class="clinic">
+    <div class="duo">
+      <div class="en">
+        <p style="margin:0 0 4px"><b>For the clinic</b></p>
+        <p style="margin:0; color:var(--muted); font-size:14px">Complete before giving this sheet to the patient.</p>
+      </div>
+      <div class="ar" dir="rtl" lang="ar">
+        <p style="margin:0 0 4px"><b>تُملأ في العيادة</b></p>
+        <p style="margin:0; color:var(--muted); font-size:14px">تُستكمل قبل تسليم هذه النشرة للمريض.</p>
+      </div>
+    </div>
+    <div class="lines">
+      <div class="line"><span>Patient name · اسم المريض</span></div>
+      <div class="line"><span>Date · التاريخ</span></div>
+      <div class="line"><span>Affected ear · الأذن المصابة &nbsp;&nbsp;☐ Right اليمنى &nbsp;&nbsp;☐ Left اليسرى</span></div>
+      <div class="line"><span>Exercise prescribed · التمرين الموصوف</span></div>
+      <div class="line"><span>Follow-up appointment · موعد المراجعة</span></div>
+      <div class="line"><span>Clinic contact · رقم التواصل</span></div>
+    </div>
+  </section>
+
+  <p class="foot">
+    <b>Sources · المصادر:</b> AAO-HNS Clinical Practice Guideline: Benign Paroxysmal Positional Vertigo (Update), 2017 · Cochrane and meta-analyses on post-manoeuvre restrictions, 2010 &amp; 2018 · Network meta-analysis of repositioning manoeuvres, 2025.<br>
+    <span class="en">This sheet is general information and does not replace your doctor's advice. Ask your clinician if anything here does not match what you were told.</span>
+    <span class="ar" dir="rtl" lang="ar" style="display:block">هذه النشرة معلومات عامة ولا تُغني عن استشارة طبيبك. اسأل طبيبك إذا اختلف أي شيء هنا عمّا أُخبرت به.</span>
+  </p>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------------- geometry helpers ---------------- */
+  var NS = "http://www.w3.org/2000/svg";
+  function polar(cx, cy, r, deg){
+    var a = (deg - 90) * Math.PI / 180;
+    return [cx + r * Math.cos(a), cy + r * Math.sin(a)];
+  }
+  function n(v){ return Math.round(v * 100) / 100; }
+
+  var INK = "#14211F", TEAL = "#0E5A62", GOLD = "#B8873A",
+      PAPER = "#FCFBF8", SURF = "#E4EDEC", RULE = "#C2D2D0";
+
+  function line(x1,y1,x2,y2,w,col){
+    return '<line x1="'+n(x1)+'" y1="'+n(y1)+'" x2="'+n(x2)+'" y2="'+n(y2)+
+           '" stroke="'+(col||INK)+'" stroke-width="'+(w||5)+'" stroke-linecap="round"/>';
+  }
+
+  /* nose direction on the SIDE view: degrees, 0 = forward(right), -90 = up, 90 = down */
+  var NOSE_DEG = { fwd:0, up:-90, down:90, upfwd:-45, downfwd:45, back:180 };
+
+  function sideHead(cx, cy, r, nose){
+    var s = '<circle cx="'+n(cx)+'" cy="'+n(cy)+'" r="'+n(r)+'" fill="'+PAPER+'" stroke="'+INK+'" stroke-width="4"/>';
+    if (nose === "front"){
+      /* face turned towards the reader — drawn as a filled dot */
+      s += '<circle cx="'+n(cx)+'" cy="'+n(cy)+'" r="4.6" fill="'+INK+'"/>';
+    } else {
+      var d = NOSE_DEG[nose] === undefined ? 0 : NOSE_DEG[nose];
+      var a = d * Math.PI / 180;
+      var ux = Math.cos(a), uy = Math.sin(a);
+      var px = -uy, py = ux;
+      var tipX = cx + ux * (r + 7.5), tipY = cy + uy * (r + 7.5);
+      var b1x = cx + ux * (r - 2) + px * 5, b1y = cy + uy * (r - 2) + py * 5;
+      var b2x = cx + ux * (r - 2) - px * 5, b2y = cy + uy * (r - 2) - py * 5;
+      s += '<path d="M'+n(tipX)+' '+n(tipY)+' L'+n(b1x)+' '+n(b1y)+' L'+n(b2x)+' '+n(b2y)+' Z" fill="'+INK+'"/>';
+    }
+    return s;
+  }
+
+  /* ---------------- side-view postures ---------------- */
+  function bed(x, w){
+    return '<rect x="'+n(x)+'" y="90" width="'+n(w)+'" height="20" rx="5" fill="'+SURF+'" stroke="'+RULE+'" stroke-width="2"/>';
+  }
+  function floor(){
+    return '<line x1="4" y1="104" x2="126" y2="104" stroke="'+RULE+'" stroke-width="4" stroke-linecap="round"/>';
+  }
+  function pillow(){
+    return '<rect x="44" y="80" width="32" height="10" rx="5" fill="#F5E9CF" stroke="'+GOLD+'" stroke-width="2"/>';
+  }
+
+  var POSTURE = {
+    sit: function(nose){
+      return bed(4, 100)
+        + line(86,90, 82,58)                 /* torso */
+        + line(86,90, 104,93) + line(104,93, 106,110)  /* leg */
+        + line(82,60, 97,77)                 /* arm */
+        + sideHead(80, 45, 12, nose);
+    },
+    supineHang: function(nose){
+      return bed(4, 122) + pillow()
+        + line(104,88, 60,82)                /* torso */
+        + line(104,88, 122,90)               /* legs */
+        + line(60,82, 82,95)                 /* arm */
+        + line(60,82, 50,86)                 /* neck */
+        + sideHead(38, 91, 12, nose);
+    },
+    side: function(nose){
+      return bed(4, 122)
+        + line(104,88, 58,86)
+        + line(104,88, 122,89)
+        + line(58,86, 80,93)
+        + sideHead(40, 85, 12, nose);
+    },
+    kneel: function(nose){
+      return floor()
+        + line(88,104, 86,84)                /* thigh */
+        + line(88,104, 106,104)              /* lower leg */
+        + line(86,84, 82,54)                 /* torso */
+        + line(82,56, 95,73)                 /* arm */
+        + sideHead(80, 41, 12, nose);
+    },
+    crown: function(nose){
+      return floor()
+        + line(98,104, 94,86)
+        + line(98,104, 114,104)
+        + line(94,86, 70,93)                 /* torso down to shoulders */
+        + line(70,93, 66,104)                /* arm to floor */
+        + sideHead(56, 92, 12, nose);
+    },
+    fours: function(nose){
+      return floor()
+        + line(100,104, 98,80)               /* thigh */
+        + line(100,104, 114,104)             /* lower leg */
+        + line(98,80, 66,80)                 /* back */
+        + line(66,80, 62,104)                /* arm */
+        + sideHead(52, 82, 12, nose);
+    }
+  };
+
+  /* ---------------- head dial (bird's-eye) ---------------- */
+  function dial(deg){
+    var cx = 192, cy = 58, r = 30;
+    var s = "";
+    /* reference: straight ahead */
+    s += '<line x1="'+cx+'" y1="'+(cy-r-16)+'" x2="'+cx+'" y2="'+(cy-r+4)+'" stroke="'+RULE+'" stroke-width="2.5" stroke-dasharray="4 4" stroke-linecap="round"/>';
+    /* rotation arc + arrowhead */
+    if (deg !== 0){
+      var ar = r + 15;
+      var p0 = polar(cx, cy, ar, 0), p1 = polar(cx, cy, ar, deg);
+      var large = Math.abs(deg) > 180 ? 1 : 0;
+      var sweep = deg > 0 ? 1 : 0;
+      s += '<path d="M'+n(p0[0])+' '+n(p0[1])+' A'+ar+' '+ar+' 0 '+large+' '+sweep+' '+n(p1[0])+' '+n(p1[1])+
+           '" fill="none" stroke="'+GOLD+'" stroke-width="3" stroke-linecap="round"/>';
+      var tan = deg + (deg > 0 ? 90 : -90);
+      var ta = (tan - 90) * Math.PI / 180;
+      var ux = Math.cos(ta), uy = Math.sin(ta), px = -uy, py = ux;
+      s += '<path d="M'+n(p1[0]+ux*8)+' '+n(p1[1]+uy*8)+
+           ' L'+n(p1[0]-ux*2+px*5)+' '+n(p1[1]-uy*2+py*5)+
+           ' L'+n(p1[0]-ux*2-px*5)+' '+n(p1[1]-uy*2-py*5)+' Z" fill="'+GOLD+'"/>';
+    }
+    /* the head, rotated */
+    var g = '<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="'+PAPER+'" stroke="'+INK+'" stroke-width="4"/>';
+    g += '<rect x="'+(cx-r-3)+'" y="'+(cy-7)+'" width="7" height="14" rx="3.5" fill="'+PAPER+'" stroke="'+INK+'" stroke-width="3"/>';
+    g += '<rect x="'+(cx+r-4)+'" y="'+(cy-7)+'" width="7" height="14" rx="3.5" fill="'+PAPER+'" stroke="'+INK+'" stroke-width="3"/>';
+    var t = polar(cx, cy, r + 11, 0), b1 = polar(cx, cy, r - 3, -9), b2 = polar(cx, cy, r - 3, 9);
+    g += '<path d="M'+n(t[0])+' '+n(t[1])+' L'+n(b1[0])+' '+n(b1[1])+' L'+n(b2[0])+' '+n(b2[1])+' Z" fill="'+TEAL+'"/>';
+    s += '<g transform="rotate('+deg+' '+cx+' '+cy+')">' + g + '</g>';
+    return s;
+  }
+
+  /* ---------------- assemble a figure ---------------- */
+  function build(spec){
+    var parts = spec.split("|");
+    var posture = parts[0], nose = parts[1] || "fwd", deg = parseFloat(parts[2] || 0);
+    var draw = POSTURE[posture] ? POSTURE[posture](nose) : "";
+    return '<svg viewBox="0 0 250 120" xmlns="'+NS+'" role="img" aria-hidden="true">'
+         + '<g class="mir">' + draw + dial(deg) + '</g></svg>';
+  }
+
+  function legendFig(){
+    return '<svg viewBox="0 0 120 120" xmlns="'+NS+'" role="img" aria-hidden="true">'
+         + '<g transform="translate(-132,0)">' + dial(45) + '</g></svg>';
+  }
+
+  document.querySelectorAll("[data-fig]").forEach(function(el){
+    var spec = el.getAttribute("data-fig");
+    el.innerHTML = spec === "legend" ? legendFig() : build(spec);
+  });
+
+  /* ---------------- side-dependent wording ---------------- */
+  var WORDS = {
+    R: { same:{en:"right", ar:"اليمين"}, opp:{en:"left", ar:"اليسار"},
+         sameF:{en:"right", ar:"اليمنى"}, oppF:{en:"left", ar:"اليسرى"} },
+    L: { same:{en:"left", ar:"اليسار"}, opp:{en:"right", ar:"اليمين"},
+         sameF:{en:"left", ar:"اليسرى"}, oppF:{en:"right", ar:"اليمنى"} }
+  };
+
+  function applySide(side){
+    document.body.setAttribute("data-side", side);
+    document.querySelectorAll(".tok").forEach(function(el){
+      var key = ["same","opp","sameF","oppF"].filter(function(k){ return el.classList.contains(k); })[0] || "same";
+      var isAr = !!el.closest('[lang="ar"]');
+      el.textContent = WORDS[side][key][isAr ? "ar" : "en"];
+    });
+    document.querySelectorAll("[data-side-btn]").forEach(function(b){
+      b.setAttribute("aria-pressed", String(b.getAttribute("data-side-btn") === side));
+    });
+  }
+
+  document.querySelectorAll("[data-side-btn]").forEach(function(b){
+    b.addEventListener("click", function(){ applySide(b.getAttribute("data-side-btn")); });
+  });
+
+  /* ---------------- language view ---------------- */
+  document.querySelectorAll("[data-view-btn]").forEach(function(b){
+    b.addEventListener("click", function(){
+      var v = b.getAttribute("data-view-btn");
+      document.body.setAttribute("data-view", v);
+      document.documentElement.setAttribute("lang", v === "ar" ? "ar" : "en");
+      document.querySelectorAll("[data-view-btn]").forEach(function(x){
+        x.setAttribute("aria-pressed", String(x.getAttribute("data-view-btn") === v));
+      });
+    });
+  });
+
+  document.getElementById("printBtn").addEventListener("click", function(){ window.print(); });
+
+  var saved = null;
+  try { saved = localStorage.getItem("pi-view"); } catch (e) {}
+  if (saved === "en" || saved === "ar") {
+    document.body.setAttribute("data-view", saved);
+    document.documentElement.setAttribute("lang", saved);
+    document.querySelectorAll("[data-view-btn]").forEach(function(x){
+      x.setAttribute("aria-pressed", String(x.getAttribute("data-view-btn") === saved));
+    });
+  }
+  document.querySelectorAll("[data-view-btn]").forEach(function(b){
+    b.addEventListener("click", function(){
+      try { localStorage.setItem("pi-view", b.getAttribute("data-view-btn")); } catch (e) {}
+    });
+  });
+
+  applySide("R");
+})();
+</script>
+</body>
+</html>
