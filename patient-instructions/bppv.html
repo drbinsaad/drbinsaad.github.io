@@ -191,8 +191,10 @@ b,strong{font-weight:600}
 /* language view modes */
 /* In "Both" view the back-link carries both labels inline — separate them. */
 body[data-view="both"] .home > .en::after{content:"\00B7"; margin:0 6px; opacity:.55; font-weight:400}
-body[data-view="en"] .ar, body[data-view="en"] .card > h2 .ar{display:none}
-body[data-view="ar"] .en, body[data-view="ar"] .card > h2 .en{display:none}
+/* !important: a few spans carry an inline display:block, which would otherwise
+   keep the other language visible in single-language view (and in its PDF). */
+body[data-view="en"] .ar, body[data-view="en"] .card > h2 .ar{display:none !important}
+body[data-view="ar"] .en, body[data-view="ar"] .card > h2 .en{display:none !important}
 body[data-view="en"] .duo, body[data-view="ar"] .duo,
 body[data-view="en"] .card > h2, body[data-view="ar"] .card > h2,
 body[data-view="en"] .mast-grid, body[data-view="ar"] .mast-grid{grid-template-columns:1fr}
@@ -256,22 +258,134 @@ body[data-side="L"] .vid[data-only="R"], body[data-side="R"] .vid[data-only="L"]
   .earbox .ar{padding-left:0}
 }
 
+/* ---------- download-PDF dialog ---------- */
+.pdfmask{
+  position:fixed; inset:0; z-index:60; display:grid; place-items:center;
+  background:rgba(8,52,58,.42); padding:20px;
+}
+.pdfmask[hidden]{display:none}
+.pdfbox{
+  width:min(470px,100%); background:#fff; border:1px solid var(--rule); border-radius:18px;
+  box-shadow:0 24px 60px rgba(8,52,58,.28); padding:24px 24px 20px;
+}
+.pdfbox h2{margin:0 0 3px; font-size:19px; font-weight:700; color:var(--teal-900)}
+.pdfsub{margin:0 0 16px; font-size:13.8px; color:var(--muted)}
+.pdfopts{display:grid; gap:8px; margin-bottom:15px}
+.pdfopt{
+  appearance:none; cursor:pointer; font:inherit; text-align:start;
+  border:1.5px solid var(--rule); background:#fff; border-radius:12px; padding:11px 15px;
+  font-size:15px; font-weight:600; color:var(--teal-900);
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+}
+.pdfopt small{display:block; margin-top:2px; font-size:12.4px; font-weight:400; color:var(--muted)}
+.pdfopt:hover{border-color:var(--teal-500)}
+.pdfopt[aria-pressed="true"]{border-color:var(--teal-700); background:var(--teal-50)}
+.pdfopt[aria-pressed="true"]::after{content:"\2713"; color:var(--teal-700); font-weight:700; font-size:16px}
+.pdfopt:focus-visible{outline:3px solid var(--gold); outline-offset:2px}
+.pdfnote{
+  margin:0 0 13px; font-size:12.6px; line-height:1.6; color:var(--muted);
+  border-inline-start:3px solid var(--gold); padding-inline-start:10px;
+}
+.pdfnote b{color:var(--teal-900)}
+.pdfacts{display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap}
+.primary{
+  appearance:none; cursor:pointer; font:inherit; font-size:13.5px; font-weight:600;
+  background:var(--teal-700); color:#fff; border:1.5px solid var(--teal-700);
+  border-radius:999px; padding:7px 20px;
+}
+.primary:hover{background:var(--teal-500); border-color:var(--teal-500)}
+.primary:focus-visible{outline:3px solid var(--gold); outline-offset:2px}
+
+/* shown only on paper — the on-screen control is a pair of buttons */
+.earprint{display:none}
+
 /* ---------- print ---------- */
 @media print{
-  .bar{display:none}
-  .home{display:none}
-  body{background:#fff; font-size:11.2pt}
-  .wrap{max-width:none; padding:0}
-  .card, .clinic, .legend, .earbox{break-inside:avoid; box-shadow:none}
-  .step{break-inside:avoid}
-  .card{margin-top:14px}
-  h2{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  @page{size:A4; margin:14mm 13mm}
   *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+
+  /* screen-only furniture */
+  .bar, .home, .pdfmask, .earpick .seg{display:none !important}
+
+  body{background:#fff; font-size:11.6pt; line-height:1.6}
+  .wrap{max-width:none; padding:0}
+  .mast{padding-top:0}
+
+  /* Arabic body text carries a little more size than Latin at the same point size */
+  .duo > .ar{font-size:1.04em}
+
+  /* keep blocks whole, but never a whole section — an oversized "avoid" only
+     pushes a half-empty page ahead of it */
+  .step, .dose, .note, .legend, .earbox, .clinic, .vid, .vidwrap{break-inside:avoid}
+  .card{margin-top:14px; box-shadow:none}
+  .card > h2, h1, h3{break-after:avoid}
+  p, li{orphans:3; widows:3}
   .pagebreak{break-before:page}
-  .vid{break-inside:avoid}
-  .vidwrap{break-inside:avoid}
   .vid:hover{background:#fff}
-  @page{size:A4; margin:13mm}
+  .figure svg{max-width:100%}
+
+  /* on paper the affected ear is a statement, not a control */
+  .earprint{
+    display:block; font-size:14pt; font-weight:700; color:var(--teal-900);
+    white-space:nowrap;
+  }
+  body[data-side="R"] .earprint::after{content:"Right \00B7 اليمنى"}
+  body[data-side="L"] .earprint::after{content:"Left \00B7 اليسرى"}
+
+  /* a single-language page would otherwise run the full width of the sheet */
+  body[data-view="en"] .duo > .en,
+  body[data-view="ar"] .duo > .ar{max-width:42em}
+
+  /* so the patient can find the sheet again */
+  .foot::after{
+    content:"shahrani.me/patient-instructions";
+    display:block; margin-top:7px; font-weight:600; color:var(--teal-900);
+  }
+
+  /* A4's content box is ~695px — narrower than the 860px breakpoint — so the
+     responsive rules would stack the two languages on paper and lose the
+     side-by-side design. Put the two columns back for the bilingual file. */
+  body[data-view="both"] .duo,
+  body[data-view="both"] .mast-grid,
+  body[data-view="both"] .card > h2,
+  body[data-view="both"] .vidhead,
+  body[data-view="both"] .lines{grid-template-columns:1fr 1fr !important}
+  body[data-view="both"] .earbox{grid-template-columns:1fr auto 1fr !important}
+  body[data-view="both"] .legend{grid-template-columns:104px 1fr 1fr !important}
+  body[data-view="both"] .step{grid-template-columns:168px 1fr 1fr !important}
+
+  body[data-view="both"] .duo > .en,
+  body[data-view="both"] .mast .en,
+  body[data-view="both"] .vidhead .en,
+  body[data-view="both"] .legend .en,
+  body[data-view="both"] .step .en{
+    border-right:1px solid var(--rule) !important; border-bottom:0 !important;
+    padding-right:15px !important; padding-bottom:0 !important;
+  }
+  body[data-view="both"] .card > h2 .en{
+    border-right:1px solid rgba(255,255,255,.28) !important; border-bottom:0 !important;
+    padding-right:15px !important; padding-bottom:0 !important;
+  }
+  body[data-view="both"] .alert .duo > .en{border-right-color:var(--alert-rule) !important}
+  body[data-view="both"] .duo > .ar,
+  body[data-view="both"] .mast .ar,
+  body[data-view="both"] .card > h2 .ar,
+  body[data-view="both"] .vidhead .ar,
+  body[data-view="both"] .legend .ar,
+  body[data-view="both"] .step .ar{padding-left:15px !important; padding-top:0 !important}
+
+  /* single language: figure beside the text, not stacked above it */
+  body[data-view="en"] .step,
+  body[data-view="ar"] .step{grid-template-columns:168px 1fr !important}
+  body[data-view="en"] .legend,
+  body[data-view="ar"] .legend{grid-template-columns:104px 1fr !important; align-items:center}
+  body[data-view="en"] .legend .en,
+  body[data-view="ar"] .legend .ar{padding:0 0 0 14px !important; border:0 !important}
+  body[data-view="ar"] .legend .ar{padding:0 14px 0 0 !important}
+  body[data-view="en"] .step .en{padding:0 !important; border-bottom:0 !important}
+  body[data-view="ar"] .step .ar{padding:0 !important}
+
+  .figure{max-width:none !important; margin-bottom:0 !important; padding-inline-end:14px !important}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none !important; transition:none !important}}
 </style>
@@ -290,7 +404,35 @@ body[data-side="L"] .vid[data-only="R"], body[data-side="R"] .vid[data-only="L"]
       </div>
     </div>
     <div class="ctl">
-      <button type="button" class="ghost" id="printBtn">Print / طباعة</button>
+      <button type="button" class="ghost" id="pdfBtn">↓ PDF · تحميل</button>
+    </div>
+  </div>
+</div>
+
+<div class="pdfmask" id="pdfMask" hidden>
+  <div class="pdfbox" role="dialog" aria-modal="true" aria-labelledby="pdfTitle">
+    <h2 id="pdfTitle">Download PDF · تحميل ملف PDF</h2>
+    <p class="pdfsub">Choose the language for the file · اختر لغة الملف</p>
+
+    <div class="pdfopts" id="pdfOpts">
+      <button type="button" class="pdfopt" data-pdf-lang="both" aria-pressed="true">
+        <span>Both languages<small>الإنجليزية والعربية — نصّان جنبًا إلى جنب</small></span>
+      </button>
+      <button type="button" class="pdfopt" data-pdf-lang="en" aria-pressed="false">
+        <span>English only<small>الإنجليزية فقط — ملف أقصر</small></span>
+      </button>
+      <button type="button" class="pdfopt" data-pdf-lang="ar" aria-pressed="false">
+        <span>العربية فقط<small>Arabic only — a shorter file</small></span>
+      </button>
+    </div>
+
+    <p class="pdfnote" id="pdfEar"></p>
+    <p class="pdfnote">Your browser opens its print window — pick <b>Save as PDF</b> as the destination.<br>
+      <span dir="rtl" lang="ar">ستفتح نافذة الطباعة في متصفحك — اختر <b>حفظ بصيغة PDF</b> كوجهة للحفظ.</span></p>
+
+    <div class="pdfacts">
+      <button type="button" class="ghost" id="pdfCancel">Cancel · إلغاء</button>
+      <button type="button" class="primary" id="pdfGo">Download · تحميل</button>
     </div>
   </div>
 </div>
@@ -322,6 +464,7 @@ body[data-side="L"] .vid[data-only="R"], body[data-side="R"] .vid[data-only="L"]
           <button type="button" data-side-btn="R" aria-pressed="true">Right · اليمنى</button>
           <button type="button" data-side-btn="L" aria-pressed="false">Left · اليسرى</button>
         </div>
+        <span class="earprint" aria-hidden="true"></span>
       </div>
       <div class="ar" dir="rtl" lang="ar">
         <p>أخبرك طبيبك بالأذن المصابة. اخترها هنا.
@@ -944,7 +1087,81 @@ body[data-side="L"] .vid[data-only="R"], body[data-side="R"] .vid[data-only="L"]
     });
   });
 
-  document.getElementById("printBtn").addEventListener("click", function(){ window.print(); });
+  /* ---------------- download as PDF ---------------- */
+  (function(){
+    var mask   = document.getElementById("pdfMask");
+    var earMsg = document.getElementById("pdfEar");
+    var choice = "both";          // language chosen for the file
+    var before = null;            // view + title to put back afterwards
+
+    function syncOpts(){
+      document.querySelectorAll("[data-pdf-lang]").forEach(function(b){
+        b.setAttribute("aria-pressed", String(b.getAttribute("data-pdf-lang") === choice));
+      });
+    }
+    function setView(v){
+      document.body.setAttribute("data-view", v);
+      document.documentElement.setAttribute("lang", v === "ar" ? "ar" : "en");
+      document.querySelectorAll("[data-view-btn]").forEach(function(x){
+        x.setAttribute("aria-pressed", String(x.getAttribute("data-view-btn") === v));
+      });
+    }
+    function open(){
+      choice = document.body.getAttribute("data-view") || "both";
+      syncOpts();
+      var right = document.body.getAttribute("data-side") !== "L";
+      earMsg.innerHTML = "Diagrams follow the affected ear you selected: <b>"
+        + (right ? "Right" : "Left") + "</b>"
+        + '<br><span dir="rtl" lang="ar">الرسوم تتبع الأذن المصابة التي اخترتها: <b>'
+        + (right ? "اليمنى" : "اليسرى") + "</b></span>";
+      mask.hidden = false;
+      document.getElementById("pdfGo").focus();
+    }
+    function close(){
+      mask.hidden = true;
+      document.getElementById("pdfBtn").focus();
+    }
+    /* Put the page back the way the reader had it. The browser fires afterprint
+       whether the PDF was saved or the dialog was cancelled. */
+    function restore(){
+      if (!before) return;
+      setView(before.view);
+      document.title = before.title;
+      before = null;
+    }
+
+    document.getElementById("pdfBtn").addEventListener("click", open);
+    document.getElementById("pdfCancel").addEventListener("click", close);
+    mask.addEventListener("click", function(e){ if (e.target === mask) close(); });
+    document.addEventListener("keydown", function(e){
+      if (e.key === "Escape" && !mask.hidden) close();
+    });
+    document.querySelectorAll("[data-pdf-lang]").forEach(function(b){
+      b.addEventListener("click", function(){
+        choice = b.getAttribute("data-pdf-lang");
+        syncOpts();
+      });
+    });
+
+    document.getElementById("pdfGo").addEventListener("click", function(){
+      before = { view: document.body.getAttribute("data-view") || "both", title: document.title };
+      setView(choice);
+      /* the browser names the saved file after the document title */
+      document.title = "BPPV-patient-guide-"
+        + (choice === "en" ? "EN" : choice === "ar" ? "AR" : "EN-AR")
+        + (document.body.getAttribute("data-side") === "L" ? "-left-ear" : "-right-ear");
+      close();
+      window.print();
+    });
+
+    window.addEventListener("afterprint", restore);
+    if (window.matchMedia) {
+      var mq = window.matchMedia("print");
+      var onChange = function(m){ if (!m.matches) restore(); };
+      if (mq.addEventListener) mq.addEventListener("change", onChange);
+      else if (mq.addListener) mq.addListener(onChange);
+    }
+  })();
 
   var saved = null;
   try { saved = localStorage.getItem("pi-view"); } catch (e) {}

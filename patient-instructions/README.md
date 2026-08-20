@@ -37,7 +37,14 @@ Copy `bppv.html` and replace the content. It already carries the pieces worth
 keeping:
 
 - the bilingual two-column layout with the hairline rule
-- print CSS (A4, `.pagebreak` before major sections, hides the nav)
+- the Download-PDF dialog: the reader picks English / Arabic / both, the page
+  switches to that view, `window.print()` opens the browser's save-as-PDF, and
+  `afterprint` puts the reading view back. The document title is swapped first,
+  because that is what names the saved file.
+- print CSS (A4, `.pagebreak` before major sections, hides the nav). Note the
+  A4 content box is ~695px — *narrower* than the 860px responsive breakpoint —
+  so the print block re-asserts the two-column layout with `!important`, or the
+  languages stack on paper and the file grows by about a third.
 - the language toggle, which shares its state with the hub via `localStorage`
 - the red-flag panel pattern
 - the clinic block at the foot for patient name / date / follow-up
