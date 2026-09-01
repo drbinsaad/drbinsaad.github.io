@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>العيادة والمواعيد | د. علي الشهراني</title>
-  <meta name="description" content="احجز موعدك مع د. علي الشهراني عبر سنار أو كيورا أو عيادات بلسم.">
+  <meta name="description" content="احجز موعدك مع د. علي الشهراني عبر سنار أو كيورا أو عيادات بلسم أو الحبيب لايف كير.">
   <meta name="theme-color" content="#8a302a">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,15 +56,20 @@
     .section-title{text-align:center;margin:0 0 48px}
     .section-title h2{font:500 clamp(34px,4vw,50px)/1.25 "Noto Sans Arabic",sans-serif;margin:0}
     .section-title .en{display:block;font:500 28px/1.25 "Newsreader",serif;color:var(--accent);margin-top:5px}
-    .platforms{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);direction:ltr}
-    .platform{direction:rtl;display:flex;flex-direction:column;min-height:410px;padding:38px 32px;background:var(--surface);border-inline-end:1px solid var(--line)}
-    .platform:last-child{border-inline-end:0}
+    .platforms{display:grid;grid-template-columns:repeat(2,1fr);border:1px solid var(--line);direction:ltr}
+    .platform{direction:rtl;display:flex;flex-direction:column;min-height:410px;padding:38px 32px;background:var(--surface);border-inline-end:1px solid var(--line);border-bottom:1px solid var(--line)}
+    .platform:nth-child(2n){border-inline-end:0}
+    .platform:nth-child(n+3){border-bottom:0}
     .icon{width:52px;height:52px;color:var(--accent);margin:0 auto 20px}
     .platform-logo{height:46px;max-width:150px;object-fit:contain;display:block;margin:0 auto 22px}
     .platform-logo.cura{width:46px;border-radius:10px}
+    .platform-logo.hmg{height:50px;max-width:180px}
     .platform h3{text-align:center;font:500 28px/1.2 "Newsreader","Noto Sans Arabic",serif;margin:0 0 20px}
     .platform p{text-align:center;color:#514c44;margin:0;font-size:16px}
     .platform p .en{display:block;color:#706a60;margin-top:7px;line-height:1.5}
+    .app-path{margin-top:18px!important;padding:14px 16px;border:1px solid var(--line);background:var(--paper);font-size:14px!important;line-height:1.7}
+    .app-path strong{color:var(--accent)}
+    .app-note{display:block;color:var(--muted);font-size:12px;line-height:1.55;margin-top:10px;text-align:center}
     .platform .btn{margin-top:auto;width:100%;color:var(--accent);border-color:var(--accent)}
     .platform .btn:hover{background:var(--accent);color:#fff}
     .emergency{margin-top:28px;padding:24px 28px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;gap:16px;background:#f0ebe1;text-align:center}
@@ -90,7 +95,7 @@
     .footer-row strong{font:500 20px "Newsreader",serif}
     .footer-row a{color:var(--accent);text-underline-offset:5px}
     @media(max-width:820px){
-      .shell{padding-inline:20px}.nav{height:72px}.brand strong{font-size:20px}nav a:not([aria-current="page"]){display:none}nav a{padding-block:22px}.hero .shell{min-height:0;padding-block:42px 58px;flex-direction:column;align-items:stretch;gap:30px}.portrait-wrap{order:-1;align-self:flex-start;width:176px;flex-basis:auto}.contour{width:460px;height:460px;opacity:.16;inset:auto -210px -80px auto}.lead{font-size:18px}.bio{font-size:15px;margin-top:20px}.actions{align-items:stretch;flex-direction:column}.btn{width:100%}.trust-row{padding-block:30px;gap:26px;flex-direction:column}.trust-divider{width:74px;height:1px}.trust-stat strong{font-size:31px}.booking{padding:70px 0}.section-title{text-align:right;margin-bottom:32px}.platforms{grid-template-columns:1fr}.platform{min-height:0;border-inline-end:0;border-bottom:1px solid var(--line);padding:34px 26px}.platform:last-child{border-bottom:0}.platform .btn{margin-top:28px}.insurance{margin-top:56px;padding-top:42px}.insurance-head{align-items:flex-start;flex-direction:column}.insurance-groups{grid-template-columns:1fr}.insurance-group{border-inline-end:0;border-bottom:1px solid var(--line)}.insurance-group:last-child{border-bottom:0}.footer-row{align-items:flex-start;flex-direction:column}}
+      .shell{padding-inline:20px}.nav{height:72px}.brand strong{font-size:20px}nav a:not([aria-current="page"]){display:none}nav a{padding-block:22px}.hero .shell{min-height:0;padding-block:42px 58px;flex-direction:column;align-items:stretch;gap:30px}.portrait-wrap{order:-1;align-self:flex-start;width:176px;flex-basis:auto}.contour{width:460px;height:460px;opacity:.16;inset:auto -210px -80px auto}.lead{font-size:18px}.bio{font-size:15px;margin-top:20px}.actions{align-items:stretch;flex-direction:column}.btn{width:100%}.trust-row{padding-block:30px;gap:26px;flex-direction:column}.trust-divider{width:74px;height:1px}.trust-stat strong{font-size:31px}.booking{padding:70px 0}.section-title{text-align:right;margin-bottom:32px}.platforms{grid-template-columns:1fr}.platform,.platform:nth-child(2n),.platform:nth-child(n+3){min-height:0;border-inline-end:0;border-bottom:1px solid var(--line);padding:34px 26px}.platform:last-child{border-bottom:0}.platform .btn{margin-top:28px}.insurance{margin-top:56px;padding-top:42px}.insurance-head{align-items:flex-start;flex-direction:column}.insurance-groups{grid-template-columns:1fr}.insurance-group{border-inline-end:0;border-bottom:1px solid var(--line)}.insurance-group:last-child{border-bottom:0}.footer-row{align-items:flex-start;flex-direction:column}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}}
   </style>
 </head>
@@ -174,6 +179,15 @@
             <p>حجز زيارة للعيادة في عيادات بلسم.<span class="en">Book an in-clinic visit at Balsam Clinics.</span></p>
             <a class="btn" href="https://balsmclinics.com/ar/%D8%A7%D9%86%D9%81-%D9%88%D8%A7%D8%B0%D9%86-%D9%88%D8%AD%D9%86%D8%AC%D8%B1%D8%A9-%D8%AF%D9%83%D8%AA%D9%88%D8%B1-%D8%AF-%D8%B9%D9%84%D9%8A-%D8%A7%D9%84%D8%B3%D9%87%D8%B1%D8%A7%D9%86%D9%8A" target="_blank" rel="noopener noreferrer">الحجز في عيادات بلسم</a>
           </article>
+          <article class="platform">
+            <svg class="icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="5" y="11" width="28" height="26" rx="2"/><path d="m33 19 10-5v20l-10-5V19ZM13 19h12M13 25h8"/></svg>
+            <img class="platform-logo hmg" src="https://hmg.com/_catalogs/masterpage/Design_2023/assets/img/logo.svg" alt="شعار مجموعة الدكتور سليمان الحبيب" loading="lazy">
+            <h3>Al Habib Live Care | الحبيب لايف كير</h3>
+            <p>استشارة متخصصة عن بُعد عبر تطبيق د. سليمان الحبيب.<span class="en">Specialist teleconsultation through the HMG app.</span></p>
+            <p class="app-path"><strong>من التطبيق:</strong> الخدمات ← لايف كير ← استشارة متخصصة ← ابحث عن د. علي سعد الشهراني.<span class="en"><strong>In the app:</strong> Services → Live Care → Specialist Consultation → Search for Dr Ali Saad Alshahrani.</span></p>
+            <a class="btn" data-hmg-app-link href="https://hmg.com/en/Pages/LiveCare.aspx" target="_blank" rel="noopener noreferrer">فتح تطبيق الحبيب</a>
+            <small class="app-note">يوجّه الزر إلى تطبيق iPhone أو Android حسب جهازك، وإلى صفحة لايف كير الرسمية على الكمبيوتر.</small>
+          </article>
         </div>
         <aside class="emergency" aria-label="Emergency notice">
           <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M16 4 29 27H3L16 4Z"/><path d="M16 11v8M16 23v2"/></svg>
@@ -216,5 +230,17 @@
   </main>
 
   <footer><div class="shell footer-row"><strong>Ali Alshahrani · Otolaryngology</strong><a href="index.html">Back to homepage →</a></div></footer>
+  <script>
+    (() => {
+      const link = document.querySelector('[data-hmg-app-link]');
+      if (!link) return;
+      const userAgent = navigator.userAgent || '';
+      if (/Android/i.test(userAgent)) {
+        link.href = 'https://play.google.com/store/apps/details?id=com.ejada.hmg';
+      } else if (/iPhone|iPad|iPod/i.test(userAgent)) {
+        link.href = 'https://apps.apple.com/sa/app/dr-sulaiman-alhabib/id6758851027';
+      }
+    })();
+  </script>
 </body>
 </html>
