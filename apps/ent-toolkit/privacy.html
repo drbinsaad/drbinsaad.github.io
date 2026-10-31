@@ -7,35 +7,41 @@
     <meta name="description" content="Privacy policy for ENT Toolkit. The app collects no data: no accounts, no analytics, no network requests.">
     <meta name="author" content="Dr. Ali Alshahrani">
     <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <style>
         *{margin:0;padding:0;box-sizing:border-box;}
         html{scroll-behavior:smooth;}
-        body{background:#f4f1ea;color:#1c1a17;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;line-height:1.7;min-height:100vh;-webkit-font-smoothing:antialiased;}
+        body{background:#f4f1ea;color:#1c1a17;font-family:'Source Sans 3',system-ui,sans-serif;line-height:1.7;min-height:100vh;-webkit-font-smoothing:antialiased;}
         a{color:inherit;}
         ::selection{background:#8a302a;color:#f4f1ea;}
 
         .site-header{position:sticky;top:0;z-index:60;background:rgba(244,241,234,0.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid #e4ded2;}
         .site-header .inner{max-width:920px;margin:0 auto;padding:15px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px;}
         .brand{text-decoration:none;display:flex;flex-direction:column;line-height:1.08;flex:none;white-space:nowrap;}
-        .brand .name{font-family:Georgia,serif;font-size:20px;font-weight:600;color:#1c1a17;letter-spacing:0.01em;}
-        .brand .sub{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:#8a302a;margin-top:4px;}
+        .brand .name{font-family:'Newsreader',serif;font-size:20px;font-weight:600;color:#1c1a17;letter-spacing:0.01em;}
+        .brand .sub{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:#8a302a;margin-top:4px;}
         .site-header nav{display:flex;align-items:center;gap:28px;font-size:14.5px;font-weight:500;}
         .site-header nav a{text-decoration:none;color:#46423b;transition:color 0.15s;}
         .site-header nav a:hover{color:#8a302a;}
+        .site-header nav a.cta{color:#f4f1ea;background:#1c1a17;padding:9px 18px;border-radius:2px;}
+        .site-header nav a.cta:hover{background:#8a302a;color:#f4f1ea;}
 
         .policy-page{padding:64px 0 84px;}
         .policy-wrap{max-width:920px;margin:0 auto;padding:0 28px;}
         .policy-card{background:#faf8f2;border:1px solid #e4ded2;border-radius:4px;padding:48px 52px;}
-        .app-kicker{display:inline-flex;align-items:center;gap:8px;margin-bottom:18px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#8a302a;font-weight:500;text-transform:uppercase;letter-spacing:0.18em;font-size:11.5px;}
-        .policy-card h1{font-family:Georgia,serif;font-weight:500;color:#1c1a17;margin-bottom:12px;font-size:clamp(30px,4vw,44px);line-height:1.06;letter-spacing:-0.01em;}
-        .policy-card h2{font-family:Georgia,serif;font-weight:600;color:#1c1a17;margin-top:38px;margin-bottom:12px;font-size:1.4rem;}
+        .app-kicker{display:inline-flex;align-items:center;gap:8px;margin-bottom:18px;font-family:'IBM Plex Mono',monospace;color:#8a302a;font-weight:500;text-transform:uppercase;letter-spacing:0.18em;font-size:11.5px;}
+        .policy-card h1{font-family:'Newsreader',serif;font-weight:500;color:#1c1a17;margin-bottom:12px;font-size:clamp(30px,4vw,44px);line-height:1.06;letter-spacing:-0.01em;}
+        .policy-card h2{font-family:'Newsreader',serif;font-weight:600;color:#1c1a17;margin-top:38px;margin-bottom:12px;font-size:1.4rem;}
         .policy-card p,.policy-card li{color:#46423b;font-size:16px;line-height:1.75;}
         .policy-card p{margin-bottom:4px;}
         .policy-card ul{margin-left:22px;margin-top:10px;}
         .policy-card li{margin-bottom:6px;}
         .policy-card a{color:#8a302a;text-decoration:none;border-bottom:1px solid #c9a59f;}
         .policy-card a:hover{color:#1c1a17;border-bottom-color:#1c1a17;}
-        .last-updated{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#9a9389;margin-bottom:26px;font-size:13px;letter-spacing:0.04em;}
+        .last-updated{font-family:'IBM Plex Mono',monospace;color:#9a9389;margin-bottom:26px;font-size:13px;letter-spacing:0.04em;}
         .callout{background:#f0ece1;border-left:3px solid #8a302a;padding:18px 22px;margin:24px 0 8px;border-radius:2px;}
         .callout p{margin:0;}
 
@@ -47,8 +53,9 @@
 
         .site-footer{background:#1c1a17;color:#e9e4da;padding:48px 0 40px;}
         .site-footer .inner{max-width:920px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:14px;align-items:center;}
-        .site-footer .name{font-family:Georgia,serif;font-size:17px;color:#cdc6ba;}
-        .site-footer .meta{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;letter-spacing:0.1em;color:#7d7869;}
+        .site-footer a{font-family:'Newsreader',serif;font-size:17px;color:#cdc6ba;text-decoration:none;}
+        .site-footer a:hover{color:#f4f1ea;}
+        .site-footer .meta{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.1em;color:#7d7869;}
 
         @media (max-width:720px){
             .site-header nav{display:none;}
@@ -59,14 +66,13 @@
 <body>
     <header class="site-header">
         <div class="inner">
-            <div class="brand">
+            <a href="../../index.html" class="brand">
                 <span class="name">Ali Alshahrani</span>
-                <span class="sub">ENT Toolkit</span>
-            </div>
-            <nav aria-label="ENT Toolkit policies">
-                <a href="privacy.html" aria-current="page">Privacy</a>
-                <a href="terms.html">Terms</a>
-                <a href="support.html">Support</a>
+                <span class="sub">Otolaryngology</span>
+            </a>
+            <nav>
+                <a href="../../my-apps.html">My Apps</a>
+                <a href="../../index.html#contact" class="cta">Contact</a>
             </nav>
         </div>
     </header>
@@ -74,30 +80,34 @@
     <main class="policy-page">
         <div class="policy-wrap">
             <article class="policy-card">
-                <div class="app-kicker">ENT Toolkit</div>
+                <div class="app-kicker"><i class="fas fa-mobile-screen-button"></i> My Apps / ENT Toolkit</div>
                 <h1>ENT Toolkit Privacy Policy</h1>
-                <p class="last-updated">Effective date: 9 August 2026</p>
-                <p>ENT Toolkit is an offline reference and calculation app for qualified healthcare professionals. It does not diagnose, treat, prescribe, or provide patient-specific advice, and it does not replace clinical judgment, institutional protocols, or emergency care.</p>
+                <p class="last-updated">Effective date: 30 October 2026</p>
+                <p>ENT Toolkit is an offline reference and calculation app for qualified healthcare professionals. It contains general educational management guidance (for example, the button battery protocol) and does not provide individualised patient care advice. It does not replace clinical judgement, institutional protocols, the manufacturer's instructions for use, or emergency care.</p>
 
                 <div class="callout">
                     <p><strong>ENT Toolkit collects no data.</strong> There are no user accounts, no analytics, no advertising, no crash-reporting service, and the app makes no network requests. Nothing you enter is transmitted anywhere, because there is nowhere for it to be transmitted to.</p>
                 </div>
 
                 <h2>What the app stores</h2>
-                <p>Everything the app saves stays in its private storage on your device:</p>
+                <p>The app saves two small items in its private storage on your device:</p>
                 <ul>
-                    <li>Favourite tools, so your most-used tools stay at the top.</li>
-                    <li>Appearance and display preferences.</li>
-                    <li>Work contact details that you choose to add.</li>
-                    <li>Age, weight, sex and recent calculation history only for the current app session. These values stay in memory and are cleared when the app closes.</li>
+                    <li>Haptic feedback on/off setting, so the app keeps your choice.</li>
+                    <li>Whether you have accepted the first-launch clinical-scope notice, so the notice is shown once.</li>
                 </ul>
-                <p>This information is never uploaded, shared, or sold. Persistent preferences and work contacts are removed when the app is deleted. Patient context and calculation history are not written to device storage.</p>
+                <p>Nothing else is saved. These items are never uploaded, shared, or sold. Deleting the app removes them.</p>
+
+                <h2>Values you enter</h2>
+                <p>Numbers you enter into a calculator or chart are used in memory to produce the result on screen. They are not saved or sent anywhere and are gone when the app closes. The app has no favourites, calculation history, saved notes, contacts list, or language or theme settings.</p>
+
+                <h2>Links to sources</h2>
+                <p>Some screens show a link to a published source, and Settings includes Privacy Policy and Support links. The app itself does not connect to the internet. If you tap any of these links, your device opens it in the system web browser, and that website's own privacy practices apply. The app does not send anything to the website and does not know what you do there.</p>
 
                 <h2>What the app does not do</h2>
                 <ul>
                     <li>It does <strong>not</strong> create an account or ask you to sign in.</li>
                     <li>It does <strong>not</strong> collect your name, email address, phone number, or any identifier.</li>
-                    <li>It does <strong>not</strong> collect or persist patient information, and you should not enter any patient-identifiable information into it.</li>
+                    <li>It does <strong>not</strong> collect or store patient information, and you should not enter any patient-identifiable information into it.</li>
                     <li>It does <strong>not</strong> use analytics, tracking, advertising identifiers, or third-party SDKs that collect data.</li>
                     <li>It does <strong>not</strong> access your camera, microphone, photos, contacts, calendar, location, or health data.</li>
                     <li>It does <strong>not</strong> require an internet connection.</li>
@@ -107,7 +117,7 @@
                 <p>ENT Toolkit uses no third-party service providers, processors, or analytics platforms of any kind. No data is shared with anyone, because none is collected.</p>
 
                 <h2>Patient information</h2>
-                <p>Do not enter patient names, medical record numbers, national IDs, phone numbers, dates of birth, or any other identifying information into the app. Enter only the de-identified measurements a calculation requires. Patient context is limited to age, weight and sex, stays in memory for the current session, and is cleared when the app closes.</p>
+                <p>Do not enter patient names, medical record numbers, national IDs, phone numbers, dates of birth, or any other identifying information into the app. Enter only the de-identified measurements a calculation requires.</p>
 
                 <h2>Children's privacy</h2>
                 <p>The app is intended for use by qualified healthcare professionals. It collects no data from anyone, including children.</p>
@@ -120,6 +130,7 @@
                 <div class="policy-actions">
                     <a href="terms.html">Terms of Use</a>
                     <a href="support.html" class="secondary">Support</a>
+                    <a href="../../my-apps.html" class="secondary">All apps</a>
                 </div>
             </article>
         </div>
@@ -127,8 +138,8 @@
 
     <footer class="site-footer">
         <div class="inner">
-            <span class="name">Ali Alshahrani</span>
-            <span class="meta">ENT Toolkit &middot; 9 August 2026</span>
+            <a href="../../index.html">Ali Alshahrani</a>
+            <span class="meta">ENT Toolkit &middot; 30 October 2026</span>
         </div>
     </footer>
 </body>
