@@ -53,8 +53,7 @@
 
         .site-footer{background:#1c1a17;color:#e9e4da;padding:48px 0 40px;}
         .site-footer .inner{max-width:920px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:14px;align-items:center;}
-        .site-footer a{font-family:'Newsreader',serif;font-size:17px;color:#cdc6ba;text-decoration:none;}
-        .site-footer a:hover{color:#f4f1ea;}
+        .site-footer .name{font-family:'Newsreader',serif;font-size:17px;color:#cdc6ba;}
         .site-footer .meta{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.1em;color:#7d7869;}
 
         @media (max-width:720px){
@@ -66,13 +65,14 @@
 <body>
     <header class="site-header">
         <div class="inner">
-            <a href="../../index.html" class="brand">
+            <div class="brand">
                 <span class="name">Ali Alshahrani</span>
-                <span class="sub">Otolaryngology</span>
-            </a>
-            <nav>
-                <a href="../../my-apps.html">My Apps</a>
-                <a href="../../index.html#contact" class="cta">Contact</a>
+                <span class="sub">ENT Toolkit</span>
+            </div>
+            <nav aria-label="ENT Toolkit policies">
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="support.html" aria-current="page">Support</a>
             </nav>
         </div>
     </header>
@@ -86,7 +86,7 @@
                 <p>Support for ENT Toolkit, an offline reference and calculation app for qualified healthcare professionals.</p>
 
                 <h2>Getting help</h2>
-                <p>For questions, bug reports, or corrections to clinical reference content, please get in touch through the <a href="../../index.html#contact">contact details on the main site</a>.</p>
+                <p>For questions, bug reports, or corrections to clinical reference content, email <a href="mailto:drbinsaadapps@gmail.com?subject=ENT%20Toolkit%20Support">drbinsaadapps@gmail.com</a>.</p>
 
                 <div class="callout">
                     <p><strong>Please do not include any patient information</strong> in a support message — no names, record numbers, dates of birth, or identifiable images. A description of the screen and what you expected to see is all that is needed.</p>
@@ -113,7 +113,6 @@
                 <div class="policy-actions">
                     <a href="privacy.html">Privacy Policy</a>
                     <a href="terms.html" class="secondary">Terms of Use</a>
-                    <a href="../../my-apps.html" class="secondary">All apps</a>
                 </div>
             </article>
         </div>
@@ -121,7 +120,7 @@
 
     <footer class="site-footer">
         <div class="inner">
-            <a href="../../index.html">Ali Alshahrani</a>
+            <span class="name">Ali Alshahrani</span>
             <span class="meta">ENT Toolkit &middot; 30 October 2026</span>
         </div>
     </footer>
